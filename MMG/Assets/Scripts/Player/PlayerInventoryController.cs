@@ -5,7 +5,7 @@ using System;
 
 namespace MMG
 {
-    public class PlayerInventory : MonoBehaviour
+    public class PlayerInventoryController : MonoBehaviour
     {
         [SerializeField] private InventoryInputData inventoryInputData = null;
 

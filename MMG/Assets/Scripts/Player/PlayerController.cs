@@ -8,7 +8,7 @@ namespace MMG
     public class PlayerController : MonoBehaviour
     {
         #region Variables
-            #region Private Serialized     
+        #region Private Serialized     
                 #region Data
 
                     [Space, Header("Data")]
@@ -74,7 +74,7 @@ namespace MMG
 
                     [Space, Header("Inventory Settings")]
 
-                    PlayerInventory playerInventory;
+                    PlayerInventoryController playerInventory;
                     GameObject activeItem = null;
                     public Transform ItemSlot;
 
@@ -221,7 +221,7 @@ namespace MMG
             m_yawTransform = m_cameraController.transform;
             m_camTransform = GetComponentInChildren<Camera>().transform;
             m_headBob = new HeadBob(headBobData, moveBackwardsSpeedPercent, moveSideSpeedPercent);
-            playerInventory = GetComponent<PlayerInventory>();
+            playerInventory = GetComponent<PlayerInventoryController>();
         }
 
         void InitVariables()
