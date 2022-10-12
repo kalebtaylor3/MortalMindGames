@@ -490,7 +490,6 @@ namespace MMG
 
         void HandleHeadBob()
         {
-                    
             if(movementInputData.HasInput && m_isGrounded  && !m_hitWall)
             {
                 if(!m_duringCrouchAnimation) // we want to make our head bob only if we are moving and not during crouch routine
@@ -509,8 +508,6 @@ namespace MMG
                 if(!m_duringCrouchAnimation) // we want to reset our head bob only if we are standing still and not during crouch routine
                     m_yawTransform.localPosition = Vector3.Lerp(m_yawTransform.localPosition,new Vector3(0f,m_headBob.CurrentStateHeight,0f),Time.deltaTime * smoothHeadBobSpeed);
             }
-
-            //m_camTransform.localPosition = Vector3.Lerp(m_camTransform.localPosition,m_headBob.FinalOffset,Time.deltaTime * smoothHeadBobSpeed);
         }
 
         void HandleCameraSway()

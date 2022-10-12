@@ -6,117 +6,111 @@ namespace MMG
     public class CameraBreathing : MonoBehaviour
     {
         #region Variables
-            [Space,Header("Data")]
-            [SerializeField] private PerlinNoiseData data = null;
+        [Space,Header("Data")]
+        [SerializeField] private PerlinNoiseData noiseData = null;
 
-            [Space,Header("Axis")]
-            [SerializeField] private bool x = true;
-            [SerializeField] private bool y = true;
-            [SerializeField] private bool z = true;
+        [Space,Header("Axis")]
+        [SerializeField] private bool x = true;
+        [SerializeField] private bool y = true;
+        [SerializeField] private bool z = true;
 
-            private PerlinNoiseScroller m_perlinNoiseScroller;
-            private Vector3 m_finalRot;
-            private Vector3 m_finalPos;
+        private PerlinNoiseScroller perlinNoiseScroller;
+        private Vector3 finalRot;
+        private Vector3 finalPos;
         #endregion
 
-        #region BuiltIn Methods
+        #region Functions
 
-            void Start()
-            {
-                m_perlinNoiseScroller = new PerlinNoiseScroller(data);
-            }
+        void Start()
+        {
+            perlinNoiseScroller = new PerlinNoiseScroller(noiseData);
+        }
 
-            void LateUpdate()
+        void LateUpdate()
+        {
+            if(noiseData != null)
             {
-                if(data != null)
+                perlinNoiseScroller.UpdateNoise();
+
+                Vector3 posOffset = Vector3.zero;
+                Vector3 rotOffset = Vector3.zero;
+
+                switch (noiseData.transformTarget)
                 {
-                    m_perlinNoiseScroller.UpdateNoise();
-
-                    Vector3 _posOffset = Vector3.zero;
-                    Vector3 _rotOffset = Vector3.zero;
-
-                    switch (data.transformTarget)
+                    case TransformTarget.Position:
                     {
-                        case TransformTarget.Position:
-                        {
-                            if(x)
-                                _posOffset.x += m_perlinNoiseScroller.Noise.x;
+                        if(x)
+                            posOffset.x += perlinNoiseScroller.Noise.x;
 
-                            if(y)
-                                _posOffset.y += m_perlinNoiseScroller.Noise.y;
+                        if(y)
+                            posOffset.y += perlinNoiseScroller.Noise.y;
 
-                            if(z)
-                                _posOffset.z += m_perlinNoiseScroller.Noise.z;
+                        if(z)
+                            posOffset.z += perlinNoiseScroller.Noise.z;
 
-                            m_finalPos.x = x ? _posOffset.x : transform.localPosition.x;
-                            m_finalPos.y = y ? _posOffset.y : transform.localPosition.y;
-                            m_finalPos.z = z ? _posOffset.z : transform.localPosition.z;
+                        finalPos.x = x ? posOffset.x : transform.localPosition.x;
+                        finalPos.y = y ? posOffset.y : transform.localPosition.y;
+                        finalPos.z = z ? posOffset.z : transform.localPosition.z;
 
-                            transform.localPosition = m_finalPos;
-                            break;
-                        }
-                        case TransformTarget.Rotation:
-                        {
-                            if(x)
-                                _rotOffset.x += m_perlinNoiseScroller.Noise.x;
-
-                            if(y)
-                                _rotOffset.y += m_perlinNoiseScroller.Noise.y;
-
-                            if(z)
-                                _rotOffset.z += m_perlinNoiseScroller.Noise.z;
-
-                            m_finalRot.x = x ? _rotOffset.x : transform.localEulerAngles.x;
-                            m_finalRot.y = y ? _rotOffset.y : transform.localEulerAngles.y;
-                            m_finalRot.z = z ? _rotOffset.z : transform.localEulerAngles.z;
-                        
-                            transform.localEulerAngles = m_finalRot;
-
-                            break;
-                        }
-                        case TransformTarget.Both:
-                        {
-                            if(x)
-                            {
-                                _posOffset.x += m_perlinNoiseScroller.Noise.x;
-                                _rotOffset.x += m_perlinNoiseScroller.Noise.x;
-                            }
-
-                            if(y)
-                            {
-                                _posOffset.y += m_perlinNoiseScroller.Noise.y;
-                                _rotOffset.y += m_perlinNoiseScroller.Noise.y;
-                            }
-
-                            if(z)
-                            {
-                                _posOffset.z += m_perlinNoiseScroller.Noise.z;
-                                _rotOffset.z += m_perlinNoiseScroller.Noise.z;
-                            }
-
-                            m_finalPos.x = x ? _posOffset.x : transform.localPosition.x;
-                            m_finalPos.y = y ? _posOffset.y : transform.localPosition.y;
-                            m_finalPos.z = z ? _posOffset.z : transform.localPosition.z;
-
-                            m_finalRot.x = x ? _rotOffset.x : transform.localEulerAngles.x;
-                            m_finalRot.y = y ? _rotOffset.y : transform.localEulerAngles.y;
-                            m_finalRot.z = z ? _rotOffset.z : transform.localEulerAngles.z;
-
-                            transform.localPosition = m_finalPos;
-                            transform.localEulerAngles = m_finalRot;
-
-                            break;
-                        }
+                        transform.localPosition = finalPos;
+                        break;
                     }
+                    case TransformTarget.Rotation:
+                    {
+                        if(x)
+                            rotOffset.x += perlinNoiseScroller.Noise.x;
 
-                    // We don't do that here because if we only use rotational perlin noise than it would override position of our camera to be Vector3.zero every frame and this would interfere with our Head Bobbing System
-                    // transform.localPosition = _posOffset;
-                    // transform.localEulerAngles = _rotOffset;
+                        if(y)
+                            rotOffset.y += perlinNoiseScroller.Noise.y;
+
+                        if(z)
+                            rotOffset.z += perlinNoiseScroller.Noise.z;
+
+                        finalRot.x = x ? rotOffset.x : transform.localEulerAngles.x;
+                        finalRot.y = y ? rotOffset.y : transform.localEulerAngles.y;
+                        finalRot.z = z ? rotOffset.z : transform.localEulerAngles.z;
+                        
+                        transform.localEulerAngles = finalRot;
+
+                        break;
+                    }
+                    case TransformTarget.Both:
+                    {
+                        if(x)
+                        {
+                            posOffset.x += perlinNoiseScroller.Noise.x;
+                            rotOffset.x += perlinNoiseScroller.Noise.x;
+                        }
+
+                        if(y)
+                        {
+                            posOffset.y += perlinNoiseScroller.Noise.y;
+                            rotOffset.y += perlinNoiseScroller.Noise.y;
+                        }
+
+                        if(z)
+                        {
+                            posOffset.z += perlinNoiseScroller.Noise.z;
+                            rotOffset.z += perlinNoiseScroller.Noise.z;
+                        }
+
+                        finalPos.x = x ? posOffset.x : transform.localPosition.x;
+                        finalPos.y = y ? posOffset.y : transform.localPosition.y;
+                        finalPos.z = z ? posOffset.z : transform.localPosition.z;
+
+                        finalRot.x = x ? rotOffset.x : transform.localEulerAngles.x;
+                        finalRot.y = y ? rotOffset.y : transform.localEulerAngles.y;
+                        finalRot.z = z ? rotOffset.z : transform.localEulerAngles.z;
+
+                        transform.localPosition = finalPos;
+                        transform.localEulerAngles = finalRot;
+
+                        break;
+                    }
                 }
 
-                
             }   
+        }   
         #endregion
-
     }
 }

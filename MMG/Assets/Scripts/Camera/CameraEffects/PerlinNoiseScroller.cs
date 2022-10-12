@@ -5,42 +5,42 @@ namespace MMG
     public class PerlinNoiseScroller
     {
         #region Variables
-            PerlinNoiseData m_data;
+            PerlinNoiseData noiseData;
 
-            Vector3 m_noiseOffset;
-            Vector3 m_noise;
+            Vector3 noiseOffset;
+            Vector3 noiseVector;
         #endregion
 
         #region Properties
-            public Vector3 Noise => m_noise;
+            public Vector3 Noise => noiseVector;
         #endregion
 
-        #region Custom Methods
-            public PerlinNoiseScroller (PerlinNoiseData _data)
+        #region Functions
+            public PerlinNoiseScroller (PerlinNoiseData data)
             {
-                m_data = _data;
+                noiseData = data;
 
-                float _rand = 32f;
+                float rand = 32f;
 
-                m_noiseOffset.x = Random.Range(0f,_rand);
-                m_noiseOffset.y = Random.Range(0f,_rand);
-                m_noiseOffset.z = Random.Range(0f,_rand);
+                noiseOffset.x = Random.Range(0f,rand);
+                noiseOffset.y = Random.Range(0f,rand);
+                noiseOffset.z = Random.Range(0f,rand);
             }
 
             public void UpdateNoise()
             {
-                float _scrollOffset = Time.deltaTime * m_data.frequency;
+                float scrollOffset = Time.deltaTime * noiseData.frequency;
 
-                m_noiseOffset.x += _scrollOffset;
-                m_noiseOffset.y += _scrollOffset;
-                m_noiseOffset.z += _scrollOffset;
+                noiseOffset.x += scrollOffset;
+                noiseOffset.y += scrollOffset;
+                noiseOffset.z += scrollOffset;
 
-                m_noise.x = Mathf.PerlinNoise(m_noiseOffset.x,0f);
-                m_noise.y = Mathf.PerlinNoise(m_noiseOffset.x,1f);
-                m_noise.z = Mathf.PerlinNoise(m_noiseOffset.x,2f);
+                noiseVector.x = Mathf.PerlinNoise(noiseOffset.x,0f);
+                noiseVector.y = Mathf.PerlinNoise(noiseOffset.x,1f);
+                noiseVector.z = Mathf.PerlinNoise(noiseOffset.x,2f);
 
-                m_noise -= Vector3.one * 0.5f;
-                m_noise *= m_data.amplitude;
+                noiseVector -= Vector3.one * 0.5f;
+                noiseVector *= noiseData.amplitude;
             }
         #endregion
     }

@@ -5,81 +5,81 @@ namespace  MMG
     public class HeadBob
     {
         #region Variables
-            HeadBobData m_data;
+            HeadBobData headBobData;
 
-            float m_xScroll;
-            float m_yScroll;
+            float xScrollAmount;
+            float yScrollAmount;
 
-            bool m_resetted;
-            Vector3 m_finalOffset;
-            float m_currentStateHeight = 0f;
+            bool reseated;
+            Vector3 finalOffset;
+            float currentStaeHeight = 0f;
         #endregion
 
         #region Properties
-            public Vector3 FinalOffset => m_finalOffset;
-            public bool Resetted => m_resetted;
+            public Vector3 FinalOffset => finalOffset;
+            public bool Resetted => reseated;
             public float CurrentStateHeight
             {
-                get => m_currentStateHeight;
-                set => m_currentStateHeight = value;
+                get => currentStaeHeight;
+                set => currentStaeHeight = value;
             }
         #endregion
 
-        #region Custom Methods
-            public HeadBob(HeadBobData _data,float _moveBackwardsMultiplier,float _moveSideMultiplier)
-            {
-                m_data = _data;
+        #region Functions
+        public HeadBob(HeadBobData data,float moveBackwardsMultiplier,float moveSideMultiplier)
+        {
+            headBobData = data;
 
-                m_data.MoveBackwardsFrequencyMultiplier = _moveBackwardsMultiplier;
-                m_data.MoveSideFrequencyMultiplier = _moveSideMultiplier;
+            headBobData.MoveBackwardsFrequencyMultiplier = moveBackwardsMultiplier;
+            headBobData.MoveSideFrequencyMultiplier = moveSideMultiplier;
 
-                m_xScroll = 0f;
-                m_yScroll = 0f;
+            xScrollAmount = 0f;
+            yScrollAmount = 0f;
 
-                m_resetted = false;
-                m_finalOffset = Vector3.zero;
-            }
+            reseated = false;
+            finalOffset = Vector3.zero;
+        }
 
-            public void ScrollHeadBob(bool _running, bool _crouching, Vector2 _input)
-            {
-                m_resetted = false;
+        public void ScrollHeadBob(bool running, bool crouching, Vector2 input)
+        {
+            reseated = false;
 
-                float _amplitudeMultiplier;
-                float _frequencyMultiplier;
-                float _additionalMultiplier; // when moving backwards or to sides
+            float amplitudeMultiplier;
+            float frequencyMultiplier;
+            float additionalMultiplier; // when moving backwards or to sides
 
-                _amplitudeMultiplier = _running ? m_data.runAmplitudeMultiplier : 1f;
-                _amplitudeMultiplier = _crouching ? m_data.crouchAmplitudeMultiplier : _amplitudeMultiplier;
+            amplitudeMultiplier = running ? headBobData.runAmplitudeMultiplier : 1f;
+            amplitudeMultiplier = crouching ? headBobData.crouchAmplitudeMultiplier : amplitudeMultiplier;
 
-                _frequencyMultiplier = _running ? m_data.runFrequencyMultiplier : 1f;
-                _frequencyMultiplier = _crouching ? m_data.crouchFrequencyMultiplier : _frequencyMultiplier;
+            frequencyMultiplier = running ? headBobData.runFrequencyMultiplier : 1f;
+            frequencyMultiplier = crouching ? headBobData.crouchFrequencyMultiplier : frequencyMultiplier;
 
-                _additionalMultiplier = _input.y == -1 ? m_data.MoveBackwardsFrequencyMultiplier : 1f;
-                _additionalMultiplier = _input.x != 0 & _input.y == 0 ? m_data.MoveSideFrequencyMultiplier : _additionalMultiplier;
+            additionalMultiplier = input.y == -1 ? headBobData.MoveBackwardsFrequencyMultiplier : 1f;
+            additionalMultiplier = input.x != 0 & input.y == 0 ? headBobData.MoveSideFrequencyMultiplier : additionalMultiplier;
 
 
-                m_xScroll += Time.deltaTime * m_data.xFrequency * _frequencyMultiplier ; // you can also multiply this by _additionalMultiplier but it looks unnatural a bit;
-                m_yScroll += Time.deltaTime * m_data.yFrequency * _frequencyMultiplier ;
+            xScrollAmount += Time.deltaTime * headBobData.xFrequency * frequencyMultiplier ; // you can also multiply this by _additionalMultiplier but it looks unnatural a bit;
+            yScrollAmount += Time.deltaTime * headBobData.yFrequency * frequencyMultiplier ;
 
-                float _xValue;
-                float _yValue;
+            float xValue;
+            float yValue;
 
-                _xValue = m_data.xCurve.Evaluate(m_xScroll);
-                _yValue = m_data.yCurve.Evaluate(m_yScroll);
+            xValue = headBobData.xCurve.Evaluate(xScrollAmount);
+            yValue = headBobData.yCurve.Evaluate(yScrollAmount);
 
-                m_finalOffset.x = _xValue * m_data.xAmplitude * _amplitudeMultiplier * _additionalMultiplier;
-                m_finalOffset.y = _yValue * m_data.yAmplitude * _amplitudeMultiplier * _additionalMultiplier;
-            }
+            finalOffset.x = xValue * headBobData.xAmplitude * amplitudeMultiplier * additionalMultiplier;
+            finalOffset.y = yValue * headBobData.yAmplitude * amplitudeMultiplier * additionalMultiplier;
+        }
 
-            public void ResetHeadBob()
-            {
-                m_resetted = true;
+        public void ResetHeadBob()
+        {
+            reseated = true;
 
-                m_xScroll = 0f;
-                m_yScroll = 0f;
+            xScrollAmount = 0f;
+            yScrollAmount = 0f;
 
-                m_finalOffset = Vector3.zero;
-            }
+            finalOffset = Vector3.zero;
+        }
         #endregion
     }
 }
