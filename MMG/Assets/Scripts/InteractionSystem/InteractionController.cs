@@ -55,14 +55,14 @@ namespace MMG
                     if(interactionData.IsEmpty())
                     {
                         interactionData.Interactable = interactable;
-                        uiPanel.SetTooltip(interactable.TooltipMessage);
+                        uiPanel.SetDisplayText(interactable.TooltipMessage);
                     }
                     else
                     {
                         if(!interactionData.IsSameInteractable(interactable))
                         {
                             interactionData.Interactable = interactable;
-                            uiPanel.SetTooltip(interactable.TooltipMessage);
+                            uiPanel.SetDisplayText(interactable.TooltipMessage);
                         }  
                     }
                 }
