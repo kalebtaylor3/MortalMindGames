@@ -9,11 +9,11 @@ namespace MMG
     public class InteractionUIPanel : MonoBehaviour
     {
         [SerializeField] private Image progressBar;
-        [SerializeField] private TextMeshProUGUI tooltipText;
+        [SerializeField] private TextMeshProUGUI displayText;
 
         public void SetTooltip(string tooltip)
         {
-            tooltipText.SetText(tooltip);
+            displayText.SetText(tooltip);
         }
 
         public void UpdateProgressBar(float fillAmount)
@@ -24,7 +24,7 @@ namespace MMG
         public void ResetUI()
         {
             progressBar.fillAmount = 0f;
-            tooltipText.SetText("");
+            displayText.SetText("");
         }
     }
 }

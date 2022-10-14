@@ -8,24 +8,25 @@ namespace MMG
 {
     public class InteractableBase : MonoBehaviour, IInteractable
     {
-
+        #region Events
         public static event Action<PickUp> OnPickUp;
+        #endregion
 
         #region Variables    
-            [Space,Header("Interactable Settings")]
+        [Space,Header("Interactable Settings")]
 
-            [SerializeField] private bool holdInteract = true;
-            [ShowIf("holdInteract")][SerializeField] private float holdDuration = 1f;
+        [SerializeField] private bool holdInteract = true;
+        [ShowIf("holdInteract")][SerializeField] private float holdDuration = 1f;
             
-            [Space] 
-            [SerializeField] private bool multipleUse = false;
-            [SerializeField] private bool isInteractable = true;
+        [Space] 
+        [SerializeField] private bool multipleUse = false;
+        [SerializeField] private bool isInteractable = true;
 
-            [SerializeField] private string tooltipMessage = "interact";
+        [SerializeField] private string displayText = "interact";
 
-            [SerializeField] private bool isPickup = false;
+        [SerializeField] private bool isPickup = false;
 
-            [SerializeField] PickUp pickUp;
+        [SerializeField] PickUp pickUp;
 
         #endregion
 
@@ -36,13 +37,13 @@ namespace MMG
             public bool MultipleUse => multipleUse;
             public bool IsInteractable => isInteractable;
 
-            public string TooltipMessage => tooltipMessage;
+            public string TooltipMessage => displayText;
 
             public bool IsPickup => isPickup;
             public PickUp Pickup => pickUp;
         #endregion
 
-        #region Methods
+        #region Functions
 
         private void Start()
         {

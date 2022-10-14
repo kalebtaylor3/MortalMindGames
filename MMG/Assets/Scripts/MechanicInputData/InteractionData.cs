@@ -4,26 +4,26 @@ using UnityEngine;
 
 namespace MMG
 {    
-    [CreateAssetMenu(fileName = "Interaction Data", menuName = "InteractionSystem/InteractionData")]
+    [CreateAssetMenu(fileName = "Interaction Data", menuName = "MMG_Player/Data/InteractionData")]
     public class InteractionData : ScriptableObject
     {
-        private InteractableBase m_interactable;
+        private InteractableBase interactable;
 
         public InteractableBase Interactable
         {
-            get => m_interactable;
-            set => m_interactable = value;
+            get => interactable;
+            set => interactable = value;
         }
 
         public void Interact()
         {
-            m_interactable.OnInteract();
+            interactable.OnInteract();
             ResetData();
         }
 
-        public bool IsSameInteractable(InteractableBase _newInteractable) => m_interactable == _newInteractable;
-        public bool IsEmpty() => m_interactable == null;
-        public void ResetData() => m_interactable = null;
+        public bool IsSameInteractable(InteractableBase newInteractable) => interactable == newInteractable;
+        public bool IsEmpty() => interactable == null;
+        public void ResetData() => interactable = null;
 
     }
 }

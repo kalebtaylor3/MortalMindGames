@@ -2,27 +2,27 @@
 
 namespace MMG
 {
-    [CreateAssetMenu(fileName = "PickableData", menuName = "FirstPersonController/Data/PickableData", order = 0)]
-    public class PickableData : ScriptableObject
+    [CreateAssetMenu(fileName = "PickUpData", menuName = "MMG_Player/Data/PickUpData", order = 0)]
+    public class PickUpData : ScriptableObject
     {
-        private PickUp pickable;
-        public PickUp PickableItem
+        private PickUp pickUp;
+        public PickUp PickUpItem
         {
-            get => pickable;
-            set => pickable = value;
+            get => pickUp;
+            set => pickUp = value;
         }
 
         public bool IsEmpty()
         {
-            if (pickable != null)
+            if (pickUp != null)
                 return false;
             else
                 return true;
         }
 
-        public bool IsSamePickable(PickUp _pickable)
+        public bool IsSamePickUp(PickUp pickUp)
         {
-            if(pickable == _pickable)
+            if(this.pickUp == pickUp)
                 return true;
             else
                 return false;
@@ -45,7 +45,7 @@ namespace MMG
 
         public void ResetData()
         {
-            pickable = null;
+            pickUp = null;
         }
 
     }

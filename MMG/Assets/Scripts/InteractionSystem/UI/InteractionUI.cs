@@ -9,8 +9,8 @@ namespace MMG
     {
         public Image holdProgressIMG;
         public Image tooltipBG;
-        private RectTransform m_canvasTransform;
-        private TextMeshProUGUI m_interactableTooltip;
+        private RectTransform canvasTransform;
+        private TextMeshProUGUI interactableDisplayText;
 
         public void Init()
         {
@@ -19,27 +19,27 @@ namespace MMG
 
         void GetComponents()
         {
-            m_canvasTransform = GetComponent<RectTransform>();
-            m_interactableTooltip = GetComponentInChildren<TextMeshProUGUI>();
+            canvasTransform = GetComponent<RectTransform>();
+            interactableDisplayText = GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        public void SetToolTip(Transform _parent , string _tooltip, float _holdProgress)
+        public void SetDisplayText(Transform parent , string displayText, float holdProgress)
         {
-            if(_parent)
+            if(parent)
             {
-                m_canvasTransform.position = _parent.position;
-                m_canvasTransform.SetParent(_parent);
+                canvasTransform.position = parent.position;
+                canvasTransform.SetParent(parent);
             }
 
-            m_interactableTooltip.SetText(_tooltip);
-            holdProgressIMG.fillAmount = _holdProgress;
+            interactableDisplayText.SetText(displayText);
+            holdProgressIMG.fillAmount = holdProgress;
         }
 
-        public void SetTooltipActiveState(bool _state)
+        public void SetDisplayTextActiveState(bool state)
         {
-            m_interactableTooltip.gameObject.SetActive(_state);
-            holdProgressIMG.gameObject.SetActive(_state);
-            tooltipBG.gameObject.SetActive(_state);
+            interactableDisplayText.gameObject.SetActive(state);
+            holdProgressIMG.gameObject.SetActive(state);
+            tooltipBG.gameObject.SetActive(state);
         }
 
         public void UpdateChargeProgress(float _progress)
@@ -49,17 +49,17 @@ namespace MMG
 
         public void LookAtPlayer(Transform _player)
         {
-            m_canvasTransform.LookAt(_player,Vector3.up);
+            canvasTransform.LookAt(_player,Vector3.up);
         }
 
-        public void UnparentToltip()
+        public void UnparentDisplayText()
         {
-            m_canvasTransform.SetParent(null);
+            canvasTransform.SetParent(null);
         }
 
-        public bool IsTooltipActive()
+        public bool IsDisplayTextActive()
         {
-            return m_interactableTooltip.gameObject.activeSelf;
+            return interactableDisplayText.gameObject.activeSelf;
         }
 
     }

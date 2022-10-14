@@ -6,7 +6,6 @@ namespace MMG
 {    
     public class ItemInteractable : InteractableBase
     {
-
         public override void OnInteract()
         {
             base.OnInteract();

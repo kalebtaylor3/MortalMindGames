@@ -2,71 +2,71 @@
 
 namespace MMG
 {    
-    [CreateAssetMenu(fileName = "MovementInputData", menuName = "FirstPersonController/Data/MovementInputData", order = 1)]
+    [CreateAssetMenu(fileName = "MovementInputData", menuName = "MMG_Player/Data/MovementInputData", order = 1)]
     public class MovementInputData : ScriptableObject
     {
         #region Data
-            Vector2 m_inputVector;
+            Vector2 inputVector;
 
-            bool m_isRunning;
-            bool m_isCrouching;
+            bool isRunning;
+            bool isCrouching;
 
-            bool m_crouchClicked;
-            bool m_jumpClicked;
+            bool crouchClicked;
+            bool jumpClicked;
 
-            bool m_runClicked;
-            bool m_runReleased;
+            bool runClicked;
+            bool runReleased;
 
             bool hasActiveItem;
         #endregion
 
         #region Properties
-            public Vector2 InputVector => m_inputVector;
-            public bool HasInput => m_inputVector != Vector2.zero;
+            public Vector2 InputVector => inputVector;
+            public bool HasInput => inputVector != Vector2.zero;
             public float InputVectorX
             {
-                set => m_inputVector.x = value;
+                set => inputVector.x = value;
             }
 
             public float InputVectorY
             {
-                set => m_inputVector.y = value;
+                set => inputVector.y = value;
             }
 
             public bool IsRunning
             {
-                get => m_isRunning;
-                set => m_isRunning = value;
+                get => isRunning;
+                set => isRunning = value;
             }
 
             public bool IsCrouching
             {
-                get => m_isCrouching;
-                set => m_isCrouching = value;
+                get => isCrouching;
+                set => isCrouching = value;
             }
 
             public bool CrouchClicked
             {
-                get => m_crouchClicked;
-                set => m_crouchClicked = value;
+                get => crouchClicked;
+                set => crouchClicked = value;
             }
 
             public bool JumpClicked
             {
-                get => m_jumpClicked;
-                set => m_jumpClicked = value;
+                get => jumpClicked;
+                set => jumpClicked = value;
             }
 
             public bool RunClicked
             {
-                get => m_runClicked;
-                set => m_runClicked = value;
+                get => runClicked;
+                set => runClicked = value;
             }
 
             public bool RunReleased
             {
-                get => m_runReleased;
-                set => m_runReleased = value;
+                get => runReleased;
+                set => runReleased = value;
             }
 
             public bool HasActiveItem
@@ -76,18 +76,18 @@ namespace MMG
             }
         #endregion
 
-        #region Custom Methods
+        #region Functions
         public void ResetInput()
             {
-                m_inputVector = Vector2.zero;
+                inputVector = Vector2.zero;
                 
-                m_isRunning = false;
-                m_isCrouching = false;
+                isRunning = false;
+                isCrouching = false;
 
-                m_crouchClicked = false;
-                m_jumpClicked = false;
-                m_runClicked = false;
-                m_runReleased =false;
+                crouchClicked = false;
+                jumpClicked = false;
+                runClicked = false;
+                runReleased =false;
             }
         #endregion
     }

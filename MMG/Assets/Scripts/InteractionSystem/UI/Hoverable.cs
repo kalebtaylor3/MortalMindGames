@@ -8,22 +8,22 @@ namespace MMG
     public class Hoverable : MonoBehaviour, IHoverable
     {
         
-        [BoxGroup("Settings")] public string tooltip;
-        [BoxGroup("Settings")] public Transform tooltipTransform;
+        [BoxGroup("Settings")] public string displayText;
+        [BoxGroup("Settings")] public Transform displayTextTransform;
 
-        private Material m_myMat;
-        public Material MyMaterial => m_myMat;
+        private Material myMat;
+        public Material MyMaterial => myMat;
 
-        private MeshRenderer m_meshRenderer;
-        private MeshRenderer MeshRenderer => m_meshRenderer;
+        private MeshRenderer meshRenderer;
+        private MeshRenderer MeshRenderer => meshRenderer;
 
-        public string Tooltip
+        public string DisplayText
         {
-            get => tooltip;
-            set => tooltip = value;
+            get => displayText;
+            set => displayText = value;
         }
 
-        public Transform TooltipTransform => tooltipTransform;
+        public Transform DisplayTextTransform => displayTextTransform;
 
 
         protected virtual void Awake()
@@ -33,18 +33,18 @@ namespace MMG
 
         protected virtual void GetComponents()
         {
-            m_meshRenderer = GetComponent<MeshRenderer>();
-            m_myMat = m_meshRenderer.material;
+            meshRenderer = GetComponent<MeshRenderer>();
+            myMat = meshRenderer.material;
         }
 
-        public void OnHoverStart(Material _hoverMat)
+        public void OnHoverStart(Material hoverMat)
         {
-            m_meshRenderer.material = _hoverMat;
+            meshRenderer.material = hoverMat;
         }
 
         public void OnHoverEnd()
         {
-            m_meshRenderer.material = m_myMat;
+            meshRenderer.material = myMat;
         }
 
     }

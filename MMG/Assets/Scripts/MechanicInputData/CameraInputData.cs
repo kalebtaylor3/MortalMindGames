@@ -3,46 +3,46 @@
 namespace MMG
 {
     
-    [CreateAssetMenu(fileName = "CameraInputData", menuName = "FirstPersonController/Data/CameraInputData", order = 0)]
+    [CreateAssetMenu(fileName = "CameraInputData", menuName = "MMG_Player/Data/CameraInputData", order = 0)]
     public class CameraInputData : ScriptableObject
     {
         #region Data
-            Vector2 m_inputVector;
-            bool m_isZooming;
-            bool m_zoomClicked;
-            bool m_zoomReleased;
+            Vector2 inputVector;
+            bool isZooming;
+            bool zoomClicked;
+            bool zoomReleased;
             bool isPeakingRight;
             bool isPeakingLeft;
         #endregion
 
         #region Properties
-        public Vector2 InputVector => m_inputVector;
+        public Vector2 InputVector => inputVector;
             public float InputVectorX
             {
-                set => m_inputVector.x = value;
+                set => inputVector.x = value;
             }
 
             public float InputVectorY
             {
-                set => m_inputVector.y = value;
+                set => inputVector.y = value;
             }
 
             public bool IsZooming
             {
-                get => m_isZooming;
-                set => m_isZooming = value;
+                get => isZooming;
+                set => isZooming = value;
             }
 
             public bool ZoomClicked
             {
-                get => m_zoomClicked;
-                set => m_zoomClicked = value;
+                get => zoomClicked;
+                set => zoomClicked = value;
             }
 
             public bool ZoomReleased
             {
-                get => m_zoomReleased;
-                set => m_zoomReleased = value;
+                get => zoomReleased;
+                set => zoomReleased = value;
             }
 
             public bool IsPeakingLeft
@@ -59,13 +59,13 @@ namespace MMG
 
         #endregion
 
-        #region Custom Methods
+        #region Functions
         public void ResetInput()
             {
-                m_inputVector = Vector2.zero;
-                m_isZooming = false;
-                m_zoomClicked = false;
-                m_zoomReleased = false;
+                inputVector = Vector2.zero;
+                isZooming = false;
+                zoomClicked = false;
+                zoomReleased = false;
             }
         #endregion
     }

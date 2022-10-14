@@ -7,14 +7,19 @@ namespace MMG
 {
     public class PlayerInventoryController : MonoBehaviour
     {
+        #region Variables
         [SerializeField] private InventoryInputData inventoryInputData = null;
 
         public List<GameObject> items = new List<GameObject>();
 
         private GameObject activeItem;
+        #endregion
 
+        #region Events
         public static event Action<GameObject> OnItemSwitched;
+        #endregion
 
+        #region Functions
         // Update is called once per frame
         void Update()
         {
@@ -81,4 +86,5 @@ namespace MMG
             return activeItem;
         }
     }
+    #endregion
 }

@@ -6,10 +6,10 @@ namespace MMG
 {    
     public interface IHoverable
     {
-        string Tooltip { get; set;}
-        Transform TooltipTransform { get; }
+        string DisplayText { get; set;}
+        Transform DisplayTextTransform { get; }
 
-        void OnHoverStart(Material _hoverMat);
+        void OnHoverStart(Material hoverMat);
         void OnHoverEnd();
     }
 }

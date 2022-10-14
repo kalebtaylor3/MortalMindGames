@@ -1,7 +1,7 @@
 using UnityEngine;
 using MMG;
 
-[CreateAssetMenu(fileName = "InventoryInputData", menuName = "InteractionSystem/InventoryInputData")]
+[CreateAssetMenu(fileName = "InventoryInputData", menuName = "MMG_Player/Data/InventoryInputData")]
 public class InventoryInputData : ScriptableObject
 {
     private bool item1ChangeClick;
