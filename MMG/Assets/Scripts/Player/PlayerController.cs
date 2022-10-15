@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using UnityEngine;
-using NaughtyAttributes;
 
 namespace MMG
 {
@@ -118,7 +118,7 @@ namespace MMG
                 private Vector2 inputVector;
                 private Vector2 smoothInputVector;
 
-                    private Vector3 finalMoveDir;
+                private Vector3 finalMoveDir;
                 private Vector3 smoothFinalMoveDir;
 
                 private Vector3 finalMoveVector;
@@ -255,8 +255,8 @@ namespace MMG
 
                 if(movementInputData.IsRunning && CanRun())
                 {
-                    float _walkRunPercent = Mathf.InverseLerp(walkSpeed,runSpeed, smoothCurrentSpeed);
-                    finalSmoothCurrentSpeed = runTransitionCurve.Evaluate(_walkRunPercent) * walkRunSpeedDifference + walkSpeed;
+                    float walkRunPercent = Mathf.InverseLerp(walkSpeed,runSpeed, smoothCurrentSpeed);
+                    finalSmoothCurrentSpeed = runTransitionCurve.Evaluate(walkRunPercent) * walkRunSpeedDifference + walkSpeed;
                 }
                 else
                 {
@@ -281,68 +281,68 @@ namespace MMG
         #region Locomotion Calculation Methods
             void CheckIfGrounded()
             {
-                Vector3 _origin = transform.position + characterController.center;
+                Vector3 origin = transform.position + characterController.center;
 
-                bool _hitGround = Physics.SphereCast(_origin,raySphereRadius,Vector3.down,out hitInfo,finalRayLength,groundLayer);
-                Debug.DrawRay(_origin,Vector3.down * (finalRayLength),Color.red);
+                bool hitGround = Physics.SphereCast(origin,raySphereRadius,Vector3.down,out hitInfo,finalRayLength,groundLayer);
+                Debug.DrawRay(origin,Vector3.down * (finalRayLength),Color.red);
 
-                isGrounded = _hitGround ? true : false;
+                isGrounded = hitGround ? true : false;
             }
 
             void CheckIfWall()
             {
                     
-                Vector3 _origin = transform.position + characterController.center;
-                RaycastHit _wallInfo;
+                Vector3 origin = transform.position + characterController.center;
+                RaycastHit wallInfo;
 
-                bool _hitWall = false;
+                bool hitWall = false;
 
                 if(movementInputData.HasInput && finalMoveDir.sqrMagnitude > 0)
-                    _hitWall = Physics.SphereCast(_origin,rayObstacleSphereRadius,finalMoveDir, out _wallInfo,rayObstacleLength,obstacleLayers);
-                Debug.DrawRay(_origin,finalMoveDir * rayObstacleLength,Color.blue);
+                    hitWall = Physics.SphereCast(origin,rayObstacleSphereRadius,finalMoveDir, out wallInfo,rayObstacleLength,obstacleLayers);
+                Debug.DrawRay(origin,finalMoveDir * rayObstacleLength,Color.blue);
 
-                hitWall = _hitWall ? true : false;
+                this.hitWall = hitWall ? true : false;
             }
 
             bool CheckIfRoof() /// TO FIX
             {
-                Vector3 _origin = transform.position;
+                Vector3 origin = transform.position;
                 RaycastHit _roofInfo;
 
-                bool _hitRoof = Physics.SphereCast(_origin,raySphereRadius,Vector3.up,out _roofInfo,initHeight);
+                bool hitRoof = Physics.SphereCast(origin,raySphereRadius,Vector3.up,out _roofInfo,initHeight);
 
-                return _hitRoof;
+                return hitRoof;
             }
 
             bool CanRun()
             {
-                Vector3 _normalizedDir = Vector3.zero;
+                Vector3 normalizedDir = Vector3.zero;
 
                 if(smoothFinalMoveDir != Vector3.zero)
-                    _normalizedDir = smoothFinalMoveDir.normalized;
+                    normalizedDir = smoothFinalMoveDir.normalized;
 
-                float _dot = Vector3.Dot(transform.forward,_normalizedDir);
-                return _dot >= canRunThreshold && !movementInputData.IsCrouching ? true : false;
+                float dot = Vector3.Dot(transform.forward,normalizedDir);
+                return dot >= canRunThreshold && !movementInputData.IsCrouching ? true : false;
             }
 
             void CalculateMovementDirection()
             {
 
-                Vector3 _vDir = transform.forward * smoothInputVector.y;
-                Vector3 _hDir = transform.right * smoothInputVector.x;
+                Vector3 vDir = transform.forward * smoothInputVector.y;
+                Vector3 hDir = transform.right * smoothInputVector.x;
 
-                Vector3 _desiredDir = _vDir + _hDir;
-                Vector3 _flattenDir = FlattenVectorOnSlopes(_desiredDir);
+                Vector3 desiredDir = vDir + hDir;
+                Vector3 flattenDir = FlattenVectorOnSlopes(desiredDir);
 
-                finalMoveDir = _flattenDir;
+                finalMoveDir = flattenDir;
             }
 
-            Vector3 FlattenVectorOnSlopes(Vector3 _vectorToFlat)
+            Vector3 FlattenVectorOnSlopes(Vector3 vectorToFlat)
             {
                 if(isGrounded)
-                    _vectorToFlat = Vector3.ProjectOnPlane(_vectorToFlat,hitInfo.normal);
+                    vectorToFlat = Vector3.ProjectOnPlane(vectorToFlat,hitInfo.normal);
                     
-                return _vectorToFlat;
+                return vectorToFlat;
             }
 
             void CalculateSpeed()
@@ -356,15 +356,15 @@ namespace MMG
 
             void CalculateFinalMovement()
             {
-                float _smoothInputVectorMagnitude = experimental ? smoothInputVectorMagnitude : 1f;
-                Vector3 _finalVector = smoothFinalMoveDir * finalSmoothCurrentSpeed * _smoothInputVectorMagnitude;
+                float smoothInputVectorMagnitude = experimental ? this.smoothInputVectorMagnitude : 1f;
+                Vector3 finalVector = smoothFinalMoveDir * finalSmoothCurrentSpeed * smoothInputVectorMagnitude;
 
                 // We have to assign individually in order to make our character jump properly because before it was overwriting Y value and that's why it was jerky now we are adding to Y value and it's working
-                finalMoveVector.x = _finalVector.x ;
-                finalMoveVector.z = _finalVector.z ;
+                finalMoveVector.x = finalVector.x ;
+                finalMoveVector.z = finalVector.z ;
 
                 if(characterController.isGrounded) // Thanks to this check we are not applying extra y velocity when in air so jump will be consistent
-                    finalMoveVector.y += _finalVector.y ; //so this makes our player go in forward dir using slope normal but when jumping this is making it go higher so this is weird
+                    finalMoveVector.y += finalVector.y ; //so this makes our player go in forward dir using slope normal but when jumping this is making it go higher so this is weird
             }
         #endregion
 
@@ -395,33 +395,33 @@ namespace MMG
             {
                 duringCrouchAnimation = true;
 
-                float _percent = 0f;
-                float _smoothPercent = 0f;
-                float _speed = 1f / crouchTransitionDuration;
+                float percent = 0f;
+                float smoothPercent = 0f;
+                float speed = 1f / crouchTransitionDuration;
 
-                float _currentHeight = characterController.height;
-                Vector3 _currentCenter = characterController.center;
+                float currentHeight = characterController.height;
+                Vector3 currentCenter = characterController.center;
 
-                float _desiredHeight = movementInputData.IsCrouching ? initHeight : crouchHeight;
-                Vector3 _desiredCenter = movementInputData.IsCrouching ? initCenter : crouchCenter;
+                float desiredHeight = movementInputData.IsCrouching ? initHeight : crouchHeight;
+                Vector3 desiredCenter = movementInputData.IsCrouching ? initCenter : crouchCenter;
 
-                Vector3 _camPos = yawTransform.localPosition;
-                float _camCurrentHeight = _camPos.y;
-                float _camDesiredHeight = movementInputData.IsCrouching ? initCamHeight : crouchCamHeight;
+                Vector3 camPos = yawTransform.localPosition;
+                float camCurrentHeight = camPos.y;
+                float camDesiredHeight = movementInputData.IsCrouching ? initCamHeight : crouchCamHeight;
 
                 movementInputData.IsCrouching = !movementInputData.IsCrouching;
                 headBob.CurrentStateHeight = movementInputData.IsCrouching ? crouchCamHeight : initCamHeight;
 
-                while(_percent < 1f)
+                while(percent < 1f)
                 {
-                    _percent += Time.deltaTime * _speed;
-                    _smoothPercent = crouchTransitionCurve.Evaluate(_percent);
+                    percent += Time.deltaTime * speed;
+                    smoothPercent = crouchTransitionCurve.Evaluate(percent);
 
-                    characterController.height = Mathf.Lerp(_currentHeight,_desiredHeight,_smoothPercent);
-                    characterController.center = Vector3.Lerp(_currentCenter,_desiredCenter,_smoothPercent);
+                    characterController.height = Mathf.Lerp(currentHeight,desiredHeight,smoothPercent);
+                    characterController.center = Vector3.Lerp(currentCenter,desiredCenter,smoothPercent);
 
-                    _camPos.y = Mathf.Lerp(_camCurrentHeight,_camDesiredHeight, _smoothPercent);
-                    yawTransform.localPosition = _camPos;
+                    camPos.y = Mathf.Lerp(camCurrentHeight,camDesiredHeight, smoothPercent);
+                    yawTransform.localPosition = camPos;
 
                     yield return null;
                 }
@@ -451,23 +451,23 @@ namespace MMG
 
             IEnumerator LandingRoutine()
             {
-                float _percent = 0f;
-                float _landAmount = 0f;
+                float percent = 0f;
+                float landAmount = 0f;
 
-                float _speed = 1f / landDuration;
+                float speed = 1f / landDuration;
 
-                Vector3 _localPos = yawTransform.localPosition;
-                float _initLandHeight = _localPos.y;
+                Vector3 localPos = yawTransform.localPosition;
+                float initLandHeight = localPos.y;
 
-                _landAmount = inAirTimer > landTimer ? highLandAmount : lowLandAmount;
+                landAmount = inAirTimer > landTimer ? highLandAmount : lowLandAmount;
 
-                while(_percent < 1f)
+                while(percent < 1f)
                 {
-                    _percent += Time.deltaTime * _speed;
-                    float _desiredY = landCurve.Evaluate(_percent) * _landAmount;
+                    percent += Time.deltaTime * speed;
+                    float desiredY = landCurve.Evaluate(percent) * landAmount;
 
-                    _localPos.y = _initLandHeight + _desiredY;
-                    yawTransform.localPosition = _localPos;
+                    localPos.y = initLandHeight + desiredY;
+                    yawTransform.localPosition = localPos;
 
                     yield return null;
                 }
@@ -563,10 +563,10 @@ namespace MMG
 
             void RotateTowardsCamera()
             {
-                Quaternion _currentRot = transform.rotation;
-                Quaternion _desiredRot = yawTransform.rotation;
+                Quaternion currentRot = transform.rotation;
+                Quaternion desiredRot = yawTransform.rotation;
 
-                transform.rotation = Quaternion.Slerp(_currentRot,_desiredRot,Time.deltaTime * smoothRotateSpeed);
+                transform.rotation = Quaternion.Slerp(currentRot,desiredRot,Time.deltaTime * smoothRotateSpeed);
             }
 
         #endregion
