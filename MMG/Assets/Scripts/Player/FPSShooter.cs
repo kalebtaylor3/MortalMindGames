@@ -8,7 +8,7 @@ public class FPSShooter : MonoBehaviour
     public GameObject projectile;
     public Transform LHFirePoint, RHFirepoint;
 
-    public float projectileSpeed =70;
+    public float projectileSpeed = 70;
     public float fireRate = 4;
 
     private Vector3 destination;
