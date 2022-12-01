@@ -68,12 +68,6 @@ namespace MMG
 
         void GetInventoryInputData()
         {
-            inventoryInputData.Change1Clicked = Input.GetKeyDown(KeyCode.Alpha1);
-            inventoryInputData.Change2Clicked = Input.GetKeyDown(KeyCode.Alpha2);
-            inventoryInputData.Change3Clicked = Input.GetKeyDown(KeyCode.Alpha3);
-            inventoryInputData.Change4Clicked = Input.GetKeyDown(KeyCode.Alpha4);
-            inventoryInputData.PutItemAway = Input.GetKeyDown(KeyCode.X);
-
             inventoryInputData.OpenSpellBook = Input.GetKeyDown("joystick button 6");
         }
 
