@@ -1,5 +1,6 @@
 using UnityEngine;
 using NaughtyAttributes;
+using UnityEngine.InputSystem;
 
 namespace MMG
 {    
@@ -38,8 +39,8 @@ namespace MMG
 
         void GetCameraInput()
         {
-            cameraInputData.InputVectorX = Input.GetAxis("Mouse X");
-            cameraInputData.InputVectorY = Input.GetAxis("Mouse Y");
+            cameraInputData.InputVectorX = Gamepad.current.rightStick.x.ReadValue();
+            cameraInputData.InputVectorY = Gamepad.current.rightStick.y.ReadValue();
 
             cameraInputData.ZoomClicked = Input.GetMouseButtonDown(1);
             cameraInputData.ZoomReleased = Input.GetMouseButtonUp(1);
