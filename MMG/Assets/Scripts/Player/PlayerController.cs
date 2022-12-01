@@ -74,7 +74,7 @@ namespace MMG
             [Space, Header("Inventory Settings")]
             PlayerInventoryController playerInventory;
             GameObject activeItem = null;
-            public Transform ItemSlot;
+            public Transform[] bookSlots;
 
         #endregion
 
@@ -194,7 +194,7 @@ namespace MMG
                 ApplyMovement();
 
                 HasActiveItem();
-                activeItem = playerInventory.ReturnActiveItem();
+                //activeItem = playerInventory.ReturnActiveItem();
                 CheckForItemUse(activeItem);
 
                 previouslyGrounded = isGrounded;
@@ -574,10 +574,12 @@ namespace MMG
         #region ItemMethods / InventoryMethods
             void HandlePickUp(PickUp PickUp)
             {
-                //Logic for handeling an item picku
-                PickUp.PickUpItem = Instantiate(PickUp.PickUpItem, ItemSlot);
+            //Logic for handeling an item picku
+            //this is where the transportation to dead wood would happen
+
+                PickUp.PickUpItem = Instantiate(PickUp.PickUpItem, bookSlots[PickUp.pickUpID]);
                 playerInventory.items.Add(PickUp.PickUpItem);
-                
+                playerInventory.UpdatePages();
                 PickUp.PickUpItem.SetActive(false);
             }
 

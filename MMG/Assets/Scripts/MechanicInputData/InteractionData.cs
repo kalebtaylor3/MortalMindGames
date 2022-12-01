@@ -7,7 +7,7 @@ namespace MMG
     [CreateAssetMenu(fileName = "Interaction Data", menuName = "MMG_Player/Data/InteractionData")]
     public class InteractionData : ScriptableObject
     {
-        private InteractableBase interactable;
+        [HideInInspector] public InteractableBase interactable;
 
         public InteractableBase Interactable
         {

@@ -10,6 +10,14 @@ public class InventoryInputData : ScriptableObject
     private bool item4ChangeClick;
     private bool putItemAway;
 
+    private bool openSpellBook;
+
+    public bool OpenSpellBook
+    {
+        get => openSpellBook;
+        set => openSpellBook = value;
+    }
+
     public bool Change1Clicked
     {
         get => item1ChangeClick;

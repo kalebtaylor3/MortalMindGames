@@ -32,8 +32,8 @@ namespace MMG
         }
         void GetInteractionInputData()
         {
-            interactionInputData.InteractedClicked = Input.GetKeyDown(KeyCode.F);
-            interactionInputData.InteractedReleased = Input.GetKeyUp(KeyCode.F);
+            interactionInputData.InteractedClicked = Input.GetKeyDown("joystick button 2");
+            interactionInputData.InteractedReleased = Input.GetKeyUp("joystick button 2");
         }
 
         void GetCameraInput()
@@ -50,8 +50,8 @@ namespace MMG
             movementInputData.InputVectorX = Input.GetAxisRaw("Horizontal");
             movementInputData.InputVectorY = Input.GetAxisRaw("Vertical");
 
-            movementInputData.RunClicked = Input.GetKeyDown(KeyCode.LeftShift);
-            movementInputData.RunReleased = Input.GetKeyUp(KeyCode.LeftShift);
+            movementInputData.RunClicked = Input.GetKeyDown("joystick button 8");
+            movementInputData.RunReleased = Input.GetKeyUp("joystick button 8");
 
             if(movementInputData.RunClicked)
                 movementInputData.IsRunning = true;
@@ -60,10 +60,10 @@ namespace MMG
                 movementInputData.IsRunning = false;
 
             movementInputData.JumpClicked = Input.GetKeyDown(KeyCode.Space);
-            movementInputData.CrouchClicked = Input.GetKeyDown(KeyCode.C);
+            movementInputData.CrouchClicked = Input.GetKeyDown("joystick button 1");
 
-            cameraInputData.IsPeakingLeft = Input.GetKey(KeyCode.Q);
-            cameraInputData.IsPeakingRight = Input.GetKey(KeyCode.E);
+            cameraInputData.IsPeakingLeft = Input.GetKey("joystick button 4");
+            cameraInputData.IsPeakingRight = Input.GetKey("joystick button 5");
         }
 
         void GetInventoryInputData()
@@ -73,6 +73,8 @@ namespace MMG
             inventoryInputData.Change3Clicked = Input.GetKeyDown(KeyCode.Alpha3);
             inventoryInputData.Change4Clicked = Input.GetKeyDown(KeyCode.Alpha4);
             inventoryInputData.PutItemAway = Input.GetKeyDown(KeyCode.X);
+
+            inventoryInputData.OpenSpellBook = Input.GetKeyDown("joystick button 6");
         }
 
         void GetItemInputData()

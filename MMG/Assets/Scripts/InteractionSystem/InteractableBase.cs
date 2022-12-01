@@ -26,12 +26,12 @@ namespace MMG
 
         [SerializeField] private bool isPickup = false;
 
-        [SerializeField] PickUp pickUp;
+        [SerializeField] public PickUp pickUp;
 
         #endregion
 
         #region Properties    
-            public float HoldDuration => holdDuration; 
+        public float HoldDuration => holdDuration; 
 
             public bool HoldInteract => holdInteract;
             public bool MultipleUse => multipleUse;

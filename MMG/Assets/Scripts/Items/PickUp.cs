@@ -8,5 +8,6 @@ namespace MMG
     {
 
         public GameObject PickUpItem;
+        public int pickUpID;
     }
 }

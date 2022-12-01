@@ -24,6 +24,8 @@ namespace MMG
 
             private bool isInteracting;
             private float holdTimer = 0f;
+
+        public PlayerInventoryController playerInventory;
                 
 
         #endregion
@@ -79,6 +81,9 @@ namespace MMG
         void CheckForInteractableInput()
         {
             if(interactionData.IsEmpty())
+                return;
+
+            if (playerInventory.items.Count != interactionData.interactable.pickUp.pickUpID)
                 return;
 
             if(interactionInputData.InteractedClicked)
