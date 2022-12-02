@@ -22,8 +22,15 @@ namespace MMG
         #region Events
         public static event Action<GameObject> OnItemSwitched;
 
-        bool inventoryOpen = false;
+        [HideInInspector] public bool inventoryOpen = false;
         #endregion
+
+        public static PlayerInventoryController Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance == null) { Instance = this; }
+        }
 
         #region Functions
         // Update is called once per frame

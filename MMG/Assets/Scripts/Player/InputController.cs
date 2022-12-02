@@ -33,8 +33,8 @@ namespace MMG
         }
         void GetInteractionInputData()
         {
-            interactionInputData.InteractedClicked = Input.GetKeyDown("joystick button 2");
-            interactionInputData.InteractedReleased = Input.GetKeyUp("joystick button 2");
+            interactionInputData.InteractedClicked = Gamepad.current.xButton.wasPressedThisFrame;
+            interactionInputData.InteractedReleased = Gamepad.current.xButton.wasReleasedThisFrame;
         }
 
         void GetCameraInput()
@@ -42,17 +42,17 @@ namespace MMG
             cameraInputData.InputVectorX = Gamepad.current.rightStick.x.ReadValue();
             cameraInputData.InputVectorY = Gamepad.current.rightStick.y.ReadValue();
 
-            cameraInputData.ZoomClicked = Input.GetMouseButtonDown(1);
-            cameraInputData.ZoomReleased = Input.GetMouseButtonUp(1);
+            //cameraInputData.ZoomClicked = Gamepad.current.rightTrigger.isPressed;
+            //cameraInputData.ZoomReleased = Gamepad.current.rightTrigger.wasReleasedThisFrame;
         }
 
         void GetMovementInputData()
         {
-            movementInputData.InputVectorX = Input.GetAxisRaw("Horizontal");
-            movementInputData.InputVectorY = Input.GetAxisRaw("Vertical");
+            movementInputData.InputVectorX = Gamepad.current.leftStick.x.ReadValue();
+            movementInputData.InputVectorY = Gamepad.current.leftStick.y.ReadValue();
 
-            movementInputData.RunClicked = Input.GetKeyDown("joystick button 8");
-            movementInputData.RunReleased = Input.GetKeyUp("joystick button 8");
+            movementInputData.RunClicked = Gamepad.current.leftStickButton.wasPressedThisFrame;
+            movementInputData.RunReleased = Gamepad.current.leftStickButton.wasReleasedThisFrame;
 
             if(movementInputData.RunClicked)
                 movementInputData.IsRunning = true;
@@ -61,7 +61,7 @@ namespace MMG
                 movementInputData.IsRunning = false;
 
             movementInputData.JumpClicked = Gamepad.current.aButton.wasPressedThisFrame;
-            movementInputData.CrouchClicked = Gamepad.current.bButton.wasPressedThisFrame;
+            movementInputData.CrouchClicked = Gamepad.current.bButton.wasReleasedThisFrame;
 
             cameraInputData.IsPeakingLeft = Gamepad.current.leftShoulder.isPressed;
             cameraInputData.IsPeakingRight = Gamepad.current.rightShoulder.isPressed;

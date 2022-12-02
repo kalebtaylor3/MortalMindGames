@@ -130,7 +130,13 @@ namespace MMG
 
         void HandleZoom()
         {
-            if(camInputData.ZoomClicked || camInputData.ZoomReleased)
+            if (camInputData.ZoomClicked & PlayerInventoryController.Instance.inventoryOpen)
+                return;
+
+            if (camInputData.ZoomReleased & PlayerInventoryController.Instance.inventoryOpen)
+                return;
+
+            if (camInputData.ZoomClicked || camInputData.ZoomReleased)
                 cameraZoom.ChangeFOV(this);
 
         }
