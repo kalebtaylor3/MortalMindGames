@@ -60,21 +60,15 @@ namespace MMG
             if(movementInputData.RunReleased)
                 movementInputData.IsRunning = false;
 
-            movementInputData.JumpClicked = Input.GetKeyDown(KeyCode.Space);
-            movementInputData.CrouchClicked = Input.GetKeyDown("joystick button 1");
+            movementInputData.JumpClicked = Gamepad.current.aButton.wasPressedThisFrame;
+            movementInputData.CrouchClicked = Gamepad.current.bButton.wasPressedThisFrame;
 
-            cameraInputData.IsPeakingLeft = Input.GetKey("joystick button 4");
-            cameraInputData.IsPeakingRight = Input.GetKey("joystick button 5");
+            cameraInputData.IsPeakingLeft = Gamepad.current.leftShoulder.isPressed;
+            cameraInputData.IsPeakingRight = Gamepad.current.rightShoulder.isPressed;
         }
 
         void GetInventoryInputData()
         {
-            inventoryInputData.Change1Clicked = Input.GetKeyDown(KeyCode.Alpha1);
-            inventoryInputData.Change2Clicked = Input.GetKeyDown(KeyCode.Alpha2);
-            inventoryInputData.Change3Clicked = Input.GetKeyDown(KeyCode.Alpha3);
-            inventoryInputData.Change4Clicked = Input.GetKeyDown(KeyCode.Alpha4);
-            inventoryInputData.PutItemAway = Input.GetKeyDown(KeyCode.X);
-
             inventoryInputData.OpenSpellBook = Input.GetKeyDown("joystick button 6");
         }
 

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &117086896033929481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 872390067129704912}
+  m_Layer: 0
+  m_Name: InspectLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &872390067129704912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117086896033929481}
+  m_LocalRotation: {x: -0.35448056, y: -0, z: -0, w: 0.93506336}
+  m_LocalPosition: {x: 0, y: 0.8, z: -0.51}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 934783808697199133}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -41.523, y: 0, z: 0}
 --- !u!1 &197515727595806945
 GameObject:
   m_ObjectHideFlags: 0
@@ -23,15 +54,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197515727595806945}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.04, y: -1.677, z: 0.105}
+  m_LocalRotation: {x: -0.321489, y: 0, z: 0, w: 0.94691336}
+  m_LocalPosition: {x: -0.03, y: -0.46, z: 1.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4175573104663258812}
+  - {fileID: 872390067129704912}
   m_Father: {fileID: 6469136733858005289}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -37.506, y: 0, z: 0}
 --- !u!1 &574380862989676457
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5270575547400455096}
   m_Layer: 0
-  m_Name: Relic2Spot
+  m_Name: Relic1Spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,8 +88,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574380862989676457}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.253, y: 0.44, z: -0.013}
-  m_LocalScale: {x: 1.0421628, y: 0.78787, z: 0.78786993}
+  m_LocalPosition: {x: -0.209, y: 0.44, z: -0.013}
+  m_LocalScale: {x: 0.85135436, y: 0.78787, z: 0.78786993}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4175573104663258812}
@@ -384,6 +416,37 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!1 &2085186026936819738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4113011489155218451}
+  m_Layer: 0
+  m_Name: Relic3Spot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4113011489155218451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085186026936819738}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.005, y: 0.48, z: -0.018}
+  m_LocalScale: {x: 0.98008084, y: 0.78787, z: 0.78786993}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4175573104663258812}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2214722837054990528
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6012951955654980896}
   m_Layer: 0
-  m_Name: Relic1Spot
+  m_Name: MapSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -504,17 +567,18 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3801125251826843799}
-  m_LocalRotation: {x: -0.32148775, y: -0, z: -0, w: 0.9469138}
-  m_LocalPosition: {x: -0.03793148, y: 1.2709227, z: 1.9709725}
-  m_LocalScale: {x: 1.2847695, y: 0.084782, z: 0.72066}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.2847695, y: 0.08478201, z: 0.72066015}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6012951955654980896}
   - {fileID: 5270575547400455096}
   - {fileID: 4972108417700660888}
+  - {fileID: 4113011489155218451}
   m_Father: {fileID: 934783808697199133}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -37.506, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2570483505645318523
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -592,6 +656,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputData: {fileID: 11400000, guid: b714f281e5dacc744b43275e1fb25f6b, type: 2}
   turn: 0
+  desiredInspectPosition: {fileID: 872390067129704912}
+  itemSlotPosition: {fileID: 934783808697199133}
 --- !u!1 &4375300783160029993
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +974,7 @@ MonoBehaviour:
   - {fileID: 6012951955654980896}
   - {fileID: 5270575547400455096}
   - {fileID: 4972108417700660888}
+  - {fileID: 4113011489155218451}
   obstacleLayers:
     serializedVersion: 2
     m_Bits: 513
@@ -1013,7 +1080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4972108417700660888}
   m_Layer: 0
-  m_Name: Relic3Spot
+  m_Name: Relic2Spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1027,8 +1094,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7202190093410307851}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.57, z: 0}
-  m_LocalScale: {x: 0.9768546, y: 0.78787, z: 0.78786993}
+  m_LocalPosition: {x: -0.247, y: 0.57, z: -0.026}
+  m_LocalScale: {x: 1.0522372, y: 0.78787, z: 0.78786993}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4175573104663258812}

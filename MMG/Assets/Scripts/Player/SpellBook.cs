@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SpellBook : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class SpellBook : MonoBehaviour
     int numberOfPages;
 
     public int turn = 0;
+
+    public Transform desiredInspectPosition;
+    public Transform itemSlotPosition;
 
     public void UpdatePages(List<GameObject> items)
     {
@@ -46,7 +50,7 @@ public class SpellBook : MonoBehaviour
             {
                 turn += 1;
 
-                if (turn == 15)
+                if (turn == 10)
                 {
                     Debug.Log("Page turn right");
                     TurnPage("Right");
@@ -57,7 +61,7 @@ public class SpellBook : MonoBehaviour
             {
                 turn += 1;
 
-                if (turn == 15)
+                if (turn == 10)
                 {
                     Debug.Log("Page turn left");
                     TurnPage("Left");
@@ -65,6 +69,20 @@ public class SpellBook : MonoBehaviour
                 }
             }
         }
+
+        inputData.ZoomBook = Gamepad.current.rightTrigger.isPressed;
+
+        if (inputData.ZoomBook)
+            InspectBook(desiredInspectPosition);
+        else if(!inputData.ZoomBook)
+            InspectBook(itemSlotPosition);
+
+    }
+
+    public void InspectBook(Transform newPosition)
+    {
+        this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, newPosition.position, 2f * Time.deltaTime);
+        this.gameObject.transform.rotation = Quaternion.Lerp(this.gameObject.transform.rotation, newPosition.rotation, 2f * Time.deltaTime);
     }
 
     public void TurnPage(string direction)

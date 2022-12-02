@@ -36,6 +36,8 @@ namespace MMG
                     //close the book
                     Debug.Log("Spell Book Closed");
                     inventoryOpen = false;
+                    spellBook.transform.position = spellBook.itemSlotPosition.position;
+                    spellBook.transform.rotation = spellBook.itemSlotPosition.rotation;
                     spellBook.gameObject.SetActive(false);
                 }
                 else
