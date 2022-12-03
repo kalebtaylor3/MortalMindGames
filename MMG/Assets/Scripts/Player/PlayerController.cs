@@ -352,7 +352,21 @@ namespace MMG
                 currentSpeed = !movementInputData.HasInput ? 0f : currentSpeed;
                 currentSpeed = movementInputData.InputVector.y == -1 ? currentSpeed * moveBackwardsSpeedPercent : currentSpeed;
                 currentSpeed = movementInputData.InputVector.x != 0 && movementInputData.InputVector.y ==  0 ? currentSpeed * moveSideSpeedPercent :  currentSpeed;
-            }
+
+                currentSpeed = currentSpeed * Mathf.Abs((movementInputData.InputVector.x + movementInputData.InputVector.y));
+
+                if (!movementInputData.IsRunning && currentSpeed > walkSpeed)
+                    currentSpeed = walkSpeed;
+
+                if (movementInputData.IsRunning && currentSpeed > runSpeed)
+                    currentSpeed = runSpeed;
+
+                if (currentSpeed < 0.5f)
+                    currentSpeed = 0;
+
+
+            Debug.Log(currentSpeed);
+        }
 
             void CalculateFinalMovement()
             {
@@ -482,8 +496,10 @@ namespace MMG
                 {
                     if(!duringCrouchAnimation) // we want to make our head bob only if we are moving and not during crouch routine
                     {
-                        headBob.ScrollHeadBob(movementInputData.IsRunning && CanRun(),movementInputData.IsCrouching, movementInputData.InputVector);
-                        yawTransform.localPosition = Vector3.Lerp(yawTransform.localPosition,(Vector3.up * headBob.CurrentStateHeight) + headBob.FinalOffset,Time.deltaTime * smoothHeadBobSpeed);
+                        if (currentSpeed == 0 || currentSpeed < 0.5f)
+                            return;
+                            headBob.ScrollHeadBob(movementInputData.IsRunning && CanRun(),movementInputData.IsCrouching, movementInputData.InputVector);
+                            yawTransform.localPosition = Vector3.Lerp(yawTransform.localPosition,(Vector3.up * headBob.CurrentStateHeight) + headBob.FinalOffset,Time.deltaTime * smoothHeadBobSpeed);
                     }
                 }
                 else // if we are not moving or we are not grounded
