@@ -42,8 +42,8 @@ namespace MMG
             cameraInputData.InputVectorX = Gamepad.current.rightStick.x.ReadValue();
             cameraInputData.InputVectorY = Gamepad.current.rightStick.y.ReadValue();
 
-            //cameraInputData.ZoomClicked = Gamepad.current.rightTrigger.isPressed;
-            //cameraInputData.ZoomReleased = Gamepad.current.rightTrigger.wasReleasedThisFrame;
+            cameraInputData.ZoomClicked = Gamepad.current.rightTrigger.isPressed;
+            cameraInputData.ZoomReleased = Gamepad.current.rightTrigger.isPressed;
         }
 
         void GetMovementInputData()
