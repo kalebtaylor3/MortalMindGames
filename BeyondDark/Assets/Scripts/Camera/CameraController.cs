@@ -77,39 +77,45 @@ namespace MMG
             {
                 if (camInputData.IsPeakingLeft)
                     PeakLeft();
+                else
+                    PeakIdle();
 
                 if (camInputData.IsPeakingRight)
                     PeakRight();
-
-                if (!camInputData.IsPeakingLeft && !camInputData.IsPeakingRight)
+                else
                     PeakIdle();
+
+                //if (!camInputData.IsPeakingLeft && !camInputData.IsPeakingRight)
+                //    PeakIdle();
             }
         }
 
         void PeakLeft()
         {
             Debug.Log("Peaking Left");
-            transform.rotation = Quaternion.Lerp(transform.rotation, peakLeft.rotation, 0.15f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, peakLeft.rotation, 0.65f);
+            //this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, peakLeft.position, 0.55f);
         }
 
         void PeakRight()
         {
             Debug.Log("Peaking Right");
-            transform.rotation = Quaternion.Lerp(transform.rotation, peakRight.rotation, 0.15f);
+            //this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, peakRight.position, 0.55f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, peakRight.rotation, 0.65f);
         }
 
         void PeakIdle()
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, peakIdle.rotation, 0.15f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, peakIdle.rotation, 0.65f);
         }
 
         void CalculateRotation()
-            {
-                desiredYaw += camInputData.InputVector.x * sensitivity.x * Time.deltaTime;
-                desiredPitch -= camInputData.InputVector.y * sensitivity.y * Time.deltaTime;
+        {
+            desiredYaw += camInputData.InputVector.x * sensitivity.x * Time.deltaTime;
+            desiredPitch -= camInputData.InputVector.y * sensitivity.y * Time.deltaTime;
 
-                desiredPitch = Mathf.Clamp(desiredPitch,lookAngleMinMax.x,lookAngleMinMax.y);
-            }
+            desiredPitch = Mathf.Clamp(desiredPitch,lookAngleMinMax.x,lookAngleMinMax.y);
+        }
 
         void SmoothRotation()
         {

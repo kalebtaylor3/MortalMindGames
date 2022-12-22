@@ -10,145 +10,157 @@ namespace MMG
         #region Variables
         #region Data
 
-            [Space, Header("Data")]
-            [SerializeField] private MovementInputData movementInputData = null;
-            [SerializeField] private HeadBobData headBobData = null;
-            [SerializeField] ItemInputData itemInputData = null;         
+        [Space, Header("Data")]
+        [SerializeField] private MovementInputData movementInputData = null;
+        [SerializeField] private HeadBobData headBobData = null;
+        [SerializeField] ItemInputData itemInputData = null;
 
         #endregion
 
         #region Locomotion
 
-            [Space, Header("Locomotion Settings")]
-            [SerializeField] private float crouchSpeed = 1f;
-            [SerializeField] private float walkSpeed = 2f;
-            [SerializeField] private float runSpeed = 3f;
-            [SerializeField] private float jumpSpeed = 5f;
-            [Slider(0f,1f)][SerializeField] private float moveBackwardsSpeedPercent = 0.5f;
-            [Slider(0f,1f)][SerializeField] private float moveSideSpeedPercent = 0.75f;
+        [Space, Header("Locomotion Settings")]
+        [SerializeField] private float crouchSpeed = 1f;
+        [SerializeField] private float walkSpeed = 2f;
+        [SerializeField] private float runSpeed = 3f;
+        [SerializeField] private float jumpSpeed = 5f;
+        [Slider(0f, 1f)][SerializeField] private float moveBackwardsSpeedPercent = 0.5f;
+        [Slider(0f, 1f)][SerializeField] private float moveSideSpeedPercent = 0.75f;
 
         #endregion
 
         #region Run Settings
 
-            [Space, Header("Run Settings")]
-            [Slider(-1f,1f)][SerializeField] private float canRunThreshold = 0.8f;
-            [SerializeField] private AnimationCurve runTransitionCurve = AnimationCurve.EaseInOut(0f,0f,1f,1f);
+        [Space, Header("Run Settings")]
+        [Slider(-1f, 1f)][SerializeField] private float canRunThreshold = 0.8f;
+        [SerializeField] private AnimationCurve runTransitionCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
         #endregion
 
         #region Crouch Settings
 
-            [Space, Header("Crouch Settings")]
-            [Slider(0.2f,0.9f)][SerializeField] private float crouchPercent = 0.6f;
-            [SerializeField] private float crouchTransitionDuration = 1f;
-            [SerializeField] private AnimationCurve crouchTransitionCurve = AnimationCurve.EaseInOut(0f,0f,1f,1f);
+        [Space, Header("Crouch Settings")]
+        [Slider(0.2f, 0.9f)][SerializeField] private float crouchPercent = 0.6f;
+        [SerializeField] private float crouchTransitionDuration = 1f;
+        [SerializeField] private AnimationCurve crouchTransitionCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
         #endregion
 
         #region Landing Settings
 
-            [Space, Header("Landing Settings")]
-            [Slider(0.05f,0.5f)][SerializeField] private float lowLandAmount = 0.1f;
-            [Slider(0.2f,0.9f)][SerializeField] private float highLandAmount = 0.6f;
-            [SerializeField] private float landTimer = 0.5f;
-            [SerializeField] private float landDuration = 1f;
-            [SerializeField] private AnimationCurve landCurve = AnimationCurve.EaseInOut(0f,0f,1f,1f);
+        [Space, Header("Landing Settings")]
+        [Slider(0.05f, 0.5f)][SerializeField] private float lowLandAmount = 0.1f;
+        [Slider(0.2f, 0.9f)][SerializeField] private float highLandAmount = 0.6f;
+        [SerializeField] private float landTimer = 0.5f;
+        [SerializeField] private float landDuration = 1f;
+        [SerializeField] private AnimationCurve landCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
-            #endregion
+        #endregion
 
         #region Gravity
 
-            [Space, Header("Gravity Settings")]
-            [SerializeField] private float gravityMultiplier = 2.5f;
-            [SerializeField] private float stickToGroundForce = 5f;
-                    
-            [SerializeField] private LayerMask groundLayer = ~0;
-            [Slider(0f,1f)][SerializeField] private float rayLength = 0.1f;
-            [Slider(0.01f,1f)][SerializeField] private float raySphereRadius = 0.1f;
+        [Space, Header("Gravity Settings")]
+        [SerializeField] private float gravityMultiplier = 2.5f;
+        [SerializeField] private float stickToGroundForce = 5f;
+
+        [SerializeField] private LayerMask groundLayer = ~0;
+        [Slider(0f, 1f)][SerializeField] private float rayLength = 0.1f;
+        [Slider(0.01f, 1f)][SerializeField] private float raySphereRadius = 0.1f;
 
         #endregion
 
         #region Inventory
 
-            [Space, Header("Inventory Settings")]
-            PlayerInventoryController playerInventory;
-            GameObject activeItem = null;
-            public Transform[] bookSlots;
+        [Space, Header("Inventory Settings")]
+        PlayerInventoryController playerInventory;
+        GameObject activeItem = null;
+        public Transform[] bookSlots;
 
         #endregion
 
         #region Wall Settings
 
-            [Space, Header("Check Wall Settings")]
-            [SerializeField] private LayerMask obstacleLayers = ~0;
-            [Slider(0f,1f)][SerializeField] private float rayObstacleLength = 0.1f;
-            [Slider(0.01f,1f)][SerializeField] private float rayObstacleSphereRadius = 0.1f;
-                    
+        [Space, Header("Check Wall Settings")]
+        [SerializeField] private LayerMask obstacleLayers = ~0;
+        [Slider(0f, 1f)][SerializeField] private float rayObstacleLength = 0.1f;
+        [Slider(0.01f, 1f)][SerializeField] private float rayObstacleSphereRadius = 0.1f;
+
         #endregion
 
         #region Smooth Settings
 
-            [Space, Header("Smooth Settings")]                
-            [Range(1f,100f)] [SerializeField] private float smoothRotateSpeed = 5f;
-            [Range(1f,100f)] [SerializeField] private float smoothInputSpeed = 5f;
-            [Range(1f,100f)] [SerializeField] private float smoothVelocitySpeed = 5f;
-            [Range(1f,100f)] [SerializeField] private float smoothFinalDirectionSpeed = 5f;
-            [Range(1f,100f)] [SerializeField] private float smoothHeadBobSpeed = 5f;
+        [Space, Header("Smooth Settings")]
+        [Range(1f, 100f)][SerializeField] private float smoothRotateSpeed = 5f;
+        [Range(1f, 100f)][SerializeField] private float smoothInputSpeed = 5f;
+        [Range(1f, 100f)][SerializeField] private float smoothVelocitySpeed = 5f;
+        [Range(1f, 100f)][SerializeField] private float smoothFinalDirectionSpeed = 5f;
+        [Range(1f, 100f)][SerializeField] private float smoothHeadBobSpeed = 5f;
 
-            [Space]
-            private bool experimental = false;
-            [ShowIf("experimental")] [Range(1f,100f)] [SerializeField] private float smoothInputMagnitudeSpeed = 5f;
+        [Space]
+        private bool experimental = false;
+        [ShowIf("experimental")][Range(1f, 100f)][SerializeField] private float smoothInputMagnitudeSpeed = 5f;
 
         #endregion
 
         #region Components / Custom Classes / Caches
-                private CharacterController characterController;
-                private Transform yawTransform;
-                private Transform camTransform;
-                private HeadBob headBob;
-                private CameraController cameraController;
-                    
-                private RaycastHit hitInfo;
-                private IEnumerator _CrouchRoutine;
-                private IEnumerator _LandRoutine;
-            #endregion
+        private CharacterController characterController;
+        private Transform yawTransform;
+        private Transform camTransform;
+        private HeadBob headBob;
+        private CameraController cameraController;
+
+        private RaycastHit hitInfo;
+        private IEnumerator _CrouchRoutine;
+        private IEnumerator _LandRoutine;
+        #endregion
 
         #region Debug
-                private Vector2 inputVector;
-                private Vector2 smoothInputVector;
+        private Vector2 inputVector;
+        private Vector2 smoothInputVector;
 
-                private Vector3 finalMoveDir;
-                private Vector3 smoothFinalMoveDir;
+        private Vector3 finalMoveDir;
+        private Vector3 smoothFinalMoveDir;
 
-                private Vector3 finalMoveVector;
+        private Vector3 finalMoveVector;
 
 
-                private float currentSpeed;
-                private float smoothCurrentSpeed;
-                private float finalSmoothCurrentSpeed;
-                private float walkRunSpeedDifference;
+        private float currentSpeed;
+        private float smoothCurrentSpeed;
+        private float finalSmoothCurrentSpeed;
+        private float walkRunSpeedDifference;
 
-                private float finalRayLength;
-                private bool hitWall;
-                private bool isGrounded;
-                private bool previouslyGrounded;
+        private float finalRayLength;
+        private bool hitWall;
+        private bool isGrounded;
+        private bool previouslyGrounded;
 
-                private float initHeight;
-                private float crouchHeight;
-                private Vector3 initCenter;
-                private Vector3 crouchCenter;
-                private float initCamHeight;
-                private float crouchCamHeight;
-                private float crouchStandHeightDifference;
-                private bool duringCrouchAnimation;
-                private bool duringRunAnimation;
-                private float inAirTimer;
+        private float initHeight;
+        private float crouchHeight;
+        private Vector3 initCenter;
+        private Vector3 crouchCenter;
+        private float initCamHeight;
+        private float crouchCamHeight;
+        private float crouchStandHeightDifference;
+        private bool duringCrouchAnimation;
+        private bool duringRunAnimation;
+        private float inAirTimer;
 
-                private float inputVectorMagnitude;
-                private float smoothInputVectorMagnitude;
-            #endregion
-        
+        private float inputVectorMagnitude;
+        private float smoothInputVectorMagnitude;
+        #endregion
+
+        #region Sounds
+
+        [Space, Header("Foot Step Paramaters")]
+        [SerializeField] private float stepSpeed = 0.9f;
+        [SerializeField] private AudioSource footStepAudioSource;
+        [SerializeField] private AudioClip[] grassSounds;
+
+        private float footStepTimer = 0;
+        private float GetCurrentOffset;
+
+        #endregion
+
         #endregion
 
         #region Functions
@@ -197,9 +209,31 @@ namespace MMG
                 //activeItem = playerInventory.ReturnActiveItem();
                 CheckForItemUse(activeItem);
 
+                HandleFootSteps();
+                SetCurrentOffSet();
+
                 previouslyGrounded = isGrounded;
             }
         }
+
+        void SetCurrentOffSet()
+        {
+            if(currentSpeed >= 5)
+            {
+                GetCurrentOffset = 0.4f;
+            }
+            else if(currentSpeed == 3)
+            {
+                GetCurrentOffset = 0.6f;
+            }
+            else
+            {
+                GetCurrentOffset = 1f;
+            }
+
+            Debug.Log(GetCurrentOffset);
+        }
+
 
         #region Initialize Methods    
             void GetComponents()
@@ -279,6 +313,25 @@ namespace MMG
         #endregion
 
         #region Locomotion Calculation Methods
+            
+            void HandleFootSteps()
+            {
+                if (!isGrounded) return;
+                if (currentSpeed == 0) return;
+
+                footStepTimer -= Time.deltaTime;
+
+                if(footStepTimer <= 0)
+                {
+                    if (Physics.Raycast(camTransform.position, Vector3.down, out RaycastHit hit, 3))
+                    {
+                        footStepAudioSource.Play();
+                    }
+                    footStepTimer = GetCurrentOffset;
+                }
+
+            }
+
             void CheckIfGrounded()
             {
                 Vector3 origin = transform.position + characterController.center;
@@ -363,9 +416,6 @@ namespace MMG
 
                 if (currentSpeed < 0.5f)
                     currentSpeed = 0;
-
-
-            Debug.Log(currentSpeed);
         }
 
             void CalculateFinalMovement()
@@ -379,6 +429,7 @@ namespace MMG
 
                 if(characterController.isGrounded) // Thanks to this check we are not applying extra y velocity when in air so jump will be consistent
                     finalMoveVector.y += finalVector.y ; //so this makes our player go in forward dir using slope normal but when jumping this is making it go higher so this is weird
+
             }
         #endregion
 
@@ -468,26 +519,26 @@ namespace MMG
 
             IEnumerator LandingRoutine()
             {
-                float percent = 0f;
-                float landAmount = 0f;
+                //float percent = 0f;
+                //float landAmount = 0f;
 
-                float speed = 1f / landDuration;
+                //float speed = 1f / landDuration;
 
-                Vector3 localPos = yawTransform.localPosition;
-                float initLandHeight = localPos.y;
+                //Vector3 localPos = yawTransform.localPosition;
+                //float initLandHeight = localPos.y;
 
-                landAmount = inAirTimer > landTimer ? highLandAmount : lowLandAmount;
+                //landAmount = inAirTimer > landTimer ? highLandAmount : lowLandAmount;
 
-                while(percent < 1f)
-                {
-                    percent += Time.deltaTime * speed;
-                    float desiredY = landCurve.Evaluate(percent) * landAmount;
+                //while(percent < 1f)
+                //{
+                //    percent += Time.deltaTime * speed;
+                //    float desiredY = landCurve.Evaluate(percent) * landAmount;
 
-                    localPos.y = initLandHeight + desiredY;
-                    yawTransform.localPosition = localPos;
+                //    localPos.y = initLandHeight + desiredY;
+                //    yawTransform.localPosition = localPos;
 
-                    yield return null;
-                }
+                   yield return null;
+                //}
             }
         #endregion
 
@@ -503,7 +554,7 @@ namespace MMG
                             return;
                             headBob.ScrollHeadBob(movementInputData.IsRunning && CanRun(),movementInputData.IsCrouching, movementInputData.InputVector);
                             yawTransform.localPosition = Vector3.Lerp(yawTransform.localPosition,(Vector3.up * headBob.CurrentStateHeight) + headBob.FinalOffset,Time.deltaTime * smoothHeadBobSpeed);
-                    }
+                }
                 }
                 else // if we are not moving or we are not grounded
                 {
