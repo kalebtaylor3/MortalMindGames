@@ -387,6 +387,9 @@ namespace MMG
             {
                 if(movementInputData.CrouchClicked && isGrounded)
                     InvokeCrouchRoutine();
+
+                if (movementInputData.RunClicked && movementInputData.IsCrouching)
+                    InvokeCrouchRoutine();
             }
 
             void InvokeCrouchRoutine()
