@@ -661,6 +661,7 @@ GameObject:
   - component: {fileID: 76141673938768055}
   - component: {fileID: 236037438740375227}
   - component: {fileID: 4361883663916781840}
+  - component: {fileID: 3181312810241107229}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -717,12 +718,12 @@ MonoBehaviour:
   movementInputData: {fileID: 11400000, guid: abad080c0665fdc4cb00444da1f990a9, type: 2}
   headBobData: {fileID: 11400000, guid: fd51ede42cc20a04da93c2d2fac1e05c, type: 2}
   itemInputData: {fileID: 11400000, guid: 3ae00fd506ddb78479d40be5050c906b, type: 2}
-  crouchSpeed: 1
+  crouchSpeed: 0.8
   walkSpeed: 3
   runSpeed: 5
   jumpSpeed: 6
-  moveBackwardsSpeedPercent: 0.5
-  moveSideSpeedPercent: 0.7
+  moveBackwardsSpeedPercent: 0.4
+  moveSideSpeedPercent: 0.5
   canRunThreshold: 0.7
   runTransitionCurve:
     serializedVersion: 2
@@ -837,6 +838,8 @@ MonoBehaviour:
   stepSpeed: 0.5
   footStepAudioSource: {fileID: 4361883663916781840}
   grassSounds: []
+  PulseFrequency: 0.25
+  rumbler: {fileID: 3181312810241107229}
 --- !u!114 &8741816588763353335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,6 +992,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3181312810241107229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4564336066582545215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0ec50a9a300a24e8db9b23ed0f0043, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5494663204739305158
 GameObject:
   m_ObjectHideFlags: 0

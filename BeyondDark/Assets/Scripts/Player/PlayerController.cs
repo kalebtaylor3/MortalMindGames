@@ -161,6 +161,19 @@ namespace MMG
 
         #endregion
 
+        #region Vibration System
+
+        [Range(0.1f, 1.5f)]
+        public float PulseFrequency = 1.2f;
+
+        private float rumbleTime = 5f;
+        private RumblePattern rumblePattern = RumblePattern.Constant;
+        [SerializeField] Rumbler rumbler;
+        private int[] timeDropdown = new int[] { 3, 5, 10 };
+        private RumblePattern[] rumbleMode = new RumblePattern[] { RumblePattern.Constant, RumblePattern.CollectRellic, RumblePattern.Linear };
+
+        #endregion
+
         #endregion
 
         #region Functions
@@ -169,8 +182,7 @@ namespace MMG
             GetComponents();
             InitVariables();
 
-            InteractableBase.OnPickUp += HandlePickUp;
-                
+            InteractableBase.OnPickUp += HandlePickUp;                
         }
 
         void Update()
@@ -228,7 +240,7 @@ namespace MMG
             }
             else
             {
-                GetCurrentOffset = 1f;
+                GetCurrentOffset = 0.8f;
             }
 
             Debug.Log(GetCurrentOffset);
@@ -325,10 +337,11 @@ namespace MMG
                 {
                     if (Physics.Raycast(camTransform.position, Vector3.down, out RaycastHit hit, 3))
                     {
+                        footStepAudioSource.volume = currentSpeed / 3;
                         footStepAudioSource.Play();
                     }
                     footStepTimer = GetCurrentOffset;
-                }
+            }
 
             }
 
@@ -553,7 +566,7 @@ namespace MMG
                         if (currentSpeed == 0 || currentSpeed < 0.5f)
                             return;
                             headBob.ScrollHeadBob(movementInputData.IsRunning && CanRun(),movementInputData.IsCrouching, movementInputData.InputVector);
-                            yawTransform.localPosition = Vector3.Lerp(yawTransform.localPosition,(Vector3.up * headBob.CurrentStateHeight) + headBob.FinalOffset,Time.deltaTime * smoothHeadBobSpeed);
+                            yawTransform.localPosition = Vector3.Lerp(yawTransform.localPosition,(Vector3.up * headBob.CurrentStateHeight) + (headBob.FinalOffset * currentSpeed) / 3,Time.deltaTime * smoothHeadBobSpeed);
                 }
                 }
                 else // if we are not moving or we are not grounded
@@ -651,6 +664,8 @@ namespace MMG
                 playerInventory.items.Add(PickUp.PickUpItem);
                 playerInventory.UpdatePages();
                 PickUp.PickUpItem.SetActive(false);
+                SetRumbleMode(1);
+                StartRumble();
             }
 
             void HasActiveItem()
@@ -674,7 +689,44 @@ namespace MMG
                 }
             }
 
-            #endregion
+        #endregion
+
+        #region Vibration Methods
+
+        public void SetRumbleMode(int selectedValue)
+        {
+            rumblePattern = rumbleMode[selectedValue];
+        }
+        public void SetDurration(int selectedValue)
+        {
+            rumbleTime = timeDropdown[selectedValue];
+        }
+
+        public void StartRumble()
+        {
+            switch (rumblePattern)
+            {
+                case RumblePattern.Constant:
+                    rumbler.RumbleConstant(0, 1f, rumbleTime);
+                    break;
+                case RumblePattern.CollectRellic:
+                    rumbler.RumblePulse(0f, 1, PulseFrequency, 1f);
+                    break;
+                case RumblePattern.Linear:
+                    rumbler.RumbleLinear(0, 1f, 0, 0.5f, rumbleTime);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        public void StopRumble()
+        {
+            rumbler.StopRumble();
+        }
+
+        #endregion
 
         #endregion
     }
