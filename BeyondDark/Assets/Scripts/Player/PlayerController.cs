@@ -230,11 +230,11 @@ namespace MMG
 
         void SetCurrentOffSet()
         {
-            if(currentSpeed >= 5)
+            if(currentSpeed >= runSpeed)
             {
                 GetCurrentOffset = 0.4f;
             }
-            else if(currentSpeed == 3)
+            else if(currentSpeed == walkSpeed)
             {
                 GetCurrentOffset = 0.6f;
             }
@@ -242,8 +242,6 @@ namespace MMG
             {
                 GetCurrentOffset = 0.8f;
             }
-
-            Debug.Log(GetCurrentOffset);
         }
 
 
@@ -335,12 +333,12 @@ namespace MMG
 
                 if(footStepTimer <= 0)
                 {
-                    if (Physics.Raycast(camTransform.position, Vector3.down, out RaycastHit hit, 3))
-                    {
-                        footStepAudioSource.volume = currentSpeed / 3;
-                        footStepAudioSource.Play();
-                    }
-                    footStepTimer = GetCurrentOffset;
+                if (Physics.Raycast(camTransform.position, Vector3.down, out RaycastHit hit, 3))
+                {
+                    footStepAudioSource.volume = currentSpeed / 3;
+                    footStepAudioSource.Play();
+                }
+                footStepTimer = GetCurrentOffset;
             }
 
             }
@@ -565,8 +563,17 @@ namespace MMG
                     {
                         if (currentSpeed == 0 || currentSpeed < 0.5f)
                             return;
-                            headBob.ScrollHeadBob(movementInputData.IsRunning && CanRun(),movementInputData.IsCrouching, movementInputData.InputVector);
-                            yawTransform.localPosition = Vector3.Lerp(yawTransform.localPosition,(Vector3.up * headBob.CurrentStateHeight) + (headBob.FinalOffset * currentSpeed) / 3,Time.deltaTime * smoothHeadBobSpeed);
+
+                    if (!movementInputData.IsCrouching)
+                    {
+                        headBob.ScrollHeadBob(movementInputData.IsRunning && CanRun(), movementInputData.IsCrouching, movementInputData.InputVector);
+                        yawTransform.localPosition = Vector3.Lerp(yawTransform.localPosition, (Vector3.up * headBob.CurrentStateHeight) + (headBob.FinalOffset * currentSpeed) / 3, Time.deltaTime * smoothHeadBobSpeed);
+                    }
+                    else
+                    {
+                        headBob.ScrollHeadBob(movementInputData.IsRunning && CanRun(), movementInputData.IsCrouching, movementInputData.InputVector);
+                        yawTransform.localPosition = Vector3.Lerp(yawTransform.localPosition, (Vector3.up * headBob.CurrentStateHeight) + headBob.FinalOffset, Time.deltaTime * smoothHeadBobSpeed);
+                    }
                 }
                 }
                 else // if we are not moving or we are not grounded
