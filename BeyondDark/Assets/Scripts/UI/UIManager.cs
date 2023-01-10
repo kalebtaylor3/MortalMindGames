@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        staminaSlider = GetComponent<Slider>();
+        //staminaSlider = GetComponent<Slider>();
     }
 
     //STAMINA
