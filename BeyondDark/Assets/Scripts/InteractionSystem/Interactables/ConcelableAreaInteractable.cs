@@ -26,6 +26,13 @@ namespace MMG
         bool happenOnce = false;
         bool canInteract = false;
 
+        Vector3 startcamPosition;
+
+        private void Start()
+        {
+            startcamPosition = concelableAreaCam.transform.position;
+        }
+
         private void Update()
         {
             //set reveal % to what is returned from hiding spot camera 
@@ -38,14 +45,28 @@ namespace MMG
                 displayText = "Press X to Hide!";
 
             if (cameraClamp == clamp.X && exposurePercentage > 0)
+            {
                 rotator.transform.Rotate(new Vector3(0, exposurePercentage, 0) * rotationSpeed * Time.deltaTime);
-            else if(cameraClamp == clamp.Y && exposurePercentage > 0) 
+                concelableAreaCam.transform.position += new Vector3(exposurePercentage, 0, 0) * 0.15f * Time.deltaTime;
+            }
+            else if (cameraClamp == clamp.Y && exposurePercentage > 0)
+            {
                 rotator.transform.Rotate(new Vector3(exposurePercentage, 0, 0) * rotationSpeed * Time.deltaTime);
+            }
 
             if (exposurePercentage == 0)
             {
                 rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+                concelableAreaCam.transform.position = startcamPosition;
                 //ResetRotator();
+            }
+
+            if (isHidding)
+            {
+                if (concelableAreaCam.transform.position.x < -0.3f)
+                {
+                    concelableAreaCam.transform.position = new Vector3(-0.3f, concelableAreaCam.transform.position.y, concelableAreaCam.transform.position.z);
+                }
             }
         }
 
@@ -109,7 +130,7 @@ namespace MMG
 
         void ResetRotator()
         {
-           // rotator.transform.rotation = Quaternion.Lerp(rotator.transform.rotation, new Quaternion(0, 0, 0, 0), 100 * Time.deltaTime);
+           rotator.transform.rotation = Quaternion.Lerp(rotator.transform.rotation, new Quaternion(0, 0, 0, 0), 100 * Time.deltaTime);
         }
 
         void ExitArea()
