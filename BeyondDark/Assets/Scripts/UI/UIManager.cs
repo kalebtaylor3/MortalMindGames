@@ -8,6 +8,10 @@ public class UIManager : MonoBehaviour
     //Stamina
     [SerializeField] private Slider staminaSlider;
 
+    private void OnEnable()
+    {
+        staminaSlider = GetComponent<Slider>();
+    }
 
     //STAMINA
     public void UpdateStaminaSlider(float stamina)
