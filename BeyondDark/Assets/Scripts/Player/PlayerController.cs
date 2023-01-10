@@ -180,6 +180,9 @@ namespace MMG
 
         #endregion
 
+        [SerializeField]
+        UIManager UiManager;
+
         public static event Action OnEnmptyStamina;
 
         #endregion
@@ -234,6 +237,9 @@ namespace MMG
 
                 HandleFootSteps();
                 SetCurrentOffSet();
+
+                // Stamina
+                UiManager.UpdateStaminaSlider(staminaTest);
 
                 previouslyGrounded = isGrounded;
             }

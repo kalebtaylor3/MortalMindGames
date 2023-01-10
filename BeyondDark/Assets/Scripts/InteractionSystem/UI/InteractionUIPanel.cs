@@ -31,7 +31,7 @@ namespace MMG
             tooltipText.SetText("");
         }
 
-        //STAMINA NAIM
+        //STAMINA
         public void UpdateStaminaSlider(float stamina)
         {
             staminaSlider.value = stamina;
