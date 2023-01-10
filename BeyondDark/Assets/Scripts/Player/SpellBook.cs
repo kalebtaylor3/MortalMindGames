@@ -36,7 +36,7 @@ public class SpellBook : MonoBehaviour
             return;
         }
         DisablePages();
-        currentPageNumber = 0;
+        //currentPageNumber = 0;
         pages[currentPageNumber].gameObject.SetActive(true);
     }
 

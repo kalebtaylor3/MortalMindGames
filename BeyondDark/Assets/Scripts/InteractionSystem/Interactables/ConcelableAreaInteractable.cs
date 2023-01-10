@@ -23,6 +23,8 @@ namespace MMG
 
         [SerializeField] InputController input;
 
+        bool happenOnce = false;
+
         private void Update()
         {
             //set reveal % to what is returned from hiding spot camera 
@@ -31,6 +33,8 @@ namespace MMG
 
             if (isHidding)
                 displayText = "Press X to Exit";
+            else
+                displayText = "Press X to Hide!";
 
             if (cameraClamp == clamp.X && exposurePercentage > 0)
                 rotator.transform.Rotate(new Vector3(0, exposurePercentage, 0) * rotationSpeed * Time.deltaTime);
@@ -42,25 +46,36 @@ namespace MMG
                 rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
                 //ResetRotator();
             }
-
-
         }
 
 
         public override void OnInteract()
         {
-            base.OnInteract();
-            exposurePercentage = 0;
-            isHidding = true;
-            enteranceAnimator.SetTrigger("Enter");
-            StartCoroutine(WaitForEnterAnimation());
-            input.canMove = false;
+            if(!happenOnce)
+            {
+                if (!isHidding)
+                {
+                    base.OnInteract();
+                    exposurePercentage = 0;
+                    enteranceAnimator.SetTrigger("Enter");
+                    StartCoroutine(WaitForEnterAnimation());
+                    input.canMove = false;
+                    isHidding = true;
+                }
+                else
+                {
+                    ExitArea();
+
+                }
+                happenOnce = true;
+            }
         }
 
         IEnumerator WaitForEnterAnimation()
         {
             yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
             playerCamera.gameObject.SetActive(false);
+            concelableAreaCam.gameObject.SetActive(true);
             StartCoroutine(WaitForCloseAnimation());
         }
 
@@ -70,6 +85,7 @@ namespace MMG
             //enable the camera controls n stuff
             enteranceAnimator.SetTrigger("Inside");
             StartCoroutine(WaitForInside());
+            happenOnce = false;
         }
 
         IEnumerator WaitForInside()
@@ -77,11 +93,40 @@ namespace MMG
             yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
             //enable the camera controls n stuff
             enteranceAnimator.enabled = false;
+            isHidding = true;
+            happenOnce=false;
         }
 
         void ResetRotator()
         {
            // rotator.transform.rotation = Quaternion.Lerp(rotator.transform.rotation, new Quaternion(0, 0, 0, 0), 100 * Time.deltaTime);
+        }
+
+        void ExitArea()
+        {
+            isHidding = false;
+            Debug.Log("Exiting Area");
+            playerCamera.gameObject.SetActive(true);
+            concelableAreaCam.gameObject.SetActive(false);
+            input.canMove = true;
+            happenOnce = false;
+            isHidding = false;
+            enteranceAnimator.enabled = true;
+            StartCoroutine(WaitForExit());
+            enteranceAnimator.SetTrigger("Enter");
+            StartCoroutine(WaitForExitClose());
+        }
+
+        IEnumerator WaitForExit()
+        {
+            yield return new WaitForSeconds(1.5f);
+            happenOnce = false;
+        }
+
+        IEnumerator WaitForExitClose()
+        {
+            yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length + 1);
+            enteranceAnimator.SetTrigger("Inside");
         }
 
 

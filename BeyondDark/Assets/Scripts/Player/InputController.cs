@@ -15,6 +15,7 @@ namespace MMG
             [SerializeField] private ItemInputData itemInputData = null;
 
             [HideInInspector] public bool canMove = true;
+            [HideInInspector] public bool canInteract = true;
         #endregion
 
         #region Functions
@@ -32,7 +33,8 @@ namespace MMG
             if(canMove)
                 GetMovementInputData();
 
-            GetInteractionInputData();
+            if(canInteract)
+                GetInteractionInputData();
             GetInventoryInputData();
             GetItemInputData();
         }
