@@ -47,8 +47,6 @@ namespace MMG
                 rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
                 //ResetRotator();
             }
-
-            Debug.Log(canInteract);
         }
 
         private void OnTriggerEnter(Collider other)
