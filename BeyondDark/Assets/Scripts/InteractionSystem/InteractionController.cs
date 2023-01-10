@@ -25,7 +25,7 @@ namespace MMG
             private bool isInteracting;
             private float holdTimer = 0f;
 
-        public PlayerInventoryController playerInventory;
+            public PlayerInventoryController playerInventory;
                 
 
         #endregion
