@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using NaughtyAttributes;
+using Cinemachine;
 
 namespace MMG
 {    
@@ -26,7 +27,7 @@ namespace MMG
         private bool running;
         private bool zooming;
 
-        private Camera cam;
+        private CinemachineVirtualCamera cam;
 
         private IEnumerator _ChangeFOVRoutine;
         private IEnumerator _ChangeRunFOVRoutine;
@@ -34,12 +35,12 @@ namespace MMG
         #endregion
 
         #region Functions
-        public void Init(Camera cam, CameraInputData data)
+        public void Init(CinemachineVirtualCamera cam, CameraInputData data)
         {
             camInputData = data;
 
             this.cam = cam;
-            m_initFOV = this.cam.fieldOfView;
+            m_initFOV = this.cam.m_Lens.FieldOfView;
         }
 
         public void ChangeFOV(MonoBehaviour mono)
@@ -68,7 +69,7 @@ namespace MMG
 
             float _speed = 1f / zoomTransitionDuration;
 
-            float _currentFOV = cam.fieldOfView;
+            float _currentFOV = cam.m_Lens.FieldOfView;
             float  _targetFOV = camInputData.IsZooming ? m_initFOV : zoomFOV;
 
             camInputData.IsZooming = !camInputData.IsZooming;
@@ -78,7 +79,7 @@ namespace MMG
             {
                 _percent += Time.deltaTime * _speed;
                 _smoothPercent = zoomCurve.Evaluate(_percent);
-                cam.fieldOfView = Mathf.Lerp(_currentFOV, _targetFOV, _smoothPercent);
+                cam.m_Lens.FieldOfView = Mathf.Lerp(_currentFOV, _targetFOV, _smoothPercent);
                 yield return null;
             }
         }
@@ -103,7 +104,7 @@ namespace MMG
             float _duration = returning ? runReturnTransitionDuration : runTransitionDuration;
             float _speed = 1f / _duration;
 
-            float _currentFOV = cam.fieldOfView;
+            float _currentFOV = cam.m_Lens.FieldOfView;
             float  _targetFOV = returning ? m_initFOV : runFOV;
 
             running = !returning;
@@ -112,7 +113,7 @@ namespace MMG
             {
                 _percent += Time.deltaTime * _speed;
                 _smoothPercent = runCurve.Evaluate(_percent);
-                cam.fieldOfView = Mathf.Lerp(_currentFOV, _targetFOV, _smoothPercent);
+                cam.m_Lens.FieldOfView = Mathf.Lerp(_currentFOV, _targetFOV, _smoothPercent);
                 yield return null;
             }
         }

@@ -1,4 +1,5 @@
-﻿using NaughtyAttributes;
+﻿using Cinemachine;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace MMG
@@ -29,7 +30,7 @@ namespace MMG
         private float desiredPitch;
         
         private Transform cameraPivotTransform;
-        private Camera playerCam;
+        private CinemachineVirtualCamera playerCam;
             
         #endregion
 
@@ -57,7 +58,7 @@ namespace MMG
         void GetComponents()
         {
             cameraPivotTransform = transform.GetChild(0).transform;
-            playerCam = GetComponentInChildren<Camera>();
+            playerCam = GetComponentInChildren<CinemachineVirtualCamera>();
         }
 
         void InitComponents()

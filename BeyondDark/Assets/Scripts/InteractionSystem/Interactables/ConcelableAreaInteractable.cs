@@ -24,6 +24,7 @@ namespace MMG
         [SerializeField] InputController input;
 
         bool happenOnce = false;
+        bool canInteract = false;
 
         private void Update()
         {
@@ -46,6 +47,18 @@ namespace MMG
                 rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
                 //ResetRotator();
             }
+
+            Debug.Log(canInteract);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            canInteract = true;
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            canInteract = false;
         }
 
 
@@ -53,19 +66,18 @@ namespace MMG
         {
             if(!happenOnce)
             {
-                if (!isHidding)
+                if (!isHidding && canInteract)
                 {
                     base.OnInteract();
+                    input.canMove = false;
                     exposurePercentage = 0;
                     enteranceAnimator.SetTrigger("Enter");
                     StartCoroutine(WaitForEnterAnimation());
-                    input.canMove = false;
                     isHidding = true;
                 }
                 else
                 {
                     ExitArea();
-
                 }
                 happenOnce = true;
             }
