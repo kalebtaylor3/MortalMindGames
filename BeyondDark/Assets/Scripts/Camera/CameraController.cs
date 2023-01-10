@@ -71,6 +71,7 @@ namespace MMG
             camInputData.ZoomReleased = true;
             camInputData.ZoomClicked = false;
             input.RunReleased = true;
+            input.IsRunning = false;
         }
 
         void GetComponents()
