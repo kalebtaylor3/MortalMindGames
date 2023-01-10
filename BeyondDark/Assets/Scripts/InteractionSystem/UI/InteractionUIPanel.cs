@@ -11,6 +11,10 @@ namespace MMG
         [SerializeField] private Image progressBar;
         [SerializeField] private TextMeshProUGUI tooltipText;
 
+        //Stamina
+        [SerializeField] private Slider staminaSlider;
+
+
         public void SetDisplayText(string displayText)
         {
             tooltipText.SetText(displayText);
@@ -26,5 +30,12 @@ namespace MMG
             progressBar.fillAmount = 0f;
             tooltipText.SetText("");
         }
+
+        //STAMINA NAIM
+        public void UpdateStaminaSlider(float stamina)
+        {
+            staminaSlider.value = stamina;
+        }
+
     }
 }

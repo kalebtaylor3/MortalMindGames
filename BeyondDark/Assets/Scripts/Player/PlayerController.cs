@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -34,6 +35,9 @@ namespace MMG
 
         [Space, Header("Run Settings")]
         [Slider(-1f, 1f)][SerializeField] private float canRunThreshold = 0.8f;
+
+        [Slider(-1f, 1f)][SerializeField] private float staminaTest = 0.8f;
+
         [SerializeField] private AnimationCurve runTransitionCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
         #endregion
@@ -124,8 +128,9 @@ namespace MMG
 
         private Vector3 finalMoveVector;
 
-
+        [SerializeField]
         private float currentSpeed;
+        [SerializeField]
         private float smoothCurrentSpeed;
         private float finalSmoothCurrentSpeed;
         private float walkRunSpeedDifference;
@@ -175,6 +180,8 @@ namespace MMG
 
         #endregion
 
+        public static event Action OnEnmptyStamina;
+
         #endregion
 
         #region Functions
@@ -201,6 +208,9 @@ namespace MMG
                 SmoothInput();
                 SmoothSpeed();
                 SmoothDir();
+
+                // Stamina Test
+                HandleStamina();
 
                 // Calculate Movement
                 CalculateMovementDirection();
@@ -381,13 +391,20 @@ namespace MMG
 
             bool CanRun()
             {
-                Vector3 normalizedDir = Vector3.zero;
+                if(staminaTest >= 0)
+                {
+                    Vector3 normalizedDir = Vector3.zero;
 
-                if(smoothFinalMoveDir != Vector3.zero)
-                    normalizedDir = smoothFinalMoveDir.normalized;
+                    if (smoothFinalMoveDir != Vector3.zero)
+                        normalizedDir = smoothFinalMoveDir.normalized;
 
-                float dot = Vector3.Dot(transform.forward,normalizedDir);
-                return dot >= canRunThreshold && !movementInputData.IsCrouching ? true : false;
+                    float dot = Vector3.Dot(transform.forward, normalizedDir);
+                    return dot >= canRunThreshold && !movementInputData.IsCrouching ? true : false;
+                }
+                else
+                {
+                    return false;
+                }                
             }
 
             void CalculateMovementDirection()
@@ -423,15 +440,17 @@ namespace MMG
 
                 currentSpeed = currentSpeed * Mathf.Abs((movementInputData.InputVector.x + movementInputData.InputVector.y));
 
+                
+
+                if (movementInputData.IsRunning && currentSpeed > runSpeed )
+                    currentSpeed = runSpeed;
+               
                 if (!movementInputData.IsRunning && currentSpeed > walkSpeed)
                     currentSpeed = walkSpeed;
 
-                if (movementInputData.IsRunning && currentSpeed > runSpeed)
-                    currentSpeed = runSpeed;
-
                 if (currentSpeed < 0.5f)
                     currentSpeed = 0;
-        }
+            }
 
             void CalculateFinalMovement()
             {
@@ -446,6 +465,35 @@ namespace MMG
                     finalMoveVector.y += finalVector.y ; //so this makes our player go in forward dir using slope normal but when jumping this is making it go higher so this is weird
 
             }
+
+            void HandleStamina()
+            {
+                if(movementInputData.IsRunning && currentSpeed >= runSpeed)
+                {
+                    staminaTest -= 0.3f * Time.deltaTime;
+                }
+                else if (!movementInputData.IsRunning)
+                {
+                    staminaTest += 0.2f * Time.deltaTime;
+                }
+
+                if(staminaTest <= 0f && movementInputData.IsRunning)
+                {
+                    staminaTest = -1f;
+                }
+                
+                if(staminaTest <= 0f)
+                {
+                    
+                    OnEnmptyStamina?.Invoke();
+                }
+                else if( staminaTest > 1f)
+                {
+                    staminaTest = 1f;
+                }
+            }
+
+
         #endregion
 
         #region Crouching Methods

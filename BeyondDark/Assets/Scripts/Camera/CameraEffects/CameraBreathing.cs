@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using NaughtyAttributes;
+using System.Collections;
 
 namespace MMG
 {    
@@ -17,6 +18,9 @@ namespace MMG
         private PerlinNoiseScroller perlinNoiseScroller;
         private Vector3 finalRot;
         private Vector3 finalPos;
+
+        private float initialFrequency;
+        private float initialAmplitude;
         #endregion
 
         #region Functions
@@ -24,6 +28,39 @@ namespace MMG
         void Start()
         {
             perlinNoiseScroller = new PerlinNoiseScroller(noiseData);
+        }
+
+        private void OnEnable()
+        {
+            PlayerController.OnEnmptyStamina += HandleEmptyStamina;
+        }
+
+        private void OnDisable()
+        {
+            PlayerController.OnEnmptyStamina -= HandleEmptyStamina;
+            StopAllCoroutines();
+        }
+
+        void HandleEmptyStamina()
+        {
+            Debug.Log("No stamina");
+            StartCoroutine(EmptyStaminaBreathing());
+        }
+
+        IEnumerator EmptyStaminaBreathing()
+        {
+            //initialFrequency = noiseData.frequency;
+            //initialAmplitude = noiseData.amplitude;
+
+            //noiseData.frequency = 50;
+            //noiseData.amplitude = 50;
+
+            //yield return new WaitForSeconds(2.0f);
+
+            //noiseData.frequency = initialFrequency;
+            //noiseData.amplitude = initialAmplitude;
+
+            yield return null;
         }
 
         void LateUpdate()
