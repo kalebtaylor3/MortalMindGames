@@ -31,6 +31,8 @@ namespace MMG
         
         private Transform cameraPivotTransform;
         [HideInInspector] public CinemachineVirtualCamera playerCam;
+
+        public  MovementInputData input;
             
         #endregion
 
@@ -62,7 +64,13 @@ namespace MMG
 
         public void ResetFOV()
         {
-            playerCam.m_Lens.FieldOfView = 60;
+            //playerCam.m_Lens.FieldOfView = 60;
+            //playerCam.m_Lens.FieldOfView = Mathf.Lerp(playerCam.m_Lens.FieldOfView, 60, 0.25f * Time.deltaTime);
+            cameraZoom.ChangeRunFOV(true,this);
+            camInputData.IsZooming = false;
+            camInputData.ZoomReleased = true;
+            camInputData.ZoomClicked = false;
+            input.RunReleased = true;
         }
 
         void GetComponents()
