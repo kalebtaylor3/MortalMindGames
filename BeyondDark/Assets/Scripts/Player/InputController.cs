@@ -24,7 +24,7 @@ namespace MMG
                 cameraInputData.ResetInput();
                 movementInputData.ResetInput();
                 interactionInputData.ResetInput();
-            canMove = true;
+                canMove = true;
             }
 
         void Update()

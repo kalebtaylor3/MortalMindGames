@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using NaughtyAttributes;
 using Cinemachine;
+using Unity.VisualScripting;
 
 namespace MMG
 {    
@@ -35,6 +36,7 @@ namespace MMG
         #endregion
 
         #region Functions
+
         public void Init(CinemachineVirtualCamera cam, CameraInputData data)
         {
             camInputData = data;

@@ -30,7 +30,7 @@ namespace MMG
         private float desiredPitch;
         
         private Transform cameraPivotTransform;
-        private CinemachineVirtualCamera playerCam;
+        [HideInInspector] public CinemachineVirtualCamera playerCam;
             
         #endregion
 
@@ -53,6 +53,16 @@ namespace MMG
             SmoothRotation();
             ApplyRotation();
             HandleZoom();
+        }
+
+        private void OnEnable()
+        {
+            ConcelableAreaInteractable.OnEnteredSpot += ResetFOV;
+        }
+
+        public void ResetFOV()
+        {
+            playerCam.m_Lens.FieldOfView = 60;
         }
 
         void GetComponents()

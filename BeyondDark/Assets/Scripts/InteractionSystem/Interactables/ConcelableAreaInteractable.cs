@@ -1,5 +1,6 @@
 using Cinemachine;
 using MMG;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -27,6 +28,8 @@ namespace MMG
         bool canInteract = false;
 
         Vector3 startcamPosition;
+
+        public static event Action OnEnteredSpot;
 
         private void Start()
         {
@@ -93,6 +96,7 @@ namespace MMG
                     enteranceAnimator.SetTrigger("Enter");
                     StartCoroutine(WaitForEnterAnimation());
                     isHidding = true;
+                    OnEnteredSpot?.Invoke();
                 }
                 else
                 {
