@@ -12,7 +12,7 @@ namespace MMG
         bool MultipleUse { get; }
         bool IsInteractable { get; }
 
-        string TooltipMessage { get; }
+        string TooltipMessage { get;}
 
         void OnInteract();
     }

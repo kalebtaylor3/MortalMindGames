@@ -83,8 +83,11 @@ namespace MMG
             if(interactionData.IsEmpty())
                 return;
 
-            if (playerInventory.items.Count != interactionData.interactable.pickUp.pickUpID)
-                return;
+            if (interactionData.interactable.IsPickup)
+            {
+                if (playerInventory.items.Count != interactionData.interactable.pickUp.pickUpID)
+                    return;
+            }
 
             if(interactionInputData.InteractedClicked)
             {

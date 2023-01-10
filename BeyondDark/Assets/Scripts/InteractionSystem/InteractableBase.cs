@@ -22,11 +22,12 @@ namespace MMG
         [SerializeField] private bool multipleUse = false;
         [SerializeField] private bool isInteractable = true;
 
-        [SerializeField] private string displayText = "interact";
+        [SerializeField] public string displayText = "interact";
 
         [SerializeField] private bool isPickup = false;
+        [SerializeField] private bool isHidingSpot = false;
 
-        [SerializeField] public PickUp pickUp;
+        public PickUp pickUp;
 
         #endregion
 
@@ -55,10 +56,9 @@ namespace MMG
             {
                 Debug.Log("INTERACTED: " + gameObject.name);
 
-            if (IsPickup)
-                OnPickUp.Invoke(pickUp);
-
-            }
+                if (IsPickup)
+                    OnPickUp.Invoke(pickUp);
+        }
         #endregion
     }
 }

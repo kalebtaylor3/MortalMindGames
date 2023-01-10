@@ -24,7 +24,8 @@ namespace MMG
         [SerializeField] private float walkSpeed = 2f;
         [SerializeField] private float runSpeed = 3f;
         [SerializeField] private float jumpSpeed = 5f;
-        [Slider(0f, 1f)][SerializeField] private float moveBackwardsSpeedPercent = 0.5f;
+        [Slider(0f, 1f)][SerializeField] private float moveBackwardsSpeedPercentStanding = 0.4f;
+        [Slider(0f, 1f)][SerializeField] private float moveBackwardsSpeedPercentCrouching = 0.5f;
         [Slider(0f, 1f)][SerializeField] private float moveSideSpeedPercent = 0.75f;
 
         #endregion
@@ -182,7 +183,7 @@ namespace MMG
             GetComponents();
             InitVariables();
 
-            InteractableBase.OnPickUp += HandlePickUp;                
+            ItemInteractable.OnPickUp += HandlePickUp;                
         }
 
         void Update()
@@ -252,7 +253,7 @@ namespace MMG
                 cameraController = GetComponentInChildren<CameraController>();
                 yawTransform = cameraController.transform;
                 camTransform = GetComponentInChildren<Camera>().transform;
-                headBob = new HeadBob(headBobData, moveBackwardsSpeedPercent, moveSideSpeedPercent);
+                headBob = new HeadBob(headBobData, moveBackwardsSpeedPercentStanding, moveSideSpeedPercent);
                 playerInventory = GetComponent<PlayerInventoryController>();
             }
 
@@ -333,13 +334,13 @@ namespace MMG
 
                 if(footStepTimer <= 0)
                 {
-                if (Physics.Raycast(camTransform.position, Vector3.down, out RaycastHit hit, 3))
-                {
-                    footStepAudioSource.volume = currentSpeed / 3;
-                    footStepAudioSource.Play();
+                    if (Physics.Raycast(camTransform.position, Vector3.down, out RaycastHit hit, 3))
+                    {
+                        footStepAudioSource.volume = currentSpeed / 3;
+                        footStepAudioSource.Play();
+                    }
+                    footStepTimer = GetCurrentOffset;
                 }
-                footStepTimer = GetCurrentOffset;
-            }
 
             }
 
@@ -414,7 +415,10 @@ namespace MMG
                 currentSpeed = movementInputData.IsRunning && CanRun() ? runSpeed : walkSpeed;
                 currentSpeed = movementInputData.IsCrouching ? crouchSpeed : currentSpeed;
                 currentSpeed = !movementInputData.HasInput ? 0f : currentSpeed;
-                currentSpeed = movementInputData.InputVector.y == -1 ? currentSpeed * moveBackwardsSpeedPercent : currentSpeed;
+                if(!movementInputData.IsCrouching)
+                    currentSpeed = movementInputData.InputVector.y == -1 ? currentSpeed * moveBackwardsSpeedPercentStanding : currentSpeed;
+                else
+                    currentSpeed = movementInputData.InputVector.y == -1 ? currentSpeed * moveBackwardsSpeedPercentCrouching : currentSpeed;
                 currentSpeed = movementInputData.InputVector.x != 0 && movementInputData.InputVector.y ==  0 ? currentSpeed * moveSideSpeedPercent :  currentSpeed;
 
                 currentSpeed = currentSpeed * Mathf.Abs((movementInputData.InputVector.x + movementInputData.InputVector.y));

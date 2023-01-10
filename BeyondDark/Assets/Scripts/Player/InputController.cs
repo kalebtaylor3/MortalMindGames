@@ -13,6 +13,8 @@ namespace MMG
             [SerializeField] private InteractionInputData interactionInputData = null;
             [SerializeField] private InventoryInputData inventoryInputData = null;
             [SerializeField] private ItemInputData itemInputData = null;
+
+            [HideInInspector] public bool canMove = true;
         #endregion
 
         #region Functions
@@ -21,12 +23,15 @@ namespace MMG
                 cameraInputData.ResetInput();
                 movementInputData.ResetInput();
                 interactionInputData.ResetInput();
+            canMove = true;
             }
 
         void Update()
         {
             GetCameraInput();
-            GetMovementInputData();
+            if(canMove)
+                GetMovementInputData();
+
             GetInteractionInputData();
             GetInventoryInputData();
             GetItemInputData();

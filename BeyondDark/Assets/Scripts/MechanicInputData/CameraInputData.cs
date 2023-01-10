@@ -20,11 +20,13 @@ namespace MMG
             public float InputVectorX
             {
                 set => inputVector.x = value;
+                get => inputVector.x;   
             }
 
             public float InputVectorY
             {
                 set => inputVector.y = value;
+                get => InputVector.y;
             }
 
             public bool IsZooming
