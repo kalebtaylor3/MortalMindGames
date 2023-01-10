@@ -11,7 +11,6 @@ public class HiddingCameraController : MonoBehaviour
     private void LateUpdate()
     {
         revealPercentage = inputData.InputVectorX;
-        Debug.Log(revealPercentage);
 
         if (revealPercentage < 0)
             revealPercentage = 0f;

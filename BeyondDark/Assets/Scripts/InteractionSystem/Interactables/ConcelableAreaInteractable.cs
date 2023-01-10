@@ -19,7 +19,7 @@ namespace MMG
 
         [SerializeField] Animator enteranceAnimator;
         [SerializeField] GameObject rotator;
-        private Quaternion clampRotation;
+        public float rotationSpeed = 25;
 
         [SerializeField] InputController input;
 
@@ -32,7 +32,16 @@ namespace MMG
             if (isHidding)
                 displayText = "Press X to Exit";
 
-            rotator.transform.Rotate(new Vector3(0, exposurePercentage, 0) * 5.0f * Time.deltaTime);
+            if (cameraClamp == clamp.X && exposurePercentage > 0)
+                rotator.transform.Rotate(new Vector3(0, exposurePercentage, 0) * rotationSpeed * Time.deltaTime);
+            else if(cameraClamp == clamp.Y && exposurePercentage > 0) 
+                rotator.transform.Rotate(new Vector3(exposurePercentage, 0, 0) * rotationSpeed * Time.deltaTime);
+
+            if (exposurePercentage == 0)
+            {
+                rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+                //ResetRotator();
+            }
 
 
         }
@@ -60,6 +69,19 @@ namespace MMG
             yield return new WaitForSeconds(2f);
             //enable the camera controls n stuff
             enteranceAnimator.SetTrigger("Inside");
+            StartCoroutine(WaitForInside());
+        }
+
+        IEnumerator WaitForInside()
+        {
+            yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
+            //enable the camera controls n stuff
+            enteranceAnimator.enabled = false;
+        }
+
+        void ResetRotator()
+        {
+           // rotator.transform.rotation = Quaternion.Lerp(rotator.transform.rotation, new Quaternion(0, 0, 0, 0), 100 * Time.deltaTime);
         }
 
 
