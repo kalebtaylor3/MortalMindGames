@@ -485,6 +485,7 @@ namespace MMG
 
                 if(staminaTest <= 0f && movementInputData.IsRunning)
                 {
+                    cameraController.ResetFOV();
                     staminaTest = -1f;
                 }
                 

@@ -777,6 +777,7 @@ MonoBehaviour:
   sensitivity: {x: 100, y: 100}
   smoothAmount: {x: 10, y: 10}
   lookAngleMinMax: {x: -90, y: 90}
+  playerCam: {fileID: 0}
 --- !u!1 &4564336066582545215
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,6 +858,7 @@ MonoBehaviour:
   moveBackwardsSpeedPercentCrouching: 0.6
   moveSideSpeedPercent: 0.5
   canRunThreshold: 0.7
+  staminaTest: 0.8
   runTransitionCurve:
     serializedVersion: 2
     m_Curve:
@@ -967,11 +969,14 @@ MonoBehaviour:
   smoothFinalDirectionSpeed: 10
   smoothHeadBobSpeed: 5
   smoothInputMagnitudeSpeed: 5
+  currentSpeed: 0
+  smoothCurrentSpeed: 0
   stepSpeed: 0.5
   footStepAudioSource: {fileID: 4361883663916781840}
   grassSounds: []
   PulseFrequency: 0.25
-  rumbler: {fileID: 3181312810241107229}
+  rumbler: {fileID: 0}
+  UiManager: {fileID: 0}
 --- !u!114 &8741816588763353335
 MonoBehaviour:
   m_ObjectHideFlags: 0
