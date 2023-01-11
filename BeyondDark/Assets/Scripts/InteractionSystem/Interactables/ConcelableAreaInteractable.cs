@@ -17,6 +17,8 @@ namespace MMG
         private bool isHidding = false;
         public enum clamp { X, Y };
         public clamp cameraClamp;
+        [SerializeField] private float maxLocalRotationValue;
+        public bool negativeRotation;
 
         [SerializeField] Animator enteranceAnimator;
         [SerializeField] GameObject rotator;
@@ -26,6 +28,7 @@ namespace MMG
 
         bool happenOnce = false;
         bool canInteract = false;
+        bool canRotate = true;
 
         Vector3 startcamPosition;
 
@@ -47,14 +50,29 @@ namespace MMG
             else
                 displayText = "Press X to Hide!";
 
+            if (rotator.transform.localRotation.y > maxLocalRotationValue)
+                canRotate = false;
+            else
+                canRotate = true;
+
+            Debug.Log(rotator.transform.localRotation);
+
             if (cameraClamp == clamp.X && exposurePercentage > 0)
             {
-                rotator.transform.Rotate(new Vector3(0, exposurePercentage, 0) * rotationSpeed * Time.deltaTime);
-                concelableAreaCam.transform.position += new Vector3(exposurePercentage, 0, 0) * 0.15f * Time.deltaTime;
+                //Mathf.Clamp(rotator.transform.rotation.y, 0, 40);
+                if (canRotate)
+                {
+                    rotator.transform.Rotate(new Vector3(0, exposurePercentage, 0) * rotationSpeed * Time.deltaTime);
+                    if(negativeRotation)
+                        concelableAreaCam.transform.position += new Vector3(exposurePercentage * -1, 0, 0) * 0.15f * Time.deltaTime;
+                    else
+                        concelableAreaCam.transform.position += new Vector3(exposurePercentage, 0, 0) * 0.15f * Time.deltaTime;
+                }
             }
             else if (cameraClamp == clamp.Y && exposurePercentage > 0)
             {
-                rotator.transform.Rotate(new Vector3(exposurePercentage, 0, 0) * rotationSpeed * Time.deltaTime);
+                if(canRotate)
+                    rotator.transform.Rotate(new Vector3(exposurePercentage, 0, 0) * rotationSpeed * Time.deltaTime);
             }
 
             if (exposurePercentage == 0)
