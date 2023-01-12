@@ -731,12 +731,15 @@ namespace MMG
                 playerInventory.items.Add(PickUp.PickUpItem);
 
                 // Player Inventory to World Data
+                if(PickUp != null)
+                {
+                    WorldData.Instance.ItemPickedUp(PickUp.pickUpID);
+                    RelicSpawnManager.Instance.RelicPickedUp(PickUp.gameObject);
+                }
                 
-                WorldData.Instance.ItemPickedUp(PickUp.pickUpID);
-
 
                 playerInventory.UpdatePages();
-                PickUp.PickUpItem.SetActive(false);
+                PickUp.PickUpItem.SetActive(false);                
                 SetRumbleMode(1);
                 StartRumble();
             }

@@ -22,6 +22,7 @@ public class WorldData : MonoBehaviour
 
 
     public int lastCollectedRelic;
+    public int collectedRelicsCount;
 
 
     #endregion
@@ -46,6 +47,7 @@ public class WorldData : MonoBehaviour
     {
         // Will show what relic was last collected, we can use this for checkpoints
         lastCollectedRelic = id;
+        collectedRelicsCount++;        
     }
 
 
