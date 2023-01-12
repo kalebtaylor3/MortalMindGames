@@ -10,7 +10,6 @@ namespace MMG
         public GameObject PickUpItem;
         public int pickUpID;
 
-        public Vector3 spawnPosition;
-        //public bool obtained = false;
+        public bool RealmTp = false;
     }
 }

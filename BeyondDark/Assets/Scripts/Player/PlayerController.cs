@@ -180,6 +180,7 @@ namespace MMG
 
         #endregion
 
+
         [SerializeField]
         UIManager UiManager;
 
@@ -212,7 +213,7 @@ namespace MMG
                 SmoothSpeed();
                 SmoothDir();
 
-                // Stamina Test
+                // Stamina 
                 HandleStamina();
 
                 // Calculate Movement
@@ -733,13 +734,20 @@ namespace MMG
                 // Player Inventory to World Data
                 if(PickUp != null)
                 {
+
+                    if (PickUp.RealmTp)
+                    {
+                    //TpTest.Instance.tpPlayer();
+                    transform.position = Vector3.zero;
+                    }
+
                     WorldData.Instance.ItemPickedUp(PickUp.pickUpID);
                     RelicSpawnManager.Instance.RelicPickedUp(PickUp.gameObject);
                 }
                 
 
                 playerInventory.UpdatePages();
-                PickUp.PickUpItem.SetActive(false);                
+                //PickUp.PickUpItem.SetActive(false);                
                 SetRumbleMode(1);
                 StartRumble();
             }

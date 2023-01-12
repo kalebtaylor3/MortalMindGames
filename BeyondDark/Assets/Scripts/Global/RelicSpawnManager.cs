@@ -32,7 +32,7 @@ public class RelicSpawnManager : MonoBehaviour
     //Spawn the same relic in all possible spawnpoints
     public void SpawnRelics(int id)
     {
-        if (SpawnSpots.Count != 0)
+        if (SpawnSpots.Count > 1)
         {
             for (int i = 0; i < SpawnSpots.Count; i++)
             {
