@@ -18,6 +18,7 @@ namespace MMG
         public Transform cameraPosition;
         public Transform lookAtTransform;
         Vector3 lookAtStartPosition;
+        Quaternion startRotation;
 
         public enum clamp { X, Y };
         public clamp cameraClamp;
@@ -44,6 +45,7 @@ namespace MMG
             lookAtStartPosition = lookAtTransform.position;
 
             concelableAreaCam.cam.LookAt = lookAtTransform;
+            startRotation = rotator.transform.rotation;
 
             if (cameraClamp == clamp.Y)
                 concelableAreaCam.cam.Follow = lookAtTransform;
@@ -75,8 +77,6 @@ namespace MMG
                     canRotate = true;
             }
 
-            Debug.Log(rotator.transform.localRotation);
-
             if (cameraClamp == clamp.X && exposurePercentage > 0)
             {
                 //Mathf.Clamp(rotator.transform.rotation.y, 0, 40);
@@ -94,15 +94,32 @@ namespace MMG
                 if (canRotate)
                 {
                     rotator.transform.Rotate(new Vector3(exposurePercentage, 0, 0) * rotationSpeed * Time.deltaTime);
-                    lookAtTransform.position += new Vector3(exposurePercentage * -1 * 0.5f, exposurePercentage, 0) * 0.15f * Time.deltaTime;
+                    lookAtTransform.localPosition += new Vector3(0, exposurePercentage, exposurePercentage * -1 * 0.5f) * 0.15f * Time.deltaTime;
                 }
             }
 
             if (exposurePercentage == 0)
             {
-                rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
-                lookAtTransform.position = lookAtStartPosition;
-                //ResetRotator();
+                //rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+                //lookAtTransform.position = lookAtStartPosition;
+                lookAtTransform.position = Vector3.Lerp(lookAtTransform.position, lookAtStartPosition, 0.95f * Time.deltaTime);
+                ResetRotator();
+
+                if (cameraClamp == clamp.Y)
+                {
+                    if (rotator.transform.rotation.x > 0)
+                    {
+                        rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    }
+                }
+                else if(cameraClamp == clamp.X)
+                {
+                    if (rotator.transform.rotation.y > startRotation.y)
+                    {
+                        rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    }
+                }
+
             }
 
             if (isHidding)
@@ -184,7 +201,11 @@ namespace MMG
 
         void ResetRotator()
         {
-           rotator.transform.rotation = Quaternion.Lerp(rotator.transform.rotation, new Quaternion(0, 0, 0, 0), 100 * Time.deltaTime);
+
+            if (cameraClamp == clamp.Y)
+                rotator.transform.Rotate(new Vector3(-0.95f, 0), rotationSpeed * Time.deltaTime);
+            else
+                rotator.transform.Rotate(new Vector3(0, -0.95f), rotationSpeed * Time.deltaTime);
         }
 
         void ExitArea()
