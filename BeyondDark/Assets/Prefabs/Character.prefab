@@ -778,6 +778,7 @@ MonoBehaviour:
   smoothAmount: {x: 10, y: 10}
   lookAngleMinMax: {x: -90, y: 90}
   playerCam: {fileID: 0}
+  input: {fileID: 0}
 --- !u!1 &4564336066582545215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,6 +1185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3733246204780765489}
   - component: {fileID: 5475457248265828936}
+  - component: {fileID: 282188182673057159}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1245,6 +1247,22 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 688417064171961967}
+--- !u!114 &282188182673057159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7020463868016078546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07db5cf035c12fc4ea2fb53cfaca9e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noiseData: {fileID: 11400000, guid: 809cbeb44790709458172c4f9bbb7ecf, type: 2}
+  x: 1
+  y: 1
+  z: 0
 --- !u!1 &7202190093410307851
 GameObject:
   m_ObjectHideFlags: 0
