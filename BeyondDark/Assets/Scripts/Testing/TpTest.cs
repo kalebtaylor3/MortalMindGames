@@ -30,21 +30,23 @@ public class TpTest : MonoBehaviour
 
     public void tpPlayer()
     {
-        if (mortalRealmPlayer.activeInHierarchy == true)
+        if (WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
         {
-            CopySpecialComponents(mortalRealmPlayer, VorgonRealmPlayer);
+            //CopySpecialComponents(mortalRealmPlayer, VorgonRealmPlayer);
             mortalRealmPlayer.SetActive(false);
             VorgonRealmPlayer.SetActive(true);
+            WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
         }
-        else if (VorgonRealmPlayer.activeInHierarchy == true)
+        else if (WorldData.Instance.activeRealm == WorldData.REALMS.VORGON)
         {
-            CopySpecialComponents(VorgonRealmPlayer, mortalRealmPlayer);
-            VorgonRealmPlayer.SetActive(false);
+            //CopySpecialComponents(VorgonRealmPlayer, mortalRealmPlayer);
             mortalRealmPlayer.SetActive(true);
+            VorgonRealmPlayer.SetActive(false);
+            
         }
 
 
-        Debug.Log("tp");
+        // Debug.Log("tp");
 
         //CopySpecialComponents(mortalRealmPlayer, VorgonRealmPlayer);
 
@@ -54,8 +56,9 @@ public class TpTest : MonoBehaviour
     private void CopySpecialComponents(GameObject _sourceGO, GameObject _targetGO)
     {
 
-        _targetGO.GetComponent<PlayerInventoryController>().items = _sourceGO.GetComponent<PlayerInventoryController>().items;
-        _targetGO.GetComponent<PlayerController>().bookSlots = _sourceGO.GetComponent<PlayerController>().bookSlots;
+        //_targetGO.GetComponent<PlayerInventoryController>().items = _sourceGO.GetComponent<PlayerInventoryController>().items;
+        //_targetGO.GetComponent<PlayerController>().bookSlots = _sourceGO.GetComponent<PlayerController>().bookSlots;
+        //_targetGO.GetComponentInChildren<SpellBook>().transform.gameObject = _sourceGO.GetComponentInChildren<SpellBook>().transform.gameObject;
 
         //foreach (var component in _sourceGO.GetComponents<Component>())
         //{

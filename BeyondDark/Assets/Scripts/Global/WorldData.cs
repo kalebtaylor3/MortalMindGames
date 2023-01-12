@@ -24,6 +24,9 @@ public class WorldData : MonoBehaviour
     public int lastCollectedRelic;
     public int collectedRelicsCount;
 
+    public enum REALMS { MORTAL = 0, VORGON = 1 };
+
+    public REALMS activeRealm = REALMS.MORTAL;
 
     #endregion
 

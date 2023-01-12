@@ -731,25 +731,31 @@ namespace MMG
                 PickUp.PickUpItem = Instantiate(PickUp.PickUpItem, bookSlots[PickUp.pickUpID]);
                 playerInventory.items.Add(PickUp.PickUpItem);
 
-                // Player Inventory to World Data
-                if(PickUp != null)
-                {
-
-                    if (PickUp.RealmTp)
-                    {
-                    //TpTest.Instance.tpPlayer();
-                    transform.position = Vector3.zero;
-                    }
-
-                    WorldData.Instance.ItemPickedUp(PickUp.pickUpID);
-                    RelicSpawnManager.Instance.RelicPickedUp(PickUp.gameObject);
-                }
+                
                 
 
                 playerInventory.UpdatePages();
                 //PickUp.PickUpItem.SetActive(false);                
                 SetRumbleMode(1);
                 StartRumble();
+
+                // Player Inventory to World Data
+                if (PickUp != null)
+                {
+
+                    
+
+                    WorldData.Instance.ItemPickedUp(PickUp.pickUpID);
+                    RelicSpawnManager.Instance.RelicPickedUp(PickUp.gameObject);
+
+                    if (PickUp.RealmTp)
+                    {
+                        //TpTest.Instance.tpPlayer();
+                        //WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
+                        //transform.position = Vector3.zero;
+                    }
+                }
+
             }
 
             void HasActiveItem()
