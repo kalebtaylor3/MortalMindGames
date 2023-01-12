@@ -15,6 +15,10 @@ namespace MMG
         [SerializeField] private CinemachineVirtualCamera playerCamera;
         private float exposurePercentage;
         private bool isHidding = false;
+        public Transform cameraPosition;
+        public Transform lookAtTransform;
+        Vector3 lookAtStartPosition;
+
         public enum clamp { X, Y };
         public clamp cameraClamp;
         [SerializeField] private float maxLocalRotationValue;
@@ -37,6 +41,12 @@ namespace MMG
         private void Start()
         {
             startcamPosition = concelableAreaCam.transform.position;
+            lookAtStartPosition = lookAtTransform.position;
+
+            concelableAreaCam.cam.LookAt = lookAtTransform;
+
+            if (cameraClamp == clamp.Y)
+                concelableAreaCam.cam.Follow = lookAtTransform;
         }
 
         private void Update()
@@ -50,10 +60,20 @@ namespace MMG
             else
                 displayText = "Press X to Hide!";
 
-            if (rotator.transform.localRotation.y > maxLocalRotationValue)
-                canRotate = false;
+            if (cameraClamp == clamp.X)
+            {
+                if (rotator.transform.localRotation.y > maxLocalRotationValue)
+                    canRotate = false;
+                else
+                    canRotate = true;
+            }
             else
-                canRotate = true;
+            {
+                if (rotator.transform.localRotation.x > maxLocalRotationValue)
+                    canRotate = false;
+                else
+                    canRotate = true;
+            }
 
             Debug.Log(rotator.transform.localRotation);
 
@@ -64,21 +84,24 @@ namespace MMG
                 {
                     rotator.transform.Rotate(new Vector3(0, exposurePercentage, 0) * rotationSpeed * Time.deltaTime);
                     if(negativeRotation)
-                        concelableAreaCam.transform.position += new Vector3(exposurePercentage * -1, 0, 0) * 0.15f * Time.deltaTime;
+                        lookAtTransform.position += new Vector3(exposurePercentage * -1, 0, 0) * 0.15f * Time.deltaTime;
                     else
-                        concelableAreaCam.transform.position += new Vector3(exposurePercentage, 0, 0) * 0.15f * Time.deltaTime;
+                        lookAtTransform.position += new Vector3(exposurePercentage, 0, 0) * 0.15f * Time.deltaTime;
                 }
             }
             else if (cameraClamp == clamp.Y && exposurePercentage > 0)
             {
-                if(canRotate)
+                if (canRotate)
+                {
                     rotator.transform.Rotate(new Vector3(exposurePercentage, 0, 0) * rotationSpeed * Time.deltaTime);
+                    lookAtTransform.position += new Vector3(exposurePercentage * -1 * 0.5f, exposurePercentage, 0) * 0.15f * Time.deltaTime;
+                }
             }
 
             if (exposurePercentage == 0)
             {
                 rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
-                concelableAreaCam.transform.position = startcamPosition;
+                lookAtTransform.position = lookAtStartPosition;
                 //ResetRotator();
             }
 
@@ -86,9 +109,13 @@ namespace MMG
             {
                 if (concelableAreaCam.transform.position.x < -0.3f)
                 {
-                    concelableAreaCam.transform.position = new Vector3(-0.3f, concelableAreaCam.transform.position.y, concelableAreaCam.transform.position.z);
+                    //concelableAreaCam.transform.position = new Vector3(-0.3f, concelableAreaCam.transform.position.y, concelableAreaCam.transform.position.z);
+                    concelableAreaCam.cam.ForceCameraPosition(new Vector3(-0.3f, concelableAreaCam.transform.position.y, concelableAreaCam.transform.position.z), cameraPosition.rotation);
                 }
             }
+
+            concelableAreaCam.cam.ForceCameraPosition(cameraPosition.position, cameraPosition.rotation);
+
         }
 
         private void OnTriggerEnter(Collider other)
@@ -148,6 +175,11 @@ namespace MMG
             enteranceAnimator.enabled = false;
             isHidding = true;
             happenOnce=false;
+            concelableAreaCam.cam.LookAt = lookAtTransform;
+
+            if (cameraClamp == clamp.Y)
+                concelableAreaCam.cam.Follow = lookAtTransform;
+
         }
 
         void ResetRotator()
