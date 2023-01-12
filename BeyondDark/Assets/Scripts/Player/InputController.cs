@@ -37,6 +37,7 @@ namespace MMG
                 GetInteractionInputData();
             GetInventoryInputData();
             GetItemInputData();
+
         }
         void GetInteractionInputData()
         {

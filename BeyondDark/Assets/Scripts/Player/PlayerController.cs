@@ -608,6 +608,7 @@ namespace MMG
                 //    yawTransform.localPosition = localPos;
 
                    yield return null;
+
                 //}
             }
         #endregion
@@ -723,11 +724,17 @@ namespace MMG
         #region ItemMethods / InventoryMethods
             void HandlePickUp(PickUp PickUp)
             {
-            //Logic for handeling an item picku
-            //this is where the transportation to dead wood would happen
+                //Logic for handeling an item picku
+                //this is where the transportation to dead wood would happen
 
                 PickUp.PickUpItem = Instantiate(PickUp.PickUpItem, bookSlots[PickUp.pickUpID]);
                 playerInventory.items.Add(PickUp.PickUpItem);
+
+                // Player Inventory to World Data
+                
+                WorldData.Instance.ItemPickedUp(PickUp.pickUpID);
+
+
                 playerInventory.UpdatePages();
                 PickUp.PickUpItem.SetActive(false);
                 SetRumbleMode(1);

@@ -9,5 +9,8 @@ namespace MMG
 
         public GameObject PickUpItem;
         public int pickUpID;
+        
+        
+        //public bool obtained = false;
     }
 }
