@@ -5,14 +5,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpellBookInputData", menuName = "MMG_Player/Data/SpellBookInputData", order = 0)]
 public class SpellBookInputData : ScriptableObject
 {
-    private float pageTurn;
+    private bool pageTurnRight;
+    private bool pageTurnLeft;
     private bool zoomBook;
 
-    public float PageTurn
+    public bool PageTurnRight
     {
-        get => pageTurn;
-        set => pageTurn = value;
+        get => pageTurnRight;
+        set => pageTurnRight = value;
     }
+
+    public bool PageTurnLeft
+    {
+        get => pageTurnLeft;
+        set => pageTurnLeft = value;
+    }
+
     public bool ZoomBook
     {
         get => zoomBook;

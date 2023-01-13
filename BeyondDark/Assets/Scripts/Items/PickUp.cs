@@ -6,6 +6,7 @@ namespace MMG
 {
     public class PickUp: MonoBehaviour
     {
+        public RelicSpawnManager.RELIC_TYPE relicType = RelicSpawnManager.RELIC_TYPE.NONE;
 
         public GameObject PickUpItem;
         public int pickUpID;
