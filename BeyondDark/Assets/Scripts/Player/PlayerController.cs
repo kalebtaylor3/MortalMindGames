@@ -207,7 +207,7 @@ namespace MMG
             if(yawTransform != null)
                 RotateTowardsCamera();
 
-            if(characterController)
+            if (characterController)
             {
                 // Check if Grounded,Wall etc
                 CheckIfGrounded();
@@ -359,9 +359,10 @@ namespace MMG
                 {
                     if (Physics.Raycast(camTransform.position, Vector3.down, out RaycastHit hit, 3))
                     {
-                        footStepAudioSource.volume = currentSpeed / 3;
-                        footStepAudioSource.Play();
+                        //change sound depending on terrain
                     }
+                    footStepAudioSource.volume = currentSpeed / 3;
+                    footStepAudioSource.Play();
                     footStepTimer = GetCurrentOffset;
                 }
 
@@ -453,6 +454,9 @@ namespace MMG
 
                 currentSpeed = currentSpeed * Mathf.Abs((movementInputData.InputVector.x + movementInputData.InputVector.y));
 
+                if (!movementInputData.IsRunning && currentSpeed > walkSpeed)
+                    currentSpeed = walkSpeed;
+
                 
 
                 //if (movementInputData.IsRunning && currentSpeed >= runSpeed && CanRun())
@@ -470,12 +474,11 @@ namespace MMG
                 float smoothInputVectorMagnitude = experimental ? this.smoothInputVectorMagnitude : 1f;
                 Vector3 finalVector = smoothFinalMoveDir * finalSmoothCurrentSpeed * smoothInputVectorMagnitude;
 
-                // We have to assign individually in order to make our character jump properly because before it was overwriting Y value and that's why it was jerky now we are adding to Y value and it's working
                 finalMoveVector.x = finalVector.x ;
                 finalMoveVector.z = finalVector.z ;
 
-                if(characterController.isGrounded) // Thanks to this check we are not applying extra y velocity when in air so jump will be consistent
-                    finalMoveVector.y += finalVector.y ; //so this makes our player go in forward dir using slope normal but when jumping this is making it go higher so this is weird
+                if(characterController.isGrounded) 
+                    finalMoveVector.y += finalVector.y ;
 
             }
 
