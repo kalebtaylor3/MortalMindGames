@@ -16,9 +16,9 @@ namespace MMG
         [SerializeField] private CameraZoom cameraZoom = null;
         [SerializeField] private CameraSwaying cameraSway = null;
         [SerializeField] private LayerMask interactableLayer = ~0;
-        [SerializeField] private Transform peakLeft;
-        [SerializeField] private Transform peakRight;
-        [SerializeField] private Transform peakIdle;
+
+        public CinemachineRecomposer angle;
+        public CinemachineCameraOffset offsett;
 
         [Space,Header("Look Settings")]
         [SerializeField] private Vector2 sensitivity = Vector2.zero;
@@ -106,29 +106,33 @@ namespace MMG
                     PeakRight();
                 else
                     PeakIdle();
-
-                //if (!camInputData.IsPeakingLeft && !camInputData.IsPeakingRight)
-                //    PeakIdle();
             }
         }
 
         void PeakLeft()
         {
             Debug.Log("Peaking Left");
-            transform.rotation = Quaternion.Lerp(transform.rotation, peakLeft.rotation, 0.65f);
+            //transform.rotation = Quaternion.Lerp(transform.rotation, peakLeft.rotation, 0.65f);
             //this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, peakLeft.position, 0.55f);
+            angle.m_Dutch = Mathf.Lerp(angle.m_Dutch, 35, 1.25f * Time.deltaTime);
+            offsett.m_Offset.x = Mathf.Lerp(offsett.m_Offset.x, -0.60f, 1.25f * Time.deltaTime);
         }
 
         void PeakRight()
         {
             Debug.Log("Peaking Right");
             //this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, peakRight.position, 0.55f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, peakRight.rotation, 0.65f);
+            //transform.rotation = Quaternion.Lerp(transform.rotation, peakRight.rotation, 0.65f);
+            //playerCam.ForceCameraPosition(peakRight.position, peakRight.rotation);
+            //angle.m_Dutch += Mathf.Lerp(angle.m_Dutch, -25, 0.25f * Time.deltaTime);
+            angle.m_Dutch = Mathf.Lerp(angle.m_Dutch, -35, 1.25f * Time.deltaTime);
+            offsett.m_Offset.x = Mathf.Lerp(offsett.m_Offset.x, 0.60f, 1.25f * Time.deltaTime);
         }
 
         void PeakIdle()
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, peakIdle.rotation, 0.65f);
+            angle.m_Dutch = Mathf.Lerp(angle.m_Dutch, 0, 1.25f * Time.deltaTime);
+            offsett.m_Offset.x = Mathf.Lerp(offsett.m_Offset.x, 0, 1.25f * Time.deltaTime);
         }
 
         void CalculateRotation()

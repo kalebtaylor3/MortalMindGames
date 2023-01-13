@@ -131,7 +131,7 @@ namespace MMG
                 }
             }
 
-            concelableAreaCam.cam.ForceCameraPosition(cameraPosition.position, cameraPosition.rotation);
+            concelableAreaCam.cam.ForceCameraPosition(cameraPosition.position, lookAtTransform.rotation);
 
         }
 
