@@ -449,10 +449,10 @@ namespace MMG
 
                 
 
-                if (movementInputData.IsRunning && currentSpeed > runSpeed )
+                if (movementInputData.IsRunning && currentSpeed >= runSpeed && CanRun())
                     currentSpeed = runSpeed;
                
-                if (!movementInputData.IsRunning && currentSpeed > walkSpeed)
+                if (!movementInputData.IsRunning && currentSpeed >= walkSpeed)
                     currentSpeed = walkSpeed;
 
                 if (currentSpeed < 0.5f)

@@ -74,7 +74,7 @@ namespace MMG
             movementInputData.InputVectorX = Gamepad.current.leftStick.x.ReadValue();
             movementInputData.InputVectorY = Gamepad.current.leftStick.y.ReadValue();
 
-            movementInputData.RunClicked = Gamepad.current.leftStickButton.wasPressedThisFrame;
+            movementInputData.RunClicked = Gamepad.current.leftStickButton.IsPressed();
             movementInputData.RunReleased = Gamepad.current.leftStickButton.wasReleasedThisFrame;
 
             if(movementInputData.RunClicked && movementInputData.IsCrouching)
