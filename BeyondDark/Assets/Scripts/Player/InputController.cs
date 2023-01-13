@@ -28,6 +28,17 @@ namespace MMG
                 canMove = true;
             }
 
+        private void OnEnable()
+        {
+            ConcelableAreaInteractable.OnEnteredSpot += UnCrouch;
+        }
+
+        void UnCrouch()
+        {
+            if(movementInputData.IsCrouching)
+                movementInputData.CrouchClicked = true;
+        }
+
         void Update()
         {
             GetCameraInput();
