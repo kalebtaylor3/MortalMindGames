@@ -160,7 +160,12 @@ namespace MMG
         [Space, Header("Foot Step Paramaters")]
         [SerializeField] private float stepSpeed = 0.9f;
         [SerializeField] private AudioSource footStepAudioSource;
-        [SerializeField] private AudioClip[] grassSounds;
+        [SerializeField] private AudioClip[] grassWalkSounds;
+        [SerializeField] private AudioClip[] grassSprintSounds;
+        [SerializeField] private AudioClip[] dirtWalkSounds;
+        [SerializeField] private AudioClip[] dirtSprintSounds;
+        [SerializeField] private AudioClip[] woodWalkSounds;
+        [SerializeField] private AudioClip[] woodSprintSounds;
 
         private float footStepTimer = 0;
         private float GetCurrentOffset;
@@ -250,7 +255,7 @@ namespace MMG
         {
             if(currentSpeed >= runSpeed)
             {
-                GetCurrentOffset = 0.4f;
+                GetCurrentOffset = 0.35f;
             }
             else if(currentSpeed == walkSpeed)
             {

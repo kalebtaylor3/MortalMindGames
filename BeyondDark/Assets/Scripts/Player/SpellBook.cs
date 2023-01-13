@@ -44,29 +44,23 @@ public class SpellBook : MonoBehaviour
     {
         if (pages.Count != 0)
         {
-            inputData.PageTurn = Input.GetAxis("PageTurn");
+            inputData.PageTurnRight = Gamepad.current.dpad.right.wasPressedThisFrame;
+            inputData.PageTurnLeft = Gamepad.current.dpad.left.wasPressedThisFrame;
 
-            if (inputData.PageTurn == 1)
+            if (inputData.PageTurnRight)
             {
-                turn += 1;
-
-                if (turn == 10)
-                {
-                    Debug.Log("Page turn right");
-                    TurnPage("Right");
-                    turn = 0;
-                }
+                Debug.Log("Page turn right");
+                TurnPage("Right");
+                turn = 0;
+                inputData.PageTurnRight = false;
             }
-            else if (inputData.PageTurn == -1)
-            {
-                turn += 1;
 
-                if (turn == 10)
-                {
-                    Debug.Log("Page turn left");
-                    TurnPage("Left");
-                    turn = 0;
-                }
+            if (inputData.PageTurnLeft)
+            {
+                Debug.Log("Page turn left");
+                TurnPage("Left");
+                turn = 0;
+                inputData.PageTurnLeft = false;
             }
         }
 
