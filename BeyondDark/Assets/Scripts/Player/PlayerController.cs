@@ -218,13 +218,14 @@ namespace MMG
                 SmoothSpeed();
                 SmoothDir();
 
-                // Stamina 
-                HandleStamina();
-
                 // Calculate Movement
                 CalculateMovementDirection();
                 CalculateSpeed();
                 CalculateFinalMovement();
+
+
+                // Stamina 
+                HandleStamina();
 
                 // Handle Player Movement, Gravity, Jump, Crouch etc.
                 HandleCrouch();
@@ -259,11 +260,11 @@ namespace MMG
             }
             else if(currentSpeed == walkSpeed)
             {
-                GetCurrentOffset = 0.6f;
+                GetCurrentOffset = 0.5f;
             }
             else
             {
-                GetCurrentOffset = 0.8f;
+                GetCurrentOffset = 0.7f;
             }
         }
 

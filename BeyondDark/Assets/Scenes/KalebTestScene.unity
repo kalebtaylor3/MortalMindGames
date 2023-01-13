@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40bfdc1df909c943bf86057dc5bd51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  relicType: -1
   PickUpItem: {fileID: 8050306034351926578, guid: 95444fe8b535bd84d96dc0ef79535032,
     type: 3}
   pickUpID: 3
@@ -390,6 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40bfdc1df909c943bf86057dc5bd51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  relicType: -1
   PickUpItem: {fileID: 3305152424148826089, guid: fb143f1d183ae2740be3399523fc8c12,
     type: 3}
   pickUpID: 1
@@ -711,6 +713,11 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 5865379194473271129, guid: d986174fc53a17f469747d21442a5adf,
+        type: 3}
+      propertyPath: staminaSlider
+      value: 
+      objectReference: {fileID: 869344979}
     - target: {fileID: 5865379194876029320, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1270,6 +1277,18 @@ PrefabInstance:
     - {fileID: 3181312810241107229, guid: 4ee7d5f18f6370a429e5e1024be1680c, type: 3}
     - {fileID: 3067861898405976709, guid: 4ee7d5f18f6370a429e5e1024be1680c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4ee7d5f18f6370a429e5e1024be1680c, type: 3}
+--- !u!114 &869344979 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1797845899553406158, guid: d986174fc53a17f469747d21442a5adf,
+    type: 3}
+  m_PrefabInstance: {fileID: 496619007}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &936570536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1743,6 +1762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40bfdc1df909c943bf86057dc5bd51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  relicType: -1
   PickUpItem: {fileID: 1661244542805736699, guid: 7959175190517904399d30996090e8f6,
     type: 3}
   pickUpID: 2
@@ -1878,6 +1898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40bfdc1df909c943bf86057dc5bd51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  relicType: -1
   PickUpItem: {fileID: 3305152424148826089, guid: 72358ed76f7d73048a7fa4cb4342b93c,
     type: 3}
   pickUpID: 0
