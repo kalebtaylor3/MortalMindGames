@@ -447,26 +447,34 @@ namespace MMG
                 currentSpeed = movementInputData.IsCrouching ? crouchSpeed : currentSpeed;
                 currentSpeed = !movementInputData.HasInput ? 0f : currentSpeed;
                 if(!movementInputData.IsCrouching)
-                    currentSpeed = movementInputData.InputVector.y == -1 ? currentSpeed * moveBackwardsSpeedPercentStanding : currentSpeed;
+                    currentSpeed = movementInputData.InputVector.y <= -1 ? currentSpeed * moveBackwardsSpeedPercentStanding : currentSpeed;
                 else
-                    currentSpeed = movementInputData.InputVector.y == -1 ? currentSpeed * moveBackwardsSpeedPercentCrouching : currentSpeed;
+                    currentSpeed = movementInputData.InputVector.y <= -1 ? currentSpeed * moveBackwardsSpeedPercentCrouching : currentSpeed;
                 currentSpeed = movementInputData.InputVector.x != 0 && movementInputData.InputVector.y ==  0 ? currentSpeed * moveSideSpeedPercent :  currentSpeed;
 
-                currentSpeed = currentSpeed * Mathf.Abs((movementInputData.InputVector.x + movementInputData.InputVector.y));
+                float speedCalculation = Mathf.Abs(movementInputData.InputVector.x + movementInputData.InputVector.y);
 
-                if (!movementInputData.IsRunning && currentSpeed > walkSpeed)
-                    currentSpeed = walkSpeed;
+                currentSpeed = currentSpeed * speedCalculation;
 
-                
+                Debug.Log(speedCalculation);
 
-                //if (movementInputData.IsRunning && currentSpeed >= runSpeed && CanRun())
-                //    currentSpeed = runSpeed;
-               
-                //if (!movementInputData.IsRunning && currentSpeed >= walkSpeed)
-                //    currentSpeed = walkSpeed;
 
-                //if (currentSpeed < 0.5f)
-                //    currentSpeed = 0;
+                if (!movementInputData.IsRunning && speedCalculation <= 0.3f && speedCalculation > 0)
+                    currentSpeed = walkSpeed * moveSideSpeedPercent;
+
+                if (!movementInputData.IsRunning && speedCalculation > 1.1f)
+                    currentSpeed = walkSpeed * moveSideSpeedPercent;
+
+
+
+            //if (movementInputData.IsRunning && currentSpeed >= runSpeed && CanRun())
+            //    currentSpeed = runSpeed;
+
+            //if (!movementInputData.IsRunning && currentSpeed >= walkSpeed)
+            //    currentSpeed = walkSpeed;
+
+            //if (currentSpeed < 0.5f)
+            //    currentSpeed = 0;
             }
 
             void CalculateFinalMovement()
