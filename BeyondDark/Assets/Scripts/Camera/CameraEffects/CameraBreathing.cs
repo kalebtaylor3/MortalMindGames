@@ -16,7 +16,7 @@ namespace MMG
         [SerializeField] private bool z = true;
 
         private PerlinNoiseScroller perlinNoiseScroller;
-        private Vector3 finalRot;
+        [HideInInspector] public Vector3 finalRot;
         private Vector3 finalPos;
 
         private float initialFrequency;

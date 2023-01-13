@@ -3,6 +3,7 @@ using MMG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HiddingCameraController : MonoBehaviour
 {
@@ -15,9 +16,9 @@ public class HiddingCameraController : MonoBehaviour
     private void LateUpdate()
     {
         if (cameraClamp == clamp.X)
-            revealPercentage = inputData.InputVectorX;
+            revealPercentage = Gamepad.current.rightStick.x.ReadValue();
         else
-            revealPercentage = inputData.InputVectorY;
+            revealPercentage = Gamepad.current.rightStick.y.ReadValue();
 
         if (revealPercentage < 0)
             revealPercentage = 0f;

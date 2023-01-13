@@ -484,6 +484,7 @@ GameObject:
   - component: {fileID: 316828197919555902}
   - component: {fileID: 6166497913466407452}
   - component: {fileID: 6979448676916354499}
+  - component: {fileID: 1450786249974941152}
   m_Layer: 0
   m_Name: LookAtObject
   m_TagString: Untagged
@@ -569,6 +570,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9999998, y: 1, z: 0.9999998}
   m_Center: {x: -0.00000047683707, y: 0, z: -0.00000023841858}
+--- !u!114 &1450786249974941152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3696263081797168311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07db5cf035c12fc4ea2fb53cfaca9e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noiseData: {fileID: 11400000, guid: 597a28d614f0e2a449871720112bf46b, type: 2}
+  x: 1
+  y: 1
+  z: 1
+  finalRot: {x: 0, y: 0, z: 0}
 --- !u!1 &4486899957591860356
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,7 +679,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4486899958126474518}
   - component: {fileID: 4486899958126474519}
-  - component: {fileID: 4486899958126474520}
   - component: {fileID: 4486899958126474521}
   m_Layer: 0
   m_Name: Concelable Area Camera
@@ -705,7 +722,7 @@ MonoBehaviour:
   m_Priority: 5
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 3975464654848557385}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 10
@@ -724,22 +741,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 4486899957591860355}
---- !u!114 &4486899958126474520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4486899958126474522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07db5cf035c12fc4ea2fb53cfaca9e0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noiseData: {fileID: 11400000, guid: 597a28d614f0e2a449871720112bf46b, type: 2}
-  x: 1
-  y: 0
-  z: 1
 --- !u!114 &4486899958126474521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,7 +754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 4486899958126474519}
-  inputData: {fileID: 11400000, guid: 91ebd8974cbf1964f86a0e8b5e93ed5c, type: 2}
+  inputData: {fileID: 11400000, guid: 66c51e19f02a0e441b809a35fbf7888f, type: 2}
   cameraClamp: 1
 --- !u!1 &4486899958355208621
 GameObject:
@@ -917,7 +918,6 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   cameraPosition: {fileID: 2597375166718141064}
   lookAtTransform: {fileID: 3975464654848557385}
-  exitPosition: {fileID: 0}
   cameraClamp: 1
   maxLocalRotationValue: 0.45
   negativeRotation: 1

@@ -16,6 +16,7 @@ namespace MMG
 
             [HideInInspector] public bool canMove = true;
             [HideInInspector] public bool canInteract = true;
+
         #endregion
 
         #region Functions
@@ -47,8 +48,11 @@ namespace MMG
 
         void GetCameraInput()
         {
-            cameraInputData.InputVectorX = Gamepad.current.rightStick.x.ReadValue();
-            cameraInputData.InputVectorY = Gamepad.current.rightStick.y.ReadValue();
+            if (canMove)
+            {
+                cameraInputData.InputVectorX = Gamepad.current.rightStick.x.ReadValue();
+                cameraInputData.InputVectorY = Gamepad.current.rightStick.y.ReadValue();
+            }
 
             cameraInputData.ZoomClicked = Gamepad.current.rightTrigger.wasPressedThisFrame;
             cameraInputData.ZoomReleased = Gamepad.current.rightTrigger.wasReleasedThisFrame;

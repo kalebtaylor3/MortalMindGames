@@ -154,6 +154,7 @@ namespace MMG
                 {
                     base.OnInteract();
                     input.canMove = false;
+                    //playerCameraHolder.enabled = false;
                     exposurePercentage = 0;
                     enteranceAnimator.SetTrigger("Enter");
                     StartCoroutine(WaitForEnterAnimation());
@@ -225,8 +226,9 @@ namespace MMG
 
         IEnumerator WaitForExit()
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.8f);
             happenOnce = false;
+
         }
 
         IEnumerator WaitForExitClose()
