@@ -13,6 +13,7 @@ namespace MMG
     {
         [SerializeField] private HiddingCameraController concelableAreaCam;
         [SerializeField] private CinemachineVirtualCamera playerCamera;
+        [SerializeField] private AudioSource doorCreak;
         private float exposurePercentage;
         private bool isHidding = false;
         public Transform cameraPosition;
@@ -65,14 +66,20 @@ namespace MMG
             if (cameraClamp == clamp.X)
             {
                 if (rotator.transform.localRotation.y > maxLocalRotationValue)
+                {
+                    doorCreak.Stop();
                     canRotate = false;
+                }
                 else
                     canRotate = true;
             }
             else
             {
                 if (rotator.transform.localRotation.x > maxLocalRotationValue)
+                {
+                    doorCreak.Stop();
                     canRotate = false;
+                }
                 else
                     canRotate = true;
             }
@@ -82,6 +89,9 @@ namespace MMG
                 //Mathf.Clamp(rotator.transform.rotation.y, 0, 40);
                 if (canRotate)
                 {
+                    if (!doorCreak.isPlaying)
+                        doorCreak.Play();
+
                     rotator.transform.Rotate(new Vector3(0, exposurePercentage, 0) * rotationSpeed * Time.deltaTime);
                     if(negativeRotation)
                         lookAtTransform.position += new Vector3(exposurePercentage * -1, 0, 0) * 0.15f * Time.deltaTime;
@@ -93,6 +103,8 @@ namespace MMG
             {
                 if (canRotate)
                 {
+                    if(!doorCreak.isPlaying)
+                        doorCreak.Play();
                     rotator.transform.Rotate(new Vector3(exposurePercentage, 0, 0) * rotationSpeed * Time.deltaTime);
                     lookAtTransform.localPosition += new Vector3(0, exposurePercentage, exposurePercentage * -1 * 0.5f) * 0.15f * Time.deltaTime;
                 }
@@ -104,6 +116,7 @@ namespace MMG
                 //lookAtTransform.position = lookAtStartPosition;
                 lookAtTransform.position = Vector3.Lerp(lookAtTransform.position, lookAtStartPosition, 0.95f * Time.deltaTime);
                 ResetRotator();
+                doorCreak.Stop();
 
                 if (cameraClamp == clamp.Y)
                 {
