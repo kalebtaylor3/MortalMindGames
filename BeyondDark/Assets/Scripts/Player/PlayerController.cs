@@ -747,21 +747,21 @@ namespace MMG
                 // Player Inventory to World Data
                 if (PickUp != null)
                 {
+                    if (PickUp.RealmTp)
+                    {
+                        TpTest.Instance.tpPlayer();
+                        //WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
+                        //transform.position = Vector3.zero;
+                    }
 
-                    
 
                     WorldData.Instance.ItemPickedUp(PickUp.pickUpID);
                     RelicSpawnManager.Instance.RelicPickedUp(PickUp.gameObject);
 
-                    if (PickUp.RealmTp)
-                    {
-                        //TpTest.Instance.tpPlayer();
-                        //WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
-                        //transform.position = Vector3.zero;
-                    }
+
                 }
 
-            }
+        }
 
             void HasActiveItem()
             {

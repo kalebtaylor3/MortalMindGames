@@ -19,6 +19,9 @@ public class RelicSpawnManager : MonoBehaviour
     #endregion
 
     #region Variables
+
+    public enum RELIC_TYPE : int { NONE = -1, MAP = 0, FLAMES = 1, WALL = 2, SWORD = 3 };
+
     private string spawnPointsTag = "RelicSpawnPoints";
 
     [SerializeField]
@@ -36,13 +39,13 @@ public class RelicSpawnManager : MonoBehaviour
         {
             for (int i = 0; i < SpawnSpots.Count; i++)
             {
-                if(Relics[id - 1] != null)
+                if (Relics[id - 1] != null)
                 {
-                    GameObject relic = Instantiate(Relics[id - 1], SpawnSpots[i].transform);                    
+                    GameObject relic = Instantiate(Relics.Find((GameObject) => (int)GameObject.GetComponent<PickUp>().relicType == id), SpawnSpots[i].transform);
                 }
             }
         }
-        
+
     }
 
     // Handles a relic being picked up
@@ -50,7 +53,7 @@ public class RelicSpawnManager : MonoBehaviour
     {
         // Clear the spawnpoints
         SpawnSpots.Clear();
-                
+
         // Destroy the Spawn Point
         if (go.transform.parent != null)
         {
@@ -60,19 +63,19 @@ public class RelicSpawnManager : MonoBehaviour
         // Populate spawnpoints again
         SpawnSpots.AddRange(GameObject.FindGameObjectsWithTag(spawnPointsTag));
 
-        
+
         // Destroy the previous relics
         for (int i = 0; i < SpawnSpots.Count; i++)
         {
-            if(SpawnSpots[i].transform.childCount != 0)
+            if (SpawnSpots[i].transform.childCount != 0)
             {
                 Destroy(SpawnSpots[i].transform.GetChild(0).gameObject);
             }
-            
+
         }
 
         // Spawn next relic
-        SpawnRelics(WorldData.Instance.collectedRelicsCount);
+        SpawnRelics((int)go.GetComponent<PickUp>().relicType + 1);
     }
     #endregion
 }

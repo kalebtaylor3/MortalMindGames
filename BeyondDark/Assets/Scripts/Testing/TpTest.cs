@@ -30,6 +30,23 @@ public class TpTest : MonoBehaviour
 
     public void tpPlayer()
     {
+        StartCoroutine(RealmTransport());
+
+        // Debug.Log("tp");
+
+        //CopySpecialComponents(mortalRealmPlayer, VorgonRealmPlayer);
+
+        //mortalRealmPlayer.transform.position = Vector3.zero;
+    }
+
+    IEnumerator RealmTransport()
+    {
+        Debug.Log("before");
+
+        yield return new WaitForSeconds(1.0f);
+
+        Debug.Log("after");
+
         if (WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
         {
             //CopySpecialComponents(mortalRealmPlayer, VorgonRealmPlayer);
@@ -42,15 +59,10 @@ public class TpTest : MonoBehaviour
             //CopySpecialComponents(VorgonRealmPlayer, mortalRealmPlayer);
             mortalRealmPlayer.SetActive(true);
             VorgonRealmPlayer.SetActive(false);
-            
+            WorldData.Instance.activeRealm = WorldData.REALMS.MORTAL;
         }
 
 
-        // Debug.Log("tp");
-
-        //CopySpecialComponents(mortalRealmPlayer, VorgonRealmPlayer);
-
-        //mortalRealmPlayer.transform.position = Vector3.zero;
     }
 
     private void CopySpecialComponents(GameObject _sourceGO, GameObject _targetGO)
@@ -76,3 +88,4 @@ public class TpTest : MonoBehaviour
         //}
     }
 }
+
