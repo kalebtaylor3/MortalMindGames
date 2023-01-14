@@ -258,7 +258,7 @@ namespace MMG
             {
                 GetCurrentOffset = 0.35f;
             }
-            else if(currentSpeed == walkSpeed)
+            else if(currentSpeed >= walkSpeed - 0.5f)
             {
                 GetCurrentOffset = 0.5f;
             }
@@ -458,12 +458,23 @@ namespace MMG
 
                 Debug.Log(speedCalculation);
 
+                if (!movementInputData.IsCrouching)
+                {
+                    if (!movementInputData.IsRunning && speedCalculation <= 0.2f && speedCalculation > 0)
+                        currentSpeed = walkSpeed * moveSideSpeedPercent;
 
-                if (!movementInputData.IsRunning && speedCalculation <= 0.3f && speedCalculation > 0)
-                    currentSpeed = walkSpeed * moveSideSpeedPercent;
+                    if (!movementInputData.IsRunning && speedCalculation > 1.1f)
+                        currentSpeed = walkSpeed * moveSideSpeedPercent;
+                }
+                else
+                {
+                    if (!movementInputData.IsRunning && speedCalculation <= 0.2f && speedCalculation > 0)
+                        currentSpeed = crouchSpeed * moveBackwardsSpeedPercentCrouching;
 
-                if (!movementInputData.IsRunning && speedCalculation > 1.1f)
-                    currentSpeed = walkSpeed * moveSideSpeedPercent;
+                    if (!movementInputData.IsRunning && speedCalculation > 1.1f)
+                        currentSpeed = crouchSpeed * moveBackwardsSpeedPercentCrouching;
+                }
+
 
 
 

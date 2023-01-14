@@ -77,8 +77,8 @@ namespace MMG
             {
                 if (rotator.transform.localRotation.x > maxLocalRotationValue)
                 {
-                    doorCreak.Stop();
                     canRotate = false;
+                    doorCreak.Stop();
                 }
                 else
                     canRotate = true;
@@ -110,29 +110,35 @@ namespace MMG
                 }
             }
 
-            if (exposurePercentage == 0)
+            if (isHidding)
             {
-                //rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
-                //lookAtTransform.position = lookAtStartPosition;
-                lookAtTransform.position = Vector3.Lerp(lookAtTransform.position, lookAtStartPosition, 0.95f * Time.deltaTime);
-                ResetRotator();
-                doorCreak.Stop();
-
-                if (cameraClamp == clamp.Y)
+                if (exposurePercentage == 0)
                 {
-                    if (rotator.transform.rotation.x > 0)
-                    {
-                        rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
-                    }
-                }
-                else if(cameraClamp == clamp.X)
-                {
-                    if (rotator.transform.rotation.y > startRotation.y)
-                    {
-                        rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
-                    }
-                }
+                    //rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    //lookAtTransform.position = lookAtStartPosition;
+                    lookAtTransform.position = Vector3.Lerp(lookAtTransform.position, lookAtStartPosition, 0.95f * Time.deltaTime);
+                    if (!doorCreak.isPlaying)
+                        doorCreak.Play();
+                    ResetRotator();
 
+                    if (cameraClamp == clamp.Y)
+                    {
+                        if (rotator.transform.rotation.x > 0)
+                        {
+                            rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+                            doorCreak.Stop();
+                        }
+                    }
+                    else if (cameraClamp == clamp.X)
+                    {
+                        if (rotator.transform.rotation.y > startRotation.y)
+                        {
+                            rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+                            doorCreak.Stop();
+                        }
+                    }
+
+                }
             }
 
             if (isHidding)
@@ -157,7 +163,6 @@ namespace MMG
         {
             canInteract = false;
         }
-
 
         public override void OnInteract()
         {
@@ -215,7 +220,6 @@ namespace MMG
 
         void ResetRotator()
         {
-
             if (cameraClamp == clamp.Y)
                 rotator.transform.Rotate(new Vector3(-0.95f, 0), rotationSpeed * Time.deltaTime);
             else
