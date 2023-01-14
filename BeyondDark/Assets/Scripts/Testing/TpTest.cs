@@ -1,4 +1,5 @@
 using MMG;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class TpTest : MonoBehaviour
     [SerializeField]
     private Vector3 tpPosition;
 
+    //public static event Action RealmTransportation;
 
 
     public void tpPlayer()
@@ -42,7 +44,8 @@ public class TpTest : MonoBehaviour
 
     IEnumerator RealmTransport()
     {
-        Debug.Log("before");
+        Debug.Log("before");        
+        //RealmTransportation?.Invoke();
 
         yield return new WaitForSeconds(3.0f);
 
@@ -52,7 +55,8 @@ public class TpTest : MonoBehaviour
         {
             //CopySpecialComponents(mortalRealmPlayer, VorgonRealmPlayer);
             VorgonRealmPlayer.SetActive(true);
-            mortalRealmPlayer.SetActive(false);            
+            mortalRealmPlayer.SetActive(false);
+            
             WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
         }
         else if (WorldData.Instance.activeRealm == WorldData.REALMS.VORGON)
@@ -60,6 +64,7 @@ public class TpTest : MonoBehaviour
             //CopySpecialComponents(VorgonRealmPlayer, mortalRealmPlayer);
             mortalRealmPlayer.SetActive(true);
             VorgonRealmPlayer.SetActive(false);
+            //RealmTransportation?.Invoke();
             WorldData.Instance.activeRealm = WorldData.REALMS.MORTAL;
         }
 

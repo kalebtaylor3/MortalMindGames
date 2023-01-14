@@ -168,6 +168,10 @@ namespace MMG
         [SerializeField] private AudioClip[] woodWalkSounds;
         [SerializeField] private AudioClip[] woodSprintSounds;
 
+        // EFFECTS / Audio TESTING
+        [SerializeField] private AudioSource EffectAudioSource;
+        [SerializeField] private AudioClip[] SoundEffects;
+
         private float footStepTimer = 0;
         private float GetCurrentOffset;
 
@@ -191,6 +195,7 @@ namespace MMG
         UIManager UiManager;
 
         public static event Action OnEnmptyStamina;
+        
 
         #endregion
 
@@ -200,7 +205,8 @@ namespace MMG
             GetComponents();
             InitVariables();
 
-            ItemInteractable.OnPickUp += HandlePickUp;                
+            ItemInteractable.OnPickUp += HandlePickUp;
+            //TpTest.RealmTransportation += HandleRealmTransport;
         }
 
         void Update()
@@ -271,7 +277,16 @@ namespace MMG
 
 
         #region Initialize Methods    
-            void GetComponents()
+
+        private void OnEnable()
+        {
+
+            // Sound Effect for realm tp
+            HandleRealmTransport();
+
+        }
+
+        void GetComponents()
             {
                 characterController = GetComponent<CharacterController>();
                 cameraController = GetComponentInChildren<CameraController>();
@@ -521,7 +536,7 @@ namespace MMG
                 
                 if(staminaTest <= 0f)
                 {
-                    
+                    EffectAudioSource.PlayOneShot(SoundEffects[0]);
                     OnEnmptyStamina?.Invoke();
                 }
                 else if( staminaTest > 1f)
@@ -799,9 +814,6 @@ namespace MMG
                             }
                         }
                     }
-
-
-
                 }
             }
 
@@ -827,6 +839,11 @@ namespace MMG
                     }
                 }
             }
+
+        void HandleRealmTransport()
+        {
+            EffectAudioSource.PlayOneShot(SoundEffects[1]);
+        }
 
         #endregion
 
