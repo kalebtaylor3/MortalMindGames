@@ -1,6 +1,7 @@
 ﻿using NaughtyAttributes;
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace MMG
@@ -456,7 +457,7 @@ namespace MMG
 
                 currentSpeed = currentSpeed * speedCalculation;
 
-                Debug.Log(speedCalculation);
+                //Debug.Log(speedCalculation);
 
                 if (!movementInputData.IsCrouching)
                 {
@@ -751,40 +752,60 @@ namespace MMG
         #endregion
 
         #region ItemMethods / InventoryMethods
-            void HandlePickUp(PickUp PickUp)
+            void HandlePickUp(PickUp ItemPickUp)
             {
-                //Logic for handeling an item picku
-                //this is where the transportation to dead wood would happen
-
-                PickUp.PickUpItem = Instantiate(PickUp.PickUpItem, bookSlots[PickUp.pickUpID]);
-                playerInventory.items.Add(PickUp.PickUpItem);
-
-                
-                
-
-                playerInventory.UpdatePages();
-                //PickUp.PickUpItem.SetActive(false);                
-                SetRumbleMode(1);
-                StartRumble();
-
-                // Player Inventory to World Data
-                if (PickUp != null)
+                // Only handle pick ups if the player is the Mortal Real Player
+                if(playerInventory.tag == "Player")
                 {
-                    if (PickUp.RealmTp)
+                    // check if the item already exists in the inventory
+                    bool containItem = false;
+
+                    for (int i = 0; i < playerInventory.items.Count; i++)
                     {
-                        TpTest.Instance.tpPlayer();
-                        //WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
-                        //transform.position = Vector3.zero;
+                        if (playerInventory.items[i].GetComponent<Item>().relicType == ItemPickUp.relicType)
+                        {
+                            containItem = true; 
+                            break;
+                        }
+                        
+                    }
+
+                    // check if the item already exists in the inventory
+                    if (!containItem)
+                    {
+                        //Logic for handeling an item pickup
+                        //this is where the transportation to dead wood would happen
+
+                        ItemPickUp.PickUpItem = Instantiate(ItemPickUp.PickUpItem, bookSlots[ItemPickUp.pickUpID]);
+                        playerInventory.items.Add(ItemPickUp.PickUpItem);
+
+
+
+
+                        playerInventory.UpdatePages();
+                        //PickUp.PickUpItem.SetActive(false);                
+                        SetRumbleMode(1);
+                        StartRumble();
+
+                        WorldData.Instance.ItemPickedUp(ItemPickUp.pickUpID);
+                        RelicSpawnManager.Instance.RelicPickedUp(ItemPickUp.gameObject);
+
+                        // Player Inventory to World Data and triger realm tp
+                        if (ItemPickUp != null)
+                        {
+                            if (ItemPickUp.RealmTp)
+                            {
+                                TpTest.Instance.tpPlayer();                                
+                            }
+                        }
                     }
 
 
-                    WorldData.Instance.ItemPickedUp(PickUp.pickUpID);
-                    RelicSpawnManager.Instance.RelicPickedUp(PickUp.gameObject);
-
 
                 }
+            }
 
-        }
+                
 
             void HasActiveItem()
             {

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TpTest : MonoBehaviour
 {
+    // TESTING
 
     #region Instance
 
@@ -43,15 +44,15 @@ public class TpTest : MonoBehaviour
     {
         Debug.Log("before");
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(3.0f);
 
         Debug.Log("after");
 
         if (WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
         {
             //CopySpecialComponents(mortalRealmPlayer, VorgonRealmPlayer);
-            mortalRealmPlayer.SetActive(false);
             VorgonRealmPlayer.SetActive(true);
+            mortalRealmPlayer.SetActive(false);            
             WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
         }
         else if (WorldData.Instance.activeRealm == WorldData.REALMS.VORGON)
@@ -64,6 +65,8 @@ public class TpTest : MonoBehaviour
 
 
     }
+
+    // To copy components NOT NEEDED
 
     private void CopySpecialComponents(GameObject _sourceGO, GameObject _targetGO)
     {
