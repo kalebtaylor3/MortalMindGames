@@ -648,32 +648,32 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     zoomTransitionDuration: 0.5
-    runFOV: 75
+    runFOV: 70
     runCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    runTransitionDuration: 0.5
+    runTransitionDuration: 0.4
     runReturnTransitionDuration: 0.3
   cameraSway:
     swayAmount: 1
@@ -713,7 +713,7 @@ MonoBehaviour:
   smoothAmount: {x: 10, y: 10}
   lookAngleMinMax: {x: -90, y: 90}
   playerCam: {fileID: 0}
-  input: {fileID: 0}
+  input: {fileID: 11400000, guid: abad080c0665fdc4cb00444da1f990a9, type: 2}
 --- !u!1 &4564336066582545215
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,6 +820,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  outOfStamina: 0
   crouchPercent: 0.6
   crouchTransitionDuration: 0.5
   crouchTransitionCurve:

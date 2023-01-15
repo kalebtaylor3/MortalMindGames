@@ -269,7 +269,7 @@ namespace MMG
             }
             else if(currentSpeed >= walkSpeed - 0.5f)
             {
-                GetCurrentOffset = 0.5f;
+                GetCurrentOffset = 0.55f;
             }
             else
             {
@@ -532,9 +532,10 @@ namespace MMG
 
                 if(staminaTest <= 0f && movementInputData.IsRunning)
                 {
-                    cameraController.ResetFOV();
+                    //cameraController.ResetFOV();
                     staminaTest = -1f;
                     outOfStamina = true;
+                    OnEnmptyStamina?.Invoke();
                 }
                 
                 if(staminaTest <= 0f)
@@ -544,6 +545,7 @@ namespace MMG
                         outOfStamina = false;
                         EffectAudioSource.PlayOneShot(SoundEffects[0]);                    
                         OnEnmptyStamina?.Invoke();
+                        cameraController.ResetFOV();
                     }                   
                 }
                 else if( staminaTest > 1f)
