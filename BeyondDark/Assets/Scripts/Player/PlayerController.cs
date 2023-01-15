@@ -472,21 +472,38 @@ namespace MMG
 
                 float speedCalculation = Mathf.Abs(movementInputData.InputVector.x + movementInputData.InputVector.y);
 
-                currentSpeed = currentSpeed * speedCalculation;
+                Debug.Log(speedCalculation);
 
-                //Debug.Log(speedCalculation);
+            //Debug.Log(speedCalculation);
 
-                if (!movementInputData.IsCrouching)
+            if (!outOfStamina)
+            {
+
+                if (!movementInputData.IsRunning && speedCalculation <= 0.45f && speedCalculation > 0)
+                    currentSpeed = runSpeed;
+
+                if (movementInputData.IsRunning && speedCalculation <= 0.25f && speedCalculation > 0)
+                    currentSpeed = runSpeed;
+
+                if (movementInputData.IsRunning && speedCalculation > 1.1f)
+                    currentSpeed = runSpeed;
+            }
+
+            if (!movementInputData.IsCrouching)
                 {
-                    if (!movementInputData.IsRunning && speedCalculation <= 0.2f && speedCalculation > 0)
+
+                if (!movementInputData.IsRunning && speedCalculation <= 0.65f && speedCalculation > 0)
+                    currentSpeed = walkSpeed * moveSideSpeedPercent + 0.5f;
+
+                if (!movementInputData.IsRunning && speedCalculation <= 0.25f && speedCalculation > 0)
                         currentSpeed = walkSpeed * moveSideSpeedPercent;
 
                     if (!movementInputData.IsRunning && speedCalculation > 1.1f)
-                        currentSpeed = walkSpeed * moveSideSpeedPercent;
+                        currentSpeed = walkSpeed * moveSideSpeedPercent + 0.5f;
                 }
                 else
                 {
-                    if (!movementInputData.IsRunning && speedCalculation <= 0.2f && speedCalculation > 0)
+                    if (!movementInputData.IsRunning && speedCalculation <= 0.25f && speedCalculation > 0)
                         currentSpeed = crouchSpeed * moveBackwardsSpeedPercentCrouching;
 
                     if (!movementInputData.IsRunning && speedCalculation > 1.1f)
