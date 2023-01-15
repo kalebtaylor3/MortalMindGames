@@ -35,6 +35,7 @@ namespace MMG
         bool happenOnce = false;
         bool canInteract = false;
         bool canRotate = true;
+        bool canCreak = false;
 
         Vector3 startcamPosition;
 
@@ -62,6 +63,9 @@ namespace MMG
                 displayText = "Press X to Exit";
             else
                 displayText = "Press X to Hide!";
+
+            if (!canCreak)
+                doorCreak.Stop();
 
             if (cameraClamp == clamp.X)
             {
@@ -211,6 +215,7 @@ namespace MMG
             enteranceAnimator.enabled = false;
             isHidding = true;
             happenOnce=false;
+            canCreak = true;
             concelableAreaCam.cam.LookAt = lookAtTransform;
 
             if (cameraClamp == clamp.Y)
@@ -239,6 +244,7 @@ namespace MMG
             StartCoroutine(WaitForExit());
             enteranceAnimator.SetTrigger("Enter");
             StartCoroutine(WaitForExitClose());
+            canCreak = false;
         }
 
         IEnumerator WaitForExit()
