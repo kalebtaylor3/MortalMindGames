@@ -41,6 +41,8 @@ namespace MMG
 
         [SerializeField] private AnimationCurve runTransitionCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
+        [SerializeField] private bool outOfStamina = false;
+
         #endregion
 
         #region Crouch Settings
@@ -532,16 +534,22 @@ namespace MMG
                 {
                     cameraController.ResetFOV();
                     staminaTest = -1f;
+                    outOfStamina = true;
                 }
                 
                 if(staminaTest <= 0f)
                 {
-                    EffectAudioSource.PlayOneShot(SoundEffects[0]);
-                    OnEnmptyStamina?.Invoke();
+                    if(outOfStamina && !EffectAudioSource.isPlaying)
+                    {
+                        outOfStamina = false;
+                        EffectAudioSource.PlayOneShot(SoundEffects[0]);                    
+                        OnEnmptyStamina?.Invoke();
+                    }                   
                 }
                 else if( staminaTest > 1f)
                 {
                     staminaTest = 1f;
+                    outOfStamina = false;
                 }
             }
 
