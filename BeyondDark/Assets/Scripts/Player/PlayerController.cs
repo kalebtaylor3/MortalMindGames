@@ -474,7 +474,7 @@ namespace MMG
 
                 speedCalculation =  Mathf.Clamp(speedCalculation, 0, 1);
 
-                Debug.Log("X :" + movementInputData.InputVector.x + "Y : " + movementInputData.InputVector.y);
+                //Debug.Log("X :" + movementInputData.InputVector.x + "Y : " + movementInputData.InputVector.y);
 
             //Debug.Log(speedCalculation);
 
