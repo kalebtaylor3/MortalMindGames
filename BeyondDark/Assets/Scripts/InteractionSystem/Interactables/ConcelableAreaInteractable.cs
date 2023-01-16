@@ -36,6 +36,7 @@ namespace MMG
         bool canInteract = false;
         bool canRotate = true;
         bool canCreak = false;
+        bool canExit = false;
 
         Vector3 startcamPosition;
 
@@ -170,27 +171,25 @@ namespace MMG
 
         public override void OnInteract()
         {
-            if (canInteract)
+            if (!happenOnce)
             {
-                if (!happenOnce)
+                if (!isHidding)
                 {
-                    if (!isHidding && canInteract)
-                    {
-                        base.OnInteract();
-                        input.canMove = false;
-                        //playerCameraHolder.enabled = false;
-                        exposurePercentage = 0;
-                        enteranceAnimator.SetTrigger("Enter");
-                        StartCoroutine(WaitForEnterAnimation());
-                        isHidding = true;
-                        OnEnteredSpot?.Invoke();
-                    }
-                    else
-                    {
-                        ExitArea();
-                    }
-                    happenOnce = true;
+                    base.OnInteract();
+                    input.canMove = false;
+                    //playerCameraHolder.enabled = false;
+                    exposurePercentage = 0;
+                    enteranceAnimator.SetTrigger("Enter");
+                    StartCoroutine(WaitForEnterAnimation());
+                    isHidding = true;
+                    canExit = false;
+                    OnEnteredSpot?.Invoke();
                 }
+                else if(canExit)
+                {
+                    ExitArea();
+                }
+                happenOnce = true;
             }
         }
         IEnumerator WaitForEnterAnimation()
@@ -219,6 +218,7 @@ namespace MMG
             happenOnce=false;
             canCreak = true;
             concelableAreaCam.cam.LookAt = lookAtTransform;
+            canExit = true;
 
             if (cameraClamp == clamp.Y)
                 concelableAreaCam.cam.Follow = lookAtTransform;
