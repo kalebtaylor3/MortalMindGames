@@ -10,6 +10,8 @@ namespace MMG
         [Space,Header("Data")]
         [SerializeField] private PerlinNoiseData noiseData = null;
 
+
+
         [Space,Header("Axis")]
         [SerializeField] private bool x = true;
         [SerializeField] private bool y = true;
@@ -28,6 +30,8 @@ namespace MMG
         void Start()
         {
             perlinNoiseScroller = new PerlinNoiseScroller(noiseData);
+            initialFrequency = noiseData.frequency;
+            initialAmplitude = noiseData.amplitude;
         }
 
         private void OnEnable()
@@ -49,16 +53,14 @@ namespace MMG
 
         IEnumerator EmptyStaminaBreathing()
         {
-            //initialFrequency = noiseData.frequency;
-            //initialAmplitude = noiseData.amplitude;
 
-            //noiseData.frequency = 50;
-            //noiseData.amplitude = 50;
+            noiseData.amplitude = 3.5f;
+            noiseData.frequency = 1;
 
-            //yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(7.0f);
 
-            //noiseData.frequency = initialFrequency;
-            //noiseData.amplitude = initialAmplitude;
+            noiseData.frequency = initialFrequency;
+            noiseData.amplitude = initialAmplitude;
 
             yield return null;
         }
