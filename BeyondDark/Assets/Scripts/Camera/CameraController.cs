@@ -66,9 +66,13 @@ namespace MMG
 
         public void ResetFOV()
         {
+            if(this.gameObject.activeInHierarchy)
+            {
+                cameraZoom.ChangeRunFOV(true, this);
+            }
             //playerCam.m_Lens.FieldOfView = 60;
             //playerCam.m_Lens.FieldOfView = Mathf.Lerp(playerCam.m_Lens.FieldOfView, 60, 0.25f * Time.deltaTime);
-            cameraZoom.ChangeRunFOV(true,this);
+            
             //camInputData.IsZooming = false;
             //camInputData.ZoomReleased = true;
             //camInputData.ZoomClicked = false;
