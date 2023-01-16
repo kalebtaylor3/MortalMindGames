@@ -170,27 +170,29 @@ namespace MMG
 
         public override void OnInteract()
         {
-            if(!happenOnce)
+            if (canInteract)
             {
-                if (!isHidding && canInteract)
+                if (!happenOnce)
                 {
-                    base.OnInteract();
-                    input.canMove = false;
-                    //playerCameraHolder.enabled = false;
-                    exposurePercentage = 0;
-                    enteranceAnimator.SetTrigger("Enter");
-                    StartCoroutine(WaitForEnterAnimation());
-                    isHidding = true;
-                    OnEnteredSpot?.Invoke();
+                    if (!isHidding && canInteract)
+                    {
+                        base.OnInteract();
+                        input.canMove = false;
+                        //playerCameraHolder.enabled = false;
+                        exposurePercentage = 0;
+                        enteranceAnimator.SetTrigger("Enter");
+                        StartCoroutine(WaitForEnterAnimation());
+                        isHidding = true;
+                        OnEnteredSpot?.Invoke();
+                    }
+                    else
+                    {
+                        ExitArea();
+                    }
+                    happenOnce = true;
                 }
-                else
-                {
-                    ExitArea();
-                }
-                happenOnce = true;
             }
         }
-
         IEnumerator WaitForEnterAnimation()
         {
             yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
