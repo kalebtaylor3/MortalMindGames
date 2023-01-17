@@ -1,3 +1,4 @@
+using MMG;
 using System.Collections;
 using System.Collections.Generic;
 //using UnityEditor.Experimental.GraphView;
@@ -22,6 +23,16 @@ public class SpellBook : MonoBehaviour
 
     public Transform desiredInspectPosition;
     public Transform itemSlotPosition;
+
+    private void OnEnable()
+    {
+        ConcelableAreaInteractable.OnEnteredSpot += CloseBook;
+    }
+
+    void CloseBook()
+    {
+        gameObject.SetActive(false);
+    }
 
     public void UpdatePages(List<GameObject> items)
     {
