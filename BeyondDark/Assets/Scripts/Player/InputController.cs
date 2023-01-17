@@ -42,8 +42,14 @@ namespace MMG
         void Update()
         {
             GetCameraInput();
+
             if(canMove)
                 GetMovementInputData();
+            else
+            {
+                movementInputData.InputVectorY = 0;
+                movementInputData.InputVectorX = 0;
+            }
 
             if(canInteract)
                 GetInteractionInputData();
