@@ -30,13 +30,15 @@ namespace MMG
         void Start()
         {
             perlinNoiseScroller = new PerlinNoiseScroller(noiseData);
-            initialFrequency = noiseData.frequency;
-            initialAmplitude = noiseData.amplitude;
+            initialFrequency = 0.5f;
+            initialAmplitude = 1.5f;
         }
 
         private void OnEnable()
         {
             PlayerController.OnEnmptyStamina += HandleEmptyStamina;
+            initialFrequency = 0.5f;
+            initialAmplitude = 1.5f;
         }
 
         private void OnDisable()
