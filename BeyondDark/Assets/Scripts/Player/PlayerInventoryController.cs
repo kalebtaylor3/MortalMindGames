@@ -38,23 +38,26 @@ namespace MMG
         {
             if(inventoryInputData.OpenSpellBook)
             {
-                if(inventoryOpen)
+                if(this.gameObject.tag == "Player")
                 {
-                    //close the book
-                    Debug.Log("Spell Book Closed");
-                    inventoryOpen = false;
-                    spellBook.transform.position = spellBook.itemSlotPosition.position;
-                    spellBook.transform.rotation = spellBook.itemSlotPosition.rotation;
-                    spellBook.gameObject.SetActive(false);
-                }
-                else
-                {
-                    //otherwise open the book
-                    Debug.Log("Spell Book Opened");
-                    inventoryOpen = true;
-                    spellBook.gameObject.SetActive(true);
-                    spellBook.OpenBook();
-                }
+                    if (inventoryOpen)
+                    {
+                        //close the book
+                        Debug.Log("Spell Book Closed");
+                        inventoryOpen = false;
+                        spellBook.transform.position = spellBook.itemSlotPosition.position;
+                        spellBook.transform.rotation = spellBook.itemSlotPosition.rotation;
+                        spellBook.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        //otherwise open the book
+                        Debug.Log("Spell Book Opened");
+                        inventoryOpen = true;
+                        spellBook.gameObject.SetActive(true);
+                        spellBook.OpenBook();
+                    }
+                }               
             }
         }
 
