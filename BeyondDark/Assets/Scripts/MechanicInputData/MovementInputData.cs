@@ -16,8 +16,12 @@ namespace MMG
 
             bool runClicked;
             bool runReleased;
-
-            bool hasActiveItem;
+        //combat
+        bool defendClicked;
+        bool attackClicked;
+        bool sAttackClicked;
+        //not combat LR
+        bool hasActiveItem;
         #endregion
 
         #region Properties
@@ -74,6 +78,22 @@ namespace MMG
                 get => hasActiveItem;
                 set => hasActiveItem = value;
             }
+        //Combat
+        public bool UseDefend
+        {
+            get => defendClicked;
+            set => defendClicked = value;
+        }
+        public bool UseAttack
+        {
+            get => attackClicked;
+            set => attackClicked = value;
+        }
+        public bool SwitchAttack
+        {
+            get => sAttackClicked;
+            set => sAttackClicked = value;
+        }
         #endregion
 
         #region Functions

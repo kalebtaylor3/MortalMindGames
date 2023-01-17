@@ -16,7 +16,8 @@ namespace MMG
         [SerializeField] private MovementInputData movementInputData = null;
         [SerializeField] private HeadBobData headBobData = null;
         [SerializeField] ItemInputData itemInputData = null;
-
+        [SerializeField] private int attackNum = 1;
+        //cycles through all attacks
         #endregion
 
         #region Locomotion
@@ -261,11 +262,15 @@ namespace MMG
 
                 // Stamina
                 UiManager.UpdateStaminaSlider(staminaTest);
-
+                
                 previouslyGrounded = isGrounded;
+                //combat
+                UseDefend();
+                UseAttack();
+                SwitchAttack();
             }
         }
-
+        //combat
         void SetHiding()
         {
             isHiding = true;
@@ -895,8 +900,49 @@ namespace MMG
             staminaTest = 0.8f;
 
             OnTeleport?.Invoke();
+           // bool defendReleased;
+           // bool attackReleased;
+           // bool aSwitchReleased;
         }
+        void UseDefend()
+        {
+           if(movementInputData.UseDefend == true)
+            {
+                Debug.Log("Wall of Souls");
 
+            }
+        }
+        void UseAttack()
+        {
+            if (movementInputData.UseAttack == true)
+            {
+                if (attackNum == 1)
+                {
+                    Debug.Log("Unstoppable Spear");
+                } else
+                {
+                    Debug.Log("Wild Ride");
+                }
+
+            }
+        }
+        void SwitchAttack()
+        {
+            if (movementInputData.SwitchAttack == true)
+            {
+                Debug.Log("I N D E E D");
+                if(attackNum == 1)
+                {
+                    attackNum = 2;
+                    Debug.Log("Vorgon's Sword" + attackNum);
+
+                } else if(attackNum == 2)
+                {
+                    attackNum = 1;
+                    Debug.Log("The Flames Of Darkness" + attackNum);
+                }
+            }
+        }
         #endregion
 
         #region Vibration Methods
