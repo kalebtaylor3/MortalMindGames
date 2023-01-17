@@ -38,7 +38,7 @@ namespace MMG
         {
             if(inventoryInputData.OpenSpellBook)
             {
-                if(this.gameObject.tag == "Player")
+                if(this.gameObject.tag == "Player" && !this.GetComponent<PlayerController>().isHiding)
                 {
                     if (inventoryOpen)
                     {
