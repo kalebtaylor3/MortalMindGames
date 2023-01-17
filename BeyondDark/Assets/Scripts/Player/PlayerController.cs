@@ -274,6 +274,7 @@ namespace MMG
         void NotHiding()
         {
             isHiding = false;
+            this.GetComponent<PlayerInventoryController>().inventoryOpen = false;
         }
 
         void SetCurrentOffSet()
