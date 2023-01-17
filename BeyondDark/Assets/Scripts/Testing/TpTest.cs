@@ -58,7 +58,7 @@ public class TpTest : MonoBehaviour
             VorgonRealmPlayer.transform.position = tpPosition;
 
             VorgonRealmPlayer.SetActive(true);
-            
+            VorgonRealmPlayer.GetComponent<PlayerController>().HandleRealmTransport();
 
             mortalRealmPlayer.SetActive(false);
             InteractionUIPanel.Instance.ResetUI();
@@ -71,6 +71,7 @@ public class TpTest : MonoBehaviour
 
             //CopySpecialComponents(VorgonRealmPlayer, mortalRealmPlayer);
             mortalRealmPlayer.SetActive(true);
+            mortalRealmPlayer.GetComponent<PlayerController>().HandleRealmTransport();
 
             //Move vorgon character to next location
             

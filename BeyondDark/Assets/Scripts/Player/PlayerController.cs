@@ -888,9 +888,11 @@ namespace MMG
                 }
             }
 
-        void HandleRealmTransport()
+        public void HandleRealmTransport()
         {
             EffectAudioSource.PlayOneShot(SoundEffects[1]);
+            staminaTest = 0.8f;
+
             OnTeleport?.Invoke();
         }
 

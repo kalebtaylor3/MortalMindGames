@@ -50,8 +50,14 @@ namespace MMG
 
         void SetBreathingDefault()
         {
+            StopCoroutine(EmptyStaminaBreathing());
+
             initialFrequency = 0.5f;
             initialAmplitude = 1.5f;
+
+            noiseData.frequency = initialFrequency;
+            noiseData.amplitude = initialAmplitude;          
+
         }
 
         void HandleEmptyStamina()
