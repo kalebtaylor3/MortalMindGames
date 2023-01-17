@@ -5,9 +5,22 @@ using UnityEngine.UI;
 using TMPro;
 
 namespace MMG
-{        
+{    
     public class InteractionUIPanel : MonoBehaviour
     {
+        #region Instance
+
+        public static InteractionUIPanel Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance == null) { Instance = this; }
+            else if (Instance != this) Destroy(gameObject);
+        }
+
+        #endregion
+
+
         [SerializeField] private Image progressBar;
         [SerializeField] private TextMeshProUGUI tooltipText;
 

@@ -28,6 +28,9 @@ public class RelicSpawnManager : MonoBehaviour
     private List<GameObject> SpawnSpots;
 
     [SerializeField]
+    private List<GameObject> CharacterSpots;
+
+    [SerializeField]
     private List<GameObject> Relics;
     #endregion
 
@@ -42,6 +45,8 @@ public class RelicSpawnManager : MonoBehaviour
                 if (Relics[id - 1] != null)
                 {
                     GameObject relic = Instantiate(Relics.Find((GameObject) => (int)GameObject.GetComponent<PickUp>().relicType == id), SpawnSpots[i].transform);
+                    relic.GetComponent<PickUp>().tpPosition = CharacterSpots.Find((gameObject) => 
+                        (int)gameObject.GetComponent<CharacterTransportLocation>().relicType == id).transform.position;
                 }
             }
         }

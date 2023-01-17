@@ -843,7 +843,7 @@ namespace MMG
                         {
                             if (ItemPickUp.RealmTp)
                             {
-                                TpTest.Instance.tpPlayer();                                
+                                TpTest.Instance.tpPlayer(ItemPickUp.tpPosition);                                
                             }
                         }
                     }

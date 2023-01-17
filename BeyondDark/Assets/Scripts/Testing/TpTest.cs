@@ -26,14 +26,14 @@ public class TpTest : MonoBehaviour
     private GameObject VorgonRealmPlayer;
 
     [SerializeField]
-    private Vector3 tpPosition;
+    //private Transform tpPosition;
 
     //public static event Action RealmTransportation;
 
 
-    public void tpPlayer()
+    public void tpPlayer(Vector3 tpPosition)
     {
-        StartCoroutine(RealmTransport());
+        StartCoroutine(RealmTransport(tpPosition));
 
         // Debug.Log("tp");
 
@@ -42,7 +42,7 @@ public class TpTest : MonoBehaviour
         //mortalRealmPlayer.transform.position = Vector3.zero;
     }
 
-    IEnumerator RealmTransport()
+    IEnumerator RealmTransport(Vector3 tpPosition)
     {
         Debug.Log("before");        
         //RealmTransportation?.Invoke();
@@ -54,16 +54,29 @@ public class TpTest : MonoBehaviour
         if (WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
         {
             //CopySpecialComponents(mortalRealmPlayer, VorgonRealmPlayer);
+
+            VorgonRealmPlayer.transform.position = tpPosition;
+
             VorgonRealmPlayer.SetActive(true);
+            
+
             mortalRealmPlayer.SetActive(false);
+            InteractionUIPanel.Instance.ResetUI();
             
             WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
         }
         else if (WorldData.Instance.activeRealm == WorldData.REALMS.VORGON)
         {
+            mortalRealmPlayer.transform.position = tpPosition;
+
             //CopySpecialComponents(VorgonRealmPlayer, mortalRealmPlayer);
             mortalRealmPlayer.SetActive(true);
+
+            //Move vorgon character to next location
+            
+
             VorgonRealmPlayer.SetActive(false);
+            InteractionUIPanel.Instance.ResetUI();
             //RealmTransportation?.Invoke();
             WorldData.Instance.activeRealm = WorldData.REALMS.MORTAL;
         }
