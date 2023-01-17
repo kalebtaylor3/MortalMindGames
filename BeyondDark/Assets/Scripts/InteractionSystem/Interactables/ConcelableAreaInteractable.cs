@@ -41,6 +41,7 @@ namespace MMG
         Vector3 startcamPosition;
 
         public static event Action OnEnteredSpot;
+        public static event Action OnLeaveSpot;
 
         private void Start()
         {
@@ -183,6 +184,7 @@ namespace MMG
                     StartCoroutine(WaitForEnterAnimation());
                     isHidding = true;
                     canExit = false;
+                    this.GetComponent<BoxCollider>().enabled = false;
                     OnEnteredSpot?.Invoke();
                 }
                 else if(canExit)
@@ -219,6 +221,7 @@ namespace MMG
             canCreak = true;
             concelableAreaCam.cam.LookAt = lookAtTransform;
             canExit = true;
+            this.GetComponent<BoxCollider>().enabled = true;
 
             if (cameraClamp == clamp.Y)
                 concelableAreaCam.cam.Follow = lookAtTransform;
@@ -247,6 +250,7 @@ namespace MMG
             enteranceAnimator.SetTrigger("Enter");
             StartCoroutine(WaitForExitClose());
             canCreak = false;
+            OnLeaveSpot?.Invoke();
         }
 
         IEnumerator WaitForExit()

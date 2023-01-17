@@ -115,7 +115,7 @@ namespace MMG
         private Transform yawTransform;
         private Transform camTransform;
         private HeadBob headBob;
-        private CameraController cameraController;
+        public CameraController cameraController;
 
         private RaycastHit hitInfo;
         private IEnumerator _CrouchRoutine;
@@ -197,6 +197,9 @@ namespace MMG
         UIManager UiManager;
 
         public static event Action OnEnmptyStamina;
+        public static event Action OnTeleport;
+
+        [HideInInspector] public bool isHiding = false;
         
 
         #endregion
@@ -208,6 +211,8 @@ namespace MMG
             InitVariables();
 
             ItemInteractable.OnPickUp += HandlePickUp;
+            ConcelableAreaInteractable.OnEnteredSpot += SetHiding;
+            ConcelableAreaInteractable.OnLeaveSpot += NotHiding;
             //TpTest.RealmTransportation += HandleRealmTransport;
         }
 
@@ -259,6 +264,17 @@ namespace MMG
 
                 previouslyGrounded = isGrounded;
             }
+        }
+
+        void SetHiding()
+        {
+            isHiding = true;
+        }
+
+        void NotHiding()
+        {
+            isHiding = false;
+            this.GetComponent<PlayerInventoryController>().inventoryOpen = false;
         }
 
         void SetCurrentOffSet()
@@ -843,7 +859,7 @@ namespace MMG
                         {
                             if (ItemPickUp.RealmTp)
                             {
-                                TpTest.Instance.tpPlayer();                                
+                                TpTest.Instance.tpPlayer(ItemPickUp.tpPosition);                                
                             }
                         }
                     }
@@ -873,9 +889,12 @@ namespace MMG
                 }
             }
 
-        void HandleRealmTransport()
+        public void HandleRealmTransport()
         {
             EffectAudioSource.PlayOneShot(SoundEffects[1]);
+            staminaTest = 0.8f;
+
+            OnTeleport?.Invoke();
         }
 
         #endregion

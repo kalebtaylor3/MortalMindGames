@@ -11,6 +11,8 @@ namespace MMG
         public GameObject PickUpItem;
         public int pickUpID;
 
+        public Vector3 tpPosition = new Vector3(10,1,-50);
+
         public bool RealmTp = false;
     }
 }

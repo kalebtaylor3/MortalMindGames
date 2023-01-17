@@ -8,7 +8,7 @@ namespace MMG
     {
         #region Data
             [Space,Header("Input Data")]
-            [SerializeField] private CameraInputData cameraInputData = null;
+            [SerializeField] public CameraInputData cameraInputData = null;
             [SerializeField] private MovementInputData movementInputData = null;
             [SerializeField] private InteractionInputData interactionInputData = null;
             [SerializeField] private InventoryInputData inventoryInputData = null;
@@ -42,8 +42,14 @@ namespace MMG
         void Update()
         {
             GetCameraInput();
+
             if(canMove)
                 GetMovementInputData();
+            else
+            {
+                movementInputData.InputVectorY = 0;
+                movementInputData.InputVectorX = 0;
+            }
 
             if(canInteract)
                 GetInteractionInputData();
@@ -65,8 +71,11 @@ namespace MMG
                 cameraInputData.InputVectorY = Gamepad.current.rightStick.y.ReadValue();
             }
 
-            cameraInputData.ZoomClicked = Gamepad.current.rightTrigger.wasPressedThisFrame;
-            cameraInputData.ZoomReleased = Gamepad.current.rightTrigger.wasReleasedThisFrame;
+            if (!inventoryInputData.OpenSpellBook)
+            {
+                cameraInputData.ZoomClicked = Gamepad.current.rightTrigger.wasPressedThisFrame;
+                cameraInputData.ZoomReleased = Gamepad.current.rightTrigger.wasReleasedThisFrame;
+            }
         }
 
         void GetMovementInputData()
@@ -96,7 +105,7 @@ namespace MMG
 
         void GetInventoryInputData()
         {
-            inventoryInputData.OpenSpellBook = Input.GetKeyDown("joystick button 6");
+            inventoryInputData.OpenSpellBook = Gamepad.current.selectButton.wasPressedThisFrame;
         }
 
         void GetItemInputData()

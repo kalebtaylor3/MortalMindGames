@@ -81,7 +81,13 @@ namespace MMG
         void CheckForInteractableInput()
         {
             if(interactionData.IsEmpty())
+            {
+                isInteracting = false;
+                holdTimer = 0f;
+                uiPanel.UpdateProgressBar(0f);
                 return;
+            }
+                
 
             if (interactionData.interactable.IsPickup)
             {
@@ -125,7 +131,7 @@ namespace MMG
                     interactionData.Interact();
                     isInteracting = false;
                 }
-            }
+            }            
         }
         #endregion
     }
