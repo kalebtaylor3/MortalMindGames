@@ -38,10 +38,14 @@ namespace MMG
         {
             if(inventoryInputData.OpenSpellBook)
             {
-                if(this.gameObject.tag == "Player" && !this.GetComponent<PlayerController>().isHiding)
+                this.GetComponent<PlayerController>().cameraController.ResetFOV();
+                this.GetComponent<InputController>().cameraInputData.ZoomReleased = true;
+                this.GetComponent<InputController>().cameraInputData.ZoomClicked = false;
+                if (this.gameObject.tag == "Player" && !this.GetComponent<PlayerController>().isHiding)
                 {
+                    
                     if (inventoryOpen)
-                    {
+                    {                        
                         //close the book
                         Debug.Log("Spell Book Closed");
                         inventoryOpen = false;

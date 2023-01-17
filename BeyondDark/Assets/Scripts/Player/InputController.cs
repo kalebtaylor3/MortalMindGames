@@ -8,7 +8,7 @@ namespace MMG
     {
         #region Data
             [Space,Header("Input Data")]
-            [SerializeField] private CameraInputData cameraInputData = null;
+            [SerializeField] public CameraInputData cameraInputData = null;
             [SerializeField] private MovementInputData movementInputData = null;
             [SerializeField] private InteractionInputData interactionInputData = null;
             [SerializeField] private InventoryInputData inventoryInputData = null;

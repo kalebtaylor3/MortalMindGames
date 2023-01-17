@@ -115,7 +115,7 @@ namespace MMG
         private Transform yawTransform;
         private Transform camTransform;
         private HeadBob headBob;
-        private CameraController cameraController;
+        public CameraController cameraController;
 
         private RaycastHit hitInfo;
         private IEnumerator _CrouchRoutine;
