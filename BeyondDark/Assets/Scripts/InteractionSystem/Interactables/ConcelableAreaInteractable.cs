@@ -41,6 +41,7 @@ namespace MMG
         Vector3 startcamPosition;
 
         public static event Action OnEnteredSpot;
+        public static event Action OnLeaveSpot;
 
         private void Start()
         {
@@ -249,6 +250,7 @@ namespace MMG
             enteranceAnimator.SetTrigger("Enter");
             StartCoroutine(WaitForExitClose());
             canCreak = false;
+            OnLeaveSpot?.Invoke();
         }
 
         IEnumerator WaitForExit()

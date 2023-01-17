@@ -197,6 +197,8 @@ namespace MMG
         UIManager UiManager;
 
         public static event Action OnEnmptyStamina;
+
+        [HideInInspector] public bool isHiding = false;
         
 
         #endregion
@@ -208,6 +210,8 @@ namespace MMG
             InitVariables();
 
             ItemInteractable.OnPickUp += HandlePickUp;
+            ConcelableAreaInteractable.OnEnteredSpot += SetHiding;
+            ConcelableAreaInteractable.OnLeaveSpot += NotHiding;
             //TpTest.RealmTransportation += HandleRealmTransport;
         }
 
@@ -259,6 +263,16 @@ namespace MMG
 
                 previouslyGrounded = isGrounded;
             }
+        }
+
+        void SetHiding()
+        {
+            isHiding = true;
+        }
+
+        void NotHiding()
+        {
+            isHiding = false;
         }
 
         void SetCurrentOffSet()
