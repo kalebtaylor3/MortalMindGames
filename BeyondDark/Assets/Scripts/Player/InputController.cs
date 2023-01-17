@@ -102,7 +102,7 @@ namespace MMG
 
         void GetInventoryInputData()
         {
-            inventoryInputData.OpenSpellBook = Input.GetKeyDown("joystick button 6");
+            inventoryInputData.OpenSpellBook = Gamepad.current.selectButton.wasPressedThisFrame;
         }
 
         void GetItemInputData()

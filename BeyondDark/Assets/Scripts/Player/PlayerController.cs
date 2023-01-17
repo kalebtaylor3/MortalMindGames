@@ -197,6 +197,7 @@ namespace MMG
         UIManager UiManager;
 
         public static event Action OnEnmptyStamina;
+        public static event Action OnTeleport;
 
         [HideInInspector] public bool isHiding = false;
         
@@ -890,6 +891,7 @@ namespace MMG
         void HandleRealmTransport()
         {
             EffectAudioSource.PlayOneShot(SoundEffects[1]);
+            OnTeleport?.Invoke();
         }
 
         #endregion

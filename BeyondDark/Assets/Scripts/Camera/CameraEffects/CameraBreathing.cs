@@ -25,26 +25,33 @@ namespace MMG
         private float initialAmplitude;
         #endregion
 
+
+
         #region Functions
 
         void Start()
         {
             perlinNoiseScroller = new PerlinNoiseScroller(noiseData);
-            initialFrequency = 0.5f;
-            initialAmplitude = 1.5f;
+            SetBreathingDefault();
         }
 
         private void OnEnable()
         {
+            SetBreathingDefault();
             PlayerController.OnEnmptyStamina += HandleEmptyStamina;
-            initialFrequency = 0.5f;
-            initialAmplitude = 1.5f;
+            PlayerController.OnTeleport += SetBreathingDefault;
         }
 
         private void OnDisable()
         {
             PlayerController.OnEnmptyStamina -= HandleEmptyStamina;
             StopAllCoroutines();
+        }
+
+        void SetBreathingDefault()
+        {
+            initialFrequency = 0.5f;
+            initialAmplitude = 1.5f;
         }
 
         void HandleEmptyStamina()
