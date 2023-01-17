@@ -39,8 +39,6 @@ namespace MMG
             if(inventoryInputData.OpenSpellBook)
             {
                 this.GetComponent<PlayerController>().cameraController.ResetFOV();
-                this.GetComponent<InputController>().cameraInputData.ZoomReleased = true;
-                this.GetComponent<InputController>().cameraInputData.ZoomClicked = false;
                 if (this.gameObject.tag == "Player" && !this.GetComponent<PlayerController>().isHiding)
                 {
                     

@@ -71,8 +71,11 @@ namespace MMG
                 cameraInputData.InputVectorY = Gamepad.current.rightStick.y.ReadValue();
             }
 
-            cameraInputData.ZoomClicked = Gamepad.current.rightTrigger.wasPressedThisFrame;
-            cameraInputData.ZoomReleased = Gamepad.current.rightTrigger.wasReleasedThisFrame;
+            if (!inventoryInputData.OpenSpellBook)
+            {
+                cameraInputData.ZoomClicked = Gamepad.current.rightTrigger.wasPressedThisFrame;
+                cameraInputData.ZoomReleased = Gamepad.current.rightTrigger.wasReleasedThisFrame;
+            }
         }
 
         void GetMovementInputData()
