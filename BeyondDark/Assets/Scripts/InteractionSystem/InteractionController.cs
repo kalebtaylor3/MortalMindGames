@@ -20,7 +20,7 @@ namespace MMG
             [SerializeField] private float raySphereRadius = 0f;
             [SerializeField] private LayerMask interactableLayer = ~0;
 
-            private Camera cam;
+            public Camera cam;
 
             private bool isInteracting;
             private float holdTimer = 0f;
@@ -33,7 +33,7 @@ namespace MMG
         #region Functions    
         void Awake()
         {
-            cam = FindObjectOfType<Camera>();
+            //cam = FindObjectOfType<Camera>();
         }
 
         void Update()
