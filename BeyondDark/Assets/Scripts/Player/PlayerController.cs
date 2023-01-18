@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 
 namespace MMG
@@ -163,10 +164,11 @@ namespace MMG
 
         [Space, Header("Foot Step Paramaters")]
         [SerializeField] private float stepSpeed = 0.9f;
+        int lastStepNumber;
         [SerializeField] private AudioSource footStepAudioSource;
         [SerializeField] private AudioClip[] grassWalkSounds;
         [SerializeField] private AudioClip[] grassSprintSounds;
-        [SerializeField] private AudioClip[] dirtWalkSounds;
+        [SerializeField] private AudioClip[] gravelWalkSounds;
         [SerializeField] private AudioClip[] dirtSprintSounds;
         [SerializeField] private AudioClip[] woodWalkSounds;
         [SerializeField] private AudioClip[] woodSprintSounds;
@@ -396,9 +398,25 @@ namespace MMG
 
                 if(footStepTimer <= 0)
                 {
-                    if (Physics.Raycast(camTransform.position, Vector3.down, out RaycastHit hit, 3))
+                    if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 6, obstacleLayers))
                     {
-                        //change sound depending on terrain
+                        if (!movementInputData.IsRunning)
+                        {
+                            int rand = GenerateRandomNumber();
+                            //change sound depending on terrain
+                            switch (hit.collider.tag)
+                            {
+                                case "Grass":
+                                    footStepAudioSource.clip = grassWalkSounds[rand];
+                                break;
+                                case "Gravel":
+                                    footStepAudioSource.clip = gravelWalkSounds[rand];
+                                break;
+                                case "Wood":
+                                    footStepAudioSource.clip = woodWalkSounds[rand];
+                                break;
+                            }
+                        }
                     }
                     footStepAudioSource.volume = currentSpeed / 3;
                     footStepAudioSource.Play();
@@ -407,7 +425,20 @@ namespace MMG
 
             }
 
-            void CheckIfGrounded()
+            int GenerateRandomNumber()
+            {
+                int newNumber;
+                do
+                {
+                    newNumber = UnityEngine.Random.Range(0, 3);
+                }
+                while (newNumber == lastStepNumber);
+
+                lastStepNumber = newNumber;
+                return newNumber;
+            }
+
+        void CheckIfGrounded()
             {
                 Vector3 origin = transform.position + characterController.center;
 
