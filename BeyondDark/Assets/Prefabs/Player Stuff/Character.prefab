@@ -196,7 +196,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 247
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -787,6 +787,7 @@ MonoBehaviour:
   movementInputData: {fileID: 11400000, guid: abad080c0665fdc4cb00444da1f990a9, type: 2}
   headBobData: {fileID: 11400000, guid: fd51ede42cc20a04da93c2d2fac1e05c, type: 2}
   itemInputData: {fileID: 11400000, guid: 3ae00fd506ddb78479d40be5050c906b, type: 2}
+  attackNum: 1
   crouchSpeed: 1
   walkSpeed: 2.6
   runSpeed: 5
@@ -907,13 +908,14 @@ MonoBehaviour:
   smoothFinalDirectionSpeed: 10
   smoothHeadBobSpeed: 5
   smoothInputMagnitudeSpeed: 5
+  cameraController: {fileID: 0}
   currentSpeed: 0
   smoothCurrentSpeed: 0
   stepSpeed: 0.5
   footStepAudioSource: {fileID: 4361883663916781840}
   grassWalkSounds: []
   grassSprintSounds: []
-  dirtWalkSounds: []
+  gravelWalkSounds: []
   dirtSprintSounds: []
   woodWalkSounds: []
   woodSprintSounds: []
@@ -924,6 +926,7 @@ MonoBehaviour:
   PulseFrequency: 0.25
   rumbler: {fileID: 0}
   UiManager: {fileID: 0}
+  isHiding: 0
 --- !u!114 &8741816588763353335
 MonoBehaviour:
   m_ObjectHideFlags: 0
