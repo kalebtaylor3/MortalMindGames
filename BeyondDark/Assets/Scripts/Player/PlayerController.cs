@@ -296,7 +296,7 @@ namespace MMG
             }
             else
             {
-                GetCurrentOffset = 0.7f;
+                GetCurrentOffset = 0.75f;
             }
         }
 

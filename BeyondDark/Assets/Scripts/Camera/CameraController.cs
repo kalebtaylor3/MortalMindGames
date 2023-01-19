@@ -37,7 +37,9 @@ namespace MMG
 
         public  MovementInputData input;
         public AudioSource peakAudio;
-            
+        public AudioSource peakResetAudio;
+        bool playOnce = false;
+
         #endregion
 
         #region Functions
@@ -121,8 +123,9 @@ namespace MMG
             //transform.rotation = Quaternion.Lerp(transform.rotation, peakLeft.rotation, 0.65f);
             //this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, peakLeft.position, 0.55f);
             peakAudio.enabled = true;
-            angle.m_Dutch = Mathf.Lerp(angle.m_Dutch, 30, 3 * Time.deltaTime);
+            angle.m_Dutch = Mathf.Lerp(angle.m_Dutch, 25, 3 * Time.deltaTime);
             offsett.m_Offset.x = Mathf.Lerp(offsett.m_Offset.x, -0.60f, 3 * Time.deltaTime);
+            playOnce = false;
         }
 
         void PeakRight()
@@ -133,15 +136,21 @@ namespace MMG
             //playerCam.ForceCameraPosition(peakRight.position, peakRight.rotation);
             //angle.m_Dutch += Mathf.Lerp(angle.m_Dutch, -25, 0.25f * Time.deltaTime);
             peakAudio.enabled = true;
-            angle.m_Dutch = Mathf.Lerp(angle.m_Dutch, -30, 3 * Time.deltaTime);
+            angle.m_Dutch = Mathf.Lerp(angle.m_Dutch, -25, 3 * Time.deltaTime);
             offsett.m_Offset.x = Mathf.Lerp(offsett.m_Offset.x, 0.60f, 3 * Time.deltaTime);
+            playOnce = false;
         }
 
         void PeakIdle()
         {
+            if (!playOnce)
+            {
+                peakResetAudio.Play();
+                playOnce = true;
+            }
             peakAudio.enabled = false;
-            angle.m_Dutch = Mathf.Lerp(angle.m_Dutch, 0, 3 * Time.deltaTime);
-            offsett.m_Offset.x = Mathf.Lerp(offsett.m_Offset.x, 0, 3 * Time.deltaTime);
+            angle.m_Dutch = Mathf.Lerp(angle.m_Dutch, 0, 4 * Time.deltaTime);
+            offsett.m_Offset.x = Mathf.Lerp(offsett.m_Offset.x, 0, 4 * Time.deltaTime);
         }
 
         void CalculateRotation()
