@@ -167,11 +167,9 @@ namespace MMG
         int lastStepNumber;
         [SerializeField] private AudioSource footStepAudioSource;
         [SerializeField] private AudioClip[] grassWalkSounds;
-        [SerializeField] private AudioClip[] grassSprintSounds;
         [SerializeField] private AudioClip[] gravelWalkSounds;
-        [SerializeField] private AudioClip[] dirtSprintSounds;
+        [SerializeField] private AudioClip[] dirtWalkSounds;
         [SerializeField] private AudioClip[] woodWalkSounds;
-        [SerializeField] private AudioClip[] woodSprintSounds;
 
         // EFFECTS / Audio TESTING
         [SerializeField] private AudioSource EffectAudioSource;
@@ -413,7 +411,10 @@ namespace MMG
                             case "Wood":
                                 footStepAudioSource.clip = woodWalkSounds[rand];
                             break;
-                        }
+                            case "Dirt":
+                                footStepAudioSource.clip = dirtWalkSounds[rand];
+                            break;
+                    }
                     }
 
                     if (movementInputData.IsRunning && CanRun())
