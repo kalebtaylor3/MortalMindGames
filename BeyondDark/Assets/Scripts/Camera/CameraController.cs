@@ -149,8 +149,8 @@ namespace MMG
                 playOnce = true;
             }
             peakAudio.enabled = false;
-            angle.m_Dutch = Mathf.Lerp(angle.m_Dutch, 0, 4 * Time.deltaTime);
-            offsett.m_Offset.x = Mathf.Lerp(offsett.m_Offset.x, 0, 4 * Time.deltaTime);
+            angle.m_Dutch = Mathf.Lerp(angle.m_Dutch, 0, 4.5f * Time.deltaTime);
+            offsett.m_Offset.x = Mathf.Lerp(offsett.m_Offset.x, 0, 4.5f * Time.deltaTime);
         }
 
         void CalculateRotation()
