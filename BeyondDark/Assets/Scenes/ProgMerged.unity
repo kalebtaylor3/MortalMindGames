@@ -196,6 +196,11 @@ PrefabInstance:
       propertyPath: moveBackwardsSpeedPercent
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 1432220041037614963, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: SoundEffects.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1b1ec0a25e23e2645886d0019520e6ac, type: 3}
     - target: {fileID: 2419661197021257219, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
       propertyPath: m_RootOrder
@@ -3237,6 +3242,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1432220041037614963, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
+      propertyPath: SoundEffects.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b8aaa139e636894facfae43af775d7e, type: 3}
+    - target: {fileID: 1432220041037614963, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: woodWalkSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 310a35d5145e15f4a96deb698d06084f, type: 3}
+    - target: {fileID: 1432220041037614963, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: woodWalkSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2efe4df58388bdb48b84ea95ef0957ed, type: 3}
+    - target: {fileID: 1432220041037614963, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: woodWalkSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: a8ab09d2b3b19ed409bae95043294bf8, type: 3}
+    - target: {fileID: 1432220041037614963, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
       propertyPath: grassWalkSounds.Array.data[3]
       value: 
       objectReference: {fileID: 8300000, guid: eeae52955c374674f98b675ea86ee373, type: 3}
@@ -3639,9 +3664,10 @@ GameObject:
   - component: {fileID: 2075219021}
   - component: {fileID: 2075219020}
   - component: {fileID: 2075219019}
+  - component: {fileID: 2075219022}
   m_Layer: 0
   m_Name: Plane (1)
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3725,6 +3751,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075219017}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &2075219022
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075219017}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.999999, y: 2.2204459e-16, z: 9.999999}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2099526580
 GameObject:
   m_ObjectHideFlags: 0
