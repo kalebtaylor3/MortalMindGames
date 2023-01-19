@@ -20,7 +20,7 @@ public class AudioPlayer : MonoBehaviour
 
     [SerializeField] float delay;
 
-    private void Start()
+    private void OnEnable()
     {
         StartCoroutine(RandomEerieSound(delay));
     }
@@ -33,7 +33,7 @@ public class AudioPlayer : MonoBehaviour
 
             int rand1Source = Random.Range(0, 4);
 
-            int rand2Clip = Random.Range(0, m_Clips.Length - 1);
+            int rand2Clip = Random.Range(0, m_Clips.Length);
 
             switch (rand1Source)
             {
