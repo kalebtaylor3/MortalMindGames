@@ -178,6 +178,8 @@ namespace MMG
         private float footStepTimer = 0;
         private float GetCurrentOffset;
 
+        public AudioSource pickUpSource;
+
         #endregion
 
         #region Vibration System
@@ -882,8 +884,8 @@ namespace MMG
 
                         ItemPickUp.PickUpItem = Instantiate(ItemPickUp.PickUpItem, bookSlots[ItemPickUp.pickUpID]);
                         playerInventory.items.Add(ItemPickUp.PickUpItem);
-
-
+                        pickUpSource.clip = ItemPickUp.pickUpClip;
+                        pickUpSource.Play();
 
 
                         playerInventory.UpdatePages();
