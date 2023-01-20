@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3032737048296521933}
   - component: {fileID: 2141929824630771560}
   - component: {fileID: 4205621643910740898}
+  - component: {fileID: 7594254304047341687}
+  - component: {fileID: 7247420539488934941}
   m_Layer: 0
   m_Name: 3D_Sign01
   m_TagString: Untagged
@@ -83,3 +85,30 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7594254304047341687
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404256903708400247}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48021317, y: 0.05135104, z: 0.09881592}
+  m_Center: {x: -0.016892523, y: -0.020863757, z: 1.2415977}
+--- !u!136 &7247420539488934941
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404256903708400247}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.06
+  m_Height: 1.48
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.71}

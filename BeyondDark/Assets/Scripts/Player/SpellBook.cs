@@ -24,6 +24,8 @@ public class SpellBook : MonoBehaviour
     public Transform desiredInspectPosition;
     public Transform itemSlotPosition;
 
+    public AudioSource pageAudio;
+
     private void OnEnable()
     {
         ConcelableAreaInteractable.OnEnteredSpot += CloseBook;
@@ -53,7 +55,7 @@ public class SpellBook : MonoBehaviour
 
     private void Update()
     {
-        if (pages.Count != 0)
+        if (pages.Count > 1)
         {
             inputData.PageTurnRight = Gamepad.current.dpad.right.wasPressedThisFrame;
             inputData.PageTurnLeft = Gamepad.current.dpad.left.wasPressedThisFrame;
@@ -62,6 +64,7 @@ public class SpellBook : MonoBehaviour
             {
                 Debug.Log("Page turn right");
                 TurnPage("Right");
+                pageAudio.Play();
                 turn = 0;
                 inputData.PageTurnRight = false;
             }
@@ -70,9 +73,11 @@ public class SpellBook : MonoBehaviour
             {
                 Debug.Log("Page turn left");
                 TurnPage("Left");
+                pageAudio.Play();
                 turn = 0;
                 inputData.PageTurnLeft = false;
             }
+
         }
 
         inputData.ZoomBook = Gamepad.current.rightTrigger.isPressed;

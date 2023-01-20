@@ -17,6 +17,8 @@ namespace MMG
         public SpellBook spellBook;
 
         private GameObject activeItem;
+
+        public AudioSource closeBookSource;
         #endregion
 
         #region Events
@@ -50,6 +52,7 @@ namespace MMG
                         spellBook.transform.position = spellBook.itemSlotPosition.position;
                         spellBook.transform.rotation = spellBook.itemSlotPosition.rotation;
                         spellBook.gameObject.SetActive(false);
+                        closeBookSource.enabled = true;
                     }
                     else
                     {
@@ -58,6 +61,7 @@ namespace MMG
                         inventoryOpen = true;
                         spellBook.gameObject.SetActive(true);
                         spellBook.OpenBook();
+                        closeBookSource.enabled = false;
                     }
                 }               
             }

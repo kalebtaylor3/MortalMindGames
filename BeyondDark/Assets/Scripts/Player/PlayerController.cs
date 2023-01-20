@@ -167,11 +167,9 @@ namespace MMG
         int lastStepNumber;
         [SerializeField] private AudioSource footStepAudioSource;
         [SerializeField] private AudioClip[] grassWalkSounds;
-        [SerializeField] private AudioClip[] grassSprintSounds;
         [SerializeField] private AudioClip[] gravelWalkSounds;
-        [SerializeField] private AudioClip[] dirtSprintSounds;
+        [SerializeField] private AudioClip[] dirtWalkSounds;
         [SerializeField] private AudioClip[] woodWalkSounds;
-        [SerializeField] private AudioClip[] woodSprintSounds;
 
         // EFFECTS / Audio TESTING
         [SerializeField] private AudioSource EffectAudioSource;
@@ -179,6 +177,8 @@ namespace MMG
 
         private float footStepTimer = 0;
         private float GetCurrentOffset;
+
+        public AudioSource pickUpSource;
 
         #endregion
 
@@ -398,26 +398,32 @@ namespace MMG
 
                 if(footStepTimer <= 0)
                 {
-                    if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 6, obstacleLayers))
+                    if (Physics.Raycast(transform.position + new Vector3(0, 0.5f,0 ), Vector3.down, out RaycastHit hit, 6, obstacleLayers))
                     {
-                        if (!movementInputData.IsRunning)
+                        int rand = GenerateRandomNumber();
+                        //change sound depending on terrain
+                        switch (hit.collider.tag)
                         {
-                            int rand = GenerateRandomNumber();
-                            //change sound depending on terrain
-                            switch (hit.collider.tag)
-                            {
-                                case "Grass":
-                                    footStepAudioSource.clip = grassWalkSounds[rand];
-                                break;
-                                case "Gravel":
-                                    footStepAudioSource.clip = gravelWalkSounds[rand];
-                                break;
-                                case "Wood":
-                                    footStepAudioSource.clip = woodWalkSounds[rand];
-                                break;
-                            }
-                        }
+                            case "Grass":
+                                footStepAudioSource.clip = grassWalkSounds[rand];
+                            break;
+                            case "Gravel":
+                                footStepAudioSource.clip = gravelWalkSounds[rand];
+                            break;
+                            case "Wood":
+                                footStepAudioSource.clip = woodWalkSounds[rand];
+                            break;
+                            case "Dirt":
+                                footStepAudioSource.clip = dirtWalkSounds[rand];
+                            break;
                     }
+                    }
+
+                    if (movementInputData.IsRunning && CanRun())
+                        footStepAudioSource.pitch = 1.3f;
+                    else
+                        footStepAudioSource.pitch = 1;
+
                     footStepAudioSource.volume = currentSpeed / 3;
                     footStepAudioSource.Play();
                     footStepTimer = GetCurrentOffset;
@@ -878,8 +884,8 @@ namespace MMG
 
                         ItemPickUp.PickUpItem = Instantiate(ItemPickUp.PickUpItem, bookSlots[ItemPickUp.pickUpID]);
                         playerInventory.items.Add(ItemPickUp.PickUpItem);
-
-
+                        pickUpSource.clip = ItemPickUp.pickUpClip;
+                        pickUpSource.Play();
 
 
                         playerInventory.UpdatePages();
