@@ -204,7 +204,7 @@ namespace MMG
 
         IEnumerator WaitForCloseAnimation()
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2f);
             //enable the camera controls n stuff
             enteranceAnimator.SetTrigger("Inside");
             StartCoroutine(WaitForInside());
