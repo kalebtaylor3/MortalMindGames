@@ -64,7 +64,6 @@ public class SpellBook : MonoBehaviour
             {
                 Debug.Log("Page turn right");
                 TurnPage("Right");
-                pageAudio.Play();
                 turn = 0;
                 inputData.PageTurnRight = false;
             }
@@ -73,7 +72,6 @@ public class SpellBook : MonoBehaviour
             {
                 Debug.Log("Page turn left");
                 TurnPage("Left");
-                pageAudio.Play();
                 turn = 0;
                 inputData.PageTurnLeft = false;
             }
@@ -105,7 +103,7 @@ public class SpellBook : MonoBehaviour
                 DisablePages();
                 currentPageNumber = currentPageNumber - 1;
                 pages[currentPageNumber].gameObject.SetActive(true);
-
+                pageAudio.Play();
                 break;
             case "Right":
 
@@ -115,6 +113,7 @@ public class SpellBook : MonoBehaviour
                 DisablePages();
                 currentPageNumber = currentPageNumber + 1;
                 pages[currentPageNumber].gameObject.SetActive(true);
+                pageAudio.Play();
                 break;
         }
     }
