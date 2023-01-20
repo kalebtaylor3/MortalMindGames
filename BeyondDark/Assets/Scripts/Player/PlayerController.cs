@@ -398,7 +398,7 @@ namespace MMG
 
                 if(footStepTimer <= 0)
                 {
-                    if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 6, obstacleLayers))
+                    if (Physics.Raycast(transform.position + new Vector3(0, 0.5f,0 ), Vector3.down, out RaycastHit hit, 6, obstacleLayers))
                     {
                         int rand = GenerateRandomNumber();
                         //change sound depending on terrain
