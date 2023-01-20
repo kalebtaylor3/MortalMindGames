@@ -105,8 +105,8 @@ namespace MMG
 
             bool hitSomething = Physics.SphereCast(ray, 5f, out hitInfo, 0.3f, interactableLayer);
 
-            if (!hitSomething)
-            {
+            //if (!hitSomething)
+            //{
                 if (camInputData.IsPeakingLeft)
                     PeakLeft();
                 else if (camInputData.IsPeakingRight)
@@ -114,7 +114,7 @@ namespace MMG
                 else
                     PeakIdle();
 
-            }
+            //}
         }
 
         void PeakLeft()
