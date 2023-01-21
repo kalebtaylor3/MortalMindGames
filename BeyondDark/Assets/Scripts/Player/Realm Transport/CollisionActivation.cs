@@ -1,3 +1,4 @@
+using MMG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,23 +17,39 @@ public class CollisionActivation : MonoBehaviour
         switch (EndType)
         {
             case TRIAL_OUTCOME.FAIL:
-                // Checkpoint
+                if (other.gameObject.tag == "VorgonRealmPlayer" && WorldData.Instance.activeRealm == WorldData.REALMS.VORGON)
+                {
+                    // Checkpoint
+                    Debug.Log("Vorgon Realm TP FAIL");
+
+                    GameObject lastRelic = WorldData.Instance.lastPickUpGO;
+                    WorldData.Instance.TriggerCheckpoint();
+
+                    if (WorldData.Instance.lastPickUpGO != null)
+                    {
+                        RelicSpawnManager.Instance.RelicPickedUp(WorldData.Instance.lastPickUpGO);
+                    }
+                    else
+                    {
+                        lastRelic.SetActive(true);
+                    }
+
+                    TpTest.Instance.tpPlayer(WorldData.Instance.pickUpCP);
+                }
                 break;
 
             case TRIAL_OUTCOME.SUCCESS:
                 if (other.gameObject.tag == "VorgonRealmPlayer" && WorldData.Instance.activeRealm == WorldData.REALMS.VORGON)
                 {
-                    Debug.Log("Vorgon Realm TP");
+                    Debug.Log("Vorgon Realm TP SUCCESS");
                     // Move this to after a trial is completed or failed
                     RelicSpawnManager.Instance.RelicPickedUp(WorldData.Instance.lastPickUpGO);
-                    TpTest.Instance.tpPlayer(Vector3.zero);
+                    WorldData.Instance.MortalRealmController.AddItemToInventory(WorldData.Instance.lastPickUpGO.GetComponent<PickUp>());
+                    TpTest.Instance.tpPlayer(WorldData.Instance.pickUpCP);
                 }
                 break;
 
-            default:
-                WorldData.Instance.TriggerCheckpoint();
-                RelicSpawnManager.Instance.RelicPickedUp(WorldData.Instance.lastPickUpGO);
-                TpTest.Instance.tpPlayer(Vector3.zero);
+            default:                
                 break;
         }
 

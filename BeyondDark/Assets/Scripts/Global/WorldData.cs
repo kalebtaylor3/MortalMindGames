@@ -28,14 +28,15 @@ public class WorldData : MonoBehaviour
     public RelicSpawnManager.RELIC_TYPE lastCollectedRelic = RELIC_TYPE.NONE;
     public REALMS activeRealm = REALMS.MORTAL;
     public int collectedRelicsCount;
-    public GameObject lastPickUpGO;
+    public GameObject lastPickUpGO = null;
     public Vector3 pickUpCP;
+    public PlayerController MortalRealmController;
 
     //FOR CHECKPOINT
     private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;
     //private REALMS activeRealmCP = REALMS.MORTAL;
     private int collectedRelicsCountCP;
-    //private GameObject lastPickUpGOCP;
+    private GameObject lastPickUpGOCP;
 
     #endregion
 
@@ -73,13 +74,14 @@ public class WorldData : MonoBehaviour
     {
         lastCollectedRelicCP = lastCollectedRelic;
         collectedRelicsCountCP = collectedRelicsCount;
-        //lastPickUpGOCP = lastPickUpGO;
+        lastPickUpGOCP = lastPickUpGO;
     }
 
     public void TriggerCheckpoint()
     {
         lastCollectedRelic = lastCollectedRelicCP;
         collectedRelicsCount = collectedRelicsCountCP;
+        lastPickUpGO = lastPickUpGOCP;
     }
 
     #endregion

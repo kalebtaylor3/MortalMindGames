@@ -80,7 +80,7 @@ public class RelicSpawnManager : MonoBehaviour
         }
 
         // Spawn next relic
-        SpawnRelics((int)go.GetComponent<PickUp>().relicType + 1);
+        SpawnRelics((int)WorldData.Instance.lastCollectedRelic + 1);
     }
     #endregion
 }

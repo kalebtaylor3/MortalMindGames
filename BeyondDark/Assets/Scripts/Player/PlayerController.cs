@@ -872,29 +872,30 @@ namespace MMG
                         {
                             containItem = true; 
                             break;
-                        }
-                        
+                        }                        
                     }
 
                     // check if the item already exists in the inventory
                     if (!containItem)
                     {
-                        //Logic for handeling an item pickup
-                        //this is where the transportation to dead wood would happen
-
-                        ItemPickUp.PickUpItem = Instantiate(ItemPickUp.PickUpItem, bookSlots[ItemPickUp.pickUpID]);
-                        playerInventory.items.Add(ItemPickUp.PickUpItem);
+                        //Sound For Pick Up
+                        if(ItemPickUp.relicType == RelicSpawnManager.RELIC_TYPE.MAP)
+                        {
+                            AddItemToInventory(ItemPickUp);
+                        }
                         pickUpSource.clip = ItemPickUp.pickUpClip;
                         pickUpSource.Play();
 
 
-                        playerInventory.UpdatePages();
+                        
                         //PickUp.PickUpItem.SetActive(false);                
                         SetRumbleMode(1);
                         StartRumble();
 
-                        WorldData.Instance.ItemPickedUp(ItemPickUp.relicType, this.transform.position, ItemPickUp.gameObject);
                         WorldData.Instance.SetCheckpoint();
+
+                        WorldData.Instance.ItemPickedUp(ItemPickUp.relicType, this.transform.position, ItemPickUp.gameObject);
+                        
 
                         // Move this to after a trial is completed or failed
                         //RelicSpawnManager.Instance.RelicPickedUp(ItemPickUp.gameObject);
@@ -911,7 +912,12 @@ namespace MMG
                 }
             }
 
-                
+            public void AddItemToInventory(PickUp ItemPickUp)
+            {
+                ItemPickUp.PickUpItem = Instantiate(ItemPickUp.PickUpItem, bookSlots[ItemPickUp.pickUpID]);
+                playerInventory.items.Add(ItemPickUp.PickUpItem);
+                playerInventory.UpdatePages();
+            }
 
             void HasActiveItem()
             {
