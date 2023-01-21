@@ -893,8 +893,10 @@ namespace MMG
                         SetRumbleMode(1);
                         StartRumble();
 
-                        WorldData.Instance.ItemPickedUp(ItemPickUp.pickUpID);
-                        RelicSpawnManager.Instance.RelicPickedUp(ItemPickUp.gameObject);
+                        WorldData.Instance.ItemPickedUp(ItemPickUp.relicType, ItemPickUp.gameObject);
+
+                        // Move this to after a trial is completed or failed
+                        //RelicSpawnManager.Instance.RelicPickedUp(ItemPickUp.gameObject);
 
                         // Player Inventory to World Data and triger realm tp
                         if (ItemPickUp != null)
