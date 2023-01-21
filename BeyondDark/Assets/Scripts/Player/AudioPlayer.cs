@@ -22,14 +22,14 @@ public class AudioPlayer : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(RandomEerieSound(delay));
+        StartCoroutine(RandomEerieSound());
     }
 
-    IEnumerator RandomEerieSound(float t)
+    IEnumerator RandomEerieSound()
     {
         while(true)
         {
-            yield return new WaitForSeconds(t);
+            yield return new WaitForSeconds(delay);
 
             int rand1Source = Random.Range(0, 4);
 
