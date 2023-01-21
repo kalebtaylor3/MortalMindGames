@@ -30,6 +30,9 @@ public class CollisionActivation : MonoBehaviour
                 break;
 
             default:
+                WorldData.Instance.TriggerCheckpoint();
+                RelicSpawnManager.Instance.RelicPickedUp(WorldData.Instance.lastPickUpGO);
+                TpTest.Instance.tpPlayer(Vector3.zero);
                 break;
         }
 

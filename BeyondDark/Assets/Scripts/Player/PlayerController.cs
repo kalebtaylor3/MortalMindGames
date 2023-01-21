@@ -893,7 +893,8 @@ namespace MMG
                         SetRumbleMode(1);
                         StartRumble();
 
-                        WorldData.Instance.ItemPickedUp(ItemPickUp.relicType, ItemPickUp.gameObject);
+                        WorldData.Instance.ItemPickedUp(ItemPickUp.relicType, this.transform.position, ItemPickUp.gameObject);
+                        WorldData.Instance.SetCheckpoint();
 
                         // Move this to after a trial is completed or failed
                         //RelicSpawnManager.Instance.RelicPickedUp(ItemPickUp.gameObject);
@@ -903,7 +904,7 @@ namespace MMG
                         {
                             if (ItemPickUp.RealmTp)
                             {
-                                TpTest.Instance.tpPlayer(ItemPickUp.tpPosition);                                
+                                TpTest.Instance.tpPlayer(ItemPickUp.VorgonTpPosition);
                             }
                         }
                     }

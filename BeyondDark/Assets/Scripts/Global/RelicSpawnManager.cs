@@ -45,7 +45,7 @@ public class RelicSpawnManager : MonoBehaviour
                 if (Relics[id - 1] != null)
                 {
                     GameObject relic = Instantiate(Relics.Find((GameObject) => (int)GameObject.GetComponent<PickUp>().relicType == id), SpawnSpots[i].transform);
-                    relic.GetComponent<PickUp>().tpPosition = VorgonCharacterSpots.Find((gameObject) => 
+                    relic.GetComponent<PickUp>().VorgonTpPosition = VorgonCharacterSpots.Find((gameObject) => 
                         (int)gameObject.GetComponent<CharacterTransportLocation>().relicType == id).transform.position;
                 }
             }
