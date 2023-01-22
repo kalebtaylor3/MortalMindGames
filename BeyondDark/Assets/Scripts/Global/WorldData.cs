@@ -2,6 +2,7 @@ using MMG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static RelicSpawnManager;
 
 public class WorldData : MonoBehaviour
 {
@@ -21,13 +22,21 @@ public class WorldData : MonoBehaviour
 
     #region Variables
 
-
-    public int lastCollectedRelic;
-    public int collectedRelicsCount;
-
     public enum REALMS { MORTAL = 0, VORGON = 1 };
 
+    //DATA
+    public RelicSpawnManager.RELIC_TYPE lastCollectedRelic = RELIC_TYPE.NONE;
     public REALMS activeRealm = REALMS.MORTAL;
+    public int collectedRelicsCount;
+    public GameObject lastPickUpGO = null;
+    public Vector3 pickUpCP;
+    public PlayerController MortalRealmController;
+
+    //FOR CHECKPOINT
+    private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;
+    //private REALMS activeRealmCP = REALMS.MORTAL;
+    private int collectedRelicsCountCP;
+    private GameObject lastPickUpGOCP;
 
     #endregion
 
@@ -35,7 +44,7 @@ public class WorldData : MonoBehaviour
 
     private void Start()
     {
-        lastCollectedRelic = -1;
+        lastCollectedRelic = RELIC_TYPE.NONE;
     }
 
     /*
@@ -47,14 +56,33 @@ public class WorldData : MonoBehaviour
      *  We can later add the names of the relics instead of just ids if we want/need to
     */
 
-    public void ItemPickedUp(int id)
+    public void ItemPickedUp(RelicSpawnManager.RELIC_TYPE type, Vector3 playerPos, GameObject go = null)
     {
         // Will show what relic was last collected, we can use this for checkpoints
-        lastCollectedRelic = id;
-        collectedRelicsCount++;        
+        lastCollectedRelic = type;
+        lastPickUpGO = go;
+        collectedRelicsCount++;
+        pickUpCP = playerPos;
+        
+        if(type == RELIC_TYPE.MAP)
+        {
+            RelicSpawnManager.Instance.RelicPickedUp(go);
+        }
     }
 
+    public void SetCheckpoint()
+    {
+        lastCollectedRelicCP = lastCollectedRelic;
+        collectedRelicsCountCP = collectedRelicsCount;
+        lastPickUpGOCP = lastPickUpGO;
+    }
 
+    public void TriggerCheckpoint()
+    {
+        lastCollectedRelic = lastCollectedRelicCP;
+        collectedRelicsCount = collectedRelicsCountCP;
+        lastPickUpGO = lastPickUpGOCP;
+    }
 
     #endregion
 }
