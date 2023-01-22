@@ -13,7 +13,9 @@ namespace MMG
 
         public AudioClip pickUpClip;
 
-        public Vector3 tpPosition = new Vector3(10,1,-50);
+        public Vector3 VorgonTpPosition;
+
+        public Vector3 CheckpointTpPosition;
 
         public bool RealmTp = false;
     }
