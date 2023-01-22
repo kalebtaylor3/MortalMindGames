@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Rendering;
 using System.Linq;
+using System.Collections.Generic;
 
 public class FogOfWarMap : MonoBehaviour
 {
@@ -36,11 +37,19 @@ public class FogOfWarMap : MonoBehaviour
                 if (dist < m_radiusSqr)
                 {
                     float alpha = Mathf.Min(m_colors[i].a, dist / m_radiusSqr);
-                    m_colors[i].a = alpha;
+                    StartCoroutine(pixelBurner(i, alpha));
                 }
             }
             UpdateColor();
         }
+    }
+
+    IEnumerator pixelBurner(int hitPoint, float alpha)
+    {
+        m_colors[hitPoint] = Color.red;
+        m_colors[hitPoint].a = 0;
+        yield return new WaitForSeconds(0.01f);
+        m_colors[hitPoint].a = 0;
     }
 
     void Initialize()
