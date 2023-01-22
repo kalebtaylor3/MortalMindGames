@@ -2,8 +2,6 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Rendering;
 using System.Linq;
-using System.Collections.Generic;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class FogOfWarMap : MonoBehaviour
 {
@@ -16,8 +14,6 @@ public class FogOfWarMap : MonoBehaviour
     private Mesh m_mesh;
     private Vector3[] m_vertices;
     private Color[] m_colors;
-
-    public Color burnColor;
 
     // Use this for initialization
     void Start()
@@ -35,24 +31,16 @@ public class FogOfWarMap : MonoBehaviour
         {
             for (int i = 0; i < m_vertices.Length; i++)
             {
-                Vector3 v = m_vertices[i];
+                Vector3 v = m_fogOfWarPlane.transform.TransformPoint(m_vertices[i]);
                 float dist = Vector3.SqrMagnitude(v - hit.point);
                 if (dist < m_radiusSqr)
                 {
                     float alpha = Mathf.Min(m_colors[i].a, dist / m_radiusSqr);
-                    StartCoroutine(pixelBurner(i, alpha));
+                    m_colors[i].a = alpha;
                 }
             }
             UpdateColor();
         }
-    }
-
-    IEnumerator pixelBurner(int hitPoint, float alpha)
-    {
-        m_colors[hitPoint] = burnColor * 2.5f;
-        m_colors[hitPoint].a = 0;
-        yield return new WaitForSeconds(0.01f);
-        m_colors[hitPoint].a = 0;
     }
 
     void Initialize()
@@ -60,11 +48,6 @@ public class FogOfWarMap : MonoBehaviour
         m_mesh = m_fogOfWarPlane.GetComponent<MeshFilter>().mesh;
         m_vertices = m_mesh.vertices;
         m_colors = new Color[m_vertices.Length];
-        for (int i = 0; i < m_vertices.Length; i++)
-        {
-            m_vertices[i] = m_fogOfWarPlane.transform.TransformPoint(m_vertices[i]);
-        }
-
         for (int i = 0; i < m_colors.Length; i++)
         {
             m_colors[i] = Color.black;

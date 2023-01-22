@@ -28,7 +28,7 @@ public class RelicSpawnManager : MonoBehaviour
     private List<GameObject> SpawnSpots;
 
     [SerializeField]
-    private List<GameObject> VorgonCharacterSpots;
+    private List<GameObject> CharacterSpots;
 
     [SerializeField]
     private List<GameObject> Relics;
@@ -45,7 +45,7 @@ public class RelicSpawnManager : MonoBehaviour
                 if (Relics[id - 1] != null)
                 {
                     GameObject relic = Instantiate(Relics.Find((GameObject) => (int)GameObject.GetComponent<PickUp>().relicType == id), SpawnSpots[i].transform);
-                    relic.GetComponent<PickUp>().VorgonTpPosition = VorgonCharacterSpots.Find((gameObject) => 
+                    relic.GetComponent<PickUp>().tpPosition = CharacterSpots.Find((gameObject) => 
                         (int)gameObject.GetComponent<CharacterTransportLocation>().relicType == id).transform.position;
                 }
             }
@@ -80,7 +80,7 @@ public class RelicSpawnManager : MonoBehaviour
         }
 
         // Spawn next relic
-        SpawnRelics((int)WorldData.Instance.lastCollectedRelic + 1);
+        SpawnRelics((int)go.GetComponent<PickUp>().relicType + 1);
     }
     #endregion
 }

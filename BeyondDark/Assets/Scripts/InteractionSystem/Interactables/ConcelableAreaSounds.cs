@@ -10,12 +10,14 @@ public class ConcelableAreaSounds : MonoBehaviour
 
     public void Open()
     {
+        //sounds.volume = 1;
         sounds.clip = openSound;
         sounds.Play();
     }
 
     public void Close()
     {
+        //sounds.volume = 1;
         sounds.clip = closeSound;
         sounds.Play();
     }
