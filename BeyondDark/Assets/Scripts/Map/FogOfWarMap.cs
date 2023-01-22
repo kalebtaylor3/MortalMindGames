@@ -17,6 +17,8 @@ public class FogOfWarMap : MonoBehaviour
     private Vector3[] m_vertices;
     private Color[] m_colors;
 
+    public Color burnColor;
+
     // Use this for initialization
     void Start()
     {
@@ -47,7 +49,7 @@ public class FogOfWarMap : MonoBehaviour
 
     IEnumerator pixelBurner(int hitPoint, float alpha)
     {
-        m_colors[hitPoint] = Color.red;
+        m_colors[hitPoint] = burnColor * 2.5f;
         m_colors[hitPoint].a = 0;
         yield return new WaitForSeconds(0.01f);
         m_colors[hitPoint].a = 0;
