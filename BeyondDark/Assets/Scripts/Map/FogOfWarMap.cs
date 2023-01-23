@@ -1,9 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Rendering;
-using System.Linq;
-using System.Collections.Generic;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class FogOfWarMap : MonoBehaviour
 {
