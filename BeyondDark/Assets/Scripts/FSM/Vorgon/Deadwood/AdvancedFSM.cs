@@ -13,13 +13,15 @@ using System.Collections.Generic;
 public enum Transition
 {
     None = 0,
+    ReachedPlayer,
        
 }
 
 public enum FSMStateID
 {
-    None = 0,    
-    
+    None = 0,
+    Chase,
+    Lost    
 }
 
 public class AdvancedFSM : FSM

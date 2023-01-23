@@ -5,8 +5,9 @@ using UnityEngine.AI;
 
 public class VorgonController : MonoBehaviour
 {
-    [SerializeField] NavMeshAgent navAgent;
-    [SerializeField] Transform playerT;
+    [SerializeField] public NavMeshAgent navAgent;
+    [SerializeField] public Transform playerT;
+    [SerializeField] public VorgonDeadwoodFSM vorgonFSM;
 
     private void Start()
     {
@@ -16,6 +17,6 @@ public class VorgonController : MonoBehaviour
 
     private void Update()
     {
-        navAgent.destination = playerT.position;
+        //navAgent.destination = playerT.position;
     }
 }

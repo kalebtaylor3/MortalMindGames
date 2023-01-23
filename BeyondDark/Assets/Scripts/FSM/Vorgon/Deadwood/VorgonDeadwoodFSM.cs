@@ -61,18 +61,18 @@ public class VorgonDeadwoodFSM : AdvancedFSM
     }
 
     //// Update each frame.
-    //protected override void FSMUpdate()
-    //{
-    //    if (CurrentState != null)
-    //    {
-    //        CurrentState.Reason();
-    //        CurrentState.Act();
-    //    }
-    //    if (debugDraw)
-    //    {
-    //        UsefullFunctions.DebugRay(transform.position, transform.forward * 5.0f, Color.red);
-    //    }
-    //}
+    protected override void FSMUpdate()
+    {
+        if (CurrentState != null)
+        {
+            CurrentState.Reason();
+            CurrentState.Act();
+        }
+        //if (debugDraw)
+        //{
+        //    UsefullFunctions.DebugRay(transform.position, transform.forward * 5.0f, Color.red);
+        //}
+    }
 
     private void ConstructFSM()
     {
@@ -106,6 +106,17 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         //Add states to the state list.
         //AddFSMState(chase); //First one in List is default        
         //AddFSMState(dead);
+
+        //Chase
+        ChaseState chase = new ChaseState(vorgonController);
+        chase.AddTransition(Transition.ReachedPlayer, FSMStateID.Lost);
+
+        //Lost
+        LostState lost = new LostState(vorgonController);
+
+        AddFSMState(chase);
+        AddFSMState(lost);
+
     }
 
     //void HandleStartAttackEvent(int number)
