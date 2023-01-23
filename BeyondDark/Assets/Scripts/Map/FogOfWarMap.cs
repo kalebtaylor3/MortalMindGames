@@ -30,7 +30,6 @@ public class FogOfWarMap : MonoBehaviour
     {
         Ray r = new Ray(transform.position, m_player.position - transform.position);
         RaycastHit hit;
-        Debug.DrawRay(transform.position, m_player.position - transform.position, Color.red);
         if (Physics.Raycast(r, out hit, 1000, m_fogLayer, QueryTriggerInteraction.Collide))
         {
             for (int i = 0; i < m_vertices.Length; i++)
