@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LostState : FSMState
+public class SeekState : FSMState
 {
     VorgonController vorgonControl;
     VorgonDeadwoodFSM vorgonFSM;
 
-    public LostState(VorgonController controller)
+    public SeekState(VorgonController controller)
     {
-        stateID = FSMStateID.Lost;
+        stateID = FSMStateID.Seek;
         vorgonControl = controller;
         vorgonFSM = controller.vorgonFSM;
     }
@@ -22,13 +22,12 @@ public class LostState : FSMState
     public override void Reason()
     {
         // Transitions
-        
+
     }
 
     public override void Act()
     {
         // Actions
-        
-    }
 
+    }
 }

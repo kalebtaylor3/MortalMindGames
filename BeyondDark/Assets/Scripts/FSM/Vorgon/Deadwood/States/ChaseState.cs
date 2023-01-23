@@ -5,7 +5,6 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ChaseState : FSMState
 {
-
     VorgonController vorgonControl;
     VorgonDeadwoodFSM vorgonFSM;
 

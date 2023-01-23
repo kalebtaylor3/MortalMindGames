@@ -21,7 +21,12 @@ public enum FSMStateID
 {
     None = 0,
     Chase,
-    Lost    
+    Lost,
+    Patrol,
+    Attack,
+    ClosePatrol,
+    Seek,
+    Stunned
 }
 
 public class AdvancedFSM : FSM

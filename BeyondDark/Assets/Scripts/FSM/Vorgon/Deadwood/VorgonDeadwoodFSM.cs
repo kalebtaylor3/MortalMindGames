@@ -85,37 +85,39 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         //    waypoints[i] = obj.transform;
         //    i++;
         //}
-        //
-        // Create States.
-        //
-        // Create Dead State.
-        //DeadState dead = new DeadState(waypoints, enemyControl);
-        // Set a transition out of the state: 
-        // The dead state of the AI handles an enable transition request by going to the "patrol" state.
-        //dead.AddTransition(Transition.Enable, FSMStateID.Chasing);
+        
 
-        //// Chase
-        //ChaseState chase = new ChaseState(waypoints, enemyControl);
-        //chase.AddTransition(Transition.Enable, FSMStateID.Chasing);
-        //chase.AddTransition(Transition.NoHealth, FSMStateID.Dead);
-        //chase.AddTransition(Transition.LowHealth, FSMStateID.Fleeing);
-        //chase.AddTransition(Transition.ReachedPlayer, FSMStateID.Attacking);
-        //chase.AddTransition(Transition.Patrol, FSMStateID.Patrolling);
-
-
-        //Add states to the state list.
-        //AddFSMState(chase); //First one in List is default        
-        //AddFSMState(dead);
-
-        //Chase
+        // Chase
         ChaseState chase = new ChaseState(vorgonController);
         chase.AddTransition(Transition.ReachedPlayer, FSMStateID.Lost);
 
-        //Lost
+        // Lost
         LostState lost = new LostState(vorgonController);
 
+        // Patrol
+        PatrolState patrol = new PatrolState(vorgonController);
+
+        // Attack
+        AttackState attack = new AttackState(vorgonController);
+
+        // Close Patrol
+        ClosePatrolState closePatrol = new ClosePatrolState(vorgonController);
+
+        // Seek
+        SeekState seek = new SeekState(vorgonController);
+
+        // Stunned
+        StunnedState stunned = new StunnedState(vorgonController);
+
+
+        // Add State to FSM
         AddFSMState(chase);
         AddFSMState(lost);
+        AddFSMState(patrol);
+        AddFSMState(attack);
+        AddFSMState(closePatrol);
+        AddFSMState(seek);
+        AddFSMState(stunned);
 
     }
 
