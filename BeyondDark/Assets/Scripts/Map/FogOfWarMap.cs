@@ -53,7 +53,7 @@ public class FogOfWarMap : MonoBehaviour
     IEnumerator pixelBurner(int hitPoint, float alpha)
     {
         yield return new WaitForSeconds(1);
-        m_colors[hitPoint].a = 0;
+        m_colors[hitPoint].a = Mathf.Lerp(m_colors[hitPoint].a, 0, 5);
     }
 
     void Initialize()

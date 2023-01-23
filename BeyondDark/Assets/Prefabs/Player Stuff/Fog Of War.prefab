@@ -51,7 +51,8 @@ MonoBehaviour:
   m_fogLayer:
     serializedVersion: 2
     m_Bits: 256
-  m_radius: 2
+  m_radius: 1
+  burnColor: {r: 0.99215686, g: 0.1254902, b: 0, a: 1}
 --- !u!20 &9013988159595662656
 Camera:
   m_ObjectHideFlags: 0
@@ -61,7 +62,7 @@ Camera:
   m_GameObject: {fileID: 9013988159595662652}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -92,7 +93,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 0
+  m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!114 &9013988159595662657
