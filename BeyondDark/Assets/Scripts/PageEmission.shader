@@ -1,9 +1,9 @@
-Shader "Custom/VertexColorEmissiveWithAlpha" {
+Shader "Custom/VertexColorSmoothRoundedEdge" {
     Properties{
-        _Color("Color", Color) = (1,1,1,1)
-        _Emission("Emission", Color) = (0,0,0,1)
-        _EmissionMultiplier("Emission Multiplier", Range(0, 10)) = 1
-        _Alpha("Alpha", Range(0,1)) = 1
+        _Color1("Color1", Color) = (0,0,0,1)
+        _Color2("Color2", Color) = (1,0,0,1)
+        _BlendValue("Blend Value", Range(0,1)) = 0.5
+        _EdgeRadius("Edge Radius", Range(0,1)) = 0.1
     }
 
         SubShader{
@@ -28,19 +28,15 @@ Shader "Custom/VertexColorEmissiveWithAlpha" {
                 };
 
                 sampler2D _MainTex;
-                float4 _Color;
-                float4 _Emission;
-                float _EmissionMultiplier;
-                float _Alpha;
+                float4 _Color1;
+                float4 _Color2;
+                float _BlendValue;
+                float _EdgeRadius;
 
                 v2f vert(appdata v) {
                     v2f o;
                     o.vertex = UnityObjectToClipPos(v.vertex);
-                    o.color = v.color * _Color;
-                    if (v.color.r > 0) {
-                        o.color.rgb += _Emission.rgb * _EmissionMultiplier;
-                    }
-                    o.color.a *= _Alpha;
+                    o.color = lerp(v.color * _Color1, v.color * _Color2, smoothstep(0, _EdgeRadius, _BlendValue));
                     o.uv = v.vertex.xy * 0.5 + 0.5;
                     return o;
                 }
