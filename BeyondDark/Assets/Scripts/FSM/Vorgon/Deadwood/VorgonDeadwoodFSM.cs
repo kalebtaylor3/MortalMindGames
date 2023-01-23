@@ -60,52 +60,44 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         ConstructFSM();
     }
 
-    //// Update each frame.
-    //protected override void FSMUpdate()
-    //{
-    //    if (CurrentState != null)
-    //    {
-    //        CurrentState.Reason();
-    //        CurrentState.Act();
-    //    }
-    //    if (debugDraw)
-    //    {
-    //        UsefullFunctions.DebugRay(transform.position, transform.forward * 5.0f, Color.red);
-    //    }
-    //}
+    // Update each frame.
+    protected override void FSMUpdate()
+    {
+        if (CurrentState != null)
+        {
+            CurrentState.Reason();
+            CurrentState.Act();
+        }
+        //if (debugDraw)
+        //{
+        //    UsefullFunctions.DebugRay(transform.position, transform.forward * 5.0f, Color.red);
+        //}
+    }
 
     private void ConstructFSM()
     {
-        ////pointList = GameObject.FindGameObjectsWithTag("WayPoint");
-        //// Creating a waypoint transform array for each state.
-        //Transform[] waypoints = new Transform[pointList.Length];
-        //int i = 0;
-        //foreach (GameObject obj in pointList)
-        //{
-        //    waypoints[i] = obj.transform;
-        //    i++;
-        //}
-        //
-        // Create States.
-        //
-        // Create Dead State.
-        //DeadState dead = new DeadState(waypoints, enemyControl);
-        // Set a transition out of the state: 
-        // The dead state of the AI handles an enable transition request by going to the "patrol" state.
-        //dead.AddTransition(Transition.Enable, FSMStateID.Chasing);
 
-        //// Chase
-        //ChaseState chase = new ChaseState(waypoints, enemyControl);
-        //chase.AddTransition(Transition.Enable, FSMStateID.Chasing);
-        //chase.AddTransition(Transition.NoHealth, FSMStateID.Dead);
-        //chase.AddTransition(Transition.LowHealth, FSMStateID.Fleeing);
-        //chase.AddTransition(Transition.ReachedPlayer, FSMStateID.Attacking);
-        //chase.AddTransition(Transition.Patrol, FSMStateID.Patrolling);
+        // //pointList = GameObject.FindGameObjectsWithTag("WayPoint");
+        // // Creating a waypoint transform array for each state.
+        // Transform[] waypoints = new Transform[pointList.Length];
+        // int i = 0;
+        // foreach (GameObject obj in pointList)
+        // {
+        //     waypoints[i] = obj.transform;
+        //     i++;
+        // }
+
+        // Create States
+
+        //Patrol
+        PatrolState patrol = new PatrolState(vorgonController);
+        patrol.AddTransition(Transition.ReachedPlayer, FSMStateID.Lost);
 
 
-        //Add states to the state list.
-        //AddFSMState(chase); //First one in List is default        
-        //AddFSMState(dead);
+
+       // Add states to the state list.
+       AddFSMState(patrol);
+        
     }
 
     //void HandleStartAttackEvent(int number)
