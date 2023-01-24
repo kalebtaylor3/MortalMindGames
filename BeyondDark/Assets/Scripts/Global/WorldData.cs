@@ -19,24 +19,29 @@ public class WorldData : MonoBehaviour
 
     #endregion
 
-
     #region Variables
 
     public enum REALMS { MORTAL = 0, VORGON = 1 };
+    public enum SECTIONS { VORGONREALM = -1, NONE = 0, FIRST = 1, SECOND, THIRD, FOURTH };
 
-    //DATA
+    // DATA
     public RelicSpawnManager.RELIC_TYPE lastCollectedRelic = RELIC_TYPE.NONE;
     public REALMS activeRealm = REALMS.MORTAL;
     public int collectedRelicsCount;
     public GameObject lastPickUpGO = null;
     public Vector3 pickUpCP;
     public PlayerController MortalRealmController;
+    public SECTIONS activePlayerSection;
+    public SECTIONS activeVorgonSection;
 
-    //FOR CHECKPOINT
-    private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;
-    //private REALMS activeRealmCP = REALMS.MORTAL;
+    // FOR CHECKPOINT
+    private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;    
     private int collectedRelicsCountCP;
     private GameObject lastPickUpGOCP;
+
+    // FOR AI
+    [SerializeField] List<Section> sections = null;
+
 
     #endregion
 
@@ -45,6 +50,14 @@ public class WorldData : MonoBehaviour
     private void Start()
     {
         lastCollectedRelic = RELIC_TYPE.NONE;
+        activePlayerSection = SECTIONS.NONE;
+        activeVorgonSection = SECTIONS.NONE;
+    }
+
+    public Vector3 FindSectionCenter(SECTIONS section)
+    {
+        Vector3 sectionCenter = (sections.Find((s) => s.sectionType == section)).transform.position;
+        return sectionCenter;
     }
 
     /*

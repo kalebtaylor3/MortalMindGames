@@ -24,6 +24,7 @@ public class ChaseState : FSMState
     {
         // Transitions
 
+        // Reach Player -> Attack (Temporary -> Lost)
         if(IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position,2))
         {
             vorgonFSM.PerformTransition(Transition.ReachedPlayer);

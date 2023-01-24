@@ -17,6 +17,6 @@ public class VorgonController : MonoBehaviour
 
     private void Update()
     {
-        //navAgent.destination = playerT.position;
+        //navAgent.destination = playerT.position;        
     }
 }

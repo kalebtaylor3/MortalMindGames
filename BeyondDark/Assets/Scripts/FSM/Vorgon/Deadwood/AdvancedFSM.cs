@@ -13,7 +13,9 @@ using System.Collections.Generic;
 public enum Transition
 {
     None = 0,
+    WrongSection,
     ReachedPlayer,
+    ReachedSection,
        
 }
 

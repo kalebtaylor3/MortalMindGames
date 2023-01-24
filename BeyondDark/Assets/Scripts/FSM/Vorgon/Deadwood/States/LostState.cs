@@ -22,7 +22,13 @@ public class LostState : FSMState
     public override void Reason()
     {
         // Transitions
-        
+
+        // If wrong section -> Seek
+        if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
+        {
+            vorgonFSM.PerformTransition(Transition.WrongSection);
+        }
+
     }
 
     public override void Act()
