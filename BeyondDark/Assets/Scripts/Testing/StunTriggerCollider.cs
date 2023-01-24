@@ -9,7 +9,7 @@ public class StunTriggerCollider : MonoBehaviour
         if (other.tag == "Vorgon")
         {
             other.GetComponent<VorgonController>().StunVorgon();
-            Destroy(gameObject);
+            this.GetComponent<Collider>().enabled = false;
         }
     }
 }

@@ -1,6 +1,7 @@
 using MMG;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 using static RelicSpawnManager;
 
@@ -33,6 +34,7 @@ public class WorldData : MonoBehaviour
     public PlayerController MortalRealmController;
     public SECTIONS activePlayerSection;
     public SECTIONS activeVorgonSection;
+    public Section ActiveVorgonSection;
 
     // FOR CHECKPOINT
     private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;    
@@ -41,6 +43,10 @@ public class WorldData : MonoBehaviour
 
     // FOR AI
     [SerializeField] List<Section> sections = null;
+    [SerializeField] List<Transform> Section01Waypoints = null;
+    [SerializeField] List<Transform> Section02Waypoints = null;
+    [SerializeField] List<Transform> Section03Waypoints = null;
+    [SerializeField] List<Transform> Section04Waypoints = null;
 
 
     #endregion
