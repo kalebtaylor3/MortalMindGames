@@ -10,6 +10,7 @@ public class VorgonController : MonoBehaviour
     [SerializeField] public VorgonDeadwoodFSM vorgonFSM;
     [SerializeField] public bool stunned = false;
     [SerializeField] private float stunDuration;
+    [SerializeField] public bool isAttacking = false;
 
 
 
@@ -34,5 +35,17 @@ public class VorgonController : MonoBehaviour
         stunned = true;
         yield return new WaitForSeconds(stunDuration);
         stunned = false;
+    }
+
+    public void Attack()
+    {
+        StartCoroutine(TriggerAttack());
+    }
+
+    IEnumerator TriggerAttack()
+    {
+        isAttacking = true;
+        yield return new WaitForSeconds(2);
+        isAttacking = false;
     }
 }

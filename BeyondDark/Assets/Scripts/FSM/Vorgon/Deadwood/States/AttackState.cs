@@ -16,8 +16,7 @@ public class AttackState : FSMState
 
     public override void EnterStateInit()
     {
-        //base.EnterStateInit();
-        vorgonControl.navAgent.isStopped = false;
+        //base.EnterStateInit();        
     }
 
     public override void Reason()
@@ -30,11 +29,39 @@ public class AttackState : FSMState
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
 
+        if(!vorgonControl.isAttacking)
+        {
+            // If player Found -> Chase
+            if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST))
+            {
+                vorgonFSM.PerformTransition(Transition.PlayerFound);
+            }
+
+            // If wrong section -> Seek
+            if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
+            {
+                vorgonFSM.PerformTransition(Transition.WrongSection);
+            }
+
+            // -> Lost
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
+
+        }
     }
 
     public override void Act()
     {
         // Actions
+
+        if(!vorgonControl.isAttacking)
+        {
+            vorgonControl.Attack();
+        }
+
+        if (!vorgonControl.navAgent.isStopped)
+        {
+            vorgonControl.navAgent.isStopped = true;
+        }
 
     }
 }

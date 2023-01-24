@@ -35,6 +35,12 @@ public class LostState : FSMState
             vorgonFSM.PerformTransition(Transition.WrongSection);
         }
 
+        // If player Found -> Chase
+        if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST))
+        {
+            vorgonFSM.PerformTransition(Transition.PlayerFound);
+        }
+
     }
 
     public override void Act()
