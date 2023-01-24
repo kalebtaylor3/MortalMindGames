@@ -18,14 +18,21 @@ public class ChaseState : FSMState
     public override void EnterStateInit()
     {
         //base.EnterStateInit();
+        vorgonControl.navAgent.isStopped = false;
     }
 
     public override void Reason()
     {
         // Transitions
 
+        // If stunned -> Stun
+        if (vorgonControl.stunned)
+        {
+            vorgonFSM.PerformTransition(Transition.Stunned);
+        }
+
         // Reach Player -> Attack (Temporary -> Lost)
-        if(IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position,2))
+        if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position,2))
         {
             vorgonFSM.PerformTransition(Transition.ReachedPlayer);
         }

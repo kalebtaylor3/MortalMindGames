@@ -19,6 +19,7 @@ public class SeekState : FSMState
     public override void EnterStateInit()
     {
         //base.EnterStateInit();
+        vorgonControl.navAgent.isStopped = false;
         destination = WorldData.Instance.FindSectionCenter(WorldData.Instance.activePlayerSection);
     }
 
@@ -31,6 +32,13 @@ public class SeekState : FSMState
         }
 
         // Transitions
+
+        // If stunned -> Stun
+        if (vorgonControl.stunned)
+        {
+            vorgonFSM.PerformTransition(Transition.Stunned);
+        }
+
         // Reach section -> Lost
         if (vorgonControl.transform.position == destination)
         {

@@ -23,11 +23,21 @@ public class StunnedState : FSMState
     {
         // Transitions
 
+
+        // Stun time over -> Lost
+        if (!vorgonControl.stunned)
+        {
+            vorgonFSM.PerformTransition(Transition.StunDone);
+        }
     }
 
     public override void Act()
     {
         // Actions
-
+        if (!vorgonControl.navAgent.isStopped)
+        {
+            vorgonControl.navAgent.isStopped = true;
+        }
     }
 }
+

@@ -17,11 +17,18 @@ public class ClosePatrolState : FSMState
     public override void EnterStateInit()
     {
         //base.EnterStateInit();
+        vorgonControl.navAgent.isStopped = false;
     }
 
     public override void Reason()
     {
         // Transitions
+
+        // If stunned -> Stun
+        if (vorgonControl.stunned)
+        {
+            vorgonFSM.PerformTransition(Transition.Stunned);
+        }
 
     }
 

@@ -23,6 +23,12 @@ public class LostState : FSMState
     {
         // Transitions
 
+        // If stunned -> Stun
+        if(vorgonControl.stunned)
+        {
+            vorgonFSM.PerformTransition(Transition.Stunned);
+        }
+
         // If wrong section -> Seek
         if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
         {
@@ -34,7 +40,10 @@ public class LostState : FSMState
     public override void Act()
     {
         // Actions
-        
+        if (!vorgonControl.navAgent.isStopped)
+        {
+            vorgonControl.navAgent.isStopped = true;
+        }
     }
 
 }

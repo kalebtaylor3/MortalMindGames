@@ -13,6 +13,7 @@ public class VorgonDeadwoodFSM : AdvancedFSM
     public static int WAYPOINT_DIST = 1;
         
     public NavMeshAgent navAgent;
+    [SerializeField] string StringState;
 
 
     public Transform GetPlayerTransform()
@@ -68,6 +69,8 @@ public class VorgonDeadwoodFSM : AdvancedFSM
             CurrentState.Reason();
             CurrentState.Act();
         }
+
+        StringState = GetStateString();
         //if (debugDraw)
         //{
         //    UsefullFunctions.DebugRay(transform.position, transform.forward * 5.0f, Color.red);
@@ -91,30 +94,38 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         ChaseState chase = new ChaseState(vorgonController);
         chase.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         chase.AddTransition(Transition.ReachedPlayer, FSMStateID.Lost);
+        chase.AddTransition(Transition.Stunned, FSMStateID.Stunned);
+
 
         // Lost
         LostState lost = new LostState(vorgonController);
         lost.AddTransition(Transition.WrongSection, FSMStateID.Seek);
+        lost.AddTransition(Transition.Stunned, FSMStateID.Stunned);
 
         // Patrol
         PatrolState patrol = new PatrolState(vorgonController);
         patrol.AddTransition(Transition.WrongSection, FSMStateID.Seek);
+        patrol.AddTransition(Transition.Stunned, FSMStateID.Stunned);
 
         // Attack
         AttackState attack = new AttackState(vorgonController);
         attack.AddTransition(Transition.WrongSection, FSMStateID.Seek);
+        attack.AddTransition(Transition.Stunned, FSMStateID.Stunned);
 
         // Close Patrol
         ClosePatrolState closePatrol = new ClosePatrolState(vorgonController);
         closePatrol.AddTransition(Transition.WrongSection, FSMStateID.Seek);
+        closePatrol.AddTransition(Transition.Stunned, FSMStateID.Stunned);
 
         // Seek
         SeekState seek = new SeekState(vorgonController);
         seek.AddTransition(Transition.ReachedSection, FSMStateID.Lost);
+        seek.AddTransition(Transition.Stunned, FSMStateID.Stunned);
 
         // Stunned
         StunnedState stunned = new StunnedState(vorgonController);
         stunned.AddTransition(Transition.WrongSection, FSMStateID.Seek);
+        stunned.AddTransition(Transition.StunDone, FSMStateID.Lost);
 
 
         // Add State to FSM

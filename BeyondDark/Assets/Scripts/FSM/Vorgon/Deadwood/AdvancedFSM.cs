@@ -16,7 +16,8 @@ public enum Transition
     WrongSection,
     ReachedPlayer,
     ReachedSection,
-       
+    Stunned,
+    StunDone,       
 }
 
 public enum FSMStateID
