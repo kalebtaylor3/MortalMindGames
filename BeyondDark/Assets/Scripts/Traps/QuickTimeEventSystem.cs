@@ -95,20 +95,26 @@ public class QuickTimeEventSystem : MonoBehaviour
     {
         if (!inEvent)
         {
-            fillRect.fillAmount = 0;
-            successTime = UnityEngine.Random.Range(minTime, maxTime);
-            timer = 0f;
-            eventTriggered = true;
-            successMarker.enabled = true;
-            float successFillAmount = successTime / maxTime;
-            float angle = -360 * successFillAmount;
-            successMarker.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
-            uiCanvas.alpha = 1;
-            UIPanel.SetActive(true);
-            inEvent = true;
-            StopAllCoroutines();
-            QTETrigger?.Invoke();
+            StartCoroutine(WaitToTrigger());
         }
+    }
+
+    IEnumerator WaitToTrigger()
+    {
+        yield return new WaitForSeconds(0.1f);
+        fillRect.fillAmount = 0;
+        successTime = UnityEngine.Random.Range(minTime, maxTime);
+        timer = 0f;
+        eventTriggered = true;
+        successMarker.enabled = true;
+        float successFillAmount = successTime / maxTime;
+        float angle = -360 * successFillAmount;
+        successMarker.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+        uiCanvas.alpha = 1;
+        UIPanel.SetActive(true);
+        inEvent = true;
+        StopAllCoroutines();
+        QTETrigger?.Invoke();
     }
 
     void Success()
