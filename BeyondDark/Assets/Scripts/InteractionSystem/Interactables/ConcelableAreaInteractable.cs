@@ -21,7 +21,7 @@ namespace MMG
         Vector3 lookAtStartPosition;
         Quaternion startRotation;
 
-        public enum clamp { X, Y };
+        public enum clamp { X, Y, Z };
         public clamp cameraClamp;
         [SerializeField] private float maxLocalRotationValue;
         public bool negativeRotation;
@@ -53,6 +53,9 @@ namespace MMG
 
             if (cameraClamp == clamp.Y)
                 concelableAreaCam.cam.Follow = lookAtTransform;
+
+            if (cameraClamp == clamp.Z)
+                concelableAreaCam.cam.Follow = lookAtTransform;
         }
 
         private void Update()
@@ -79,9 +82,19 @@ namespace MMG
                 else
                     canRotate = true;
             }
-            else
+            else if(cameraClamp == clamp.Y)
             {
                 if (rotator.transform.localRotation.x > maxLocalRotationValue)
+                {
+                    canRotate = false;
+                    doorCreak.Stop();
+                }
+                else
+                    canRotate = true;
+            }
+            else
+            {
+                if (rotator.transform.localRotation.z > maxLocalRotationValue)
                 {
                     canRotate = false;
                     doorCreak.Stop();
@@ -115,6 +128,16 @@ namespace MMG
                     lookAtTransform.localPosition += new Vector3(0, exposurePercentage, exposurePercentage * -1 * 0.5f) * 0.15f * Time.deltaTime;
                 }
             }
+            else if(cameraClamp == clamp.Z && exposurePercentage > 0)
+            {
+                if (canRotate)
+                {
+                    if (!doorCreak.isPlaying)
+                        doorCreak.Play();
+                    rotator.transform.Rotate(new Vector3(0, 0, exposurePercentage) * rotationSpeed * Time.deltaTime);
+                    lookAtTransform.localPosition += new Vector3(0, exposurePercentage, exposurePercentage * -1 * 0.5f) * 0.15f * Time.deltaTime;
+                }
+            }
 
             if (isHidding)
             {
@@ -138,6 +161,14 @@ namespace MMG
                     else if (cameraClamp == clamp.X)
                     {
                         if (rotator.transform.rotation.y > startRotation.y)
+                        {
+                            rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+                            doorCreak.Stop();
+                        }
+                    }
+                    else if (cameraClamp == clamp.Z)
+                    {
+                        if (rotator.transform.rotation.z > startRotation.z)
                         {
                             rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
                             doorCreak.Stop();
@@ -232,8 +263,10 @@ namespace MMG
         {
             if (cameraClamp == clamp.Y)
                 rotator.transform.Rotate(new Vector3(-0.95f, 0), rotationSpeed * Time.deltaTime);
-            else
+            else if (cameraClamp == clamp.X)
                 rotator.transform.Rotate(new Vector3(0, -0.95f), rotationSpeed * Time.deltaTime);
+            else
+                rotator.transform.Rotate(new Vector3(0, 0, -0.95f), rotationSpeed * Time.deltaTime);
         }
 
         void ExitArea()
