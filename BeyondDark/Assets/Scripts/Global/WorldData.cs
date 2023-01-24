@@ -42,11 +42,7 @@ public class WorldData : MonoBehaviour
     private GameObject lastPickUpGOCP;
 
     // FOR AI
-    [SerializeField] List<Section> sections = null;
-    [SerializeField] List<Transform> Section01Waypoints = null;
-    [SerializeField] List<Transform> Section02Waypoints = null;
-    [SerializeField] List<Transform> Section03Waypoints = null;
-    [SerializeField] List<Transform> Section04Waypoints = null;
+    [SerializeField] List<Section> sections = null;    
 
 
     #endregion
@@ -58,6 +54,12 @@ public class WorldData : MonoBehaviour
         lastCollectedRelic = RELIC_TYPE.NONE;
         activePlayerSection = SECTIONS.NONE;
         activeVorgonSection = SECTIONS.NONE;
+    }
+
+    public Section FindActiveSection(SECTIONS section)
+    {
+        Section currentSection = sections.Find((s) => s.sectionType == section);
+        return currentSection;
     }
 
     public Vector3 FindSectionCenter(SECTIONS section)
