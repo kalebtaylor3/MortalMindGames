@@ -7,7 +7,7 @@ using System;
 
 public class QuickTimeEventSystem : MonoBehaviour
 {
-    public float maxTime = 5f;
+    public float maxTime = 4f;
     public float minTime = 2f;
     public float timer;
     public Image fillRect;
@@ -52,7 +52,7 @@ public class QuickTimeEventSystem : MonoBehaviour
         {
             if(inEvent)
             {
-                timer += Time.deltaTime;
+                timer += Time.deltaTime * 4;
                 fillRect.fillAmount = timer / maxTime;
             }
 
@@ -76,9 +76,11 @@ public class QuickTimeEventSystem : MonoBehaviour
                     Fail();
                 }
             }
-            else if (timer >= maxTime)
+            if (timer >= maxTime)
             {
                 Debug.Log("Quick time event failed!");
+                eventTriggered = false;
+                inEvent = false;
                 Fail();
             }
         }
@@ -127,8 +129,8 @@ public class QuickTimeEventSystem : MonoBehaviour
     void Fail()
     {
         //alert vorgon by playing a really loud fail sound.
-        StartCoroutine(WaitToGoAway());
         OnFailure?.Invoke();
+        StartCoroutine(WaitToGoAway());
     }
 
     IEnumerator WaitToGoAway()
@@ -137,7 +139,7 @@ public class QuickTimeEventSystem : MonoBehaviour
         eventTriggered = false;
         while (uiCanvas.alpha > 0)
         {
-            uiCanvas.alpha = Mathf.LerpUnclamped(uiCanvas.alpha, 0, 2 * Time.deltaTime);
+            uiCanvas.alpha = Mathf.LerpUnclamped(uiCanvas.alpha, 0, 1 * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
     }

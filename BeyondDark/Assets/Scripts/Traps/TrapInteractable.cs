@@ -20,8 +20,6 @@ public class TrapInteractable : InteractableBase
 
     private void OnEnable()
     {
-        QuickTimeEventSystem.OnSuccess += OnSuccsess;
-        QuickTimeEventSystem.OnFailure += OnFailure;
         textMessage = TooltipMessage;
     }
 
@@ -35,6 +33,8 @@ public class TrapInteractable : InteractableBase
             isInteractable = false;
             displayText = "";
             animator.SetBool("Arming", true);
+            QuickTimeEventSystem.OnSuccess += OnSuccsess;
+            QuickTimeEventSystem.OnFailure += OnFailure;
         }
         
     }
@@ -59,6 +59,8 @@ public class TrapInteractable : InteractableBase
         displayText = textMessage;
         animator.SetBool("Fail", true);
         StartCoroutine(WaitForFail());
+        QuickTimeEventSystem.OnSuccess -= OnSuccsess;
+        QuickTimeEventSystem.OnFailure -= OnFailure;
     }
 
     IEnumerator WaitForFail()
@@ -76,6 +78,8 @@ public class TrapInteractable : InteractableBase
         displayText = "";
         animator.SetBool("Armed", true);
         StartCoroutine(WaitForArming());
+        QuickTimeEventSystem.OnSuccess -= OnSuccsess;
+        QuickTimeEventSystem.OnFailure -= OnFailure;
     }
 
     IEnumerator WaitForArming()
