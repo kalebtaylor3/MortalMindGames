@@ -13,6 +13,7 @@ namespace MMG
             [SerializeField] private InteractionInputData interactionInputData = null;
             [SerializeField] private InventoryInputData inventoryInputData = null;
             [SerializeField] private ItemInputData itemInputData = null;
+            [SerializeField] private QuickTimeEventInputData quickTimeInputData = null;
 
             [HideInInspector] public bool canMove = true;
             [HideInInspector] public bool canInteract = true;
@@ -30,13 +31,24 @@ namespace MMG
 
         private void OnEnable()
         {
-            ConcelableAreaInteractable.OnEnteredSpot += UnCrouch;
+            //ConcelableAreaInteractable.OnEnteredSpot += UnCrouch;
+            //uickTimeEventSystem.QTETrigger += OnCantMove;
         }
 
         void UnCrouch()
         {
             if(movementInputData.IsCrouching)
                 movementInputData.CrouchClicked = true;
+        }
+
+        void OnCanMove()
+        {
+            canMove = true;
+        }
+
+        void OnCantMove()
+        {
+            canMove = false;
         }
 
         void Update()
@@ -55,8 +67,15 @@ namespace MMG
                 GetInteractionInputData();
             GetInventoryInputData();
             GetItemInputData();
+            GetQuickTimeEventInputData();
 
         }
+
+        void GetQuickTimeEventInputData()
+        {
+            quickTimeInputData.SuccessKeyPressed = Gamepad.current.buttonWest.wasPressedThisFrame;
+        }
+
         void GetInteractionInputData()
         {
             interactionInputData.InteractedClicked = Gamepad.current.buttonWest.wasPressedThisFrame;

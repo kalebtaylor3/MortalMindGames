@@ -977,6 +977,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 580738405945841549, guid: d986174fc53a17f469747d21442a5adf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3550712097261960738, guid: d986174fc53a17f469747d21442a5adf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4394258926308995043, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1111,6 +1121,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8780697429672541210, guid: d986174fc53a17f469747d21442a5adf,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8780697429672541210, guid: d986174fc53a17f469747d21442a5adf,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8780697429672541210, guid: d986174fc53a17f469747d21442a5adf,
+        type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d986174fc53a17f469747d21442a5adf, type: 3}
@@ -1922,6 +1947,18 @@ Transform:
   m_Father: {fileID: 289331585}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &954105711 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4293495328403055923, guid: d986174fc53a17f469747d21442a5adf,
+    type: 3}
+  m_PrefabInstance: {fileID: 496619007}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &961835700
 GameObject:
   m_ObjectHideFlags: 0
@@ -2659,6 +2696,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1410254013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3550712097261960738, guid: d986174fc53a17f469747d21442a5adf,
+    type: 3}
+  m_PrefabInstance: {fileID: 496619007}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &1410254015 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 8780697429672541210, guid: d986174fc53a17f469747d21442a5adf,
+    type: 3}
+  m_PrefabInstance: {fileID: 496619007}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1495043370 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1801098275605399476, guid: d986174fc53a17f469747d21442a5adf,
+    type: 3}
+  m_PrefabInstance: {fileID: 496619007}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1522982722
 GameObject:
   m_ObjectHideFlags: 0
@@ -2891,6 +2952,9 @@ MonoBehaviour:
   lastPickUpGO: {fileID: 0}
   pickUpCP: {x: 0, y: 0, z: 0}
   MortalRealmController: {fileID: 0}
+  activePlayerSection: 0
+  activeVorgonSection: 0
+  sections: []
 --- !u!4 &1552238607
 Transform:
   m_ObjectHideFlags: 0
@@ -3112,6 +3176,11 @@ PrefabInstance:
       propertyPath: m_Offset.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 851962570502236595, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1037924439529419394, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
       propertyPath: field of view
@@ -3228,6 +3297,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 809cbeb44790709458172c4f9bbb7ecf,
         type: 2}
+    - target: {fileID: 4156213610731363253, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: UIPanel
+      value: 
+      objectReference: {fileID: 1410254013}
+    - target: {fileID: 4156213610731363253, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: fillRect
+      value: 
+      objectReference: {fileID: 1495043370}
+    - target: {fileID: 4156213610731363253, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: uiCanvas
+      value: 
+      objectReference: {fileID: 1410254015}
+    - target: {fileID: 4156213610731363253, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: successMarker
+      value: 
+      objectReference: {fileID: 954105711}
+    - target: {fileID: 4156213610731363253, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: successTimeRange
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 4361883663916781840, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
       propertyPath: m_audioClip

@@ -187,7 +187,7 @@ namespace MMG
         [Range(0.1f, 1.5f)]
         public float PulseFrequency = 1.2f;
 
-        private float rumbleTime = 5f;
+        private float rumbleTime = 1f;
         private RumblePattern rumblePattern = RumblePattern.Constant;
         [SerializeField] Rumbler rumbler;
         private int[] timeDropdown = new int[] { 3, 5, 10 };
@@ -308,6 +308,10 @@ namespace MMG
 
             // Sound Effect for realm tp
             HandleRealmTransport();
+
+            QuickTimeEventSystem.QTETrigger += HandleQuickTimeEvent;
+            QuickTimeEventSystem.OnSuccess += HandleSuccess;
+            QuickTimeEventSystem.OnFailure += HandleFailure;
 
         }
 
@@ -997,9 +1001,9 @@ namespace MMG
         {
             rumblePattern = rumbleMode[selectedValue];
         }
-        public void SetDurration(int selectedValue)
+        public void SetDurration(float value)
         {
-            rumbleTime = timeDropdown[selectedValue];
+            rumbleTime = value;
         }
 
         public void StartRumble()
@@ -1010,7 +1014,7 @@ namespace MMG
                     rumbler.RumbleConstant(0, 1f, rumbleTime);
                     break;
                 case RumblePattern.CollectRellic:
-                    rumbler.RumblePulse(0f, 1, PulseFrequency, 1f);
+                    rumbler.RumblePulse(0f, 1, PulseFrequency, rumbleTime);
                     break;
                 case RumblePattern.Linear:
                     rumbler.RumbleLinear(0, 1f, 0, 0.5f, rumbleTime);
@@ -1024,6 +1028,28 @@ namespace MMG
         public void StopRumble()
         {
             rumbler.StopRumble();
+        }
+
+        #endregion
+
+        #region QuickTimeEventMethods
+
+        void HandleQuickTimeEvent()
+        {
+            //disable movement
+        }
+
+        void HandleSuccess()
+        {
+            SetRumbleMode(1);
+            StartRumble();
+        }
+
+        void HandleFailure()
+        {
+            SetDurration(1);
+            SetRumbleMode(2);
+            StartRumble();
         }
 
         #endregion
