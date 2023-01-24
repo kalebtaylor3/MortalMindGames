@@ -6,6 +6,8 @@ public class Section : MonoBehaviour
 {
     public WorldData.SECTIONS sectionType = WorldData.SECTIONS.NONE;
 
+    [SerializeField] public List<Transform> SectionWaypoints = null;
+
     private void OnTriggerStay(Collider other)
     {
         
