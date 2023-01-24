@@ -43,7 +43,7 @@ public abstract class FSMState
         }
 
         map.Add(transition, id);
-        Debug.Log("Added : " + transition + " with ID : " + id);
+        //Debug.Log("Added : " + transition + " with ID : " + id);
     }
 
     /// <summary>

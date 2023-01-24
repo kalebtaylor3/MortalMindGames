@@ -44,6 +44,12 @@ public class SeekState : FSMState
         {
             vorgonFSM.PerformTransition(Transition.ReachedSection);
         }
+
+        // If player Found -> Chase
+        if(IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST))
+        {
+            vorgonFSM.PerformTransition(Transition.PlayerFound);
+        }
     }
 
     public override void Act()

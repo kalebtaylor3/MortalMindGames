@@ -9,7 +9,7 @@ public class VorgonDeadwoodFSM : AdvancedFSM
     //Adjust these as needed...
     //public static int SLOT_DIST = 1;
     //public static int ATTACK_DIST = 25;
-    public static int CHASE_DIST = 40;
+    [SerializeField ] public static int CHASE_DIST = 5;
     public static int WAYPOINT_DIST = 1;
         
     public NavMeshAgent navAgent;
@@ -101,31 +101,37 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         LostState lost = new LostState(vorgonController);
         lost.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         lost.AddTransition(Transition.Stunned, FSMStateID.Stunned);
+        lost.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
 
         // Patrol
         PatrolState patrol = new PatrolState(vorgonController);
         patrol.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         patrol.AddTransition(Transition.Stunned, FSMStateID.Stunned);
+        patrol.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
 
         // Attack
         AttackState attack = new AttackState(vorgonController);
         attack.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         attack.AddTransition(Transition.Stunned, FSMStateID.Stunned);
+        attack.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
 
         // Close Patrol
         ClosePatrolState closePatrol = new ClosePatrolState(vorgonController);
         closePatrol.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         closePatrol.AddTransition(Transition.Stunned, FSMStateID.Stunned);
+        closePatrol.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
 
         // Seek
         SeekState seek = new SeekState(vorgonController);
         seek.AddTransition(Transition.ReachedSection, FSMStateID.Lost);
         seek.AddTransition(Transition.Stunned, FSMStateID.Stunned);
+        seek.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
 
         // Stunned
         StunnedState stunned = new StunnedState(vorgonController);
         stunned.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         stunned.AddTransition(Transition.StunDone, FSMStateID.Lost);
+        stunned.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
 
 
         // Add State to FSM

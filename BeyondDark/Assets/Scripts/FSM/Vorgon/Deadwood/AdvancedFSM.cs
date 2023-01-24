@@ -14,6 +14,7 @@ public enum Transition
 {
     None = 0,
     WrongSection,
+    PlayerFound,
     ReachedPlayer,
     ReachedSection,
     Stunned,
