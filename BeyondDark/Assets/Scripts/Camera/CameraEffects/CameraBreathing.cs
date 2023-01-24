@@ -16,13 +16,18 @@ namespace MMG
         [SerializeField] private bool x = true;
         [SerializeField] private bool y = true;
         [SerializeField] private bool z = true;
-
+        [SerializeField] GameObject vorgonFear;
+        [SerializeField] GameObject playersFear;
         private PerlinNoiseScroller perlinNoiseScroller;
         [HideInInspector] public Vector3 finalRot;
         private Vector3 finalPos;
 
         private float initialFrequency;
         private float initialAmplitude;
+        private float fearFrequency;
+        private float fearAmplitude;
+        private Vector3 vorgonPos;
+        private Vector3 fearPos;
         #endregion
 
 
@@ -31,13 +36,24 @@ namespace MMG
 
         void Start()
         {
+            if(playersFear == null)
+            {
+                playersFear = GameObject.FindGameObjectWithTag("Player");
+
+            }
+            if(vorgonFear == null)
+            {
+                vorgonFear = GameObject.FindGameObjectWithTag("Vorgon");
+            }
             perlinNoiseScroller = new PerlinNoiseScroller(noiseData);
             SetBreathingDefault();
+            
         }
 
         private void OnEnable()
         {
             SetBreathingDefault();
+            
             PlayerController.OnEnmptyStamina += HandleEmptyStamina;
             PlayerController.OnTeleport += SetBreathingDefault;
         }
@@ -56,7 +72,7 @@ namespace MMG
             initialAmplitude = 1.5f;
 
             noiseData.frequency = initialFrequency;
-            noiseData.amplitude = initialAmplitude;          
+            noiseData.amplitude = initialAmplitude;         
 
         }
 
@@ -79,10 +95,37 @@ namespace MMG
 
             yield return null;
         }
+        IEnumerator VorgonBreathing()
+        {
 
+            yield return null;
+            
+            
+            
+        }
+        private void Update()
+        {
+            
+            StartCoroutine(VorgonBreathing());
+            vorgonPos = vorgonFear.transform.position;
+            fearPos = playersFear.transform.position;
+            fearAmplitude = Vector3.Distance(vorgonPos, fearPos);
+            if (fearAmplitude < 15)
+            {
+                fearAmplitude = 25 - fearAmplitude;
+                //fearAmplitude = fearAmplitude / 10;
+            }
+            else
+            {
+                fearAmplitude = 0;
+            }
+            
+            Debug.Log("Wild Ride" + fearAmplitude);
+            //yield return new WaitForSeconds(5.0f);
+        }
         void LateUpdate()
         {
-            if(noiseData != null)
+            if (noiseData != null)
             {
                 perlinNoiseScroller.UpdateNoise();
 
@@ -95,14 +138,17 @@ namespace MMG
                     {
                         if(x)
                             posOffset.x += perlinNoiseScroller.Noise.x;
+                            //posOffset.x += fearAmplitude;
 
                         if(y)
                             posOffset.y += perlinNoiseScroller.Noise.y;
+                            //posOffset.y += fearAmplitude;
 
-                        if(z)
+                            if (z)
                             posOffset.z += perlinNoiseScroller.Noise.z;
+                            //posOffset.z += fearAmplitude;
 
-                        finalPos.x = x ? posOffset.x : transform.localPosition.x;
+                            finalPos.x = x ? posOffset.x : transform.localPosition.x;
                         finalPos.y = y ? posOffset.y : transform.localPosition.y;
                         finalPos.z = z ? posOffset.z : transform.localPosition.z;
 
@@ -116,6 +162,7 @@ namespace MMG
 
                         if(y)
                             rotOffset.y += perlinNoiseScroller.Noise.y;
+                            rotOffset.y += fearAmplitude;
 
                         if(z)
                             rotOffset.z += perlinNoiseScroller.Noise.z;
@@ -156,7 +203,7 @@ namespace MMG
                         finalRot.y = y ? rotOffset.y : transform.localEulerAngles.y;
                         finalRot.z = z ? rotOffset.z : transform.localEulerAngles.z;
 
-                        transform.localPosition = finalPos;
+                        transform.localPosition = finalPos + new Vector3(fearAmplitude, fearAmplitude, fearAmplitude);
                         transform.localEulerAngles = finalRot;
 
                         break;
