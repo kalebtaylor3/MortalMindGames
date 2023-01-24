@@ -245,7 +245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4486899958126474518
 Transform:
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4486899958126474522}
   m_LocalRotation: {x: 0.030843811, y: 0.00000027145379, z: -0.000008796728, w: 0.99952424}
-  m_LocalPosition: {x: -0.030000195, y: 0.8989999, z: 0.21400008}
+  m_LocalPosition: {x: -0.029999733, y: 0.899, z: 0.21399975}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -325,7 +325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4486899958355208620}
   m_Layer: 0
-  m_Name: Concelable Test #3 Chest
+  m_Name: Concelable Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -658,73 +658,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3929571, y: 0.99450606, z: 1.6595466}
   m_Center: {x: 0.30351767, y: 0.44124964, z: -0.018857274}
---- !u!95 &5668700438833044406
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651653770233620238}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ba91c08e6795ebd4eb158d7f941a999c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &9140435419858607900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651653770233620238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 957595e55d335914990c43ae0e129399, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdInteract: 0
-  holdDuration: 1
-  multipleUse: 0
-  isInteractable: 1
-  displayText: interact
-  isPickup: 0
-  isHidingSpot: 0
-  pickUp: {fileID: 0}
-  concelableAreaCam: {fileID: 4486899958126474521}
-  playerCamera: {fileID: 0}
-  doorCreak: {fileID: 8450323207670507997}
-  cameraPosition: {fileID: 2597375166718141064}
-  lookAtTransform: {fileID: 3975464654848557385}
-  cameraClamp: 2
-  maxLocalRotationValue: 0.45
-  negativeRotation: 0
-  enteranceAnimator: {fileID: 5668700438833044406}
-  rotator: {fileID: 4751482690556163743}
-  rotationSpeed: 25
-  input: {fileID: 0}
---- !u!114 &5045258764871023829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651653770233620238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aadf307b2e0bf2246aba42022af28cca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  openSound: {fileID: 8300000, guid: e4639e29d9bace94dbbf80d0bef0f84d, type: 3}
-  closeSound: {fileID: 8300000, guid: 2857a546a398d4240aedb4adbff4c45c, type: 3}
-  sounds: {fileID: 8256971497360430867}
 --- !u!82 &8256971497360430867
 AudioSource:
   m_ObjectHideFlags: 0
@@ -821,3 +754,70 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &5668700438833044406
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5651653770233620238}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ba91c08e6795ebd4eb158d7f941a999c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5045258764871023829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5651653770233620238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aadf307b2e0bf2246aba42022af28cca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openSound: {fileID: 8300000, guid: e4639e29d9bace94dbbf80d0bef0f84d, type: 3}
+  closeSound: {fileID: 8300000, guid: 2857a546a398d4240aedb4adbff4c45c, type: 3}
+  sounds: {fileID: 8256971497360430867}
+--- !u!114 &9140435419858607900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5651653770233620238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957595e55d335914990c43ae0e129399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdInteract: 0
+  holdDuration: 1
+  multipleUse: 0
+  isInteractable: 1
+  displayText: interact
+  isPickup: 0
+  isHidingSpot: 0
+  pickUp: {fileID: 0}
+  concelableAreaCam: {fileID: 4486899958126474521}
+  playerCamera: {fileID: 0}
+  doorCreak: {fileID: 8450323207670507997}
+  cameraPosition: {fileID: 2597375166718141064}
+  lookAtTransform: {fileID: 3975464654848557385}
+  cameraClamp: 2
+  maxLocalRotationValue: 0.45
+  negativeRotation: 0
+  enteranceAnimator: {fileID: 5668700438833044406}
+  rotator: {fileID: 4751482690556163743}
+  rotationSpeed: 25
+  input: {fileID: 0}
