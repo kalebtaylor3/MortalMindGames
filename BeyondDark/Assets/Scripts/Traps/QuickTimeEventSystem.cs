@@ -33,7 +33,7 @@ public class QuickTimeEventSystem : MonoBehaviour
 
     private void OnEnable()
     {
-
+        TrapInteractable.FailQTE += Fail;
     }
 
     private void OnDisable()
@@ -129,6 +129,7 @@ public class QuickTimeEventSystem : MonoBehaviour
     void Fail()
     {
         //alert vorgon by playing a really loud fail sound.
+        inEvent = false;
         OnFailure?.Invoke();
         StartCoroutine(WaitToGoAway());
     }

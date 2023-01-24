@@ -1,4 +1,5 @@
 using MMG;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,11 +20,36 @@ public class TrapInteractable : InteractableBase
     string textMessage;
 
     public GameObject vfx;
+    bool inEvent = false;
+
+    public static event Action FailQTE;
+
+    bool canPass = false;
 
     private void OnEnable()
     {
         textMessage = TooltipMessage;
         armedTrigger.SetActive(false);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            if (inEvent)
+            {
+                //OnFailure();
+                FailQTE?.Invoke();
+                OnFailure();
+                Debug.Log("You walked away so you fail");
+                canPass = false;
+            }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        canPass = true;
     }
 
     public override void OnInteract()
@@ -38,6 +64,7 @@ public class TrapInteractable : InteractableBase
             animator.SetBool("Arming", true);
             QuickTimeEventSystem.OnSuccess += OnSuccsess;
             QuickTimeEventSystem.OnFailure += OnFailure;
+            inEvent = true;
         }
         
     }
@@ -52,8 +79,12 @@ public class TrapInteractable : InteractableBase
 
     void OnSuccsess()
     {
-        qte_Completed = qte_Completed + 1;
-        HandleEvent();
+        if (canPass)
+        {
+            qte_Completed = qte_Completed + 1;
+            HandleEvent();
+            inEvent = false;
+        }
     }
 
     void OnFailure()
@@ -72,6 +103,7 @@ public class TrapInteractable : InteractableBase
         canInteract = true;
         isInteractable = true;
         ui.SetDisplayText(textMessage);
+        inEvent = false;
     }
 
     void OnComplete()
@@ -83,6 +115,7 @@ public class TrapInteractable : InteractableBase
         StartCoroutine(WaitForArming());
         QuickTimeEventSystem.OnSuccess -= OnSuccsess;
         QuickTimeEventSystem.OnFailure -= OnFailure;
+        inEvent = false;
     }
 
     IEnumerator WaitForArming()
