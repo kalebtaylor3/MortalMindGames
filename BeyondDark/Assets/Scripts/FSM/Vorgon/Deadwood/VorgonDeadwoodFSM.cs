@@ -9,7 +9,7 @@ public class VorgonDeadwoodFSM : AdvancedFSM
     //Adjust these as needed...
     //public static int SLOT_DIST = 1;
     //public static int ATTACK_DIST = 25;
-    [SerializeField ] public static int CHASE_DIST = 5;
+    [SerializeField ] public static int CHASE_DIST = 10;
     public static int WAYPOINT_DIST = 1;
         
     public NavMeshAgent navAgent;
@@ -93,7 +93,7 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         // Chase
         ChaseState chase = new ChaseState(vorgonController);
         chase.AddTransition(Transition.WrongSection, FSMStateID.Seek);
-        chase.AddTransition(Transition.ReachedPlayer, FSMStateID.Lost);
+        chase.AddTransition(Transition.ReachedPlayer, FSMStateID.Attack);
         chase.AddTransition(Transition.Stunned, FSMStateID.Stunned);
 
 
@@ -114,6 +114,7 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         attack.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         attack.AddTransition(Transition.Stunned, FSMStateID.Stunned);
         attack.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
+        attack.AddTransition(Transition.PlayerLost, FSMStateID.Lost);
 
         // Close Patrol
         ClosePatrolState closePatrol = new ClosePatrolState(vorgonController);
