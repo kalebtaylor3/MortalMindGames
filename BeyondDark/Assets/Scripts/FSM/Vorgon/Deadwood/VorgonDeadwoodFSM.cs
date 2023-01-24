@@ -94,6 +94,7 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         ChaseState chase = new ChaseState(vorgonController);
         chase.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         chase.AddTransition(Transition.ReachedPlayer, FSMStateID.Attack);
+        chase.AddTransition(Transition.PlayerLost, FSMStateID.Lost);
         chase.AddTransition(Transition.Stunned, FSMStateID.Stunned);
 
 

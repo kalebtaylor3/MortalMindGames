@@ -31,6 +31,12 @@ public class ChaseState : FSMState
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
 
+        // If lost player -> Lost
+        if (!IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST + 5))
+        {
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
+        }
+
         // Reach Player -> Attack (Temporary -> Lost)
         if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position,2))
         {
