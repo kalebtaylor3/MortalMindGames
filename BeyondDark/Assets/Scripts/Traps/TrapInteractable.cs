@@ -11,6 +11,8 @@ public class TrapInteractable : InteractableBase
     public Animator animator;
     bool canInteract = true;
 
+    public GameObject armedTrigger;
+
     public int NumberOfSucsess = 2;
     int qte_Completed = 0;
 
@@ -21,6 +23,7 @@ public class TrapInteractable : InteractableBase
     private void OnEnable()
     {
         textMessage = TooltipMessage;
+        armedTrigger.SetActive(false);
     }
 
     public override void OnInteract()
@@ -86,5 +89,6 @@ public class TrapInteractable : InteractableBase
     {
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length);
         vfx.SetActive(true);
+        armedTrigger.SetActive(true);   
     }
 }

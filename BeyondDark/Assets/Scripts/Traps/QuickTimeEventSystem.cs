@@ -139,7 +139,7 @@ public class QuickTimeEventSystem : MonoBehaviour
         eventTriggered = false;
         while (uiCanvas.alpha > 0)
         {
-            uiCanvas.alpha = Mathf.LerpUnclamped(uiCanvas.alpha, 0, 1 * Time.deltaTime);
+            uiCanvas.alpha = Mathf.LerpUnclamped(uiCanvas.alpha, 0, 4 * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
     }
