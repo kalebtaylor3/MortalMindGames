@@ -10,7 +10,7 @@ namespace MMG
 
         bool HoldInteract { get; }
         bool MultipleUse { get; }
-        bool IsInteractable { get; }
+        bool IsInteractable {get; }
 
         string TooltipMessage { get;}
 

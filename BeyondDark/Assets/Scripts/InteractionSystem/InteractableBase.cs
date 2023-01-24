@@ -20,7 +20,7 @@ namespace MMG
             
         [Space] 
         [SerializeField] private bool multipleUse = false;
-        [SerializeField] private bool isInteractable = true;
+        [SerializeField] public bool isInteractable = true;
 
         [SerializeField] public string displayText = "interact";
 
@@ -53,7 +53,7 @@ namespace MMG
         }
 
         public virtual void OnInteract()
-            {
+        {
                 Debug.Log("INTERACTED: " + gameObject.name);
 
                 if (IsPickup)
