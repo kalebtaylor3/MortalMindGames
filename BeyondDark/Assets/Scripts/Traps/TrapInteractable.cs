@@ -44,28 +44,48 @@ public class TrapInteractable : InteractableBase
                 Debug.Log("You walked away so you fail");
                 canPass = false;
             }
+
+            canPass = false;
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    //private void Update()
+    //{
+    //    if (this.canPass)
+    //        this.ui.SetDisplayText(textMessage);
+    //    else
+    //        this.ui.SetDisplayText("");
+    //}
+
+    private void OnTriggerEnter(Collider other)
     {
         canPass = true;
     }
 
+    //private void Update()
+    //{
+    //    Debug.Log(canPass);
+    //}
+
     public override void OnInteract()
     {
-        if (canInteract)
+        if (canPass)
         {
-            base.OnInteract();
-            qte.TriggerEvent();
-            canInteract = false;
-            isInteractable = false;
-            displayText = "";
-            animator.SetBool("Arming", true);
-            QuickTimeEventSystem.OnSuccess += OnSuccsess;
-            QuickTimeEventSystem.OnFailure += OnFailure;
-            inEvent = true;
+            if (canInteract)
+            {
+                base.OnInteract();
+                qte.TriggerEvent();
+                canInteract = false;
+                isInteractable = false;
+                displayText = "";
+                animator.SetBool("Arming", true);
+                QuickTimeEventSystem.OnSuccess += OnSuccsess;
+                QuickTimeEventSystem.OnFailure += OnFailure;
+                inEvent = true;
+            }
         }
+        else
+            return;
         
     }
 
@@ -81,6 +101,7 @@ public class TrapInteractable : InteractableBase
     {
         if (canPass)
         {
+            StopAllCoroutines();
             qte_Completed = qte_Completed + 1;
             HandleEvent();
             inEvent = false;
@@ -89,12 +110,11 @@ public class TrapInteractable : InteractableBase
 
     void OnFailure()
     {
+        StopAllCoroutines();
         qte_Completed = 0;
         displayText = textMessage;
         animator.SetBool("Fail", true);
         StartCoroutine(WaitForFail());
-        QuickTimeEventSystem.OnSuccess -= OnSuccsess;
-        QuickTimeEventSystem.OnFailure -= OnFailure;
     }
 
     IEnumerator WaitForFail()
@@ -104,6 +124,8 @@ public class TrapInteractable : InteractableBase
         isInteractable = true;
         ui.SetDisplayText(textMessage);
         inEvent = false;
+        QuickTimeEventSystem.OnSuccess -= OnSuccsess;
+        QuickTimeEventSystem.OnFailure -= OnFailure;
     }
 
     void OnComplete()
@@ -113,15 +135,16 @@ public class TrapInteractable : InteractableBase
         displayText = "";
         animator.SetBool("Armed", true);
         StartCoroutine(WaitForArming());
-        QuickTimeEventSystem.OnSuccess -= OnSuccsess;
-        QuickTimeEventSystem.OnFailure -= OnFailure;
         inEvent = false;
     }
 
     IEnumerator WaitForArming()
     {
+        animator.SetBool("Armed", true);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length);
         vfx.SetActive(true);
-        armedTrigger.SetActive(true);   
+        armedTrigger.SetActive(true);
+        QuickTimeEventSystem.OnSuccess -= OnSuccsess;
+        QuickTimeEventSystem.OnFailure -= OnFailure;
     }
 }
