@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2997435402995987223}
   - component: {fileID: 2997435402995987224}
   - component: {fileID: 2997435402995987225}
+  - component: {fileID: -358049228022534868}
   m_Layer: 6
   m_Name: DeadwoodMap
   m_TagString: Untagged
@@ -116,7 +117,8 @@ MonoBehaviour:
     type: 3}
   pickUpID: 0
   pickUpClip: {fileID: 8300000, guid: 5f691b7173831574499d7aa445cb5347, type: 3}
-  tpPosition: {x: 10, y: 1, z: -50}
+  VorgonTpPosition: {x: 0, y: 0, z: 0}
+  CheckpointTpPosition: {x: 0, y: 0, z: 0}
   RealmTp: 0
 --- !u!114 &2997435402995987225
 MonoBehaviour:
@@ -139,3 +141,18 @@ MonoBehaviour:
   isHidingSpot: 0
   pickUp: {fileID: 2997435402995987224}
   destroyOnPickUp: 1
+  dialogue: {fileID: -358049228022534868}
+--- !u!114 &-358049228022534868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997435402995987226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bae648f1ac56948afed25aef9a5e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: b44e9f2a17511e84082610af4ee08e25, type: 3}
+  dialougeText: Oh my god! its a map!

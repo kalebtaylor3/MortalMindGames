@@ -62,6 +62,11 @@ public class TrapInteractable : InteractableBase
         canPass = true;
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        canPass = true;
+    }
+
     //private void Update()
     //{
     //    Debug.Log(canPass);
@@ -84,8 +89,7 @@ public class TrapInteractable : InteractableBase
                 inEvent = true;
             }
         }
-        else
-            return;
+        return;
         
     }
 
