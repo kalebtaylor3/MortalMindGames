@@ -15,6 +15,7 @@ public class DialougeSystem : MonoBehaviour
     public float fadeSpeed; // speed at which the dialogue box fades in and out
     public float textFadeSpeed;
     [HideInInspector] public Dialogue nextDialogue; // reference to the next dialogue
+    [HideInInspector] public Queue<Dialogue> dialogueQueue = new Queue<Dialogue>();
 
     // function to play the corresponding dialogue clip based on the Dialogue instance passed in
 
@@ -34,7 +35,7 @@ public class DialougeSystem : MonoBehaviour
     {
         if (isPlaying)
         {
-            nextDialogue = dialogue;
+            dialogueQueue.Enqueue(dialogue);
             return;
         }
         StopAllCoroutines();
@@ -107,10 +108,9 @@ public class DialougeSystem : MonoBehaviour
         }
         isPlaying = false;
         dialogueBox.gameObject.SetActive(false);
-        if (nextDialogue != null)
+        if (dialogueQueue.Count > 0)
         {
-            PlayDialogue(nextDialogue); // pass the nextDialogue instance instead
-            nextDialogue = null;
+            PlayDialogue(dialogueQueue.Dequeue()); // play the next dialogue in the queue
         }
     }
 }
