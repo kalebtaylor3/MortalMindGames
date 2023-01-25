@@ -103,6 +103,7 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         lost.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         lost.AddTransition(Transition.Stunned, FSMStateID.Stunned);
         lost.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
+        lost.AddTransition(Transition.PlayerLost, FSMStateID.Patrol);
 
         // Patrol
         PatrolState patrol = new PatrolState(vorgonController);
@@ -137,9 +138,10 @@ public class VorgonDeadwoodFSM : AdvancedFSM
 
 
         // Add State to FSM
+        AddFSMState(patrol);
         AddFSMState(chase);
         AddFSMState(lost);
-        AddFSMState(patrol);
+        
         AddFSMState(attack);
         AddFSMState(closePatrol);
         AddFSMState(seek);

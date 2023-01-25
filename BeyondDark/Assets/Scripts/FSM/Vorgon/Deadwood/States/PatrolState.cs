@@ -42,6 +42,12 @@ public class PatrolState : FSMState
             vorgonFSM.PerformTransition(Transition.PlayerFound);
         }
 
+        // If wrong section -> Seek
+        if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
+        {
+            vorgonFSM.PerformTransition(Transition.WrongSection);
+        }
+
     }
 
     public override void Act()
@@ -49,8 +55,14 @@ public class PatrolState : FSMState
 
         // Actions
         if (IsInCurrentRange(vorgonControl.transform, destination, 2)) 
-        {            
+        {
             currentWP++;
+
+            if (currentWP >= WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints.Count)
+            {
+                currentWP = 0;
+            }
+            
             destination = WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints[currentWP].position;
         }
 

@@ -120,7 +120,7 @@ namespace MMG
                 fearAmplitude = 0;
             }
             
-            Debug.Log("Wild Ride" + fearAmplitude);
+            //Debug.Log("Wild Ride" + fearAmplitude);
             //yield return new WaitForSeconds(5.0f);
         }
         void LateUpdate()

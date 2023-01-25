@@ -40,7 +40,7 @@ public class SeekState : FSMState
         }
 
         // Reach section -> Lost
-        if (vorgonControl.transform.position == destination)
+        if (IsInCurrentRange(vorgonControl.transform, destination, 2)) 
         {
             vorgonFSM.PerformTransition(Transition.ReachedSection);
         }
