@@ -155,7 +155,7 @@ public class QuickTimeEventSystem : MonoBehaviour
         alertMessage.color = textColor;
         while (textColor.a < 1)
         {
-            textColor.a += 1 * Time.deltaTime;
+            textColor.a += 3 * Time.deltaTime;
             alertMessage.color = textColor;
             yield return null;
         }
