@@ -25,6 +25,7 @@ public class TrapInteractable : InteractableBase
     public static event Action FailQTE;
 
     bool canPass = false;
+    bool hasFailed = false;
 
     private void OnEnable()
     {
@@ -36,13 +37,14 @@ public class TrapInteractable : InteractableBase
     {
         if(other.tag == "Player")
         {
-            if (inEvent)
+            if (inEvent && !hasFailed)
             {
                 //OnFailure();
                 FailQTE?.Invoke();
                 OnFailure();
                 Debug.Log("You walked away so you fail");
                 canPass = false;
+                inEvent = false;
             }
 
             canPass = false;
@@ -79,6 +81,7 @@ public class TrapInteractable : InteractableBase
             if (canInteract)
             {
                 base.OnInteract();
+                hasFailed = false;
                 qte.TriggerEvent();
                 canInteract = false;
                 isInteractable = false;
@@ -114,6 +117,7 @@ public class TrapInteractable : InteractableBase
 
     void OnFailure()
     {
+        hasFailed = true;
         StopAllCoroutines();
         qte_Completed = 0;
         displayText = textMessage;

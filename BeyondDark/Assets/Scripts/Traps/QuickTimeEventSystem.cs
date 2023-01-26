@@ -4,6 +4,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
+using UnityEditor.Rendering;
 
 public class QuickTimeEventSystem : MonoBehaviour
 {
@@ -28,6 +30,14 @@ public class QuickTimeEventSystem : MonoBehaviour
     public static event Action QTETrigger;
     public static event Action OnSuccess;
     public static event Action OnFailure;
+
+    public AudioSource audioSource;
+    public AudioClip failClip;
+    public AudioClip passClip;
+
+    public TMP_Text alertMessage;
+
+    //public AudioClip completeClip;
 
     bool inEvent = false;
 
@@ -58,7 +68,7 @@ public class QuickTimeEventSystem : MonoBehaviour
 
             if (timer >= successTime - successTimeRange * maxTime && timer <= successTime + successTimeRange * maxTime)
             {
-                if (qteInput.SuccessKeyPressed)
+                if (qteInput.SuccessKeyPressed && inEvent && eventTriggered)
                 {
                     Debug.Log("Quick time event successful!");
                     //eventTriggered = false;
@@ -66,12 +76,12 @@ public class QuickTimeEventSystem : MonoBehaviour
                     Success();
                 }
             }
-            else if (timer < successTime - successTimeRange * maxTime || timer > successTime + successTimeRange * maxTime)
+            else if (timer < successTime - successTimeRange * maxTime || timer > successTime + successTimeRange * maxTime && inEvent)
             {
-                if (qteInput.SuccessKeyPressed)
+                if (qteInput.SuccessKeyPressed && inEvent && eventTriggered)
                 {
                     Debug.Log("Quick time event failed!");
-                    //eventTriggered = false;
+                    eventTriggered = false;
                     inEvent = false;
                     Fail();
                 }
@@ -122,6 +132,8 @@ public class QuickTimeEventSystem : MonoBehaviour
     void Success()
     {
         //arm the trap
+        //audioSource.clip = passClip;
+        audioSource.PlayOneShot(passClip);
         StartCoroutine(WaitToGoAway());
         OnSuccess?.Invoke();
     }
@@ -130,8 +142,40 @@ public class QuickTimeEventSystem : MonoBehaviour
     {
         //alert vorgon by playing a really loud fail sound.
         inEvent = false;
+        audioSource.PlayOneShot(failClip);
         OnFailure?.Invoke();
         StartCoroutine(WaitToGoAway());
+        StartCoroutine(FadeAlert());
+    }
+
+    IEnumerator FadeAlert()
+    {
+        Color textColor = alertMessage.color;
+        textColor.a = 0;
+        alertMessage.color = textColor;
+        while (textColor.a < 1)
+        {
+            textColor.a += 1 * Time.deltaTime;
+            alertMessage.color = textColor;
+            yield return null;
+        }
+
+
+        yield return new WaitForSeconds(2);
+
+        StartCoroutine(FadeOutAlert());
+    }
+
+    IEnumerator FadeOutAlert()
+    {
+
+        Color textColor = alertMessage.color;
+        while (textColor.a > 0)
+        {
+            textColor.a -= 1 * Time.deltaTime;
+            alertMessage.color = textColor;
+            yield return null;
+        }
     }
 
     IEnumerator WaitToGoAway()
