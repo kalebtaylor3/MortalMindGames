@@ -38,12 +38,31 @@ public class DialougeSystem : MonoBehaviour
             dialogueQueue.Enqueue(dialogue);
             return;
         }
+
         StopAllCoroutines();
-        currentClip = GetClip(dialogue.clip);
-        GetComponent<AudioSource>().PlayOneShot(currentClip);
-        dialogueText.text = dialogue.dialougeText;
-        StartCoroutine(FadeTextIn());
-        StartCoroutine(FadeIn());
+        StartCoroutine(PlayDialogueClips(dialogue));
+    }
+
+    private IEnumerator PlayDialogueClips(Dialogue dialogue)
+    {
+        isPlaying = true;
+        for (int i = 0; i < dialogue.clips.Length; i++)
+        {
+            currentClip = GetClip(dialogue.clips[i]);
+            GetComponent<AudioSource>().PlayOneShot(currentClip);
+            dialogueText.text = dialogue.dialoguesText[i];
+            StartCoroutine(FadeTextIn());
+            StartCoroutine(FadeIn());
+            yield return new WaitForSeconds(dialogue.clips[i].length);
+            if(!GetComponent<AudioSource>().isPlaying)
+                StartCoroutine(FadeTextOut());
+        }
+        StartCoroutine(FadeOut());
+        isPlaying = false;
+        if (dialogueQueue.Count > 0)
+        {
+            PlayDialogue(dialogueQueue.Dequeue());
+        }
     }
 
     public AudioClip GetClip(AudioClip clip)
@@ -94,8 +113,8 @@ public class DialougeSystem : MonoBehaviour
             dialogueBox.color = new Color(dialogueBox.color.r, dialogueBox.color.g, dialogueBox.color.b, dialogueBox.color.a + (fadeSpeed * Time.deltaTime));
             yield return null;
         }
-        yield return new WaitForSeconds(currentClip.length);
-        StartCoroutine(FadeOut());
+        //yield return new WaitForSeconds(currentClip.length);
+        //StartCoroutine(FadeOut());
     }
 
     IEnumerator FadeOut()
@@ -106,6 +125,8 @@ public class DialougeSystem : MonoBehaviour
             dialogueBox.color = new Color(dialogueBox.color.r, dialogueBox.color.g, dialogueBox.color.b, dialogueBox.color.a - (fadeSpeed * Time.deltaTime));
             yield return null;
         }
+        //if (!isPlaying)
+        //    StartCoroutine(FadeTextOut());
         isPlaying = false;
         dialogueBox.gameObject.SetActive(false);
         if (dialogueQueue.Count > 0)

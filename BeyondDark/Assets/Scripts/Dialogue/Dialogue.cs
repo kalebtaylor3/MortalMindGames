@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Dialogue : MonoBehaviour
 {
-    public AudioClip clip;
-    public string dialougeText;
+    public AudioClip[] clips;
+    public List<string> dialoguesText;
 }
