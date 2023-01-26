@@ -106,10 +106,10 @@ namespace MMG
         private void Update()
         {
             
-            StartCoroutine(VorgonBreathing());
+            //StartCoroutine(VorgonBreathing());
             vorgonPos = vorgonFear.transform.position;
             fearPos = playersFear.transform.position;
-            fearAmplitude = Vector3.Distance(vorgonPos, fearPos);
+            //fearAmplitude = Vector3.Distance(vorgonPos, fearPos);
             if (fearAmplitude < 15)
             {
                 fearAmplitude = 25 - fearAmplitude;
@@ -162,7 +162,7 @@ namespace MMG
 
                         if(y)
                             rotOffset.y += perlinNoiseScroller.Noise.y;
-                            rotOffset.y += fearAmplitude;
+                            //rotOffset.y += fearAmplitude;
 
                         if(z)
                             rotOffset.z += perlinNoiseScroller.Noise.z;
@@ -203,7 +203,7 @@ namespace MMG
                         finalRot.y = y ? rotOffset.y : transform.localEulerAngles.y;
                         finalRot.z = z ? rotOffset.z : transform.localEulerAngles.z;
 
-                        transform.localPosition = finalPos + new Vector3(fearAmplitude, fearAmplitude, fearAmplitude);
+                            transform.localPosition = finalPos;// + new Vector3(fearAmplitude, fearAmplitude, fearAmplitude);
                         transform.localEulerAngles = finalRot;
 
                         break;
