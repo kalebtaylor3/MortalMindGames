@@ -271,14 +271,11 @@ namespace MMG
 
         void ExitArea()
         {
+            enteranceAnimator.enabled = true;
             isHidding = false;
             Debug.Log("Exiting Area");
-            playerCamera.gameObject.SetActive(true);
-            concelableAreaCam.gameObject.SetActive(false);
-            input.canMove = true;
             happenOnce = false;
             isHidding = false;
-            enteranceAnimator.enabled = true;
             StartCoroutine(WaitForExit());
             enteranceAnimator.SetTrigger("Enter");
             StartCoroutine(WaitForExitClose());
@@ -288,7 +285,10 @@ namespace MMG
 
         IEnumerator WaitForExit()
         {
-            yield return new WaitForSeconds(1.8f);
+            yield return new WaitForSeconds(0.9f);
+            playerCamera.gameObject.SetActive(true);
+            concelableAreaCam.gameObject.SetActive(false);
+            input.canMove = true;
             happenOnce = false;
 
         }
