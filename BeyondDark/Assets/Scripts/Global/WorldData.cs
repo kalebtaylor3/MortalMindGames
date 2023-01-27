@@ -110,8 +110,7 @@ public class WorldData : MonoBehaviour
     public void PlayerDeathMortalRealm()
     {
         TriggerCheckpoint();
-        //if()
-        //TpTest.Instance.MortalRealmDeath();
+        TpTest.Instance.MortalRealmDeath(pickUpCP);
     }
 
     #endregion

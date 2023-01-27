@@ -25,21 +25,20 @@ public class ChaseState : FSMState
     {
         // Transitions
 
-        // If stunned -> Stun
+        
         if (vorgonControl.stunned)
         {
+            // If stunned -> Stun
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
-
-        // If lost player -> Lost
-        if (!IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST + 5))
+        else if (!IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST + 5))
         {
+            // If lost player -> Lost
             vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
-
-        // Reach Player -> Attack (Temporary -> Lost)
-        if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position,2))
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position,2))
         {
+            // Reach Player -> Attack (Temporary -> Lost)
             vorgonFSM.PerformTransition(Transition.ReachedPlayer);
         }
 

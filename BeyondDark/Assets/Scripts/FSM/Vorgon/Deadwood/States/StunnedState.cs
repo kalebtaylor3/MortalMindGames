@@ -27,17 +27,18 @@ public class StunnedState : FSMState
         // Stun time over 
         if (!vorgonControl.stunned)
         {
-            // If player Found -> Chase
+            
             if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST))
             {
+                // If player Found -> Chase
                 vorgonFSM.PerformTransition(Transition.PlayerFound);
             }
-
-            //-> Lost
-            vorgonFSM.PerformTransition(Transition.StunDone);
+            else
+            {
+                //-> Lost
+                vorgonFSM.PerformTransition(Transition.StunDone);
+            }
         }
-
-
     }
 
     public override void Act()

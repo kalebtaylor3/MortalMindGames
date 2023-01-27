@@ -35,30 +35,33 @@ public class LostState : FSMState
 
         if(lostTimer)
         {
-            // If stunned -> Stun
+            
             if (vorgonControl.stunned)
             {
+                // If stunned -> Stun
                 vorgonFSM.PerformTransition(Transition.Stunned);
-            }
-
-            // If wrong section -> Seek
-            if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
+            }            
+            else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
             {
+                // If wrong section -> Seek
                 vorgonFSM.PerformTransition(Transition.WrongSection);
-            }
-
-            // If player Found -> Chase
-            if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST))
+            }            
+            else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST))
             {
+                // If player Found -> Chase
                 vorgonFSM.PerformTransition(Transition.PlayerFound);
             }
+            else
+            {
+                // -> Patrol
+                vorgonFSM.PerformTransition(Transition.PlayerLost);
+            }
 
-            // -> Patrol
-            vorgonFSM.PerformTransition(Transition.PlayerLost);
+            
         }
         else
         {
-            lostTime  = lostTime + Time.deltaTime;
+            lostTime += 3 * Time.deltaTime;
 
             if(lostTime >= 3f)
             {

@@ -30,21 +30,20 @@ public class PatrolState : FSMState
     {
         // Transitions
 
-        // If stunned -> Stun
+        
         if (vorgonControl.stunned)
         {
+            // If stunned -> Stun
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
-
-        // If player Found -> Chase
-        if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST))
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST))
         {
+            // If player Found -> Chase
             vorgonFSM.PerformTransition(Transition.PlayerFound);
         }
-
-        // If wrong section -> Seek
-        if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
+        else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
         {
+            // If wrong section -> Seek
             vorgonFSM.PerformTransition(Transition.WrongSection);
         }
 

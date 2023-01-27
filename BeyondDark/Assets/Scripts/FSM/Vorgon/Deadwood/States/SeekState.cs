@@ -33,21 +33,20 @@ public class SeekState : FSMState
 
         // Transitions
 
-        // If stunned -> Stun
+        
         if (vorgonControl.stunned)
         {
+            // If stunned -> Stun
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
-
-        // Reach section -> Lost
-        if (IsInCurrentRange(vorgonControl.transform, destination, 2)) 
+        else if (IsInCurrentRange(vorgonControl.transform, destination, 2)) 
         {
+            // Reach section -> Lost
             vorgonFSM.PerformTransition(Transition.ReachedSection);
         }
-
-        // If player Found -> Chase
-        if(IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST))
+        else if(IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST))
         {
+            // If player Found -> Chase
             vorgonFSM.PerformTransition(Transition.PlayerFound);
         }
     }

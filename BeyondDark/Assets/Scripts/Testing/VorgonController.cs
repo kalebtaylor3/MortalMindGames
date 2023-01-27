@@ -45,7 +45,7 @@ public class VorgonController : MonoBehaviour
     IEnumerator TriggerAttack()
     {
         isAttacking = true;
-               
+        WorldData.Instance.PlayerDeathMortalRealm();
         yield return new WaitForSeconds(2);
         isAttacking = false;
     }
