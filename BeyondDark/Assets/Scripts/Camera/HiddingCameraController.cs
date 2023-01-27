@@ -16,9 +16,45 @@ public class HiddingCameraController : MonoBehaviour
     private void LateUpdate()
     {
         if (cameraClamp == clamp.X)
-            revealPercentage = Gamepad.current.rightStick.x.ReadValue();
+        {
+            if(WorldData.Instance.controllerActive)
+            {
+                //Controller
+                revealPercentage = Gamepad.current.rightStick.x.ReadValue();
+            }
+            else
+            {
+                //Keyboard
+                if (Input.GetKey(KeyCode.D))
+                {
+                    revealPercentage += 0.3f * Time.deltaTime;
+                }
+                else
+                {
+                    revealPercentage -= 0.3f * Time.deltaTime;
+                }
+            }
+        }
         else
-            revealPercentage = Gamepad.current.rightStick.y.ReadValue();
+        {
+            if (WorldData.Instance.controllerActive)
+            {
+                //Controller
+                revealPercentage = Gamepad.current.rightStick.y.ReadValue();
+            }
+            else
+            {
+                //Keyboard
+                if (Input.GetKey(KeyCode.W))
+                {
+                    revealPercentage += 0.3f * Time.deltaTime;
+                }
+                else
+                {
+                    revealPercentage -= 0.3f * Time.deltaTime;
+                }
+            }
+        }
 
         if (revealPercentage < 0)
             revealPercentage = 0f;

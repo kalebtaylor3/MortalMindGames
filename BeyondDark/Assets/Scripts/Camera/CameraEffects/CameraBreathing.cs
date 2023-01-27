@@ -107,8 +107,8 @@ namespace MMG
         {
             
             //StartCoroutine(VorgonBreathing());
-            vorgonPos = vorgonFear.transform.position;
-            fearPos = playersFear.transform.position;
+            //vorgonPos = vorgonFear.transform.position;
+            //fearPos = playersFear.transform.position;
             //fearAmplitude = Vector3.Distance(vorgonPos, fearPos);
             if (fearAmplitude < 15)
             {

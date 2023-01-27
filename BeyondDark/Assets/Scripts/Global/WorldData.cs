@@ -35,6 +35,7 @@ public class WorldData : MonoBehaviour
     public SECTIONS activePlayerSection;
     public SECTIONS activeVorgonSection;
     public Section ActiveVorgonSection;
+    public bool controllerActive = false;
 
     // FOR CHECKPOINT
     private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;    
