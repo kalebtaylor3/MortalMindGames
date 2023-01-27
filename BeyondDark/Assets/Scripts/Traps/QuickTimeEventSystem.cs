@@ -136,6 +136,7 @@ public class QuickTimeEventSystem : MonoBehaviour
         audioSource.PlayOneShot(passClip);
         StartCoroutine(WaitToGoAway());
         OnSuccess?.Invoke();
+        StartCoroutine(FadeOutAlert());
     }
 
     void Fail()
