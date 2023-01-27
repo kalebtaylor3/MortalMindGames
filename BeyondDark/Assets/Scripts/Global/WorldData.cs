@@ -54,6 +54,8 @@ public class WorldData : MonoBehaviour
         lastCollectedRelic = RELIC_TYPE.NONE;
         activePlayerSection = SECTIONS.NONE;
         activeVorgonSection = SECTIONS.NONE;
+
+        SetCheckpoint();
     }
 
     public Section FindActiveSection(SECTIONS section)
@@ -103,6 +105,13 @@ public class WorldData : MonoBehaviour
         lastCollectedRelic = lastCollectedRelicCP;
         collectedRelicsCount = collectedRelicsCountCP;
         lastPickUpGO = lastPickUpGOCP;
+    }
+
+    public void PlayerDeathMortalRealm()
+    {
+        TriggerCheckpoint();
+        //if()
+        //TpTest.Instance.MortalRealmDeath();
     }
 
     #endregion

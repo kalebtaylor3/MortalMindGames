@@ -44,12 +44,12 @@ public class TpTest : MonoBehaviour
 
     IEnumerator RealmTransport(Vector3 tpPosition)
     {
-        Debug.Log("before");        
+        //Debug.Log("before");        
         //RealmTransportation?.Invoke();
 
         yield return new WaitForSeconds(3.0f);
 
-        Debug.Log("after");
+        //Debug.Log("after");
 
         if (WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
         {
@@ -85,29 +85,11 @@ public class TpTest : MonoBehaviour
 
     }
 
-    // To copy components NOT NEEDED
-
-    private void CopySpecialComponents(GameObject _sourceGO, GameObject _targetGO)
+    public void MortalRealmDeath(Vector3 tpPosition)
     {
-
-        //_targetGO.GetComponent<PlayerInventoryController>().items = _sourceGO.GetComponent<PlayerInventoryController>().items;
-        //_targetGO.GetComponent<PlayerController>().bookSlots = _sourceGO.GetComponent<PlayerController>().bookSlots;
-        //_targetGO.GetComponentInChildren<SpellBook>().transform.gameObject = _sourceGO.GetComponentInChildren<SpellBook>().transform.gameObject;
-
-        //foreach (var component in _sourceGO.GetComponents<Component>())
-        //{
-        //    var componentType = component.GetType();
-        //    if (componentType != typeof(Transform) &&
-        //        componentType != typeof(MeshFilter) &&
-        //        componentType != typeof(MeshRenderer)
-        //        )
-        //    {
-        //        Debug.Log("Found a component of type " + component.GetType());
-        //        UnityEditorInternal.ComponentUtility.CopyComponent(component);
-        //        UnityEditorInternal.ComponentUtility.PasteComponentAsNew(_targetGO);
-        //        Debug.Log("Copied " + component.GetType() + " from " + _sourceGO.name + " to " + _targetGO.name);
-        //    }
-        //}
+        mortalRealmPlayer.transform.position = tpPosition;
     }
+
+    
 }
 

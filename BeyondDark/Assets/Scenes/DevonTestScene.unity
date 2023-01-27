@@ -23,10 +23,10 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: c4aa45facf5bc4f42a1b0b3bde78894a, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1797682, g: 0.22508667, b: 0.30657932, a: 1}
+  m_IndirectSpecularColor: {r: 0.091947414, g: 0.034388795, b: 0.033641815, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -559,10 +559,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1608658977289706121, guid: 4dc924989249ca04baea60ee3ae5fce5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2859361383425128013, guid: 4dc924989249ca04baea60ee3ae5fce5,
         type: 3}
       propertyPath: m_Name
       value: Torch_WithLight (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859361383425128013, guid: 4dc924989249ca04baea60ee3ae5fce5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3235183960241106167, guid: 4dc924989249ca04baea60ee3ae5fce5,
         type: 3}
@@ -3389,7 +3399,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
@@ -4710,10 +4720,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1608658977289706121, guid: 4dc924989249ca04baea60ee3ae5fce5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2859361383425128013, guid: 4dc924989249ca04baea60ee3ae5fce5,
         type: 3}
       propertyPath: m_Name
       value: Torch_WithLight (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859361383425128013, guid: 4dc924989249ca04baea60ee3ae5fce5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3235183960241106167, guid: 4dc924989249ca04baea60ee3ae5fce5,
         type: 3}
@@ -6596,7 +6616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &786932735
 Transform:
   m_ObjectHideFlags: 0
@@ -7173,7 +7193,7 @@ PrefabInstance:
     - target: {fileID: 851962570502236595, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1037924439529419394, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
@@ -7228,7 +7248,7 @@ PrefabInstance:
     - target: {fileID: 2419661197021257219, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -68.32
+      value: -72.21
       objectReference: {fileID: 0}
     - target: {fileID: 2419661197021257219, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
@@ -7238,7 +7258,7 @@ PrefabInstance:
     - target: {fileID: 2419661197021257219, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.69
+      value: 20.99
       objectReference: {fileID: 0}
     - target: {fileID: 2419661197021257219, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
@@ -7586,10 +7606,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1608658977289706121, guid: 4dc924989249ca04baea60ee3ae5fce5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2859361383425128013, guid: 4dc924989249ca04baea60ee3ae5fce5,
         type: 3}
       propertyPath: m_Name
       value: Torch_WithLight (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859361383425128013, guid: 4dc924989249ca04baea60ee3ae5fce5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3235183960241106167, guid: 4dc924989249ca04baea60ee3ae5fce5,
         type: 3}
@@ -7880,6 +7910,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875364890808039641, guid: 4dc924989249ca04baea60ee3ae5fce5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.525
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dc924989249ca04baea60ee3ae5fce5, type: 3}
@@ -10409,7 +10444,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: fc127f0355477754d8482b2cd61be02d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12791,10 +12826,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1608658977289706121, guid: 4dc924989249ca04baea60ee3ae5fce5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2859361383425128013, guid: 4dc924989249ca04baea60ee3ae5fce5,
         type: 3}
       propertyPath: m_Name
       value: Torch_WithLight (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859361383425128013, guid: 4dc924989249ca04baea60ee3ae5fce5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3235183960241106167, guid: 4dc924989249ca04baea60ee3ae5fce5,
         type: 3}
@@ -17553,10 +17598,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1608658977289706121, guid: 4dc924989249ca04baea60ee3ae5fce5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2859361383425128013, guid: 4dc924989249ca04baea60ee3ae5fce5,
         type: 3}
       propertyPath: m_Name
       value: Torch_WithLight (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859361383425128013, guid: 4dc924989249ca04baea60ee3ae5fce5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3235183960241106167, guid: 4dc924989249ca04baea60ee3ae5fce5,
         type: 3}

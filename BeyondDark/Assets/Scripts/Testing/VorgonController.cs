@@ -45,6 +45,7 @@ public class VorgonController : MonoBehaviour
     IEnumerator TriggerAttack()
     {
         isAttacking = true;
+               
         yield return new WaitForSeconds(2);
         isAttacking = false;
     }
