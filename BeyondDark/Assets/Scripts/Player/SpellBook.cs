@@ -57,18 +57,8 @@ public class SpellBook : MonoBehaviour
     {
         if (pages.Count > 1)
         {
-            if (WorldData.Instance.controllerActive)
-            {
-                //Controller
-                inputData.PageTurnRight = Gamepad.current.dpad.right.wasPressedThisFrame;
-                inputData.PageTurnLeft = Gamepad.current.dpad.left.wasPressedThisFrame;
-            }
-            else
-            {
-                //Keyboard
-                inputData.PageTurnRight = Input.GetKeyDown(KeyCode.RightArrow);
-                inputData.PageTurnLeft = Input.GetKeyDown(KeyCode.LeftArrow);
-            }
+            inputData.PageTurnRight = Gamepad.current.dpad.right.wasPressedThisFrame;
+            inputData.PageTurnLeft = Gamepad.current.dpad.left.wasPressedThisFrame;
 
             if (inputData.PageTurnRight)
             {
@@ -90,16 +80,7 @@ public class SpellBook : MonoBehaviour
 
         }
 
-        if (WorldData.Instance.controllerActive)
-        {
-            //Controller
-            inputData.ZoomBook = Gamepad.current.rightTrigger.isPressed;
-        }
-        else
-        {
-            inputData.ZoomBook = Input.GetKey(KeyCode.Mouse1);
-        }
-            
+        inputData.ZoomBook = Gamepad.current.rightTrigger.isPressed;
 
         if (inputData.ZoomBook)
             InspectBook(desiredInspectPosition);
