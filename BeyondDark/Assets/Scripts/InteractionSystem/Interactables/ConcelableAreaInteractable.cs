@@ -208,6 +208,7 @@ namespace MMG
                 if (!isHidding)
                 {
                     base.OnInteract();
+                    OnEnteredSpot?.Invoke();
                     input.canMove = false;
                     //playerCameraHolder.enabled = false;
                     exposurePercentage = 0;
@@ -216,7 +217,7 @@ namespace MMG
                     isHidding = true;
                     canExit = false;
                     this.GetComponent<BoxCollider>().enabled = false;
-                    OnEnteredSpot?.Invoke();
+                    
                 }
                 else if(canExit)
                 {
@@ -272,7 +273,7 @@ namespace MMG
         void ExitArea()
         {
             enteranceAnimator.enabled = true;
-            Debug.Log("Exiting Area");
+            //Debug.Log("Exiting Area");
             StartCoroutine(WaitForExit());
             enteranceAnimator.SetTrigger("Enter");
             StartCoroutine(WaitForExitClose());
