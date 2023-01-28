@@ -124,7 +124,7 @@ public class TrapInteractable : InteractableBase
             StopAllCoroutines();
             qte_Completed = qte_Completed + 1;
             HandleEvent();
-            inEvent = false;
+            inEvent = false;            
         }
     }
 
@@ -168,5 +168,6 @@ public class TrapInteractable : InteractableBase
         QuickTimeEventSystem.OnSuccess -= OnSuccsess;
         QuickTimeEventSystem.OnFailure -= OnFailure;
         completeSource.PlayOneShot(completeClip);
+        gameObject.GetComponentInChildren<StunTriggerCollider>().gameObject.SetActive(true);
     }
 }

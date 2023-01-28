@@ -28,7 +28,7 @@ public class StunnedState : FSMState
         if (!vorgonControl.stunned)
         {
             
-            if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
+            if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
             {
                 // If player Found -> Chase
                 vorgonFSM.PerformTransition(Transition.PlayerFound);

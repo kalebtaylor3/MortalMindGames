@@ -1,3 +1,4 @@
+using MMG;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,12 +8,18 @@ using UnityEngine.AI;
 public class VorgonController : MonoBehaviour
 {
     [SerializeField] public NavMeshAgent navAgent;
-    [SerializeField] public Transform playerT;
+    [SerializeField] public PlayerController playerT;
     [SerializeField] public VorgonDeadwoodFSM vorgonFSM;
     [SerializeField] public bool stunned = false;
     [SerializeField] private float stunDuration;
     [SerializeField] public bool isAttacking = false;
+
     [SerializeField] public bool PlayerInSight = false;
+    [SerializeField] public bool canSeePlayer;
+
+    public LayerMask targetMask;
+    public LayerMask obstructionMask;
+
 
     private Color rayColor = Color.green;
 
@@ -23,14 +30,6 @@ public class VorgonController : MonoBehaviour
         Debug.DrawRay(transform.position, transform.forward, rayColor);
         LineOfSight();
 
-        //if (LineOfSight())
-        //{
-        //    //Debug.Log("In Sight");
-        //}
-        //else
-        //{
-        //    //Debug.Log("Not in Sight");
-        //}
     }
 
     public void StunVorgon()
@@ -60,23 +59,35 @@ public class VorgonController : MonoBehaviour
 
     public void LineOfSight()
     {
-        Vector3 dir = (playerT.position - transform.position).normalized;
+        Vector3 dir = (playerT.transform.position - transform.position).normalized;
 
         Debug.DrawRay(transform.position, dir, Color.yellow);
 
-       Vector3 forwardV = transform.forward;
+        Vector3 forwardV = transform.forward;
         float angle = Vector3.Angle(dir, forwardV);
 
         if(angle <= 45.0f)
         {
-            rayColor = Color.red;
-            PlayerInSight = true;                     
+            float distanceToTarget = Vector3.Distance(transform.position, playerT.transform.position);
+
+            if (!Physics.Raycast(transform.position, dir, distanceToTarget, obstructionMask))
+            {
+                canSeePlayer = true;
+                PlayerInSight = true;
+                rayColor = Color.red;
+            }                
+            else
+            {
+                canSeePlayer = false;
+                PlayerInSight = false;
+                rayColor = Color.green;
+            }             
         }
         else
         {
+            canSeePlayer = false;
             rayColor = Color.green;
             PlayerInSight = false;            
         }    
     }
-
 }

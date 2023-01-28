@@ -32,7 +32,7 @@ public class AttackState : FSMState
         if(!vorgonControl.isAttacking)
         {
             
-            if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
+            if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
             {
                 // If player Found -> Chase
                 vorgonFSM.PerformTransition(Transition.PlayerFound);
@@ -57,7 +57,7 @@ public class AttackState : FSMState
     {
         // Actions
 
-        if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, 2))
+        if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2))
         {
             vorgonControl.Attack();
         }

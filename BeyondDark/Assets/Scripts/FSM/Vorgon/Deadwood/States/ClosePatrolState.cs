@@ -29,7 +29,7 @@ public class ClosePatrolState : FSMState
         {
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
-        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
         {
             // If player Found -> Chase
             vorgonFSM.PerformTransition(Transition.PlayerFound);

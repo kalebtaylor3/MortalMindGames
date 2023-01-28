@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class StunTriggerCollider : MonoBehaviour
 {
+    private void OnEnable()
+    {
+        this.GetComponent<Collider>().enabled = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Vorgon")
