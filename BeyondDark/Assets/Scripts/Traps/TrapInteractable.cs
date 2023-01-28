@@ -27,6 +27,10 @@ public class TrapInteractable : InteractableBase
     bool canPass = false;
     bool hasFailed = false;
 
+    public AudioClip completeClip;
+    public AudioClip startClip;
+    public AudioSource completeSource;
+
     private void OnEnable()
     {
         textMessage = TooltipMessage;
@@ -90,16 +94,25 @@ public class TrapInteractable : InteractableBase
                 QuickTimeEventSystem.OnSuccess += OnSuccsess;
                 QuickTimeEventSystem.OnFailure += OnFailure;
                 inEvent = true;
+                completeSource.PlayOneShot(startClip);
             }
         }
         return;
         
     }
 
+    IEnumerator StartAnotherEvent()
+    {
+        qte.StopAllCoroutines();
+        yield return new WaitForSeconds(1f);
+        completeSource.PlayOneShot(startClip);
+        qte.TriggerEvent();
+    }
+
     void HandleEvent()
     {
         if (qte_Completed < NumberOfSucsess)
-            qte.TriggerEvent();
+            StartCoroutine(StartAnotherEvent());
         else
             OnComplete();
     }
@@ -154,5 +167,6 @@ public class TrapInteractable : InteractableBase
         armedTrigger.SetActive(true);
         QuickTimeEventSystem.OnSuccess -= OnSuccsess;
         QuickTimeEventSystem.OnFailure -= OnFailure;
+        completeSource.PlayOneShot(completeClip);
     }
 }

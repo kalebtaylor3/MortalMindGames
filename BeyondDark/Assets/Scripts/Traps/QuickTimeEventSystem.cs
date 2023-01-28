@@ -113,7 +113,7 @@ public class QuickTimeEventSystem : MonoBehaviour
 
     IEnumerator WaitToTrigger()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         fillRect.fillAmount = 0;
         successTime = UnityEngine.Random.Range(minTime, maxTime);
         timer = 0f;
