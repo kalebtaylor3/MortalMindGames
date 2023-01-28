@@ -33,12 +33,13 @@ public class ChaseState : FSMState
         }
         else if (!vorgonControl.PlayerInSight)
         {
-            // If lost player -> Lost
+            // If lost player -> Lost TEMP
+            vorgonControl.LastSeen = vorgonControl.playerT.transform.position;
             vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
         else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position,2))
         {
-            // Reach Player -> Attack (Temporary -> Lost)
+            // Reach Player -> Attack
             vorgonFSM.PerformTransition(Transition.ReachedPlayer);
         }
 
