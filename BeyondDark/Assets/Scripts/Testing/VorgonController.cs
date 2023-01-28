@@ -17,6 +17,9 @@ public class VorgonController : MonoBehaviour
     [SerializeField] public bool PlayerInSight = false;
     [SerializeField] public bool canSeePlayer;
 
+    public Vector3 LastSeen = Vector3.zero;
+    public bool SearchAnimCanPlay = false;
+
     public LayerMask targetMask;
     public LayerMask obstructionMask;
 
@@ -80,7 +83,7 @@ public class VorgonController : MonoBehaviour
             {
                 canSeePlayer = false;
                 PlayerInSight = false;
-                rayColor = Color.green;
+                rayColor = Color.green;                
             }             
         }
         else
@@ -88,6 +91,34 @@ public class VorgonController : MonoBehaviour
             canSeePlayer = false;
             rayColor = Color.green;
             PlayerInSight = false;            
-        }    
+        }
+    }
+
+    public void PlaySearchAnim()
+    {
+        StartCoroutine(TrigerSearchAnim());
+    }
+
+    IEnumerator TrigerSearchAnim()
+    {        
+        yield return new WaitForSeconds(1.5f);
+        SearchAnimCanPlay = false;
+    }
+
+    public bool RandomPoint(Vector3 center, float range, out Vector3 result)
+    {
+
+        Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas)) //documentation: https://docs.unity3d.com/ScriptReference/AI.NavMesh.SamplePosition.html
+        {
+            //the 1.0f is the max distance from the random point to a point on the navmesh, might want to increase if range is big
+            //or add a for loop like in the documentation
+            result = hit.position;
+            return true;
+        }
+
+        result = Vector3.zero;
+        return false;
     }
 }
