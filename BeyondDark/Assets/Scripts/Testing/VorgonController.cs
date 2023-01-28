@@ -108,6 +108,11 @@ public class VorgonController : MonoBehaviour
         SearchAnimIsPlaying = false;
     }
 
+    public void SetLastDetectedLocation(Vector3 location)
+    {
+        LastSeen = location;
+    }
+
     public bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
 
