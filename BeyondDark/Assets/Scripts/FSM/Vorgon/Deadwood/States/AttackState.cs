@@ -57,7 +57,7 @@ public class AttackState : FSMState
     {
         // Actions
 
-        if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2))
+        if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2) && !vorgonControl.playerT.isHiding)
         {
             vorgonControl.Attack();
         }

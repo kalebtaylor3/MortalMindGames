@@ -33,7 +33,7 @@ public class ChaseState : FSMState
         }
         else if (!vorgonControl.PlayerInSight)
         {
-            // If lost player -> Lost TEMP
+            // If lost player -> Close Patrol
             vorgonControl.LastSeen = vorgonControl.playerT.transform.position;
             vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
@@ -42,7 +42,12 @@ public class ChaseState : FSMState
             // Reach Player -> Attack
             vorgonFSM.PerformTransition(Transition.ReachedPlayer);
         }
-
+        else if(vorgonControl.playerT.isHiding)
+        {
+            // If player is hiding -> Close Patrol
+            vorgonControl.LastSeen = vorgonControl.playerT.transform.position;
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
+        }
     }
 
     public override void Act()

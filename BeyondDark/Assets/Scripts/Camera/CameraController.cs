@@ -119,7 +119,7 @@ namespace MMG
 
         void PeakLeft()
         {
-            Debug.Log("Peaking Left");
+            //Debug.Log("Peaking Left");
             //transform.rotation = Quaternion.Lerp(transform.rotation, peakLeft.rotation, 0.65f);
             //this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, peakLeft.position, 0.55f);
             peakAudio.enabled = true;
@@ -130,7 +130,7 @@ namespace MMG
 
         void PeakRight()
         {
-            Debug.Log("Peaking Right");
+            //Debug.Log("Peaking Right");
             //this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, peakRight.position, 0.55f);
             //transform.rotation = Quaternion.Lerp(transform.rotation, peakRight.rotation, 0.65f);
             //playerCam.ForceCameraPosition(peakRight.position, peakRight.rotation);

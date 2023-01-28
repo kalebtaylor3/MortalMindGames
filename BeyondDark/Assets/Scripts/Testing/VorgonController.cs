@@ -18,7 +18,7 @@ public class VorgonController : MonoBehaviour
     [SerializeField] public bool canSeePlayer;
 
     public Vector3 LastSeen = Vector3.zero;
-    public bool SearchAnimCanPlay = false;
+    public bool SearchAnimCanPlay = true;
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
@@ -69,7 +69,7 @@ public class VorgonController : MonoBehaviour
         Vector3 forwardV = transform.forward;
         float angle = Vector3.Angle(dir, forwardV);
 
-        if(angle <= 45.0f)
+        if(angle <= 45.0f && !playerT.isHiding)
         {
             float distanceToTarget = Vector3.Distance(transform.position, playerT.transform.position);
 
