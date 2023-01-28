@@ -17,8 +17,9 @@ public class VorgonController : MonoBehaviour
     [SerializeField] public bool PlayerInSight = false;
     [SerializeField] public bool canSeePlayer;
 
-    public Vector3 LastSeen = Vector3.zero;
-    public bool SearchAnimCanPlay = true;
+    [HideInInspector] public Vector3 LastSeen = Vector3.zero;
+    [HideInInspector] public bool SearchAnimCanPlay = true;
+    [HideInInspector] public bool SearchAnimIsPlaying = false;
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
@@ -100,9 +101,11 @@ public class VorgonController : MonoBehaviour
     }
 
     IEnumerator TrigerSearchAnim()
-    {        
+    {
+        SearchAnimIsPlaying = true;
         yield return new WaitForSeconds(1.5f);
         SearchAnimCanPlay = false;
+        SearchAnimIsPlaying = false;
     }
 
     public bool RandomPoint(Vector3 center, float range, out Vector3 result)

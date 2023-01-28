@@ -22,7 +22,7 @@ public class PatrolState : FSMState
     {
         //base.EnterStateInit();
         vorgonControl.navAgent.isStopped = false;
-        currentWP = -1;
+        currentWP = 0;
         destination = WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints[currentWP].position;
         vorgonControl.navAgent.destination = destination;
     }
@@ -57,21 +57,23 @@ public class PatrolState : FSMState
         {
             if (vorgonControl.SearchAnimCanPlay)
             {
-                vorgonControl.PlaySearchAnim();
+                if(!vorgonControl.SearchAnimIsPlaying)
+                {
+                    vorgonControl.PlaySearchAnim();
+                }                
             }
             else if (!vorgonControl.SearchAnimCanPlay) 
             {
                 
                 currentWP++;
 
-                if (currentWP > WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints.Count)
+                if (currentWP >= WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints.Count)
                 {
                     currentWP = 0;
+                    
                 }
-                else if (currentWP < WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints.Count)
-                {
-                    destination = WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints[currentWP].position;
-                }                
+                
+                destination = WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints[currentWP].position;
                 vorgonControl.navAgent.destination = destination;
                 vorgonControl.SearchAnimCanPlay = true;
 
