@@ -39,21 +39,25 @@ public class ClosePatrolState : FSMState
         // If stunned -> Stun
         if (vorgonControl.stunned)
         {
+            vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
         else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
         {
             // If wrong section -> Seek
+            vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.WrongSection);
         }
         else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
         {
             // If player Found -> Chase
+            vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.PlayerFound);
         }        
         else if(searchCount >= 5)
         {
             //If searched 5 times -> Lost
+            vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
     }
