@@ -78,7 +78,7 @@ namespace MMG
 
         void HandleEmptyStamina()
         {
-            Debug.Log("No stamina");
+            //Debug.Log("No stamina");
             StartCoroutine(EmptyStaminaBreathing());
         }
 

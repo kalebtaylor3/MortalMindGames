@@ -17,8 +17,9 @@ public class VorgonController : MonoBehaviour
     [SerializeField] public bool PlayerInSight = false;
     [SerializeField] public bool canSeePlayer;
 
-    public Vector3 LastSeen = Vector3.zero;
-    public bool SearchAnimCanPlay = false;
+    [HideInInspector] public Vector3 LastSeen = Vector3.zero;
+    [HideInInspector] public bool SearchAnimCanPlay = true;
+    [HideInInspector] public bool SearchAnimIsPlaying = false;
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
@@ -69,7 +70,7 @@ public class VorgonController : MonoBehaviour
         Vector3 forwardV = transform.forward;
         float angle = Vector3.Angle(dir, forwardV);
 
-        if(angle <= 45.0f)
+        if(angle <= 45.0f && !playerT.isHiding)
         {
             float distanceToTarget = Vector3.Distance(transform.position, playerT.transform.position);
 
@@ -100,9 +101,16 @@ public class VorgonController : MonoBehaviour
     }
 
     IEnumerator TrigerSearchAnim()
-    {        
+    {
+        SearchAnimIsPlaying = true;
         yield return new WaitForSeconds(1.5f);
         SearchAnimCanPlay = false;
+        SearchAnimIsPlaying = false;
+    }
+
+    public void SetLastDetectedLocation(Vector3 location)
+    {
+        LastSeen = location;
     }
 
     public bool RandomPoint(Vector3 center, float range, out Vector3 result)

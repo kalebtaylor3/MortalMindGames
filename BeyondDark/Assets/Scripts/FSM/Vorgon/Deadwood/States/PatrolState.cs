@@ -15,7 +15,7 @@ public class PatrolState : FSMState
         stateID = FSMStateID.Patrol;
         vorgonControl = controller;
         vorgonFSM = controller.vorgonFSM;
-        currentWP = 0;
+        currentWP = -1;
     }
 
     public override void EnterStateInit()
@@ -24,6 +24,7 @@ public class PatrolState : FSMState
         vorgonControl.navAgent.isStopped = false;
         currentWP = 0;
         destination = WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints[currentWP].position;
+        vorgonControl.navAgent.destination = destination;
     }
 
     public override void Reason()
@@ -50,22 +51,33 @@ public class PatrolState : FSMState
     }
 
     public override void Act()
-    {       
-
+    {
         // Actions
-        if (IsInCurrentRange(vorgonControl.transform, destination, 2)) 
+        if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
         {
-            currentWP++;
-
-            if (currentWP >= WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints.Count)
+            if (vorgonControl.SearchAnimCanPlay)
             {
-                currentWP = 0;
+                if(!vorgonControl.SearchAnimIsPlaying)
+                {
+                    vorgonControl.PlaySearchAnim();
+                }                
             }
-            
-            destination = WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints[currentWP].position;
+            else if (!vorgonControl.SearchAnimCanPlay) 
+            {
+                
+                currentWP++;
+
+                if (currentWP >= WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints.Count)
+                {
+                    currentWP = 0;
+                    
+                }
+                
+                destination = WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints[currentWP].position;
+                vorgonControl.navAgent.destination = destination;
+                vorgonControl.SearchAnimCanPlay = true;
+
+            }
         }
-
-        vorgonControl.navAgent.destination = destination;
-
     }
 }

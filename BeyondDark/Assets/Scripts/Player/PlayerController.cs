@@ -202,7 +202,7 @@ namespace MMG
         public static event Action OnEnmptyStamina;
         public static event Action OnTeleport;
 
-        [HideInInspector] public bool isHiding = false;
+        [SerializeField] public bool isHiding = false;
         
 
         #endregion
@@ -958,7 +958,7 @@ namespace MMG
         {
            if(movementInputData.UseDefend == true)
             {
-                Debug.Log("Wall of Souls");
+                //Debug.Log("Wall of Souls");
 
             }
         }
@@ -968,10 +968,10 @@ namespace MMG
             {
                 if (attackNum == 1)
                 {
-                    Debug.Log("Unstoppable Spear");
+                    //Debug.Log("Unstoppable Spear");
                 } else
                 {
-                    Debug.Log("Wild Ride");
+                    //Debug.Log("Wild Ride");
                 }
 
             }
@@ -980,16 +980,16 @@ namespace MMG
         {
             if (movementInputData.SwitchAttack == true)
             {
-                Debug.Log("I N D E E D");
+                //Debug.Log("I N D E E D");
                 if(attackNum == 1)
                 {
                     attackNum = 2;
-                    Debug.Log("Vorgon's Sword" + attackNum);
+                    //Debug.Log("Vorgon's Sword" + attackNum);
 
                 } else if(attackNum == 2)
                 {
                     attackNum = 1;
-                    Debug.Log("The Flames Of Darkness" + attackNum);
+                    //Debug.Log("The Flames Of Darkness" + attackNum);
                 }
             }
         }
