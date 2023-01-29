@@ -11,7 +11,7 @@ public class StealthDetection : MonoBehaviour
     public float hearingRange3 = 2f; // distance for second sphere detection
     public float runningDetectionSpeed = 1f; // detection speed when player is running
     public float walkingDetectionSpeed = 0.4f; // detection speed when player is walking
-    public float crouchingDetectionSpeed = 0.2f;
+    public float crouchingDetectionSpeed = 0.1f;
     public Image hearingDetectionUI; // reference to the UI image on the canvas
     public CanvasGroup hearingCanvas;
 
@@ -49,6 +49,15 @@ public class StealthDetection : MonoBehaviour
                     detection -= Time.deltaTime * crouchingDetectionSpeed;
             }
 
+            if (detection >= 1f) // if detection level is full
+            {
+                // AI can hear the player
+                Debug.Log("vorgon can hear the player now");
+                Vector3 detectionPosition = player.transform.position;
+                vorgon.SetLastDetectedLocation(detectionPosition);
+            }
+
+
         }
         else if (distance <= hearingRange2) // if player is within the second sphere's detection range
         {
@@ -71,7 +80,6 @@ public class StealthDetection : MonoBehaviour
             {
                 detection -= Time.deltaTime * walkingDetectionSpeed;
             }
-
 
             if (detection >= 1f) // if detection level is full
             {
