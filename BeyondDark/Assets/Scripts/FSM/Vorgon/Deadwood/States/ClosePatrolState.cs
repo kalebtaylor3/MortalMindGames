@@ -10,6 +10,7 @@ public class ClosePatrolState : FSMState
     private bool reachedLastSeen;
     private int searchCount = 0;
     float range = 10;
+    private bool detectedAgain;
 
     public ClosePatrolState(VorgonController controller)
     {
@@ -17,6 +18,7 @@ public class ClosePatrolState : FSMState
         vorgonControl = controller;
         vorgonFSM = controller.vorgonFSM;
         reachedLastSeen = false;
+        detectedAgain = false;
         searchCount = 0;
     }
 
@@ -25,6 +27,7 @@ public class ClosePatrolState : FSMState
         //base.EnterStateInit();
         vorgonControl.navAgent.isStopped = false;
         //vorgonControl.playerDetected = false;
+        detectedAgain = false;
         reachedLastSeen = false;
         searchCount = 0;
     }
@@ -61,6 +64,8 @@ public class ClosePatrolState : FSMState
         if(vorgonControl.playerDetected)
         {
             reachedLastSeen = false;
+            //vorgonControl.playerDetected = false;
+            detectedAgain = true;
         }
 
         if(!reachedLastSeen && !vorgonControl.SearchAnimIsPlaying)
@@ -99,7 +104,7 @@ public class ClosePatrolState : FSMState
                 
             }
         }
-        else if(!reachedLastSeen && vorgonControl.SearchAnimIsPlaying)// && vorgonControl.playerDetected)
+        else if(!reachedLastSeen && vorgonControl.SearchAnimIsPlaying && !detectedAgain)
         {
             vorgonControl.navAgent.isStopped = true;
         }

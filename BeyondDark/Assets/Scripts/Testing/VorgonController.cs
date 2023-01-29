@@ -148,33 +148,39 @@ public class VorgonController : MonoBehaviour
     IEnumerator TriggerLastSeen(Vector3 location, EVENT_TYPE type)
     {
         LastSeen = location;
-        playerDetected = true;
-
-        if (type == EVENT_TYPE.ANIM)
+        if(!playerDetected)
         {
-            SearchAnimIsPlaying = true;
-            navAgent.isStopped = true;
-            awareOfPlayer = true;
+            playerDetected = true;
 
-            PlaySoundEffect(SOUND_TYPE.ALERT);
-
-            yield return new WaitUntil(() => !alertAudioSource.isPlaying); // Include animation
-
-            //SearchAnimCanPlay = false;
-            SearchAnimIsPlaying = false;
-            navAgent.isStopped = false;
-
-        }
-        else if(type == EVENT_TYPE.SOUND)
-        {
-            //audioSource.PlayOneShot();
-            if(!alertAudioSource.isPlaying && !awareOfPlayer)
+            if (type == EVENT_TYPE.ANIM)
             {
+                SearchAnimIsPlaying = true;
+                //navAgent.isStopped = true;
                 awareOfPlayer = true;
-                PlaySoundEffect(SOUND_TYPE.GROWL);
+
+                PlaySoundEffect(SOUND_TYPE.ALERT);
+
+                yield return new WaitUntil(() => !alertAudioSource.isPlaying); // Include animation
+
+                //SearchAnimCanPlay = false;
+                SearchAnimIsPlaying = false;
+                navAgent.isStopped = false;
+
             }
+            else if (type == EVENT_TYPE.SOUND)
+            {
+                //audioSource.PlayOneShot();
+                if (!alertAudioSource.isPlaying && !awareOfPlayer)
+                {
+                    awareOfPlayer = true;
+                    PlaySoundEffect(SOUND_TYPE.GROWL);
+                }
+                yield return null;
+            }
+        }
+        else
+        {
             yield return null;
-            
         }
     }
 
