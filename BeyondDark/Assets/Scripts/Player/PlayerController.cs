@@ -14,7 +14,7 @@ namespace MMG
         #region Data
 
         [Space, Header("Data")]
-        [SerializeField] private MovementInputData movementInputData = null;
+        [SerializeField] public MovementInputData movementInputData = null;
         [SerializeField] private HeadBobData headBobData = null;
         [SerializeField] ItemInputData itemInputData = null;
         [SerializeField] private int attackNum = 1;
@@ -31,6 +31,8 @@ namespace MMG
         [Slider(0f, 1f)][SerializeField] private float moveBackwardsSpeedPercentStanding = 0.4f;
         [Slider(0f, 1f)][SerializeField] private float moveBackwardsSpeedPercentCrouching = 0.5f;
         [Slider(0f, 1f)][SerializeField] private float moveSideSpeedPercent = 0.75f;
+
+        [HideInInspector] public float speedCalculation;
 
         #endregion
 
@@ -134,7 +136,7 @@ namespace MMG
         private Vector3 finalMoveVector;
 
         [SerializeField]
-        private float currentSpeed;
+        public float currentSpeed;
         [SerializeField]
         private float smoothCurrentSpeed;
         private float finalSmoothCurrentSpeed;
@@ -176,7 +178,7 @@ namespace MMG
         [SerializeField] private AudioClip[] SoundEffects;
 
         private float footStepTimer = 0;
-        private float GetCurrentOffset;
+        [HideInInspector] public float GetCurrentOffset;
 
         public AudioSource pickUpSource;
 
@@ -532,7 +534,7 @@ namespace MMG
                     currentSpeed = movementInputData.InputVector.y <= -1 ? currentSpeed * moveBackwardsSpeedPercentCrouching : currentSpeed;
                 currentSpeed = movementInputData.InputVector.x != 0 && movementInputData.InputVector.y <  0.8f ? currentSpeed * moveSideSpeedPercent :  currentSpeed;
 
-                float speedCalculation = Mathf.Abs(movementInputData.InputVector.x + movementInputData.InputVector.y);
+                speedCalculation = Mathf.Abs(movementInputData.InputVector.x + movementInputData.InputVector.y);
 
                 speedCalculation =  Mathf.Clamp(speedCalculation, 0, 1);
 
@@ -579,6 +581,9 @@ namespace MMG
             }
 
 
+            Debug.Log(currentSpeed);
+
+
 
 
             //if (movementInputData.IsRunning && currentSpeed >= runSpeed && CanRun())
@@ -589,7 +594,7 @@ namespace MMG
 
             //if (currentSpeed < 0.5f)
             //    currentSpeed = 0;
-            }
+        }
 
             void CalculateFinalMovement()
             {
