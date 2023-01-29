@@ -19,8 +19,8 @@ public class SeekState : FSMState
     public override void EnterStateInit()
     {
         //base.EnterStateInit();
-        vorgonControl.navAgent.isStopped = false;
-        destination = WorldData.Instance.FindSectionCenter(WorldData.Instance.activePlayerSection);
+        vorgonControl.navAgent.isStopped = true;
+        //destination = WorldData.Instance.FindSectionCenter(WorldData.Instance.activePlayerSection);
     }
 
     public override void Reason()
@@ -28,7 +28,7 @@ public class SeekState : FSMState
         // Check for section change
         if(WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
         {
-            destination = WorldData.Instance.FindSectionCenter(WorldData.Instance.activePlayerSection);
+            //vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
         }
 
         // Transitions
@@ -49,7 +49,7 @@ public class SeekState : FSMState
             // If player Detected (stealth system) -> Close Patrol
             vorgonFSM.PerformTransition(Transition.PlayerDetected);
         }
-        else if (IsInCurrentRange(vorgonControl.transform, destination, 2)) 
+        else
         {
             // Reach section -> Lost
             vorgonFSM.PerformTransition(Transition.ReachedSection);
@@ -60,6 +60,9 @@ public class SeekState : FSMState
     public override void Act()
     {
         // Actions
-        vorgonControl.navAgent.destination = destination;
+        //vorgonControl.navAgent.destination = destination;
+        vorgonControl.gameObject.SetActive(false);
+        vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+        vorgonControl.gameObject.SetActive(true);
     }
 }

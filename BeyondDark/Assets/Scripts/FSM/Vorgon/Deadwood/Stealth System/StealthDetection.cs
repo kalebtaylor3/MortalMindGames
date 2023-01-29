@@ -32,7 +32,11 @@ public class StealthDetection : MonoBehaviour
         float distance = Vector3.Distance(player.transform.position, transform.position); // calculate distance between AI and player
 
         if (detection <= 0)
+        {
             detection = 0;
+            vorgon.SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+        }
+            
 
         if(!vorgon.inChase && !vorgon.isAttacking)
         {
@@ -58,7 +62,7 @@ public class StealthDetection : MonoBehaviour
                     // AI can hear the player
                     Debug.Log("vorgon can hear the player now");
                     Vector3 detectionPosition = player.transform.position;
-                    vorgon.SetLastDetectedLocation(detectionPosition);
+                    vorgon.SetLastDetectedLocation(detectionPosition, VorgonController.EVENT_TYPE.SOUND);
                 }
             }
             else if (distance <= hearingRange2) // if player is within the second sphere's detection range
@@ -89,7 +93,8 @@ public class StealthDetection : MonoBehaviour
                     // AI can hear the player
                     Debug.Log("vorgon can hear the player now");
                     Vector3 detectionPosition = player.transform.position;
-                    vorgon.SetLastDetectedLocation(detectionPosition);
+                    vorgon.SetLastDetectedLocation(detectionPosition, VorgonController.EVENT_TYPE.SOUND);
+                    
                 }
             }
             else if (distance <= hearingRange1) // if player is within the first sphere's detection range
@@ -107,17 +112,19 @@ public class StealthDetection : MonoBehaviour
                     // AI can hear the player
                     Debug.Log("vorgon can hear the player now");
                     Vector3 detectionPosition = player.transform.position;
-                    vorgon.SetLastDetectedLocation(detectionPosition);
+                    vorgon.SetLastDetectedLocation(detectionPosition, VorgonController.EVENT_TYPE.SOUND);
                 }
             }
             else
             {
                 detection = 0f; // reset detection level if player is out of range
+                vorgon.SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
             }
         }
         else
         {
             detection -= Time.deltaTime * runningDetectionSpeed; // decrease detection level
+            vorgon.SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
         }
 
         hearingCanvas.alpha = Mathf.Lerp(0, 1, detection);

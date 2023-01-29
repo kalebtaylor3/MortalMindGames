@@ -24,7 +24,7 @@ public class ClosePatrolState : FSMState
     {
         //base.EnterStateInit();
         vorgonControl.navAgent.isStopped = false;
-        vorgonControl.playerDetected = false;
+        //vorgonControl.playerDetected = false;
         reachedLastSeen = false;
         searchCount = 0;
     }
@@ -60,20 +60,21 @@ public class ClosePatrolState : FSMState
         // Actions
         if(vorgonControl.playerDetected)
         {
-            reachedLastSeen = false;            
+            reachedLastSeen = false;
         }
 
-        if(!reachedLastSeen)
+        if(!reachedLastSeen && !vorgonControl.SearchAnimIsPlaying)
         {
             vorgonControl.navAgent.destination = vorgonControl.LastSeen;
 
             if(IsInCurrentRange(vorgonControl.transform, vorgonControl.LastSeen, 1))
             {
                 reachedLastSeen = true;
+                vorgonControl.PlaySoundEffect(VorgonController.SOUND_TYPE.ALERT);
                 vorgonControl.playerDetected = false;
             }
         }
-        else
+        else if(reachedLastSeen && !vorgonControl.SearchAnimIsPlaying)
         {
             if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
             {
@@ -97,6 +98,10 @@ public class ClosePatrolState : FSMState
                 }
                 
             }
+        }
+        else if(!reachedLastSeen && vorgonControl.SearchAnimIsPlaying)// && vorgonControl.playerDetected)
+        {
+            vorgonControl.navAgent.isStopped = true;
         }
 
     }

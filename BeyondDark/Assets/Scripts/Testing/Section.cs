@@ -6,6 +6,8 @@ public class Section : MonoBehaviour
 {
     public WorldData.SECTIONS sectionType = WorldData.SECTIONS.NONE;
 
+    [SerializeField] public Transform vorgonTP;
+
     [SerializeField] public List<Transform> SectionWaypoints = null;
 
     private void OnTriggerStay(Collider other)
@@ -20,4 +22,6 @@ public class Section : MonoBehaviour
             WorldData.Instance.activeVorgonSection = sectionType;
         }
     }
+
+
 }
