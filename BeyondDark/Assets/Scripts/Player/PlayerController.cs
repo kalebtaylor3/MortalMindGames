@@ -581,7 +581,7 @@ namespace MMG
             }
 
 
-            Debug.Log(currentSpeed);
+            //Debug.Log(currentSpeed);
 
 
 

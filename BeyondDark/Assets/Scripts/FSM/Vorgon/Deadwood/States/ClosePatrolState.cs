@@ -24,6 +24,7 @@ public class ClosePatrolState : FSMState
     {
         //base.EnterStateInit();
         vorgonControl.navAgent.isStopped = false;
+        vorgonControl.playerDetected = false;
         reachedLastSeen = false;
         searchCount = 0;
     }
@@ -57,7 +58,22 @@ public class ClosePatrolState : FSMState
     public override void Act()
     {
         // Actions
-       
+        if(vorgonControl.playerDetected)
+        {
+            reachedLastSeen = false;            
+        }
+
+        if(!reachedLastSeen)
+        {
+            vorgonControl.navAgent.destination = vorgonControl.LastSeen;
+
+            if(IsInCurrentRange(vorgonControl.transform, vorgonControl.LastSeen, 1))
+            {
+                reachedLastSeen = true;
+                vorgonControl.playerDetected = false;
+            }
+        }
+        else
         {
             if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
             {

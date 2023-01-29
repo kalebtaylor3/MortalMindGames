@@ -16,8 +16,10 @@ public class VorgonController : MonoBehaviour
 
     [SerializeField] public bool PlayerInSight = false;
     [SerializeField] public bool canSeePlayer;
+    public bool playerDetected = false;
+    public bool inChase = false;
 
-    [HideInInspector] public Vector3 LastSeen = Vector3.zero;
+    public Vector3 LastSeen = Vector3.zero;
     [HideInInspector] public bool SearchAnimCanPlay = true;
     [HideInInspector] public bool SearchAnimIsPlaying = false;
 
@@ -111,6 +113,7 @@ public class VorgonController : MonoBehaviour
     public void SetLastDetectedLocation(Vector3 location)
     {
         LastSeen = location;
+        playerDetected = true;
     }
 
     public bool RandomPoint(Vector3 center, float range, out Vector3 result)

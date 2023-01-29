@@ -42,6 +42,11 @@ public class PatrolState : FSMState
             // If player Found -> Chase
             vorgonFSM.PerformTransition(Transition.PlayerFound);
         }
+        else if (vorgonControl.playerDetected)
+        {
+            // If player Detected (stealth system) -> Close Patrol
+            vorgonFSM.PerformTransition(Transition.PlayerDetected);
+        }
         else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
         {
             // If wrong section -> Seek

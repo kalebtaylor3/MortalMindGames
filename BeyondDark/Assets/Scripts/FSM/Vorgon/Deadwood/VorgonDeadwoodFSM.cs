@@ -104,12 +104,14 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         lost.AddTransition(Transition.Stunned, FSMStateID.Stunned);
         lost.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
         lost.AddTransition(Transition.PlayerLost, FSMStateID.Patrol);
+        lost.AddTransition(Transition.PlayerDetected, FSMStateID.ClosePatrol);
 
         // Patrol
         PatrolState patrol = new PatrolState(vorgonController);
         patrol.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         patrol.AddTransition(Transition.Stunned, FSMStateID.Stunned);
         patrol.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
+        patrol.AddTransition(Transition.PlayerDetected, FSMStateID.ClosePatrol);
 
         // Attack
         AttackState attack = new AttackState(vorgonController);
@@ -130,6 +132,7 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         seek.AddTransition(Transition.ReachedSection, FSMStateID.Lost);
         seek.AddTransition(Transition.Stunned, FSMStateID.Stunned);
         seek.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
+        seek.AddTransition(Transition.PlayerDetected, FSMStateID.ClosePatrol);
 
         // Stunned
         StunnedState stunned = new StunnedState(vorgonController);

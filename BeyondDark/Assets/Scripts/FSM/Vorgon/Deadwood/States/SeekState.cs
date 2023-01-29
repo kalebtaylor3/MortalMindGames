@@ -39,16 +39,22 @@ public class SeekState : FSMState
             // If stunned -> Stun
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
+        {
+            // If player Found -> Chase
+            vorgonFSM.PerformTransition(Transition.PlayerFound);
+        }
+        else if (vorgonControl.playerDetected)
+        {
+            // If player Detected (stealth system) -> Close Patrol
+            vorgonFSM.PerformTransition(Transition.PlayerDetected);
+        }
         else if (IsInCurrentRange(vorgonControl.transform, destination, 2)) 
         {
             // Reach section -> Lost
             vorgonFSM.PerformTransition(Transition.ReachedSection);
         }
-        else if(IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
-        {
-            // If player Found -> Chase
-            vorgonFSM.PerformTransition(Transition.PlayerFound);
-        }
+        
     }
 
     public override void Act()
