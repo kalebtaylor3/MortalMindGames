@@ -225,6 +225,8 @@ MonoBehaviour:
   x: 1
   y: 1
   z: 1
+  vorgonFear: {fileID: 0}
+  playersFear: {fileID: 0}
   finalRot: {x: 0, y: 0, z: 0}
 --- !u!1 &4486899957548985217
 GameObject:
@@ -685,7 +687,7 @@ GameObject:
   - component: {fileID: 4486899958292939365}
   - component: {fileID: 4486899958292939366}
   - component: {fileID: 4486899958292939367}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,8 +770,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 13.663725, y: 1, z: 1.4838418}
+  m_Center: {x: 6.3316927, y: 0, z: 0.008409482}
 --- !u!1 &4486899958353342182
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,6 +1031,7 @@ MonoBehaviour:
   concelableAreaCam: {fileID: 4486899958126474521}
   playerCamera: {fileID: 0}
   doorCreak: {fileID: 8146744313050851661}
+  exposurePercentage: 0
   cameraPosition: {fileID: 2597375166718141064}
   lookAtTransform: {fileID: 3975464654848557385}
   cameraClamp: 0
