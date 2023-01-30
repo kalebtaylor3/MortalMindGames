@@ -14,6 +14,8 @@ public class ConcelableDetection : MonoBehaviour
 
     private static ConcelableDetection instance;
 
+    public VorgonController vorgon;
+
 
     private Color rayColor = Color.blue;
 
@@ -50,6 +52,7 @@ public class ConcelableDetection : MonoBehaviour
                             {
                                 //need logic so this only happens once
                                 Debug.Log("Vorgons coming dumbass");
+                                vorgon.SetLastDetectedLocation(concelableArea.transform.position, VorgonController.EVENT_TYPE.SOUND);
                             }
                         }
                     }
