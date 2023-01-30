@@ -48,6 +48,7 @@ public class ConcelableDetection : MonoBehaviour
                         {
                             if (concelableArea.doorCreak.isPlaying)
                             {
+                                //need logic so this only happens once
                                 Debug.Log("Vorgons coming dumbass");
                             }
                         }
@@ -74,13 +75,12 @@ public class ConcelableDetection : MonoBehaviour
                     {
                         if (concelableArea.rotator.transform.localRotation.y > 0.25f || concelableArea.rotator.transform.localRotation.x > 0.25f || concelableArea.rotator.transform.localRotation.z > 0.25f)
                         {
+                            //need logic so this only happens once
                             Debug.Log("I can see ur bitch ass");
                             rayColor = Color.red;
                         }
                         else
-                        {
                             rayColor = Color.green;
-                        }
                     }
                     else
                     {
