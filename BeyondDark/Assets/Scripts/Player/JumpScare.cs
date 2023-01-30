@@ -7,6 +7,12 @@ public class JumpScare : MonoBehaviour
     [SerializeField] Animation scareAnim = null;
     [SerializeField] AudioSource scareAudioSource;
     [SerializeField] float startDelay = 0;
+    private VorgonController vorgon;
+
+    private void Start()
+    {
+        vorgon = FindObjectOfType<VorgonController>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -27,7 +33,8 @@ public class JumpScare : MonoBehaviour
         }
 
         
-        scareAudioSource.Play();        
+        scareAudioSource.Play();
+        vorgon.SetLastDetectedLocation(transform.position, VorgonController.EVENT_TYPE.ANIM);
     }
 
 }

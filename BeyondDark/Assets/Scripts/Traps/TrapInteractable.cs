@@ -31,11 +31,15 @@ public class TrapInteractable : InteractableBase
     public AudioClip startClip;
     public AudioSource completeSource;
 
+    public VorgonController vorgon;
+
     private void OnEnable()
     {
         textMessage = TooltipMessage;
         armedTrigger.SetActive(false);
+        vorgon = FindObjectOfType<VorgonController>();
     }
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -147,6 +151,7 @@ public class TrapInteractable : InteractableBase
         inEvent = false;
         QuickTimeEventSystem.OnSuccess -= OnSuccsess;
         QuickTimeEventSystem.OnFailure -= OnFailure;
+        vorgon.SetLastDetectedLocation(transform.position, VorgonController.EVENT_TYPE.ANIM);
     }
 
     void OnComplete()
@@ -168,6 +173,6 @@ public class TrapInteractable : InteractableBase
         QuickTimeEventSystem.OnSuccess -= OnSuccsess;
         QuickTimeEventSystem.OnFailure -= OnFailure;
         completeSource.PlayOneShot(completeClip);
-        gameObject.GetComponentInChildren<StunTriggerCollider>().gameObject.SetActive(true);
+        gameObject.GetComponentInChildren<StunTriggerCollider>().gameObject.SetActive(true);        
     }
 }

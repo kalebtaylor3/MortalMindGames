@@ -19,8 +19,8 @@ public class SeekState : FSMState
     public override void EnterStateInit()
     {
         //base.EnterStateInit();
-        vorgonControl.navAgent.isStopped = false;
-        destination = WorldData.Instance.FindSectionCenter(WorldData.Instance.activePlayerSection);
+        vorgonControl.navAgent.isStopped = true;
+        //destination = WorldData.Instance.FindSectionCenter(WorldData.Instance.activePlayerSection);
     }
 
     public override void Reason()
@@ -28,7 +28,7 @@ public class SeekState : FSMState
         // Check for section change
         if(WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
         {
-            destination = WorldData.Instance.FindSectionCenter(WorldData.Instance.activePlayerSection);
+            //vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
         }
 
         // Transitions
@@ -39,21 +39,30 @@ public class SeekState : FSMState
             // If stunned -> Stun
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
-        else if (IsInCurrentRange(vorgonControl.transform, destination, 2)) 
-        {
-            // Reach section -> Lost
-            vorgonFSM.PerformTransition(Transition.ReachedSection);
-        }
-        else if(IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
         {
             // If player Found -> Chase
             vorgonFSM.PerformTransition(Transition.PlayerFound);
         }
+        else if (vorgonControl.playerDetected)
+        {
+            // If player Detected (stealth system) -> Close Patrol
+            vorgonFSM.PerformTransition(Transition.PlayerDetected);
+        }
+        else
+        {
+            // Reach section -> Lost
+            vorgonFSM.PerformTransition(Transition.ReachedSection);
+        }
+        
     }
 
     public override void Act()
     {
         // Actions
-        vorgonControl.navAgent.destination = destination;
+        //vorgonControl.navAgent.destination = destination;
+        vorgonControl.gameObject.SetActive(false);
+        vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+        vorgonControl.gameObject.SetActive(true);
     }
 }

@@ -40,24 +40,27 @@ public class LostState : FSMState
             {
                 // If stunned -> Stun
                 vorgonFSM.PerformTransition(Transition.Stunned);
-            }            
-            else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
-            {
-                // If wrong section -> Seek
-                vorgonFSM.PerformTransition(Transition.WrongSection);
-            }            
+            }
             else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
             {
                 // If player Found -> Chase
                 vorgonFSM.PerformTransition(Transition.PlayerFound);
             }
+            else if (vorgonControl.playerDetected)
+            {
+                // If player Detected (stealth system) -> Close Patrol
+                vorgonFSM.PerformTransition(Transition.PlayerDetected);
+            }
+            else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
+            {
+                // If wrong section -> Seek
+                vorgonFSM.PerformTransition(Transition.WrongSection);
+            } 
             else
             {
                 // -> Patrol
                 vorgonFSM.PerformTransition(Transition.PlayerLost);
             }
-
-            
         }
         else
         {

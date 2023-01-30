@@ -4,27 +4,53 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.XR;
+using static UnityEditor.FilePathAttribute;
 
 public class VorgonController : MonoBehaviour
 {
+    #region Variables
+    // For Sound Effect && FSM
+    public enum EVENT_TYPE { LOST = 0, ANIM, SOUND };    
+    public enum SOUND_TYPE { ALERT = 0, GROWL };
+
     [SerializeField] public NavMeshAgent navAgent;
     [SerializeField] public PlayerController playerT;
     [SerializeField] public VorgonDeadwoodFSM vorgonFSM;
-    [SerializeField] public bool stunned = false;
     [SerializeField] private float stunDuration;
-    [SerializeField] public bool isAttacking = false;
-
-    [SerializeField] public bool PlayerInSight = false;
-    [SerializeField] public bool canSeePlayer;
-
-    public Vector3 LastSeen = Vector3.zero;
-    public bool SearchAnimCanPlay = false;
-
+    [SerializeField] AudioSource alertAudioSource;
     public LayerMask targetMask;
     public LayerMask obstructionMask;
-
-
     private Color rayColor = Color.green;
+
+    private List<AudioClip>[] audioClips = new List<AudioClip>[10];
+    
+    [SerializeField] private List<AudioClip> ALERTSounds;
+    [SerializeField] private List<AudioClip> GROWLSounds;
+    #endregion
+
+    #region Debug
+    [HideInInspector] public bool stunned = false;
+    [HideInInspector] public bool isAttacking = false;
+
+
+    [HideInInspector] public bool PlayerInSight = false;
+    [HideInInspector] public bool canSeePlayer;
+    [HideInInspector] public bool playerDetected = false;
+    [SerializeField] public bool awareOfPlayer = false;
+    [HideInInspector] public bool inChase = false;
+
+    [HideInInspector] public Vector3 LastSeen = Vector3.zero;
+    [HideInInspector] public bool SearchAnimCanPlay = true;
+    [HideInInspector] public bool SearchAnimIsPlaying = false;
+
+    #endregion
+
+    private void Start()
+    {
+        audioClips[0] = ALERTSounds;
+        audioClips[1] = GROWLSounds;
+    }
 
     private void Update()
     {
@@ -69,7 +95,7 @@ public class VorgonController : MonoBehaviour
         Vector3 forwardV = transform.forward;
         float angle = Vector3.Angle(dir, forwardV);
 
-        if(angle <= 45.0f)
+        if(angle <= 45.0f && !playerT.isHiding)
         {
             float distanceToTarget = Vector3.Distance(transform.position, playerT.transform.position);
 
@@ -100,9 +126,68 @@ public class VorgonController : MonoBehaviour
     }
 
     IEnumerator TrigerSearchAnim()
-    {        
-        yield return new WaitForSeconds(1.5f);
+    {
+        SearchAnimIsPlaying = true;
+        yield return new WaitUntil(() => !alertAudioSource.isPlaying);
         SearchAnimCanPlay = false;
+        SearchAnimIsPlaying = false;
+    }
+
+    public void SetLastDetectedLocation(Vector3 location, EVENT_TYPE type = EVENT_TYPE.LOST)
+    {
+        if (type == EVENT_TYPE.LOST)
+        {
+            awareOfPlayer = false;            
+        }
+        else
+        {
+            StartCoroutine(TriggerLastSeen(location, type));
+        }        
+    }
+
+    IEnumerator TriggerLastSeen(Vector3 location, EVENT_TYPE type)
+    {
+        LastSeen = location;
+        if(!playerDetected)
+        {
+            playerDetected = true;
+
+            if (type == EVENT_TYPE.ANIM)
+            {
+                SearchAnimIsPlaying = true;
+                //navAgent.isStopped = true;
+                awareOfPlayer = true;
+
+                PlaySoundEffect(SOUND_TYPE.ALERT);
+
+                yield return new WaitUntil(() => !alertAudioSource.isPlaying); // Include animation
+
+                //SearchAnimCanPlay = false;
+                SearchAnimIsPlaying = false;
+                navAgent.isStopped = false;
+
+            }
+            else if (type == EVENT_TYPE.SOUND)
+            {
+                //audioSource.PlayOneShot();
+                if (!alertAudioSource.isPlaying && !awareOfPlayer)
+                {
+                    awareOfPlayer = true;
+                    PlaySoundEffect(SOUND_TYPE.GROWL);
+                }
+                yield return null;
+            }
+        }
+        else
+        {
+            yield return null;
+        }
+    }
+
+    public void PlaySoundEffect(SOUND_TYPE type)
+    {
+        int rand = Random.Range(0, ALERTSounds.Count - 1);
+        alertAudioSource.PlayOneShot(audioClips[(int)type][rand]);
     }
 
     public bool RandomPoint(Vector3 center, float range, out Vector3 result)

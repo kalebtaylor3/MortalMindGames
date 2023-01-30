@@ -54,7 +54,7 @@ namespace MMG
 
         public virtual void OnInteract()
         {
-                Debug.Log("INTERACTED: " + gameObject.name);
+                //Debug.Log("INTERACTED: " + gameObject.name);
 
                 if (IsPickup)
                     OnPickUp.Invoke(pickUp);

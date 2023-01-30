@@ -10,6 +10,7 @@ public class ClosePatrolState : FSMState
     private bool reachedLastSeen;
     private int searchCount = 0;
     float range = 10;
+    private bool detectedAgain;
 
     public ClosePatrolState(VorgonController controller)
     {
@@ -17,6 +18,7 @@ public class ClosePatrolState : FSMState
         vorgonControl = controller;
         vorgonFSM = controller.vorgonFSM;
         reachedLastSeen = false;
+        detectedAgain = false;
         searchCount = 0;
     }
 
@@ -24,6 +26,8 @@ public class ClosePatrolState : FSMState
     {
         //base.EnterStateInit();
         vorgonControl.navAgent.isStopped = false;
+        //vorgonControl.playerDetected = false;
+        detectedAgain = false;
         reachedLastSeen = false;
         searchCount = 0;
     }
@@ -35,21 +39,25 @@ public class ClosePatrolState : FSMState
         // If stunned -> Stun
         if (vorgonControl.stunned)
         {
+            vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
         else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
         {
             // If wrong section -> Seek
+            vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.WrongSection);
         }
         else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
         {
             // If player Found -> Chase
+            vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.PlayerFound);
         }        
         else if(searchCount >= 5)
         {
             //If searched 5 times -> Lost
+            vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
     }
@@ -57,13 +65,34 @@ public class ClosePatrolState : FSMState
     public override void Act()
     {
         // Actions
-       
+        if(vorgonControl.playerDetected)
+        {
+            reachedLastSeen = false;
+            //vorgonControl.playerDetected = false;
+            detectedAgain = true;
+        }
+
+        if(!reachedLastSeen && !vorgonControl.SearchAnimIsPlaying)
+        {
+            vorgonControl.navAgent.destination = vorgonControl.LastSeen;
+
+            if(IsInCurrentRange(vorgonControl.transform, vorgonControl.LastSeen, 1))
+            {
+                reachedLastSeen = true;
+                vorgonControl.PlaySoundEffect(VorgonController.SOUND_TYPE.ALERT);
+                vorgonControl.playerDetected = false;
+            }
+        }
+        else if(reachedLastSeen && !vorgonControl.SearchAnimIsPlaying)
         {
             if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
             {
                 if(vorgonControl.SearchAnimCanPlay)
-                {                    
-                    vorgonControl.PlaySearchAnim();
+                {
+                    if (!vorgonControl.SearchAnimIsPlaying)
+                    {
+                        vorgonControl.PlaySearchAnim();
+                    }
                 }
                 else
                 {
@@ -78,6 +107,10 @@ public class ClosePatrolState : FSMState
                 }
                 
             }
+        }
+        else if(!reachedLastSeen && vorgonControl.SearchAnimIsPlaying && !detectedAgain)
+        {
+            vorgonControl.navAgent.isStopped = true;
         }
 
     }

@@ -1255,6 +1255,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4552230261985396160, guid: d986174fc53a17f469747d21442a5adf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5311847504694857030, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1389,6 +1394,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7108663861198911616, guid: d986174fc53a17f469747d21442a5adf,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1326173108}
+    - target: {fileID: 7686156144672770332, guid: d986174fc53a17f469747d21442a5adf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d986174fc53a17f469747d21442a5adf, type: 3}
@@ -3427,18 +3442,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1837035314}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1326173104 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3355022823466939473, guid: 4ee7d5f18f6370a429e5e1024be1680c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1837035314}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1326173103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0ec50a9a300a24e8db9b23ed0f0043, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1326173107 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 236037438740375227, guid: 4ee7d5f18f6370a429e5e1024be1680c,
@@ -3457,6 +3460,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1837035314}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1326173118 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3355022823466939473, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1837035314}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326173103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0ec50a9a300a24e8db9b23ed0f0043, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1328072514
 GameObject:
   m_ObjectHideFlags: 0
@@ -4557,7 +4572,7 @@ PrefabInstance:
         type: 3}
       propertyPath: rumbler
       value: 
-      objectReference: {fileID: 1326173104}
+      objectReference: {fileID: 1326173118}
     - target: {fileID: 1432220041037614963, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
       propertyPath: UiManager

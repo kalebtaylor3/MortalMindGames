@@ -13,8 +13,8 @@ namespace MMG
     {
         [SerializeField] private HiddingCameraController concelableAreaCam;
         [SerializeField] private CinemachineVirtualCamera playerCamera;
-        [SerializeField] private AudioSource doorCreak;
-        private float exposurePercentage;
+        [SerializeField] public AudioSource doorCreak;
+        [HideInInspector] public float exposurePercentage;
         private bool isHidding = false;
         public Transform cameraPosition;
         public Transform lookAtTransform;
@@ -27,7 +27,7 @@ namespace MMG
         public bool negativeRotation;
 
         [SerializeField] Animator enteranceAnimator;
-        [SerializeField] GameObject rotator;
+        [SerializeField] public GameObject rotator;
         public float rotationSpeed = 25;
 
         [SerializeField] InputController input;
@@ -68,6 +68,15 @@ namespace MMG
                 displayText = "Press X to Exit";
             else
                 displayText = "Press X to Hide!";
+
+            if (exposurePercentage > 0)
+            {
+                doorCreak.volume = Mathf.Clamp(doorCreak.volume, 0.1f, 0.5f);
+                doorCreak.volume = exposurePercentage;
+            }
+            else
+                doorCreak.volume = 0.5f;
+
 
             if (!canCreak)
                 doorCreak.Stop();
@@ -209,6 +218,8 @@ namespace MMG
                 {
                     base.OnInteract();
                     input.canMove = false;
+                    if(ConcelableDetection.Instance != null)
+                        ConcelableDetection.Instance.SetConcelableArea(this);
                     //playerCameraHolder.enabled = false;
                     exposurePercentage = 0;
                     enteranceAnimator.SetTrigger("Enter");
@@ -216,7 +227,6 @@ namespace MMG
                     isHidding = true;
                     canExit = false;
                     this.GetComponent<BoxCollider>().enabled = false;
-                    OnEnteredSpot?.Invoke();
                 }
                 else if(canExit)
                 {
@@ -253,6 +263,7 @@ namespace MMG
             concelableAreaCam.cam.LookAt = lookAtTransform;
             canExit = true;
             this.GetComponent<BoxCollider>().enabled = true;
+            OnEnteredSpot?.Invoke();
 
             if (cameraClamp == clamp.Y)
                 concelableAreaCam.cam.Follow = lookAtTransform;
@@ -272,7 +283,7 @@ namespace MMG
         void ExitArea()
         {
             enteranceAnimator.enabled = true;
-            Debug.Log("Exiting Area");
+            //Debug.Log("Exiting Area");
             StartCoroutine(WaitForExit());
             enteranceAnimator.SetTrigger("Enter");
             StartCoroutine(WaitForExitClose());

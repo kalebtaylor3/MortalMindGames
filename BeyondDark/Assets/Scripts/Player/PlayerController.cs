@@ -14,7 +14,7 @@ namespace MMG
         #region Data
 
         [Space, Header("Data")]
-        [SerializeField] private MovementInputData movementInputData = null;
+        [SerializeField] public MovementInputData movementInputData = null;
         [SerializeField] private HeadBobData headBobData = null;
         [SerializeField] ItemInputData itemInputData = null;
         [SerializeField] private int attackNum = 1;
@@ -31,6 +31,8 @@ namespace MMG
         [Slider(0f, 1f)][SerializeField] private float moveBackwardsSpeedPercentStanding = 0.4f;
         [Slider(0f, 1f)][SerializeField] private float moveBackwardsSpeedPercentCrouching = 0.5f;
         [Slider(0f, 1f)][SerializeField] private float moveSideSpeedPercent = 0.75f;
+
+        [HideInInspector] public float speedCalculation;
 
         #endregion
 
@@ -134,7 +136,7 @@ namespace MMG
         private Vector3 finalMoveVector;
 
         [SerializeField]
-        private float currentSpeed;
+        public float currentSpeed;
         [SerializeField]
         private float smoothCurrentSpeed;
         private float finalSmoothCurrentSpeed;
@@ -176,7 +178,7 @@ namespace MMG
         [SerializeField] private AudioClip[] SoundEffects;
 
         private float footStepTimer = 0;
-        private float GetCurrentOffset;
+        [HideInInspector] public float GetCurrentOffset;
 
         public AudioSource pickUpSource;
 
@@ -202,7 +204,7 @@ namespace MMG
         public static event Action OnEnmptyStamina;
         public static event Action OnTeleport;
 
-        [HideInInspector] public bool isHiding = false;
+        [SerializeField] public bool isHiding = false;
         
 
         #endregion
@@ -532,7 +534,7 @@ namespace MMG
                     currentSpeed = movementInputData.InputVector.y <= -1 ? currentSpeed * moveBackwardsSpeedPercentCrouching : currentSpeed;
                 currentSpeed = movementInputData.InputVector.x != 0 && movementInputData.InputVector.y <  0.8f ? currentSpeed * moveSideSpeedPercent :  currentSpeed;
 
-                float speedCalculation = Mathf.Abs(movementInputData.InputVector.x + movementInputData.InputVector.y);
+                speedCalculation = Mathf.Abs(movementInputData.InputVector.x + movementInputData.InputVector.y);
 
                 speedCalculation =  Mathf.Clamp(speedCalculation, 0, 1);
 
@@ -579,6 +581,9 @@ namespace MMG
             }
 
 
+            //Debug.Log(currentSpeed);
+
+
 
 
             //if (movementInputData.IsRunning && currentSpeed >= runSpeed && CanRun())
@@ -589,7 +594,7 @@ namespace MMG
 
             //if (currentSpeed < 0.5f)
             //    currentSpeed = 0;
-            }
+        }
 
             void CalculateFinalMovement()
             {
@@ -958,7 +963,7 @@ namespace MMG
         {
            if(movementInputData.UseDefend == true)
             {
-                Debug.Log("Wall of Souls");
+                //Debug.Log("Wall of Souls");
 
             }
         }
@@ -968,10 +973,10 @@ namespace MMG
             {
                 if (attackNum == 1)
                 {
-                    Debug.Log("Unstoppable Spear");
+                    //Debug.Log("Unstoppable Spear");
                 } else
                 {
-                    Debug.Log("Wild Ride");
+                    //Debug.Log("Wild Ride");
                 }
 
             }
@@ -980,16 +985,16 @@ namespace MMG
         {
             if (movementInputData.SwitchAttack == true)
             {
-                Debug.Log("I N D E E D");
+                //Debug.Log("I N D E E D");
                 if(attackNum == 1)
                 {
                     attackNum = 2;
-                    Debug.Log("Vorgon's Sword" + attackNum);
+                    //Debug.Log("Vorgon's Sword" + attackNum);
 
                 } else if(attackNum == 2)
                 {
                     attackNum = 1;
-                    Debug.Log("The Flames Of Darkness" + attackNum);
+                    //Debug.Log("The Flames Of Darkness" + attackNum);
                 }
             }
         }
