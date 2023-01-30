@@ -14,6 +14,9 @@ public class ConcelableDetection : MonoBehaviour
 
     private static ConcelableDetection instance;
 
+
+    private Color rayColor = Color.blue;
+
     public static ConcelableDetection Instance
     {
         get 
@@ -56,7 +59,7 @@ public class ConcelableDetection : MonoBehaviour
 
                 Vector3 dir = (concelableArea.transform.position - transform.position).normalized;
 
-                Debug.DrawRay(transform.position, dir, Color.yellow);
+                Debug.DrawRay(transform.position, dir, rayColor);
 
                 Vector3 forwardV = transform.forward;
                 float angle = Vector3.Angle(dir, forwardV);
@@ -65,10 +68,23 @@ public class ConcelableDetection : MonoBehaviour
                 {
                     float distanceToTarget = Vector3.Distance(transform.position, concelableArea.transform.position);
 
+                    Debug.DrawRay(transform.position, dir, Color.yellow);
+
                     if (!Physics.Raycast(transform.position, dir, distanceToTarget, obstructionMask))
                     {
                         if (concelableArea.rotator.transform.localRotation.y > 0.25f || concelableArea.rotator.transform.localRotation.x > 0.25f || concelableArea.rotator.transform.localRotation.z > 0.25f)
+                        {
                             Debug.Log("I can see ur bitch ass");
+                            rayColor = Color.red;
+                        }
+                        else
+                        {
+                            rayColor = Color.green;
+                        }
+                    }
+                    else
+                    {
+                        rayColor = Color.green;
                     }
                 }
             }
