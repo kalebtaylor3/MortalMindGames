@@ -38,6 +38,8 @@ namespace MMG
         bool canCreak = false;
         bool canExit = false;
 
+        public Transform searchPos;
+
         Vector3 startcamPosition;
 
         public static event Action OnEnteredSpot;

@@ -151,7 +151,7 @@ public class TrapInteractable : InteractableBase
         inEvent = false;
         QuickTimeEventSystem.OnSuccess -= OnSuccsess;
         QuickTimeEventSystem.OnFailure -= OnFailure;
-        vorgon.SetLastDetectedLocation(transform.position, VorgonController.EVENT_TYPE.ANIM);
+        vorgon.SetLastDetectedLocation(transform.position, Vector3.zero, VorgonController.EVENT_TYPE.ANIM);
     }
 
     void OnComplete()

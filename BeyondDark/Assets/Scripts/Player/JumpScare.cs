@@ -35,7 +35,7 @@ public class JumpScare : MonoBehaviour
 
         
         scareAudioSource.Play();
-        vorgon.SetLastDetectedLocation(transform.position, VorgonController.EVENT_TYPE.ANIM);
+        vorgon.SetLastDetectedLocation(transform.position, Vector3.zero, VorgonController.EVENT_TYPE.ANIM);
     }
 
 }

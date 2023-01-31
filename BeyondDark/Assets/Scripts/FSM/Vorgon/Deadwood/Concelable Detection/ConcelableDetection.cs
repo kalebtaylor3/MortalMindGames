@@ -89,7 +89,7 @@ public class ConcelableDetection : MonoBehaviour
                                 if (hearingCanvas.alpha == 1)
                                 {
                                     Debug.Log("Vorgons coming dumbass");
-                                    vorgon.SetLastDetectedLocation(concelableArea.transform.position, VorgonController.EVENT_TYPE.SOUND);
+                                    vorgon.SetLastDetectedLocation(concelableArea.searchPos.position, concelableArea.transform.position, VorgonController.EVENT_TYPE.SOUND);
                                 }
                             }
                         }

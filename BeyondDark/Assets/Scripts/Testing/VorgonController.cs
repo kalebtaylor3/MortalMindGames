@@ -7,6 +7,7 @@ using UnityEngine.AI;
 using UnityEngine.XR;
 using static UnityEditor.FilePathAttribute;
 using UnityEngine.UI;
+using UnityEngine.ProBuilder.Shapes;
 
 public class VorgonController : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class VorgonController : MonoBehaviour
     public LayerMask targetMask;
     public LayerMask obstructionMask;
     private Color rayColor = Color.green;
+
+    // For FSM
+    public Vector3 concealPos = new Vector3(-1, -1, -1);
 
     public Image detectionUI; // reference to the UI image on the canvas
     public CanvasGroup sightCanvas;
@@ -98,7 +102,7 @@ public class VorgonController : MonoBehaviour
         if (detection <= 0)
         {
             detection = 0;
-            SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+            SetLastDetectedLocation(Vector3.zero, Vector3.zero, VorgonController.EVENT_TYPE.LOST);
         }
 
         if (detection > 1)
@@ -157,12 +161,20 @@ public class VorgonController : MonoBehaviour
     IEnumerator TrigerSearchAnim()
     {
         SearchAnimIsPlaying = true;
-        yield return new WaitUntil(() => !alertAudioSource.isPlaying);
+        if(!alertAudioSource.isPlaying)
+        {
+            yield return new WaitUntil(() => !alertAudioSource.isPlaying);
+        }
+        else
+        {
+            yield return new WaitForSeconds(7.0f);
+        }
+        
         SearchAnimCanPlay = false;
         SearchAnimIsPlaying = false;
     }
 
-    public void SetLastDetectedLocation(Vector3 location, EVENT_TYPE type = EVENT_TYPE.LOST)
+    public void SetLastDetectedLocation(Vector3 location, Vector3 conceal, EVENT_TYPE type = EVENT_TYPE.LOST)
     {
         if (type == EVENT_TYPE.LOST)
         {
@@ -171,13 +183,20 @@ public class VorgonController : MonoBehaviour
         else
         {
             StartCoroutine(TriggerLastSeen(location, type));
-        }        
+        }
+
+        if (conceal != Vector3.zero)
+        {
+            concealPos = conceal;
+        }
+
     }
 
     IEnumerator TriggerLastSeen(Vector3 location, EVENT_TYPE type)
     {
         LastSeen = location;
-        if(!playerDetected)
+        awareOfPlayer = true;
+        if (!playerDetected)
         {
             playerDetected = true;
 
@@ -185,7 +204,7 @@ public class VorgonController : MonoBehaviour
             {
                 SearchAnimIsPlaying = true;
                 //navAgent.isStopped = true;
-                awareOfPlayer = true;
+                //awareOfPlayer = true;
 
                 PlaySoundEffect(SOUND_TYPE.ALERT);
 
@@ -194,14 +213,14 @@ public class VorgonController : MonoBehaviour
                 //SearchAnimCanPlay = false;
                 SearchAnimIsPlaying = false;
                 navAgent.isStopped = false;
-
+                awareOfPlayer = false;
             }
             else if (type == EVENT_TYPE.SOUND)
             {
+                //awareOfPlayer = true;
                 //audioSource.PlayOneShot();
                 if (!alertAudioSource.isPlaying && !awareOfPlayer)
                 {
-                    awareOfPlayer = true;
                     PlaySoundEffect(SOUND_TYPE.GROWL);
                 }
                 yield return null;
