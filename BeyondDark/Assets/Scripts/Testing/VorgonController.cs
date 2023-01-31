@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.XR;
 using static UnityEditor.FilePathAttribute;
+using UnityEngine.UI;
 
 public class VorgonController : MonoBehaviour
 {
@@ -22,6 +23,11 @@ public class VorgonController : MonoBehaviour
     public LayerMask targetMask;
     public LayerMask obstructionMask;
     private Color rayColor = Color.green;
+
+    public Image detectionUI; // reference to the UI image on the canvas
+    public CanvasGroup sightCanvas;
+    private float detection;
+    public float detectionSpeed = 0.4f;
 
     private List<AudioClip>[] audioClips = new List<AudioClip>[10];
     
@@ -88,6 +94,13 @@ public class VorgonController : MonoBehaviour
 
     public void LineOfSight()
     {
+
+        if (detection <= 0)
+        {
+            detection = 0;
+            //SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+        }
+
         Vector3 dir = (playerT.transform.position - transform.position).normalized;
 
         Debug.DrawRay(transform.position, dir, Color.yellow);
@@ -95,29 +108,41 @@ public class VorgonController : MonoBehaviour
         Vector3 forwardV = transform.forward;
         float angle = Vector3.Angle(dir, forwardV);
 
-        if(angle <= 45.0f && !playerT.isHiding)
+        if (angle <= 45.0f && !playerT.isHiding)
         {
             float distanceToTarget = Vector3.Distance(transform.position, playerT.transform.position);
 
             if (!Physics.Raycast(transform.position, dir, distanceToTarget, obstructionMask))
             {
-                canSeePlayer = true;
-                PlayerInSight = true;
+                detection += Time.deltaTime * detectionSpeed;
                 rayColor = Color.red;
-            }                
+            }
             else
             {
-                canSeePlayer = false;
-                PlayerInSight = false;
-                rayColor = Color.green;                
-            }             
+                detection -= Time.deltaTime * detectionSpeed;
+                rayColor = Color.green;
+            }
+        }
+        else
+        {
+            detection -= Time.deltaTime * detectionSpeed;
+            rayColor = Color.green;
+        }
+
+        if (detection >= 1)
+        {
+            PlayerInSight = true;
+            canSeePlayer = true;
         }
         else
         {
             canSeePlayer = false;
-            rayColor = Color.green;
-            PlayerInSight = false;            
+            PlayerInSight = false;
         }
+
+        sightCanvas.alpha = Mathf.Lerp(0, 1, detection);
+        detectionUI.fillAmount = detection; // update the UI to match the detection level
+
     }
 
     public void PlaySearchAnim()
