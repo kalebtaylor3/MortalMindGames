@@ -98,7 +98,7 @@ public class VorgonController : MonoBehaviour
         if (detection <= 0)
         {
             detection = 0;
-            //SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+            SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
         }
 
         Vector3 dir = (playerT.transform.position - transform.position).normalized;

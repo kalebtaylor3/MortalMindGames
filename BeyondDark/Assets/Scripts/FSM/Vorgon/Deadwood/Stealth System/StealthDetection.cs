@@ -163,7 +163,7 @@ public class StealthDetection : MonoBehaviour
 
     IEnumerator WaitForDetection()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(10);
         detected = false;
     }
 
