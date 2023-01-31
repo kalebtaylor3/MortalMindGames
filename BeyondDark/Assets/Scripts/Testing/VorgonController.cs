@@ -195,7 +195,7 @@ public class VorgonController : MonoBehaviour
     IEnumerator TriggerLastSeen(Vector3 location, EVENT_TYPE type)
     {
         LastSeen = location;
-        awareOfPlayer = true;
+       
         if (!playerDetected)
         {
             playerDetected = true;
@@ -203,6 +203,7 @@ public class VorgonController : MonoBehaviour
             if (type == EVENT_TYPE.ANIM)
             {
                 SearchAnimIsPlaying = true;
+                awareOfPlayer = true;
                 //navAgent.isStopped = true;
                 //awareOfPlayer = true;
 
@@ -212,8 +213,7 @@ public class VorgonController : MonoBehaviour
 
                 //SearchAnimCanPlay = false;
                 SearchAnimIsPlaying = false;
-                navAgent.isStopped = false;
-                awareOfPlayer = false;
+                navAgent.isStopped = false;                
             }
             else if (type == EVENT_TYPE.SOUND)
             {
@@ -221,6 +221,7 @@ public class VorgonController : MonoBehaviour
                 //audioSource.PlayOneShot();
                 if (!alertAudioSource.isPlaying && !awareOfPlayer)
                 {
+                    awareOfPlayer = true;
                     PlaySoundEffect(SOUND_TYPE.GROWL);
                 }
                 yield return null;
