@@ -20,8 +20,6 @@ public class StealthDetection : MonoBehaviour
     public PlayerController player; // reference to the player's transform
     private float detection; // current detection level
 
-    [HideInInspector] public bool detected;
-
     private static StealthDetection instance;
 
     public static StealthDetection Instance
@@ -55,6 +53,9 @@ public class StealthDetection : MonoBehaviour
             detection = 0;
             vorgon.SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
         }
+
+        if (detection > 1)
+            detection = 1;
             
 
         if(!vorgon.inChase && !vorgon.isAttacking)
@@ -88,7 +89,7 @@ public class StealthDetection : MonoBehaviour
             {
                 if (!player.movementInputData.IsCrouching)
                 {
-                    if (player.currentSpeed >= 1.2f && player.currentSpeed < 5) // if the player is walking or running
+                    if (player.currentSpeed >= 1.3f && player.currentSpeed < 5) // if the player is walking or running
                     {
                         detection += Time.deltaTime * walkingDetectionSpeed; // increase detection level
                     }
@@ -96,7 +97,7 @@ public class StealthDetection : MonoBehaviour
                     {
                         detection += Time.deltaTime * runningDetectionSpeed;
                     }
-                    else if (player.currentSpeed < 1.2f)
+                    else if (player.currentSpeed < 1.3f)
                     {
                         detection -= Time.deltaTime * walkingDetectionSpeed;
                     }
@@ -142,11 +143,8 @@ public class StealthDetection : MonoBehaviour
         }
         else
         {
-            if (!detected)
-            {
-                detection -= Time.deltaTime * runningDetectionSpeed; // decrease detection level
-                vorgon.SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
-            }
+            detection -= Time.deltaTime * runningDetectionSpeed; // decrease detection level
+            vorgon.SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
         }
 
         hearingCanvas.alpha = Mathf.Lerp(0, 1, detection);
@@ -157,14 +155,6 @@ public class StealthDetection : MonoBehaviour
     {
         detection += amount;
         hearingDetectionUI.fillAmount = Mathf.Lerp(hearingDetectionUI.fillAmount, amount, walkingDetectionSpeed);
-        detected = true;
-        StartCoroutine(WaitForDetection());
-    }
-
-    IEnumerator WaitForDetection()
-    {
-        yield return new WaitForSeconds(10);
-        detected = false;
     }
 
     private void OnDrawGizmosSelected()

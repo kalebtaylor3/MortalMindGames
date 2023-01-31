@@ -67,7 +67,7 @@ public class ConcelableDetection : MonoBehaviour
                     {
                         exposure -= Time.deltaTime * detectionSpeed;
                     }
-                    else if (concelableArea.rotator.transform.localRotation.y > 0.15f || concelableArea.rotator.transform.localRotation.x > 0.15f || concelableArea.rotator.transform.localRotation.z > 0.15f)
+                    else if (concelableArea.rotator.transform.localRotation.y > 0 || concelableArea.rotator.transform.localRotation.x > 0 || concelableArea.rotator.transform.localRotation.z > 0)
                     {
                         exposure += Time.deltaTime * concelableArea.exposurePercentage;
 
