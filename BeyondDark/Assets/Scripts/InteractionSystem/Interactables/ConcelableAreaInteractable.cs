@@ -23,7 +23,7 @@ namespace MMG
 
         public enum clamp { X, Y, Z };
         public clamp cameraClamp;
-        [SerializeField] private float maxLocalRotationValue;
+        [SerializeField] public float maxLocalRotationValue;
         public bool negativeRotation;
 
         [SerializeField] Animator enteranceAnimator;
