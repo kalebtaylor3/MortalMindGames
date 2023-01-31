@@ -101,6 +101,10 @@ public class VorgonController : MonoBehaviour
             SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
         }
 
+        if (detection > 1)
+            detection = 1;
+
+
         Vector3 dir = (playerT.transform.position - transform.position).normalized;
 
         Debug.DrawRay(transform.position, dir, Color.yellow);

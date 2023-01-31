@@ -368,6 +368,9 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 1024
+  detectionUI: {fileID: 0}
+  sightCanvas: {fileID: 0}
+  detectionSpeed: 0.4
   ALERTSounds:
   - {fileID: 8300000, guid: 7c9c60d4004f9884c99b880ede5a9a73, type: 3}
   - {fileID: 8300000, guid: 70b4e3caaa5d95147904e510217475d3, type: 3}
@@ -415,7 +418,10 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 1024
-  vorgon: {fileID: 0}
+  vorgon: {fileID: 713387290447941632}
+  detectionSpeed: 0.5
+  hearingDetectionUI: {fileID: 0}
+  hearingCanvas: {fileID: 0}
 --- !u!114 &713387290447941637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,12 +434,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae39378640875d42ab1e250222e3a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hearingRange1: 22.15
-  hearingRange2: 7.2
-  hearingRange3: 4.49
-  runningDetectionSpeed: 1
-  walkingDetectionSpeed: 0.4
-  crouchingDetectionSpeed: 0.2
+  hearingRange1: 17
+  hearingRange2: 11
+  hearingRange3: 3
+  runningDetectionSpeed: 0.5
+  walkingDetectionSpeed: 0.2
+  crouchingDetectionSpeed: 0.1
   hearingDetectionUI: {fileID: 0}
   hearingCanvas: {fileID: 0}
   vorgon: {fileID: 713387290447941632}
