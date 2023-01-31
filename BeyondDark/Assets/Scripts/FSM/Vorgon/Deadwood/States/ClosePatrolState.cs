@@ -76,7 +76,7 @@ public class ClosePatrolState : FSMState
         {
             vorgonControl.navAgent.destination = vorgonControl.LastSeen;
 
-            if(IsInCurrentRange(vorgonControl.transform, vorgonControl.LastSeen, 1))
+            if (IsInCurrentRange(vorgonControl.transform, vorgonControl.LastSeen, 1))
             {
                 reachedLastSeen = true;
                 vorgonControl.PlaySoundEffect(VorgonController.SOUND_TYPE.ALERT);
@@ -111,7 +111,14 @@ public class ClosePatrolState : FSMState
         else if(!reachedLastSeen && vorgonControl.SearchAnimIsPlaying && !detectedAgain)
         {
             vorgonControl.navAgent.isStopped = true;
+           
         }
 
+        if (vorgonControl.concealPos != Vector3.zero && reachedLastSeen && vorgonControl.SearchAnimIsPlaying)
+        {
+            Vector3 direction = (vorgonControl.concealPos - vorgonControl.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            vorgonControl.transform.rotation = Quaternion.Slerp(vorgonControl.transform.rotation, lookRotation, Time.deltaTime);            
+        }
     }
 }
