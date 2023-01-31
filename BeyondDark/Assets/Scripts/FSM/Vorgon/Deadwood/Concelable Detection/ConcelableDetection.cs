@@ -17,10 +17,15 @@ public class ConcelableDetection : MonoBehaviour
 
     public VorgonController vorgon;
 
-    public float detectionSpeed = 0.4f;
+    public float detectionSpeed = 0.8f;
+    public float seeingDetectionSpeed = 0.4f;
     public Image hearingDetectionUI; // reference to the UI image on the canvas
     public CanvasGroup hearingCanvas;
 
+    public Image seeingDetectionUI; // reference to the UI image on the canvas
+    public CanvasGroup seeingCanvas;
+
+    float hearingExposure;
     float exposure;
 
 
@@ -45,13 +50,19 @@ public class ConcelableDetection : MonoBehaviour
     private void Update()
     {
 
+        if (hearingExposure <= 0)
+            hearingExposure = 0;
+
+        if (hearingExposure > 1)
+            hearingExposure = 1;
+
         if (exposure <= 0)
             exposure = 0;
 
         if (exposure > 1)
             exposure = 1;
 
-        if(player.isHiding)
+        if (player.isHiding)
         {
             if (concelableArea != null)
             {
@@ -62,10 +73,10 @@ public class ConcelableDetection : MonoBehaviour
                     //exposure -= Time.deltaTime * detectionSpeed;
 
                     if (concelableArea.rotator.transform.localRotation.y > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.x > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.z > concelableArea.maxLocalRotationValue)
-                        exposure -= Time.deltaTime * detectionSpeed;
+                        hearingExposure -= Time.deltaTime * detectionSpeed;
                     else if (concelableArea.exposurePercentage <= 0)
                     {
-                        exposure -= Time.deltaTime * detectionSpeed;
+                        hearingExposure -= Time.deltaTime * detectionSpeed;
                     }
                     else if (concelableArea.rotator.transform.localRotation.y > 0 || concelableArea.rotator.transform.localRotation.x > 0 || concelableArea.rotator.transform.localRotation.z > 0)
                     {
@@ -74,7 +85,7 @@ public class ConcelableDetection : MonoBehaviour
                         {
                             if (concelableArea.doorCreak.volume > 0.3f)
                             {
-                                exposure += Time.deltaTime * (detectionSpeed * concelableArea.exposurePercentage);
+                                hearingExposure += Time.deltaTime * (detectionSpeed * concelableArea.exposurePercentage);
                                 if (hearingCanvas.alpha == 1)
                                 {
                                     Debug.Log("Vorgons coming dumbass");
@@ -86,11 +97,11 @@ public class ConcelableDetection : MonoBehaviour
                 }
                 else
                 {
-                    exposure -= Time.deltaTime * detectionSpeed;
+                    hearingExposure -= Time.deltaTime * detectionSpeed;
                 }
 
-                hearingCanvas.alpha = Mathf.Lerp(0, 1, exposure);
-                hearingDetectionUI.fillAmount = exposure; // update the UI to match the detection level
+                hearingCanvas.alpha = Mathf.Lerp(0, 1, hearingExposure);
+                hearingDetectionUI.fillAmount = hearingExposure; // update the UI to match the detection level
 
                 //fov check for seeing the concelable area. only react if exposed.
 
@@ -112,26 +123,51 @@ public class ConcelableDetection : MonoBehaviour
                     {
                         if (concelableArea.rotator.transform.localRotation.y > 0.25f || concelableArea.rotator.transform.localRotation.x > 0.25f || concelableArea.rotator.transform.localRotation.z > 0.25f)
                         {
+                            //increase see reveal % and show ui depending on that. if exposure is over a certain amount the react
                             //need logic so this only happens once
-                            Debug.Log("I can see ur bitch ass");
+                            //Debug.Log("I can see ur bitch ass");
+                            exposure += Time.deltaTime * seeingDetectionSpeed;
+
+                            //if (exposure == 1)
+                            //    exposure = 1;
+
+                            if (hearingCanvas.alpha == 1)
+                            {
+                                Debug.Log("I see you");
+                            }
+
                             rayColor = Color.red;
                         }
                         else
+                        {
+                            exposure -= Time.deltaTime * seeingDetectionSpeed;
                             rayColor = Color.green;
+                        }
                     }
                     else
                     {
+                        exposure -= Time.deltaTime * seeingDetectionSpeed;
                         rayColor = Color.green;
                     }
                 }
+
             }
             else
             {
-                exposure -= Time.deltaTime * detectionSpeed;
+                exposure -= Time.deltaTime * seeingDetectionSpeed;
+                hearingExposure -= Time.deltaTime * detectionSpeed;
             }
 
-                //fov check
-                //hearing check
+            if (concelableArea.exposurePercentage <=0)
+            {
+                exposure -= Time.deltaTime * seeingDetectionSpeed;
+            }
+
+            seeingCanvas.alpha = Mathf.Lerp(0, 1, exposure);
+            seeingDetectionUI.fillAmount = exposure; // update the UI to match the detection level
+
+            //fov check
+            //hearing check
         }
     }
 
