@@ -191,7 +191,7 @@ public class StealthDetection : MonoBehaviour
 
     IEnumerator WaitForDetection()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         detected = false;
         hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
     }

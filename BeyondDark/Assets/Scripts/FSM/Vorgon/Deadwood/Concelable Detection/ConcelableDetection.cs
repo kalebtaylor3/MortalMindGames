@@ -58,6 +58,10 @@ public class ConcelableDetection : MonoBehaviour
             hearingExposure = 1;
             hearingDetectionUI.color = Color.red;
         }
+        else
+        {
+            hearingDetectionUI.color = Color.white;
+        }
 
         if (exposure <= 0)
             exposure = 0;
@@ -66,6 +70,10 @@ public class ConcelableDetection : MonoBehaviour
         {
             exposure = 1;
             seeingDetectionUI.color = Color.red;
+        }
+        else
+        {
+            seeingDetectionUI.color = Color.white;
         }
 
         if (player.isHiding)
