@@ -20,6 +20,25 @@ public class StealthDetection : MonoBehaviour
     public PlayerController player; // reference to the player's transform
     private float detection; // current detection level
 
+    [HideInInspector] public bool detected;
+
+    private static StealthDetection instance;
+
+    public static StealthDetection Instance
+    {
+        get
+        {
+            if (instance == null)
+                Debug.LogError("Null");
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         detection = 0f; // start with no detection
@@ -117,18 +136,35 @@ public class StealthDetection : MonoBehaviour
             }
             else
             {
-                detection = 0f; // reset detection level if player is out of range
+                detection -= Time.deltaTime * runningDetectionSpeed; // reset detection level if player is out of range
                 vorgon.SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
             }
         }
         else
         {
-            detection -= Time.deltaTime * runningDetectionSpeed; // decrease detection level
-            vorgon.SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+            if (!detected)
+            {
+                detection -= Time.deltaTime * runningDetectionSpeed; // decrease detection level
+                vorgon.SetLastDetectedLocation(Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+            }
         }
 
         hearingCanvas.alpha = Mathf.Lerp(0, 1, detection);
         hearingDetectionUI.fillAmount = detection; // update the UI to match the detection level
+    }
+
+    public void SetDetection(float amount)
+    {
+        detection += amount;
+        hearingDetectionUI.fillAmount = Mathf.Lerp(hearingDetectionUI.fillAmount, amount, walkingDetectionSpeed);
+        detected = true;
+        StartCoroutine(WaitForDetection());
+    }
+
+    IEnumerator WaitForDetection()
+    {
+        yield return new WaitForSeconds(10);
+        detected = false;
     }
 
     private void OnDrawGizmosSelected()
