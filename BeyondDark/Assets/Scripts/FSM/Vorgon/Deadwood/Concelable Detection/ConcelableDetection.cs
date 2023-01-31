@@ -131,7 +131,7 @@ public class ConcelableDetection : MonoBehaviour
                             //if (exposure == 1)
                             //    exposure = 1;
 
-                            if (hearingCanvas.alpha == 1)
+                            if (seeingCanvas.alpha == 1)
                             {
                                 Debug.Log("I see you");
                             }
