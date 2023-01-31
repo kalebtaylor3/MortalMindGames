@@ -22,8 +22,10 @@ namespace MMG
         [HideInInspector] public Vector3 finalRot;
         private Vector3 finalPos;
 
-        private float initialFrequency;
-        private float initialAmplitude;
+        public float initialFrequency;
+        public float initialAmplitude;
+
+
         private float fearFrequency;
         private float fearAmplitude;
         private Vector3 vorgonPos;
@@ -36,16 +38,20 @@ namespace MMG
 
         void Start()
         {
-            if(playersFear == null)
-            {
-                playersFear = GameObject.FindGameObjectWithTag("Player");
+            //if(playersFear == null)
+            //{
+            //    playersFear = GameObject.FindGameObjectWithTag("Player");
 
-            }
-            if(vorgonFear == null)
-            {
-                vorgonFear = GameObject.FindGameObjectWithTag("Vorgon");
-            }
+            //}
+            //if(vorgonFear == null)
+            //{
+            //    vorgonFear = GameObject.FindGameObjectWithTag("Vorgon");
+            //}
             perlinNoiseScroller = new PerlinNoiseScroller(noiseData);
+
+            initialFrequency = noiseData.frequency;
+            initialAmplitude = noiseData.amplitude;
+
             SetBreathingDefault();
             
         }
@@ -68,12 +74,8 @@ namespace MMG
         {
             StopCoroutine(EmptyStaminaBreathing());
 
-            initialFrequency = 0.5f;
-            initialAmplitude = 1.5f;
-
             noiseData.frequency = initialFrequency;
-            noiseData.amplitude = initialAmplitude;         
-
+            noiseData.amplitude = initialAmplitude;
         }
 
         void HandleEmptyStamina()
@@ -110,15 +112,15 @@ namespace MMG
             //vorgonPos = vorgonFear.transform.position;
             //fearPos = playersFear.transform.position;
             //fearAmplitude = Vector3.Distance(vorgonPos, fearPos);
-            if (fearAmplitude < 15)
-            {
-                fearAmplitude = 25 - fearAmplitude;
-                //fearAmplitude = fearAmplitude / 10;
-            }
-            else
-            {
-                fearAmplitude = 0;
-            }
+            //if (fearAmplitude < 15)
+            //{
+            //    fearAmplitude = 25 - fearAmplitude;
+            //    //fearAmplitude = fearAmplitude / 10;
+            //}
+            //else
+            //{
+            //    fearAmplitude = 0;
+            //}
             
             //Debug.Log("Wild Ride" + fearAmplitude);
             //yield return new WaitForSeconds(5.0f);
