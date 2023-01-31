@@ -83,7 +83,7 @@ public class ConcelableDetection : MonoBehaviour
 
                         if (concelableArea.doorCreak.isPlaying)
                         {
-                            if (concelableArea.doorCreak.volume > 0.3f)
+                            if (concelableArea.doorCreak.volume > 0.35f)
                             {
                                 hearingExposure += Time.deltaTime * (detectionSpeed * concelableArea.exposurePercentage);
                                 if (hearingCanvas.alpha == 1)
@@ -149,6 +149,10 @@ public class ConcelableDetection : MonoBehaviour
                         exposure -= Time.deltaTime * seeingDetectionSpeed;
                         rayColor = Color.green;
                     }
+                }
+                else
+                {
+                    exposure -= Time.deltaTime * seeingDetectionSpeed;
                 }
 
             }
