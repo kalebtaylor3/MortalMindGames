@@ -22,7 +22,7 @@ public class JumpScare : MonoBehaviour
         if(other.tag == "Player")
         {
             StartCoroutine(StartJumpScare());
-            StealthDetection.Instance.SetDetection(1);
+            StealthDetection.Instance.SetDetection(2);
             GetComponent<BoxCollider>().enabled = false;
         }             
     }

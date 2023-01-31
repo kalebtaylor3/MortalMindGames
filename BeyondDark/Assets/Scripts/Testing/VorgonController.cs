@@ -105,8 +105,15 @@ public class VorgonController : MonoBehaviour
             SetLastDetectedLocation(Vector3.zero, Vector3.zero, VorgonController.EVENT_TYPE.LOST);
         }
 
-        if (detection > 1)
+        if (detection >= 1)
+        {
             detection = 1;
+            detectionUI.color = Color.red;
+        }
+        else
+        {
+            detectionUI.color = Color.white;
+        }
 
 
         Vector3 dir = (playerT.transform.position - transform.position).normalized;

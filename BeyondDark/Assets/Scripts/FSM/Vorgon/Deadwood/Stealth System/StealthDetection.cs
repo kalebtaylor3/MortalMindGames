@@ -1,4 +1,5 @@
 using MMG;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,8 @@ public class StealthDetection : MonoBehaviour
     private float detection; // current detection level
 
     private static StealthDetection instance;
+
+    bool detected = false;
 
     public static StealthDetection Instance
     {
@@ -54,11 +57,18 @@ public class StealthDetection : MonoBehaviour
             vorgon.SetLastDetectedLocation(Vector3.zero, Vector3.zero, VorgonController.EVENT_TYPE.LOST);
         }
 
-        if (detection > 1)
+        if (detection >= 1)
+        {
             detection = 1;
-            
+            hearingDetectionUI.color = Color.red;
+        }
+        else
+        {
+            hearingDetectionUI.color = Color.white;
+        }
 
-        if(!vorgon.inChase && !vorgon.isAttacking)
+
+        if (!vorgon.inChase && !vorgon.isAttacking)
         {
             if (distance <= hearingRange3)
             {
@@ -73,8 +83,11 @@ public class StealthDetection : MonoBehaviour
                         detection += Time.deltaTime * walkingDetectionSpeed;
                     else if (player.currentSpeed > 0.7f)
                         detection += Time.deltaTime * crouchingDetectionSpeed;
-                    else if (player.currentSpeed < 0.7f)
+                    else if (player.currentSpeed < 0.7f && !detected)
+                    {
                         detection -= Time.deltaTime * crouchingDetectionSpeed;
+                        hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
+                    }
                 }
 
                 if (detection >= 1f) // if detection level is full
@@ -97,14 +110,19 @@ public class StealthDetection : MonoBehaviour
                     {
                         detection += Time.deltaTime * runningDetectionSpeed;
                     }
-                    else if (player.currentSpeed < 1.3f)
+                    else if (player.currentSpeed < 1.3f && !detected)
                     {
                         detection -= Time.deltaTime * walkingDetectionSpeed;
+                        hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
                     }
                 }
                 else
                 {
-                    detection -= Time.deltaTime * walkingDetectionSpeed;
+                    if (!detected)
+                    {
+                        detection -= Time.deltaTime * walkingDetectionSpeed;
+                        hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
+                    }
                 }
 
 
@@ -123,9 +141,10 @@ public class StealthDetection : MonoBehaviour
                 {
                     detection += Time.deltaTime * walkingDetectionSpeed; // increase detection level
                 }
-                else if (!player.movementInputData.IsRunning) // if the player is walking
+                else if (!player.movementInputData.IsRunning && !detected) // if the player is walking
                 {
                     detection -= Time.deltaTime * walkingDetectionSpeed; // decrease detection level
+                    hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
                 }
                 if (detection >= 1f) // if detection level is full
                 {
@@ -137,14 +156,22 @@ public class StealthDetection : MonoBehaviour
             }
             else
             {
-                detection -= Time.deltaTime * runningDetectionSpeed; // reset detection level if player is out of range
-                vorgon.SetLastDetectedLocation(Vector3.zero, Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+                if (!detected)
+                {
+                    detection -= Time.deltaTime * runningDetectionSpeed; // reset detection level if player is out of range
+                    hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
+                    vorgon.SetLastDetectedLocation(Vector3.zero, Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+                }
             }
         }
         else
         {
-            detection -= Time.deltaTime * runningDetectionSpeed; // decrease detection level
-            vorgon.SetLastDetectedLocation(Vector3.zero, Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+            if (!detected)
+            {
+                detection -= Time.deltaTime * runningDetectionSpeed; // decrease detection level
+                hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
+                vorgon.SetLastDetectedLocation(Vector3.zero, Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+            }
         }
 
         hearingCanvas.alpha = Mathf.Lerp(0, 1, detection);
@@ -153,8 +180,20 @@ public class StealthDetection : MonoBehaviour
 
     public void SetDetection(float amount)
     {
+        StopCoroutine(WaitForDetection());
+        detected = true;
         detection += amount;
-        hearingDetectionUI.fillAmount = Mathf.Lerp(hearingDetectionUI.fillAmount, amount, walkingDetectionSpeed);
+        hearingDetectionUI.fillAmount = Mathf.Lerp(0, amount, 0.95f * Time.deltaTime);
+        hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.red, 0.95f * Time.deltaTime);
+        //hearingDetectionUI.color = Color.red;
+        StartCoroutine(WaitForDetection());
+    }
+
+    IEnumerator WaitForDetection()
+    {
+        yield return new WaitForSeconds(3);
+        detected = false;
+        hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
     }
 
     private void OnDrawGizmosSelected()
