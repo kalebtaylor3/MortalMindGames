@@ -69,14 +69,17 @@ public class ConcelableDetection : MonoBehaviour
                     }
                     else if (concelableArea.rotator.transform.localRotation.y > 0 || concelableArea.rotator.transform.localRotation.x > 0 || concelableArea.rotator.transform.localRotation.z > 0)
                     {
-                        exposure += Time.deltaTime * concelableArea.exposurePercentage;
 
                         if (concelableArea.doorCreak.isPlaying)
                         {
-                            if (hearingCanvas.alpha == 1)
+                            if (concelableArea.doorCreak.volume > 0.3f)
                             {
-                                Debug.Log("Vorgons coming dumbass");
-                                vorgon.SetLastDetectedLocation(concelableArea.transform.position, VorgonController.EVENT_TYPE.SOUND);
+                                exposure += Time.deltaTime * (detectionSpeed * concelableArea.exposurePercentage);
+                                if (hearingCanvas.alpha == 1)
+                                {
+                                    Debug.Log("Vorgons coming dumbass");
+                                    vorgon.SetLastDetectedLocation(concelableArea.transform.position, VorgonController.EVENT_TYPE.SOUND);
+                                }
                             }
                         }
                     }
