@@ -7,6 +7,9 @@ namespace MMG
     public class InputController : MonoBehaviour
     {
         #region Data
+
+        [SerializeField] public bool isVorgonCharacter = false;
+        
             [Space,Header("Input Data")]
             [SerializeField] public CameraInputData cameraInputData = null;
             [SerializeField] private MovementInputData movementInputData = null;
@@ -90,7 +93,7 @@ namespace MMG
                 cameraInputData.InputVectorY = Gamepad.current.rightStick.y.ReadValue();
             }
 
-            if (!inventoryInputData.OpenSpellBook)
+            if (!inventoryInputData.OpenSpellBook && !isVorgonCharacter)
             {
                 cameraInputData.ZoomClicked = Gamepad.current.rightTrigger.wasPressedThisFrame;
                 cameraInputData.ZoomReleased = Gamepad.current.rightTrigger.wasReleasedThisFrame;
@@ -117,9 +120,11 @@ namespace MMG
             movementInputData.JumpClicked = Gamepad.current.buttonSouth.wasPressedThisFrame;
             movementInputData.CrouchClicked = Gamepad.current.buttonEast.wasPressedThisFrame;
 
-            cameraInputData.IsPeakingLeft = Gamepad.current.leftShoulder.isPressed;
-            cameraInputData.IsPeakingRight = Gamepad.current.rightShoulder.isPressed;
-
+            if(!isVorgonCharacter)
+            {
+                cameraInputData.IsPeakingLeft = Gamepad.current.leftShoulder.isPressed;
+                cameraInputData.IsPeakingRight = Gamepad.current.rightShoulder.isPressed;
+            }
         }
 
         void GetInventoryInputData()

@@ -59,6 +59,7 @@ public class TpTest : MonoBehaviour
 
             VorgonRealmPlayer.SetActive(true);
             VorgonRealmPlayer.GetComponent<PlayerController>().HandleRealmTransport();
+            //VorgonRealmPlayer.GetComponent<PlayerController>().cameraController.ResetFOV();
 
             mortalRealmPlayer.SetActive(false);
             InteractionUIPanel.Instance.ResetUI();
