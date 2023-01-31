@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class JumpScare : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class JumpScare : MonoBehaviour
     [SerializeField] AudioSource scareAudioSource;
     [SerializeField] float startDelay = 0;
     private VorgonController vorgon;
+
+    public static event Action OnJumpScare;
 
     private void Start()
     {
@@ -33,7 +36,7 @@ public class JumpScare : MonoBehaviour
             scareAnim.Play();
         }
 
-        
+        OnJumpScare?.Invoke();
         scareAudioSource.Play();
         vorgon.SetLastDetectedLocation(transform.position, Vector3.zero, VorgonController.EVENT_TYPE.ANIM);
     }

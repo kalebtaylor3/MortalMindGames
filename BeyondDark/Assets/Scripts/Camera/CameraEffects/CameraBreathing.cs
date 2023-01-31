@@ -8,7 +8,7 @@ namespace MMG
     {
         #region Variables
         [Space,Header("Data")]
-        [SerializeField] private PerlinNoiseData noiseData = null;
+        [SerializeField] public PerlinNoiseData noiseData = null;
 
 
 

@@ -471,8 +471,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068963026482962920}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 16.450068, y: 7.5469227, z: -13.947028}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -550,6 +550,8 @@ MonoBehaviour:
   vorgonFear: {fileID: 0}
   playersFear: {fileID: 0}
   finalRot: {x: 0, y: 0, z: 0}
+  initialFrequency: 0
+  initialAmplitude: 0
 --- !u!114 &8085738278306293729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1564,6 +1566,7 @@ GameObject:
   - component: {fileID: 8741816588763353335}
   - component: {fileID: 76141673938768055}
   - component: {fileID: 236037438740375227}
+  - component: {fileID: 195258405677629168}
   - component: {fileID: 5459068024894119385}
   - component: {fileID: 4361883663916781840}
   - component: {fileID: 4816659134790700812}
@@ -1639,6 +1642,7 @@ MonoBehaviour:
   moveBackwardsSpeedPercentStanding: 0.4
   moveBackwardsSpeedPercentCrouching: 0.6
   moveSideSpeedPercent: 0.5
+  speedCalculation: 0
   canRunThreshold: 0.7
   staminaTest: 0.8
   runTransitionCurve:
@@ -1777,6 +1781,7 @@ MonoBehaviour:
   SoundEffects:
   - {fileID: 8300000, guid: 2df9c2e89275fe04a8b548491e8b2456, type: 3}
   - {fileID: 8300000, guid: 7b8aaa139e636894facfae43af775d7e, type: 3}
+  GetCurrentOffset: 0
   pickUpSource: {fileID: 4872002567526993402}
   PulseFrequency: 0.25
   rumbler: {fileID: 0}
@@ -1843,6 +1848,19 @@ MonoBehaviour:
   quickTimeInputData: {fileID: 11400000, guid: 99f7761add0fe354fb6065c02efe0d6c, type: 2}
   canMove: 1
   canInteract: 1
+--- !u!114 &195258405677629168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4564336066582545215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068aa82a01f4d0c4abacdd58411dabcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breathing: {fileID: 282188182673057159}
 --- !u!114 &5459068024894119385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2264,6 +2282,8 @@ MonoBehaviour:
   vorgonFear: {fileID: 0}
   playersFear: {fileID: 0}
   finalRot: {x: 0, y: 0, z: 0}
+  initialFrequency: 0
+  initialAmplitude: 0
 --- !u!114 &240409476968092913
 MonoBehaviour:
   m_ObjectHideFlags: 0
