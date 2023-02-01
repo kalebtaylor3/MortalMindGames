@@ -37,6 +37,12 @@ public class VorgonController : MonoBehaviour
     
     [SerializeField] private List<AudioClip> ALERTSounds;
     [SerializeField] private List<AudioClip> GROWLSounds;
+
+    public float flashSpeed = 0.1f;
+
+    bool flashing = false;
+    bool happenOnce = false;
+
     #endregion
 
     #region Debug
@@ -108,7 +114,15 @@ public class VorgonController : MonoBehaviour
         if (detection >= 1)
         {
             detection = 1;
-            detectionUI.color = Color.red;
+            if (!happenOnce)
+            {
+                if (!flashing)
+                {
+                    StartCoroutine(Flash(1));
+                    happenOnce = true;
+                }
+            }
+            //detectionUI.color = Color.red;
         }
         else
         {
@@ -151,6 +165,7 @@ public class VorgonController : MonoBehaviour
         }
         else
         {
+            happenOnce = false;
             canSeePlayer = false;
             PlayerInSight = false;
         }
@@ -262,4 +277,21 @@ public class VorgonController : MonoBehaviour
         result = Vector3.zero;
         return false;
     }
+
+    private IEnumerator Flash(float duration)
+    {
+        flashing = true;
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            detectionUI.color = Color.red;
+            yield return new WaitForSeconds(flashSpeed);
+            detectionUI.color = Color.white;
+            yield return new WaitForSeconds(flashSpeed);
+            elapsedTime += flashSpeed * 2;
+        }
+        detectionUI.color = Color.red;
+        flashing = false;
+    }
+
 }

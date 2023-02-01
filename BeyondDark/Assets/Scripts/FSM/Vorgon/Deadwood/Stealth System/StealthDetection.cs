@@ -23,7 +23,11 @@ public class StealthDetection : MonoBehaviour
 
     private static StealthDetection instance;
 
+    public float flashSpeed = 0.2f;
+
     bool detected = false;
+
+    bool flashing = false;
 
     public static StealthDetection Instance
     {
@@ -60,7 +64,11 @@ public class StealthDetection : MonoBehaviour
         if (detection >= 1)
         {
             detection = 1;
-            hearingDetectionUI.color = Color.red;
+            //hearingDetectionUI.color = Color.red;
+            if (!flashing)
+            {
+                StartCoroutine(Flash());
+            }
         }
         else
         {
@@ -180,13 +188,25 @@ public class StealthDetection : MonoBehaviour
 
     public void SetDetection(float amount)
     {
-        StopCoroutine(WaitForDetection());
         detected = true;
         detection += amount;
         hearingDetectionUI.fillAmount = Mathf.Lerp(0, amount, 0.95f * Time.deltaTime);
         hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.red, 0.95f * Time.deltaTime);
         //hearingDetectionUI.color = Color.red;
         StartCoroutine(WaitForDetection());
+    }
+
+    private IEnumerator Flash()
+    {
+        flashing = true;
+        while (detection >= 1)
+        {
+            hearingDetectionUI.color = Color.red;
+            yield return new WaitForSeconds(flashSpeed);
+            hearingDetectionUI.color = Color.white;
+            yield return new WaitForSeconds(flashSpeed);
+        }
+        flashing = false;
     }
 
     IEnumerator WaitForDetection()

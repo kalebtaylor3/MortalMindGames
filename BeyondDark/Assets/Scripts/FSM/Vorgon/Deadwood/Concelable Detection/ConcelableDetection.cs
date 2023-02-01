@@ -25,8 +25,15 @@ public class ConcelableDetection : MonoBehaviour
     public Image seeingDetectionUI; // reference to the UI image on the canvas
     public CanvasGroup seeingCanvas;
 
+    public float flashSpeed = 0.2f;
+
     float hearingExposure;
     float exposure;
+
+    bool detected = false;
+    bool flashingHearing = false;
+    bool flashingSight = false;
+    bool happenOnce = false;
 
 
     private Color rayColor = Color.blue;
@@ -56,7 +63,11 @@ public class ConcelableDetection : MonoBehaviour
         if (hearingExposure >= 1)
         {
             hearingExposure = 1;
-            hearingDetectionUI.color = Color.red;
+            //hearingDetectionUI.color = Color.red;
+            if (!flashingHearing)
+            {
+                StartCoroutine(FlashHearing());
+            }
         }
         else
         {
@@ -69,7 +80,15 @@ public class ConcelableDetection : MonoBehaviour
         if (exposure >= 1)
         {
             exposure = 1;
-            seeingDetectionUI.color = Color.red;
+            if (!happenOnce)
+            {
+                if (!flashingHearing)
+                {
+                    StartCoroutine(FlashSight(1));
+                    happenOnce = true;
+                }
+            }
+            //seeingDetectionUI.color = Color.red;
         }
         else
         {
@@ -87,10 +106,14 @@ public class ConcelableDetection : MonoBehaviour
                     //exposure -= Time.deltaTime * detectionSpeed;
 
                     if (concelableArea.rotator.transform.localRotation.y > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.x > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.z > concelableArea.maxLocalRotationValue)
-                        hearingExposure -= Time.deltaTime * detectionSpeed;
+                    {
+                        if(!detected)
+                            hearingExposure -= Time.deltaTime * detectionSpeed;
+                    }
                     else if (concelableArea.exposurePercentage <= 0)
                     {
-                        hearingExposure -= Time.deltaTime * detectionSpeed;
+                        if (!detected)
+                            hearingExposure -= Time.deltaTime * detectionSpeed;
                     }
                     else if (concelableArea.rotator.transform.localRotation.y > 0 || concelableArea.rotator.transform.localRotation.x > 0 || concelableArea.rotator.transform.localRotation.z > 0)
                     {
@@ -100,8 +123,11 @@ public class ConcelableDetection : MonoBehaviour
                             if (concelableArea.doorCreak.volume > 0.35f)
                             {
                                 hearingExposure += Time.deltaTime * (detectionSpeed * concelableArea.exposurePercentage);
-                                if (hearingCanvas.alpha == 1)
+                                if (hearingCanvas.alpha >= 1)
                                 {
+                                    detected = true;
+
+                                    StartCoroutine(WaitForDetected());
                                     Debug.Log("Vorgons coming dumbass");
                                     vorgon.SetLastDetectedLocation(concelableArea.searchPos.position, concelableArea.transform.position, VorgonController.EVENT_TYPE.SOUND);
                                 }
@@ -111,7 +137,8 @@ public class ConcelableDetection : MonoBehaviour
                 }
                 else
                 {
-                    hearingExposure -= Time.deltaTime * detectionSpeed;
+                    if(!detected)
+                        hearingExposure -= Time.deltaTime * detectionSpeed;
                 }
 
                 hearingCanvas.alpha = Mathf.Lerp(0, 1, hearingExposure);
@@ -156,12 +183,14 @@ public class ConcelableDetection : MonoBehaviour
                         {
                             exposure -= Time.deltaTime * seeingDetectionSpeed;
                             rayColor = Color.green;
+                            happenOnce = false;
                         }
                     }
                     else
                     {
                         exposure -= Time.deltaTime * seeingDetectionSpeed;
                         rayColor = Color.green;
+                        happenOnce = false;
                     }
                 }
                 else
@@ -187,6 +216,41 @@ public class ConcelableDetection : MonoBehaviour
             //fov check
             //hearing check
         }
+    }
+
+    IEnumerator WaitForDetected()
+    {
+        yield return new WaitForSeconds(2);
+        detected = false;
+    }
+
+    private IEnumerator FlashHearing()
+    {
+        flashingHearing = true;
+        while (hearingExposure >= 1)
+        {
+            hearingDetectionUI.color = Color.red;
+            yield return new WaitForSeconds(flashSpeed);
+            hearingDetectionUI.color = Color.white;
+            yield return new WaitForSeconds(flashSpeed);
+        }
+        flashingHearing = false;
+    }
+
+    private IEnumerator FlashSight(float duration)
+    {
+        flashingSight = true;
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            seeingDetectionUI.color = Color.red;
+            yield return new WaitForSeconds(flashSpeed);
+            seeingDetectionUI.color = Color.white;
+            yield return new WaitForSeconds(flashSpeed);
+            elapsedTime += flashSpeed * 2;
+        }
+        seeingDetectionUI.color = Color.red;
+        flashingSight = false;
     }
 
     public void SetConcelableArea(ConcelableAreaInteractable newArea)
