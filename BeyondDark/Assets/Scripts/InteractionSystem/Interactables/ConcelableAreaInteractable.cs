@@ -13,6 +13,7 @@ namespace MMG
     {
         [SerializeField] public HiddingCameraController concelableAreaCam;
         [SerializeField] private CinemachineVirtualCamera playerCamera;
+        [SerializeField] private GameObject player;
         [SerializeField] public AudioSource doorCreak;
         [HideInInspector] public float exposurePercentage;
         private bool isHidding = false;
@@ -52,6 +53,8 @@ namespace MMG
 
             concelableAreaCam.cam.LookAt = lookAtTransform;
             startRotation = rotator.transform.rotation;
+
+            player = GameObject.FindGameObjectWithTag("Player");
 
             if (cameraClamp == clamp.Y)
                 concelableAreaCam.cam.Follow = lookAtTransform;
@@ -243,7 +246,7 @@ namespace MMG
         IEnumerator WaitForEnterAnimation()
         {
             yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
-            playerCamera.gameObject.SetActive(false);
+            playerCamera.gameObject.SetActive(false);            
             concelableAreaCam.gameObject.SetActive(true);
             StartCoroutine(WaitForCloseAnimation());
         }
@@ -266,6 +269,11 @@ namespace MMG
             happenOnce=false;
             canCreak = true;
             concelableAreaCam.cam.LookAt = lookAtTransform;
+
+            //Move Player
+            player.transform.position = transform.position;
+            //playerCamera.LookAt = lookAtTransform;
+
             canExit = true;
             this.GetComponent<BoxCollider>().enabled = true;
             OnEnteredSpot?.Invoke();
@@ -298,6 +306,10 @@ namespace MMG
         IEnumerator WaitForExit()
         {
             yield return new WaitForSeconds(0.9f);
+            //Move Player
+            player.transform.position = searchPos.position;
+            //playerCamera.LookAt = lookAtTransform;
+
             playerCamera.gameObject.SetActive(true);
             concelableAreaCam.gameObject.SetActive(false);
             input.canMove = true;
@@ -312,6 +324,7 @@ namespace MMG
         {
             yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length + 1);
             enteranceAnimator.SetTrigger("Inside");
+
         }
 
 
