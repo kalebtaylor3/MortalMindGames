@@ -125,18 +125,22 @@ public class WorldData : MonoBehaviour
     {
         input.canMove = false;
 
-        vorgonModel.SetActive(false);
-        playerDeathMR.SetActive(true);
 
-        
         if (lastConceal != null && player.isHiding)
         {
             lastConceal.ExitArea();
+            yield return new WaitForSeconds(1);
+            //yield return new WaitForSeconds(1);
         }
+
+        
+
+        playerDeathMR.SetActive(true);
+        vorgonModel.SetActive(false);
 
         yield return new WaitForSeconds(1);
         TpTest.Instance.MortalRealmDeath(pickUpCP);
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
         playerDeathMR.SetActive(false);
         vorgonModel.SetActive(true);
 
