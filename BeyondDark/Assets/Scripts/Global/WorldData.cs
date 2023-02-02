@@ -47,6 +47,8 @@ public class WorldData : MonoBehaviour
     [SerializeField] GameObject vorgonModel;
     [SerializeField] public GameObject fadeOut;
 
+    public VorgonController vorgon;
+
     // FOR AI
     [SerializeField] List<Section> sections = null;
     public ConcelableAreaInteractable lastConceal;
@@ -133,8 +135,17 @@ public class WorldData : MonoBehaviour
             //lastConceal.enteranceAnimator.SetTrigger("Enter");
             //yield return new WaitForSeconds(lastConceal.enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
             //playerDeathMR.SetActive(true);
+
+            yield return new WaitForSeconds(1);
+
             lastConceal.ToggleConcealDeath();
             vorgonModel.SetActive(false);
+            vorgon.playerDead = true;
+            vorgon.detection = 0;
+            lastConceal.canCreak = false;
+            ConcelableDetection.Instance.hearingExposure = 0;
+            ConcelableDetection.Instance.exposure = 0;
+            ConcelableDetection.Instance.playerDead = true;
 
             yield return new WaitForSeconds(1.0f);
             fadeOut.SetActive(true);
@@ -142,6 +153,8 @@ public class WorldData : MonoBehaviour
             TpTest.Instance.MortalRealmDeath(pickUpCP);            
             yield return new WaitForSeconds(4);
             fadeOut.SetActive(false);
+            vorgon.playerDead = false;
+            ConcelableDetection.Instance.playerDead = false;
 
             //lastConceal.ExitArea();
             //yield return new WaitForSeconds(2.5f);
@@ -150,13 +163,16 @@ public class WorldData : MonoBehaviour
         else
         {
             playerDeathMR.SetActive(true);
-            vorgonModel.SetActive(false);            
+            vorgonModel.SetActive(false);
+            vorgon.playerDead = true;
+            vorgon.detection = 0;
             yield return new WaitForSeconds(1);
             TpTest.Instance.MortalRealmDeath(pickUpCP);
             fadeOut.SetActive(true);
             playerDeathMR.SetActive(false);
             yield return new WaitForSeconds(1);
             fadeOut.SetActive(false);
+            vorgon.playerDead = false;
         }
 
 

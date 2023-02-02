@@ -38,7 +38,7 @@ namespace MMG
         bool happenOnce = false;
         bool canInteract = false;
         bool canRotate = true;
-        bool canCreak = false;
+        [HideInInspector] public bool canCreak = false;
         bool canExit = false;
 
         public Transform searchPos;
@@ -314,6 +314,7 @@ namespace MMG
         {
             playerCamera.gameObject.SetActive(true);
             concelableAreaCam.gameObject.SetActive(false);
+            rotator.transform.rotation = startRotation;
         }
 
         IEnumerator ToggleDeath()

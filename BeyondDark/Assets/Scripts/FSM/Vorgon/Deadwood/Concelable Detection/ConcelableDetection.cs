@@ -27,13 +27,15 @@ public class ConcelableDetection : MonoBehaviour
 
     public float flashSpeed = 0.2f;
 
-    float hearingExposure;
-    float exposure;
+    [HideInInspector] public float hearingExposure;
+    [HideInInspector] public float exposure;
 
     bool detected = false;
     bool flashingHearing = false;
     bool flashingSight = false;
     bool happenOnce = false;
+
+    [HideInInspector] public bool playerDead = false;
 
 
     private Color rayColor = Color.blue;
@@ -56,6 +58,14 @@ public class ConcelableDetection : MonoBehaviour
 
     private void Update()
     {
+
+        if(!player.isHiding)
+        {
+            hearingExposure = 0;
+            hearingCanvas.alpha = 0;
+            seeingCanvas.alpha = 0;
+            exposure = 0;
+        }
 
         if (hearingExposure <= 0)
             hearingExposure = 0;
@@ -99,46 +109,49 @@ public class ConcelableDetection : MonoBehaviour
         {
             if (concelableArea != null)
             {
-                float distance = Vector3.Distance(concelableArea.transform.position, transform.position);
-
-                if (distance <= hearingRange)
+                if (!playerDead)
                 {
-                    //exposure -= Time.deltaTime * detectionSpeed;
+                    float distance = Vector3.Distance(concelableArea.transform.position, transform.position);
 
-                    if (concelableArea.rotator.transform.localRotation.y > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.x > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.z > concelableArea.maxLocalRotationValue)
+                    if (distance <= hearingRange)
                     {
-                        if(!detected)
-                            hearingExposure -= Time.deltaTime * detectionSpeed;
-                    }
-                    else if (concelableArea.exposurePercentage <= 0)
-                    {
-                        if (!detected)
-                            hearingExposure -= Time.deltaTime * detectionSpeed;
-                    }
-                    else if (concelableArea.rotator.transform.localRotation.y > 0 || concelableArea.rotator.transform.localRotation.x > 0 || concelableArea.rotator.transform.localRotation.z > 0)
-                    {
+                        //exposure -= Time.deltaTime * detectionSpeed;
 
-                        if (concelableArea.doorCreak.isPlaying)
+                        if (concelableArea.rotator.transform.localRotation.y > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.x > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.z > concelableArea.maxLocalRotationValue)
                         {
-                            if (concelableArea.doorCreak.volume > 0.35f)
-                            {
-                                hearingExposure += Time.deltaTime * (detectionSpeed * concelableArea.exposurePercentage);
-                                if (hearingCanvas.alpha >= 1)
-                                {
-                                    detected = true;
+                            if (!detected)
+                                hearingExposure -= Time.deltaTime * detectionSpeed;
+                        }
+                        else if (concelableArea.exposurePercentage <= 0)
+                        {
+                            if (!detected)
+                                hearingExposure -= Time.deltaTime * detectionSpeed;
+                        }
+                        else if (concelableArea.rotator.transform.localRotation.y > 0 || concelableArea.rotator.transform.localRotation.x > 0 || concelableArea.rotator.transform.localRotation.z > 0)
+                        {
 
-                                    StartCoroutine(WaitForDetected());
-                                    Debug.Log("Vorgons coming dumbass");
-                                    vorgon.SetLastDetectedLocation(concelableArea.searchPos.position, concelableArea, VorgonController.EVENT_TYPE.SOUND);
+                            if (concelableArea.doorCreak.isPlaying)
+                            {
+                                if (concelableArea.doorCreak.volume > 0.35f)
+                                {
+                                    hearingExposure += Time.deltaTime * (detectionSpeed * concelableArea.exposurePercentage);
+                                    if (hearingCanvas.alpha >= 1)
+                                    {
+                                        detected = true;
+
+                                        StartCoroutine(WaitForDetected());
+                                        Debug.Log("Vorgons coming dumbass");
+                                        vorgon.SetLastDetectedLocation(concelableArea.searchPos.position, concelableArea, VorgonController.EVENT_TYPE.SOUND);
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                else
-                {
-                    if(!detected)
-                        hearingExposure -= Time.deltaTime * detectionSpeed;
+                    else
+                    {
+                        if (!detected)
+                            hearingExposure -= Time.deltaTime * detectionSpeed;
+                    }
                 }
 
                 hearingCanvas.alpha = Mathf.Lerp(0, 1, hearingExposure);
@@ -146,44 +159,52 @@ public class ConcelableDetection : MonoBehaviour
 
                 //fov check for seeing the concelable area. only react if exposed.
 
-
-                Vector3 dir = (concelableArea.transform.position - transform.position).normalized;
-
-                Debug.DrawRay(transform.position, dir, rayColor);
-
-                Vector3 forwardV = transform.forward;
-                float angle = Vector3.Angle(dir, forwardV);
-
-                if (angle <= 45.0f)
+                if (!playerDead)
                 {
-                    float distanceToTarget = Vector3.Distance(transform.position, concelableArea.transform.position);
+                    Vector3 dir = (concelableArea.transform.position - transform.position).normalized;
 
-                    Debug.DrawRay(transform.position, dir, Color.yellow);
+                    Debug.DrawRay(transform.position, dir, rayColor);
 
-                    if (!Physics.Raycast(transform.position, dir, distanceToTarget, obstructionMask))
+                    Vector3 forwardV = transform.forward;
+                    float angle = Vector3.Angle(dir, forwardV);
+
+                    if (angle <= 45.0f)
                     {
-                        if (concelableArea.rotator.transform.localRotation.y > 0.25f || concelableArea.rotator.transform.localRotation.x > 0.25f || concelableArea.rotator.transform.localRotation.z > 0.25f)
+                        float distanceToTarget = Vector3.Distance(transform.position, concelableArea.transform.position);
+
+                        Debug.DrawRay(transform.position, dir, Color.yellow);
+
+                        if (!Physics.Raycast(transform.position, dir, distanceToTarget, obstructionMask))
                         {
-                            //increase see reveal % and show ui depending on that. if exposure is over a certain amount the react
-                            //need logic so this only happens once
-                            //Debug.Log("I can see ur bitch ass");
-                            exposure += Time.deltaTime * seeingDetectionSpeed;
-
-                            //if (exposure == 1)
-                            //    exposure = 1;
-
-                            if (seeingCanvas.alpha == 1)
+                            if (concelableArea.rotator.transform.localRotation.y > 0.25f || concelableArea.rotator.transform.localRotation.x > 0.25f || concelableArea.rotator.transform.localRotation.z > 0.25f)
                             {
-                                Debug.Log("I see you");
-                                vorgon.PlayerInSight = true;
-                            }
+                                //increase see reveal % and show ui depending on that. if exposure is over a certain amount the react
+                                //need logic so this only happens once
+                                //Debug.Log("I can see ur bitch ass");
+                                exposure += Time.deltaTime * seeingDetectionSpeed;
 
-                            rayColor = Color.red;
+                                //if (exposure == 1)
+                                //    exposure = 1;
+
+                                if (seeingCanvas.alpha == 1)
+                                {
+                                    Debug.Log("I see you");
+                                    vorgon.PlayerInSight = true;
+                                }
+
+                                rayColor = Color.red;
+                            }
+                            else
+                            {
+                                exposure -= Time.deltaTime * seeingDetectionSpeed;
+                                vorgon.PlayerInSight = false;
+                                rayColor = Color.green;
+                                happenOnce = false;
+                            }
                         }
                         else
                         {
                             exposure -= Time.deltaTime * seeingDetectionSpeed;
-                            vorgon.PlayerInSight = false;
                             rayColor = Color.green;
                             happenOnce = false;
                         }
@@ -191,25 +212,19 @@ public class ConcelableDetection : MonoBehaviour
                     else
                     {
                         exposure -= Time.deltaTime * seeingDetectionSpeed;
-                        rayColor = Color.green;
-                        happenOnce = false;
                     }
+
                 }
                 else
                 {
                     exposure -= Time.deltaTime * seeingDetectionSpeed;
+                    hearingExposure -= Time.deltaTime * detectionSpeed;
                 }
 
-            }
-            else
-            {
-                exposure -= Time.deltaTime * seeingDetectionSpeed;
-                hearingExposure -= Time.deltaTime * detectionSpeed;
-            }
-
-            if (concelableArea.exposurePercentage <=0)
-            {
-                exposure -= Time.deltaTime * seeingDetectionSpeed;
+                if (concelableArea.exposurePercentage <= 0)
+                {
+                    exposure -= Time.deltaTime * seeingDetectionSpeed;
+                }
             }
 
             seeingCanvas.alpha = Mathf.Lerp(0, 1, exposure);
