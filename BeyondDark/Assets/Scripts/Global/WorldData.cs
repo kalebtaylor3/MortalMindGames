@@ -35,15 +35,22 @@ public class WorldData : MonoBehaviour
     public SECTIONS activePlayerSection;
     public SECTIONS activeVorgonSection;
     public Section ActiveVorgonSection;
+    public PlayerController player;
 
     // FOR CHECKPOINT
     private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;    
     private int collectedRelicsCountCP;
     private GameObject lastPickUpGOCP;
 
+    [SerializeField] InputController input;
+    [SerializeField] GameObject playerDeathMR;
+    [SerializeField] GameObject vorgonModel;
+
     // FOR AI
     [SerializeField] List<Section> sections = null;
     public ConcelableAreaInteractable lastConceal;
+
+
 
 
     #endregion
@@ -111,14 +118,32 @@ public class WorldData : MonoBehaviour
     public void PlayerDeathMortalRealm()
     {
         TriggerCheckpoint();
-        TpTest.Instance.MortalRealmDeath(pickUpCP);
+        StartCoroutine(TriggerPlayerDeathMR());
+    }
 
-        if (lastConceal != null)
+    IEnumerator TriggerPlayerDeathMR()
+    {
+        input.canMove = false;
+
+        vorgonModel.SetActive(false);
+        playerDeathMR.SetActive(true);
+
+        
+        if (lastConceal != null && player.isHiding)
         {
             lastConceal.ExitArea();
         }
 
+        yield return new WaitForSeconds(1);
+        TpTest.Instance.MortalRealmDeath(pickUpCP);
+        yield return new WaitForSeconds(1);
+        playerDeathMR.SetActive(false);
+        vorgonModel.SetActive(true);
+
+        
+
         lastConceal = null;
+        input.canMove = true;
     }
 
     #endregion
