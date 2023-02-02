@@ -128,15 +128,23 @@ public class WorldData : MonoBehaviour
 
         if (lastConceal != null && player.isHiding)
         {
-            lastConceal.ExitArea();
-            yield return new WaitForSeconds(2.5f);
+            //dont call exit. first check if door is open. if door is open use the animator to play the open animation. wait for lenght of animation. then set jumpscare active then wait for lenght wait for for how ever many seconds are before fade to black. Before fade to black starts switch the cameras
+            //lastConceal.enteranceAnimator.SetTrigger("Enter");
+            //yield return new WaitForSeconds(lastConceal.enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
+            playerDeathMR.SetActive(true);
+            vorgonModel.SetActive(false);
+            yield return new WaitForSeconds(1);
+            lastConceal.ToggleCameraExit();
+            //lastConceal.ExitArea();
+            //yield return new WaitForSeconds(2.5f);
             
         }
+        else
+        {
+            playerDeathMR.SetActive(true);
+            vorgonModel.SetActive(false);
+        }
 
-        
-
-        playerDeathMR.SetActive(true);
-        vorgonModel.SetActive(false);
 
         yield return new WaitForSeconds(1);
         TpTest.Instance.MortalRealmDeath(pickUpCP);

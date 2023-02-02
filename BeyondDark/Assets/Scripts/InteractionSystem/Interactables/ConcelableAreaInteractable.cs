@@ -27,7 +27,7 @@ namespace MMG
         [SerializeField] public float maxLocalRotationValue;
         public bool negativeRotation;
 
-        [SerializeField] Animator enteranceAnimator;
+        [SerializeField] public Animator enteranceAnimator;
         [SerializeField] public GameObject rotator;
         public float rotationSpeed = 25;
 
@@ -301,6 +301,17 @@ namespace MMG
             enteranceAnimator.SetTrigger("Enter");
             StartCoroutine(WaitForExitClose());
             canCreak = false;
+        }
+
+        public void ToggleCameraExit()
+        {
+            playerCamera.gameObject.SetActive(true);
+            concelableAreaCam.gameObject.SetActive(false);
+            canCreak = false;
+            isHidding = false;
+            happenOnce = false;
+            input.canMove = true;
+            OnLeaveSpot?.Invoke();
         }
 
         IEnumerator WaitForExit()
