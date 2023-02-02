@@ -22,6 +22,8 @@ namespace MMG
         Vector3 lookAtStartPosition;
         Quaternion startRotation;
 
+        public GameObject deathCAA;
+
         public enum clamp { X, Y, Z };
         public clamp cameraClamp;
         [SerializeField] public float maxLocalRotationValue;
@@ -36,7 +38,7 @@ namespace MMG
         bool happenOnce = false;
         bool canInteract = false;
         bool canRotate = true;
-        bool canCreak = false;
+        [HideInInspector] public bool canCreak = false;
         bool canExit = false;
 
         public Transform searchPos;
@@ -303,22 +305,44 @@ namespace MMG
             canCreak = false;
         }
 
-        public void ToggleCameraExit()
+        public void ToggleConcealDeath()
+        {
+            StartCoroutine(ToggleDeath());
+        }
+
+        public void ToggleCamChange()
         {
             playerCamera.gameObject.SetActive(true);
             concelableAreaCam.gameObject.SetActive(false);
+            rotator.transform.rotation = startRotation;
+        }
+
+        IEnumerator ToggleDeath()
+        {
+            deathCAA.SetActive(true);
+            yield return new WaitForSeconds(1.5f);
+
+
+            //playerCamera.gameObject.SetActive(true);
+            //concelableAreaCam.gameObject.SetActive(false);
+
+            //WorldData.Instance.fadeOut.SetActive(true);
             canCreak = false;
             isHidding = false;
             happenOnce = false;
             input.canMove = true;
             OnLeaveSpot?.Invoke();
+            deathCAA.SetActive(false);
+            enteranceAnimator.SetTrigger("Inside");
+            //yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length + 1);
+            
         }
 
         IEnumerator WaitForExit()
         {
             yield return new WaitForSeconds(0.9f);
             //Move Player
-            player.transform.position = searchPos.position;
+            //player.transform.position = searchPos.position;
             //playerCamera.LookAt = lookAtTransform;
 
             playerCamera.gameObject.SetActive(true);
