@@ -110,7 +110,7 @@ public class StealthDetection : MonoBehaviour
             {
                 if (!player.movementInputData.IsCrouching)
                 {
-                    if (player.currentSpeed >= 1.3f && player.currentSpeed < 5) // if the player is walking or running
+                    if (player.currentSpeed >= 1.8f && player.currentSpeed < 5) // if the player is walking or running
                     {
                         detection += Time.deltaTime * walkingDetectionSpeed; // increase detection level
                     }
@@ -118,7 +118,7 @@ public class StealthDetection : MonoBehaviour
                     {
                         detection += Time.deltaTime * runningDetectionSpeed;
                     }
-                    else if (player.currentSpeed < 1.3f && !detected)
+                    else if (player.currentSpeed < 1.8f && !detected)
                     {
                         detection -= Time.deltaTime * walkingDetectionSpeed;
                         hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
