@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.XR;
-using static UnityEditor.FilePathAttribute;
+//using static UnityEditor.FilePathAttribute;
 using UnityEngine.UI;
 using UnityEngine.ProBuilder.Shapes;
 
@@ -140,11 +140,19 @@ public class VorgonController : MonoBehaviour
 
         if (detection >= 1)
         {
+
+            if (playerT.isHiding)
+            {
+                SetLastDetectedLocation(WorldData.Instance.lastConceal.searchPos.position, WorldData.Instance.lastConceal, VorgonController.EVENT_TYPE.SOUND); /// HERE
+            }
+
             detection = 1;
             if (!happenOnce)
             {
                 if (!flashing)
                 {
+                    
+
                     StartCoroutine(Flash(1));
                     happenOnce = true;
                 }

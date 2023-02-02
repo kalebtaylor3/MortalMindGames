@@ -46,6 +46,7 @@ public class WorldData : MonoBehaviour
     [SerializeField] GameObject playerDeathMR;
     [SerializeField] GameObject vorgonModel;
     [SerializeField] public GameObject fadeOut;
+    [SerializeField] public CameraController playerCam;
 
     public VorgonController vorgon;
 
@@ -184,6 +185,8 @@ public class WorldData : MonoBehaviour
         //yield return new WaitForSeconds(1);
         //fadeOut.SetActive(false);
 
+        //playerCam.ResetCam();
+        lastConceal.ToggleCamChange();
         lastConceal = null;
         input.canMove = true;
     }

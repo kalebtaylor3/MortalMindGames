@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.092525914, g: 0.03458599, b: 0.033820596, a: 1}
+  m_IndirectSpecularColor: {r: 0.091947414, g: 0.034388795, b: 0.033641815, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -189,6 +189,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Concelable Barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5005604136117045583, guid: 5530caaf03f109740a00709f20ae8743,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5005604136117045583, guid: 5530caaf03f109740a00709f20ae8743,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602802834673233599, guid: 5530caaf03f109740a00709f20ae8743,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602802834673233599, guid: 5530caaf03f109740a00709f20ae8743,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283491497201860244, guid: 5530caaf03f109740a00709f20ae8743,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283491497201860244, guid: 5530caaf03f109740a00709f20ae8743,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8822322783981085258, guid: 5530caaf03f109740a00709f20ae8743,
         type: 3}
@@ -6250,6 +6280,7 @@ MonoBehaviour:
   playerDeathMR: {fileID: 2062547799}
   vorgonModel: {fileID: 1349410714}
   fadeOut: {fileID: 832406057}
+  playerCam: {fileID: 2125104120}
   vorgon: {fileID: 5410905569674020596}
   sections:
   - {fileID: 1441817156}
@@ -8155,6 +8186,18 @@ Transform:
   m_Father: {fileID: 1098274507}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2125104120 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 555583405601545037, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1837035314}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1faa7e4ab8db142458b7333a61f81597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &377827696768680088
 GameObject:
   m_ObjectHideFlags: 0
