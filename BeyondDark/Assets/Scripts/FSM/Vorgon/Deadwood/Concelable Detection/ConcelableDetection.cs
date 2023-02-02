@@ -129,7 +129,7 @@ public class ConcelableDetection : MonoBehaviour
 
                                     StartCoroutine(WaitForDetected());
                                     Debug.Log("Vorgons coming dumbass");
-                                    vorgon.SetLastDetectedLocation(concelableArea.searchPos.position, concelableArea.transform.position, VorgonController.EVENT_TYPE.SOUND);
+                                    vorgon.SetLastDetectedLocation(concelableArea.searchPos.position, concelableArea, VorgonController.EVENT_TYPE.SOUND);
                                 }
                             }
                         }
@@ -175,6 +175,7 @@ public class ConcelableDetection : MonoBehaviour
                             if (seeingCanvas.alpha == 1)
                             {
                                 Debug.Log("I see you");
+                                vorgon.PlayerInSight = true;
                             }
 
                             rayColor = Color.red;
@@ -182,6 +183,7 @@ public class ConcelableDetection : MonoBehaviour
                         else
                         {
                             exposure -= Time.deltaTime * seeingDetectionSpeed;
+                            vorgon.PlayerInSight = false;
                             rayColor = Color.green;
                             happenOnce = false;
                         }

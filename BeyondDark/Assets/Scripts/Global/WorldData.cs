@@ -42,7 +42,8 @@ public class WorldData : MonoBehaviour
     private GameObject lastPickUpGOCP;
 
     // FOR AI
-    [SerializeField] List<Section> sections = null;    
+    [SerializeField] List<Section> sections = null;
+    public ConcelableAreaInteractable lastConceal;
 
 
     #endregion
@@ -111,6 +112,13 @@ public class WorldData : MonoBehaviour
     {
         TriggerCheckpoint();
         TpTest.Instance.MortalRealmDeath(pickUpCP);
+
+        if (lastConceal != null)
+        {
+            lastConceal.ExitArea();
+        }
+
+        lastConceal = null;
     }
 
     #endregion

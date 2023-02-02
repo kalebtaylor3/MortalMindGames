@@ -88,7 +88,9 @@ public class TpTest : MonoBehaviour
 
     public void MortalRealmDeath(Vector3 tpPosition)
     {
+        mortalRealmPlayer.gameObject.SetActive(false);
         mortalRealmPlayer.transform.position = tpPosition;
+        mortalRealmPlayer.gameObject.SetActive(true);
     }
 
     

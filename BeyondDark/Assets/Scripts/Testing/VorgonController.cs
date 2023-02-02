@@ -27,6 +27,11 @@ public class VorgonController : MonoBehaviour
 
     // For FSM
     public Vector3 concealPos = new Vector3(-1, -1, -1);
+    public ConcelableAreaInteractable concealArea;
+
+    // ANIMATIONS
+    public Animation vorgonAnimation;
+    public List<AnimationClip> animationsMR;
 
     public Image detectionUI; // reference to the UI image on the canvas
     public CanvasGroup sightCanvas;
@@ -50,7 +55,7 @@ public class VorgonController : MonoBehaviour
     [HideInInspector] public bool isAttacking = false;
 
 
-    [HideInInspector] public bool PlayerInSight = false;
+    [SerializeField] public bool PlayerInSight = false;
     [HideInInspector] public bool canSeePlayer;
     [HideInInspector] public bool playerDetected = false;
     [SerializeField] public bool awareOfPlayer = false;
@@ -89,14 +94,35 @@ public class VorgonController : MonoBehaviour
         stunned = false;
     }
 
-    public void Attack()
-    {
-        StartCoroutine(TriggerAttack());
+    public void Attack(bool hiding = false)
+    {        
+        StartCoroutine(TriggerAttack(hiding));
     }
 
-    IEnumerator TriggerAttack()
+    IEnumerator TriggerAttack(bool hiding)
     {
         isAttacking = true;
+
+        if(hiding)
+        {
+            //navAgent.isStopped = false;
+            //vorgonAnimation.clip = animationsMR[0];
+            //vorgonAnimation.Play();
+
+
+            //yield return new WaitUntil(() => !vorgonAnimation.isPlaying);
+            
+            if(concealArea != null)
+            {
+                //concealArea.ExitArea();
+                //concealArea.concelableAreaCam.enabled = false;
+                //playerT.cameraController.playerCam.enabled = true;
+            }
+            
+        }
+
+       
+
         WorldData.Instance.PlayerDeathMortalRealm();
         yield return new WaitForSeconds(2);
         isAttacking = false;
@@ -108,7 +134,7 @@ public class VorgonController : MonoBehaviour
         if (detection <= 0)
         {
             detection = 0;
-            SetLastDetectedLocation(Vector3.zero, Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+            SetLastDetectedLocation(Vector3.zero, null, VorgonController.EVENT_TYPE.LOST);
         }
 
         if (detection >= 1)
@@ -196,20 +222,23 @@ public class VorgonController : MonoBehaviour
         SearchAnimIsPlaying = false;
     }
 
-    public void SetLastDetectedLocation(Vector3 location, Vector3 conceal, EVENT_TYPE type = EVENT_TYPE.LOST)
+    public void SetLastDetectedLocation(Vector3 location, ConcelableAreaInteractable conceal, EVENT_TYPE type = EVENT_TYPE.LOST)
     {
         if (type == EVENT_TYPE.LOST)
         {
-            awareOfPlayer = false;            
+            awareOfPlayer = false;
+            //concealArea = null;
         }
         else
         {
+            //concealArea = null;
             StartCoroutine(TriggerLastSeen(location, type));
         }
 
-        if (conceal != Vector3.zero)
+        if (conceal != null && conceal.searchPos.position != Vector3.zero)
         {
-            concealPos = conceal;
+            concealPos = conceal.transform.position;
+            concealArea = conceal;
         }
 
     }

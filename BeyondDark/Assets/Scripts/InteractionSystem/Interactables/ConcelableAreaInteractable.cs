@@ -11,7 +11,7 @@ namespace MMG
 {
     public class ConcelableAreaInteractable : InteractableBase
     {
-        [SerializeField] private HiddingCameraController concelableAreaCam;
+        [SerializeField] public HiddingCameraController concelableAreaCam;
         [SerializeField] private CinemachineVirtualCamera playerCamera;
         [SerializeField] public AudioSource doorCreak;
         [HideInInspector] public float exposurePercentage;
@@ -228,6 +228,9 @@ namespace MMG
                     StartCoroutine(WaitForEnterAnimation());
                     isHidding = true;
                     canExit = false;
+
+                    WorldData.Instance.lastConceal = this;
+
                     this.GetComponent<BoxCollider>().enabled = false;
                 }
                 else if(canExit)
@@ -282,7 +285,7 @@ namespace MMG
                 rotator.transform.Rotate(new Vector3(0, 0, -0.95f), rotationSpeed * Time.deltaTime);
         }
 
-        void ExitArea()
+        public void ExitArea()
         {
             enteranceAnimator.enabled = true;
             //Debug.Log("Exiting Area");
@@ -310,6 +313,8 @@ namespace MMG
             yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length + 1);
             enteranceAnimator.SetTrigger("Inside");
         }
+
+
 
 
         //setup function to handle being caught. if vorgon is in area and reveal % is higher than a certain amount then caught

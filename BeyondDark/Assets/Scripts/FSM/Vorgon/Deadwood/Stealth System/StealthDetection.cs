@@ -58,7 +58,7 @@ public class StealthDetection : MonoBehaviour
         if (detection <= 0)
         {
             detection = 0;
-            vorgon.SetLastDetectedLocation(Vector3.zero, Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+            vorgon.SetLastDetectedLocation(Vector3.zero, null, VorgonController.EVENT_TYPE.LOST);
         }
 
         if (detection >= 1)
@@ -103,7 +103,7 @@ public class StealthDetection : MonoBehaviour
                     // AI can hear the player
                     Debug.Log("vorgon can hear the player now");
                     Vector3 detectionPosition = player.transform.position;
-                    vorgon.SetLastDetectedLocation(detectionPosition, Vector3.zero, VorgonController.EVENT_TYPE.SOUND);
+                    vorgon.SetLastDetectedLocation(detectionPosition, null, VorgonController.EVENT_TYPE.SOUND);
                 }
             }
             else if (distance <= hearingRange2) // if player is within the second sphere's detection range
@@ -139,7 +139,7 @@ public class StealthDetection : MonoBehaviour
                     // AI can hear the player
                     Debug.Log("vorgon can hear the player now");
                     Vector3 detectionPosition = player.transform.position;
-                    vorgon.SetLastDetectedLocation(detectionPosition, Vector3.zero, VorgonController.EVENT_TYPE.SOUND);
+                    vorgon.SetLastDetectedLocation(detectionPosition, null, VorgonController.EVENT_TYPE.SOUND);
                     
                 }
             }
@@ -159,7 +159,7 @@ public class StealthDetection : MonoBehaviour
                     // AI can hear the player
                     Debug.Log("vorgon can hear the player now");
                     Vector3 detectionPosition = player.transform.position;
-                    vorgon.SetLastDetectedLocation(detectionPosition, Vector3.zero, VorgonController.EVENT_TYPE.SOUND);
+                    vorgon.SetLastDetectedLocation(detectionPosition, null, VorgonController.EVENT_TYPE.SOUND);
                 }
             }
             else
@@ -168,7 +168,7 @@ public class StealthDetection : MonoBehaviour
                 {
                     detection -= Time.deltaTime * runningDetectionSpeed; // reset detection level if player is out of range
                     hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
-                    vorgon.SetLastDetectedLocation(Vector3.zero, Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+                    vorgon.SetLastDetectedLocation(Vector3.zero, null, VorgonController.EVENT_TYPE.LOST);
                 }
             }
         }
@@ -178,7 +178,7 @@ public class StealthDetection : MonoBehaviour
             {
                 detection -= Time.deltaTime * runningDetectionSpeed; // decrease detection level
                 hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
-                vorgon.SetLastDetectedLocation(Vector3.zero, Vector3.zero, VorgonController.EVENT_TYPE.LOST);
+                vorgon.SetLastDetectedLocation(Vector3.zero, null, VorgonController.EVENT_TYPE.LOST);
             }
         }
 

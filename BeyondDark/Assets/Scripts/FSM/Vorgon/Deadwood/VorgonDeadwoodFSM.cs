@@ -124,6 +124,7 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         ClosePatrolState closePatrol = new ClosePatrolState(vorgonController);
         closePatrol.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         closePatrol.AddTransition(Transition.Stunned, FSMStateID.Stunned);
+        closePatrol.AddTransition(Transition.ReachedPlayer, FSMStateID.Attack);
         closePatrol.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
         closePatrol.AddTransition(Transition.PlayerLost, FSMStateID.Lost);
 
