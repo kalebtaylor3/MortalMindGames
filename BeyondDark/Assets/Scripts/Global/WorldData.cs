@@ -45,6 +45,7 @@ public class WorldData : MonoBehaviour
     [SerializeField] InputController input;
     [SerializeField] GameObject playerDeathMR;
     [SerializeField] GameObject vorgonModel;
+    [SerializeField] public GameObject fadeOut;
 
     // FOR AI
     [SerializeField] List<Section> sections = null;
@@ -131,28 +132,41 @@ public class WorldData : MonoBehaviour
             //dont call exit. first check if door is open. if door is open use the animator to play the open animation. wait for lenght of animation. then set jumpscare active then wait for lenght wait for for how ever many seconds are before fade to black. Before fade to black starts switch the cameras
             //lastConceal.enteranceAnimator.SetTrigger("Enter");
             //yield return new WaitForSeconds(lastConceal.enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
-            playerDeathMR.SetActive(true);
+            //playerDeathMR.SetActive(true);
+            lastConceal.ToggleConcealDeath();
             vorgonModel.SetActive(false);
-            yield return new WaitForSeconds(1);
-            lastConceal.ToggleCameraExit();
+
+            yield return new WaitForSeconds(1.0f);
+            fadeOut.SetActive(true);
+            lastConceal.ToggleCamChange();
+            TpTest.Instance.MortalRealmDeath(pickUpCP);            
+            yield return new WaitForSeconds(4);
+            fadeOut.SetActive(false);
+
             //lastConceal.ExitArea();
             //yield return new WaitForSeconds(2.5f);
-            
+
         }
         else
         {
             playerDeathMR.SetActive(true);
-            vorgonModel.SetActive(false);
+            vorgonModel.SetActive(false);            
+            yield return new WaitForSeconds(1);
+            TpTest.Instance.MortalRealmDeath(pickUpCP);
+            fadeOut.SetActive(true);
+            playerDeathMR.SetActive(false);
+            yield return new WaitForSeconds(1);
+            fadeOut.SetActive(false);
         }
 
 
-        yield return new WaitForSeconds(1);
-        TpTest.Instance.MortalRealmDeath(pickUpCP);
-        //yield return new WaitForSeconds(1);
-        playerDeathMR.SetActive(false);
-        vorgonModel.SetActive(true);
-
         
+        //yield return new WaitForSeconds(1);
+        
+        //playerDeathMR.SetActive(false);
+        vorgonModel.SetActive(true);
+        //yield return new WaitForSeconds(1);
+        //fadeOut.SetActive(false);
 
         lastConceal = null;
         input.canMove = true;
