@@ -21,6 +21,8 @@ public class VorgonController : MonoBehaviour
     [SerializeField] public VorgonDeadwoodFSM vorgonFSM;
     [SerializeField] private float stunDuration;
     [SerializeField] AudioSource alertAudioSource;
+    
+
     public LayerMask targetMask;
     public LayerMask obstructionMask;
     private Color rayColor = Color.green;
@@ -30,8 +32,8 @@ public class VorgonController : MonoBehaviour
     public ConcelableAreaInteractable concealArea;
 
     // ANIMATIONS
-    public Animation vorgonAnimation;
-    public List<AnimationClip> animationsMR;
+    //public Animation vorgonAnimation;
+    //public List<AnimationClip> animationsMR;
 
     public Image detectionUI; // reference to the UI image on the canvas
     public CanvasGroup sightCanvas;
@@ -102,27 +104,6 @@ public class VorgonController : MonoBehaviour
     IEnumerator TriggerAttack(bool hiding)
     {
         isAttacking = true;
-
-        if(hiding)
-        {
-            //navAgent.isStopped = false;
-            //vorgonAnimation.clip = animationsMR[0];
-            //vorgonAnimation.Play();
-
-
-            //yield return new WaitUntil(() => !vorgonAnimation.isPlaying);
-            
-            if(concealArea != null)
-            {
-                //concealArea.ExitArea();
-                //concealArea.concelableAreaCam.enabled = false;
-                //playerT.cameraController.playerCam.enabled = true;
-            }
-            
-        }
-
-       
-
         WorldData.Instance.PlayerDeathMortalRealm();
         yield return new WaitForSeconds(2);
         isAttacking = false;
