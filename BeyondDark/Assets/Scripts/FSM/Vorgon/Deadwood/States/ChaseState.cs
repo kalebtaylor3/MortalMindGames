@@ -38,7 +38,7 @@ public class ChaseState : FSMState
         {
             // If lost player -> Close Patrol
             vorgonControl.inChase = false;
-            vorgonControl.SetLastDetectedLocation(vorgonControl.playerT.transform.position, Vector3.zero, VorgonController.EVENT_TYPE.SOUND);
+            vorgonControl.SetLastDetectedLocation(vorgonControl.playerT.transform.position, null, VorgonController.EVENT_TYPE.SOUND);
             vorgonFSM.PerformTransition(Transition.PlayerLost);
             
         }
@@ -53,7 +53,7 @@ public class ChaseState : FSMState
         {
             // If player is hiding -> Close Patrol
             vorgonControl.inChase = false;
-            vorgonControl.SetLastDetectedLocation(vorgonControl.playerT.transform.position, Vector3.zero, VorgonController.EVENT_TYPE.SOUND);
+            vorgonControl.SetLastDetectedLocation(vorgonControl.playerT.transform.position, null, VorgonController.EVENT_TYPE.SOUND);
             vorgonFSM.PerformTransition(Transition.PlayerLost);
             
         }

@@ -33,7 +33,7 @@ namespace MMG
         private float desiredPitch;
         
         private Transform cameraPivotTransform;
-        [HideInInspector] public CinemachineVirtualCamera playerCam;
+        public CinemachineVirtualCamera playerCam;
 
         public  MovementInputData input;
         public AudioSource peakAudio;

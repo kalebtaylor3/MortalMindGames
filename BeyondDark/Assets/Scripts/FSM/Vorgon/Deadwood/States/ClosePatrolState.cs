@@ -48,13 +48,17 @@ public class ClosePatrolState : FSMState
             vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.WrongSection);
         }
-        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight && vorgonControl.playerT.isHiding) 
+        {
+            vorgonFSM.PerformTransition(Transition.ReachedPlayer);
+        }
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight && !vorgonControl.playerT.isHiding)
         {
             // If player Found -> Chase
             vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.PlayerFound);
-        }        
-        else if(searchCount >= 5)
+        }
+        else if (searchCount >= 5)
         {
             //If searched 5 times -> Lost
             vorgonControl.playerDetected = false;
