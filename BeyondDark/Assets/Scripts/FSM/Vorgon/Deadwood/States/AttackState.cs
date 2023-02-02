@@ -57,10 +57,18 @@ public class AttackState : FSMState
         if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2) && !vorgonControl.playerT.isHiding)
         {
             vorgonControl.Attack();
+            //vorgonControl.gameObject.SetActive(false);
+            vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+            //vorgonControl.gameObject.SetActive(true);
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
         else if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 5) && vorgonControl.playerT.isHiding)
         {
             vorgonControl.Attack(true);
+            //vorgonControl.gameObject.SetActive(false);
+            vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+            //vorgonControl.gameObject.SetActive(true);
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
 
         if (!vorgonControl.navAgent.isStopped)

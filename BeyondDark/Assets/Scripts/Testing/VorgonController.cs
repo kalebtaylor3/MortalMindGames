@@ -69,12 +69,21 @@ public class VorgonController : MonoBehaviour
 
     [HideInInspector] public bool playerDead = false;
 
+    public bool detectionOut = false;
+
     #endregion
 
     private void Start()
     {
         audioClips[0] = ALERTSounds;
         audioClips[1] = GROWLSounds;
+    }
+
+
+    private void OnEnable()
+    {
+        detectionOut = true;
+        //StealthDetection.Instance.detection = 0;
     }
 
     private void Update()
@@ -84,6 +93,15 @@ public class VorgonController : MonoBehaviour
         Debug.DrawRay(transform.position, transform.forward, rayColor);
         LineOfSight();
 
+        if(detectionOut)
+        {
+            detection -= Time.deltaTime * detectionSpeed;
+            if(detection <= 0)
+            {
+                detection = 0;
+                detectionOut = false;
+            }
+        }
     }
 
     public void StunVorgon()
