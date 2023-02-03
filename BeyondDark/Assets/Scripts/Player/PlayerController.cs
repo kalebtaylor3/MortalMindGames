@@ -614,7 +614,7 @@ namespace MMG
             {
                 if(movementInputData.IsRunning && currentSpeed >= runSpeed)
                 {
-                    staminaTest -= 0.3f * Time.deltaTime;
+                    staminaTest -= 0.15f * Time.deltaTime;
                 }
                 else if (!movementInputData.IsRunning)
                 {
