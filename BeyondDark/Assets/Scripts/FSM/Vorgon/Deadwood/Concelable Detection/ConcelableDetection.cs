@@ -183,7 +183,7 @@ public class ConcelableDetection : MonoBehaviour
                                 //increase see reveal % and show ui depending on that. if exposure is over a certain amount the react
                                 //need logic so this only happens once
                                 //Debug.Log("I can see ur bitch ass");
-                                exposure += Time.deltaTime * seeingDetectionSpeed;
+                                exposure += Time.deltaTime / (distanceToTarget * 0.18f);
 
                                 //if (exposure == 1)
                                 //    exposure = 1;

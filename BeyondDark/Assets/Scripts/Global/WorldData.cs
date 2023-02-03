@@ -135,9 +135,9 @@ public class WorldData : MonoBehaviour
             //lastConceal.enteranceAnimator.SetTrigger("Enter");
             //yield return new WaitForSeconds(lastConceal.enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
             //playerDeathMR.SetActive(true);
-            
+            lastConceal.enteranceAnimator.SetTrigger("Enter");
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(lastConceal.enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
 
             lastConceal.ToggleConcealDeath();
             vorgonModel.SetActive(false);
