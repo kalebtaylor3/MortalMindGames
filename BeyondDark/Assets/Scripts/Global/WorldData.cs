@@ -1,7 +1,6 @@
 using MMG;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using UnityEngine;
 using static RelicSpawnManager;
 
@@ -158,6 +157,7 @@ public class WorldData : MonoBehaviour
             vorgon.playerDead = false;
             ConcelableDetection.Instance.playerDead = false;
 
+            
             //lastConceal.ExitArea();
             //yield return new WaitForSeconds(2.5f);
 
@@ -182,13 +182,20 @@ public class WorldData : MonoBehaviour
         //yield return new WaitForSeconds(1);
 
         //playerDeathMR.SetActive(false);
+        vorgon.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
         vorgonModel.SetActive(true);
         //yield return new WaitForSeconds(1);
         //fadeOut.SetActive(false);
 
         //playerCam.ResetCam();
-        lastConceal.ToggleCamChange();
-        lastConceal = null;
+
+        if(lastConceal != null)
+        {
+            lastConceal.ToggleCamChange();
+            lastConceal = null;
+        }
+        
+        
         input.canMove = true;
     }
 

@@ -59,7 +59,7 @@ public class AttackState : FSMState
             
             vorgonControl.Attack(true);
             //vorgonControl.gameObject.SetActive(false);
-            vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+            //vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
             //vorgonControl.gameObject.SetActive(true);
             vorgonControl.sawConceal = false;
             vorgonFSM.PerformTransition(Transition.PlayerLost);
@@ -71,7 +71,7 @@ public class AttackState : FSMState
         {
             vorgonControl.Attack();
             //vorgonControl.gameObject.SetActive(false);
-            vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+            //vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
             //vorgonControl.gameObject.SetActive(true);
             vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
@@ -79,7 +79,7 @@ public class AttackState : FSMState
         {
             vorgonControl.Attack(true);
             //vorgonControl.gameObject.SetActive(false);
-            vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+            
             //vorgonControl.gameObject.SetActive(true);
             vorgonFSM.PerformTransition(Transition.PlayerLost);
         }

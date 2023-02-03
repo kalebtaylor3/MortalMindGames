@@ -62,6 +62,8 @@ public class TpTest : MonoBehaviour
             //VorgonRealmPlayer.GetComponent<PlayerController>().cameraController.ResetFOV();
 
             mortalRealmPlayer.SetActive(false);
+
+            WorldData.Instance.vorgon.gameObject.SetActive(false);
             InteractionUIPanel.Instance.ResetUI();
             
             WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
@@ -78,6 +80,8 @@ public class TpTest : MonoBehaviour
             
 
             VorgonRealmPlayer.SetActive(false);
+
+            WorldData.Instance.vorgon.gameObject.SetActive(true);
             InteractionUIPanel.Instance.ResetUI();
             //RealmTransportation?.Invoke();
             WorldData.Instance.activeRealm = WorldData.REALMS.MORTAL;
