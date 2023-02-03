@@ -14,6 +14,7 @@ namespace MMG
         [SerializeField] public HiddingCameraController concelableAreaCam;
         [SerializeField] private CinemachineVirtualCamera playerCamera;
         [SerializeField] private GameObject player;
+        public PlayerController playerController;
         [SerializeField] public AudioSource doorCreak;
         [HideInInspector] public float exposurePercentage;
         private bool isHidding = false;
@@ -57,6 +58,7 @@ namespace MMG
             startRotation = rotator.transform.rotation;
 
             player = GameObject.FindGameObjectWithTag("Player");
+            playerController = player.GetComponent<PlayerController>();
 
             if (cameraClamp == clamp.Y)
                 concelableAreaCam.cam.Follow = lookAtTransform;
@@ -230,6 +232,10 @@ namespace MMG
                     //playerCameraHolder.enabled = false;
                     exposurePercentage = 0;
                     enteranceAnimator.SetTrigger("Enter");
+
+                    // Turns off kill collision
+                    playerController.ConcealEnterKillCollision(false);
+
                     StartCoroutine(WaitForEnterAnimation());
                     isHidding = true;
                     canExit = false;
@@ -300,6 +306,10 @@ namespace MMG
             enteranceAnimator.enabled = true;
             //Debug.Log("Exiting Area");
             StartCoroutine(WaitForExit());
+
+            // Turns on kill collision
+            playerController.ConcealEnterKillCollision(true);
+
             enteranceAnimator.SetTrigger("Enter");
             StartCoroutine(WaitForExitClose());
             canCreak = false;
@@ -335,7 +345,10 @@ namespace MMG
             deathCAA.SetActive(false);
             enteranceAnimator.SetTrigger("Inside");
             //yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length + 1);
-            
+
+            // Turns on kill collision
+            playerController.ConcealEnterKillCollision(true);
+
         }
 
         IEnumerator WaitForExit()

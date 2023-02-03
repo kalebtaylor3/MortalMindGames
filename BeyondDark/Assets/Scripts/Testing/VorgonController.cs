@@ -18,6 +18,7 @@ public class VorgonController : MonoBehaviour
 
     [SerializeField] public NavMeshAgent navAgent;
     [SerializeField] public PlayerController playerT;
+    [SerializeField] public GameObject PlayerKillCollision;
     [SerializeField] public VorgonDeadwoodFSM vorgonFSM;
     [SerializeField] private float stunDuration;
     [SerializeField] AudioSource alertAudioSource;

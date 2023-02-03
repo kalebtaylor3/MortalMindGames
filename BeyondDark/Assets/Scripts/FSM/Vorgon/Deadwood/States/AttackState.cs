@@ -63,11 +63,9 @@ public class AttackState : FSMState
             //vorgonControl.gameObject.SetActive(true);
             vorgonControl.sawConceal = false;
             vorgonFSM.PerformTransition(Transition.PlayerLost);
-
-            
         }
 
-        if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2) && !vorgonControl.playerT.isHiding)
+        if(vorgonControl.PlayerKillCollision.activeSelf && !vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2) && !vorgonControl.playerT.isHiding)
         {
             vorgonControl.Attack();
             //vorgonControl.gameObject.SetActive(false);
