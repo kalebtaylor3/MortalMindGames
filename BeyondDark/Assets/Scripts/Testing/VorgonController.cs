@@ -49,6 +49,7 @@ public class VorgonController : MonoBehaviour
 
     bool flashing = false;
     bool happenOnce = false;
+    public bool sawConceal = false;
 
     #endregion
 
@@ -83,6 +84,7 @@ public class VorgonController : MonoBehaviour
     private void OnEnable()
     {
         detectionOut = true;
+        sawConceal = false;
         //StealthDetection.Instance.detection = 0;
     }
 

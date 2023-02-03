@@ -128,7 +128,7 @@ public class WorldData : MonoBehaviour
     IEnumerator TriggerPlayerDeathMR()
     {
         input.canMove = false;
-
+        //lastConceal.enteranceAnimator.SetTrigger("Enter");
 
         if (lastConceal != null && player.isHiding)
         {
@@ -136,6 +136,7 @@ public class WorldData : MonoBehaviour
             //lastConceal.enteranceAnimator.SetTrigger("Enter");
             //yield return new WaitForSeconds(lastConceal.enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
             //playerDeathMR.SetActive(true);
+            
 
             yield return new WaitForSeconds(1);
 
@@ -176,10 +177,10 @@ public class WorldData : MonoBehaviour
             vorgon.playerDead = false;
         }
 
+        //lastConceal.enteranceAnimator.SetTrigger("Inside");
 
-        
         //yield return new WaitForSeconds(1);
-        
+
         //playerDeathMR.SetActive(false);
         vorgonModel.SetActive(true);
         //yield return new WaitForSeconds(1);

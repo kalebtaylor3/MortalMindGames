@@ -273,7 +273,7 @@ namespace MMG
             concelableAreaCam.cam.LookAt = lookAtTransform;
 
             //Move Player
-            player.transform.position = transform.position;
+            //player.transform.position = transform.position;
             //playerCamera.LookAt = lookAtTransform;
 
             canExit = true;

@@ -42,7 +42,7 @@ public class AttackState : FSMState
                 // If wrong section -> Seek
                 vorgonFSM.PerformTransition(Transition.WrongSection);
             }
-            else
+            else if(!vorgonControl.sawConceal)
             {
                 // -> Lost
                 vorgonFSM.PerformTransition(Transition.PlayerLost);
@@ -53,6 +53,19 @@ public class AttackState : FSMState
     public override void Act()
     {
         // Actions
+
+        if(vorgonControl.sawConceal)
+        {
+            
+            vorgonControl.Attack(true);
+            //vorgonControl.gameObject.SetActive(false);
+            vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+            //vorgonControl.gameObject.SetActive(true);
+            vorgonControl.sawConceal = false;
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
+
+            
+        }
 
         if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2) && !vorgonControl.playerT.isHiding)
         {

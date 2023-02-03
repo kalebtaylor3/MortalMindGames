@@ -34,6 +34,15 @@ public class ChaseState : FSMState
             vorgonFSM.PerformTransition(Transition.Stunned);
             
         }
+        else if (vorgonControl.playerT.isHiding)
+        {
+            // If lost player -> Close Patrol
+            vorgonControl.inChase = false;
+            vorgonControl.sawConceal = true;
+            vorgonControl.SetLastDetectedLocation(WorldData.Instance.lastConceal.searchPos.position, WorldData.Instance.lastConceal, VorgonController.EVENT_TYPE.SOUND);
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
+
+        }
         else if (!vorgonControl.PlayerInSight)
         {
             // If lost player -> Close Patrol
@@ -41,7 +50,7 @@ public class ChaseState : FSMState
             vorgonControl.SetLastDetectedLocation(vorgonControl.playerT.transform.position, null, VorgonController.EVENT_TYPE.SOUND);
             vorgonFSM.PerformTransition(Transition.PlayerLost);
             
-        }
+        }       
         else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position,2))
         {
             // Reach Player -> Attack
