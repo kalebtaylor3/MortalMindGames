@@ -343,8 +343,10 @@ namespace MMG
             input.canMove = true;
             OnLeaveSpot?.Invoke();
             deathCAA.SetActive(false);
-            enteranceAnimator.SetTrigger("Inside");
+            //enteranceAnimator.SetTrigger("Inside");
             //yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length + 1);
+
+            Rest();
 
             // Turns on kill collision
             playerController.ConcealEnterKillCollision(true);
@@ -373,6 +375,47 @@ namespace MMG
             yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length + 1);
             enteranceAnimator.SetTrigger("Inside");
 
+        }
+
+        public void Rest()
+        {
+            startcamPosition = concelableAreaCam.transform.position;
+            lookAtStartPosition = lookAtTransform.position;
+
+            concelableAreaCam.cam.LookAt = lookAtTransform;
+            startRotation = rotator.transform.rotation;
+
+            player = GameObject.FindGameObjectWithTag("Player");
+            playerController = player.GetComponent<PlayerController>();
+
+            if (cameraClamp == clamp.Y)
+                concelableAreaCam.cam.Follow = lookAtTransform;
+
+            if (cameraClamp == clamp.Z)
+                concelableAreaCam.cam.Follow = lookAtTransform;
+
+            concelableAreaCam.revealPercentage = 0;
+
+            rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+
+            enteranceAnimator.SetTrigger("Inside");
+
+            ResetRotator();
+
+            input.canMove = true;
+            happenOnce = false;
+            happenOnce = false;
+            isHidding = false;
+            OnLeaveSpot?.Invoke();
+            isHidding = false;
+            canInteract = true;
+            canExit = false;
+            canRotate = true;
+            exposurePercentage = 0;
+
+            enteranceAnimator.ResetTrigger("Enter");
+            enteranceAnimator.ResetTrigger("Inside");
+            enteranceAnimator.enabled = true;
         }
 
 

@@ -105,6 +105,12 @@ public class VorgonController : MonoBehaviour
                 detectionOut = false;
             }
         }
+
+        if(playerT.isHiding && sawConceal)
+        {
+            ConcelableDetection.Instance.exposure = 1;
+            ConcelableDetection.Instance.vorgonKnows = true;
+        }
     }
 
     public void StunVorgon()

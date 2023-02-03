@@ -35,6 +35,8 @@ public class ConcelableDetection : MonoBehaviour
     bool flashingSight = false;
     bool happenOnce = false;
 
+    public bool vorgonKnows = false;
+
     [HideInInspector] public bool playerDead = false;
 
 
@@ -119,12 +121,12 @@ public class ConcelableDetection : MonoBehaviour
 
                         if (concelableArea.rotator.transform.localRotation.y > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.x > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.z > concelableArea.maxLocalRotationValue)
                         {
-                            if (!detected)
+                            if (!detected && !vorgonKnows)
                                 hearingExposure -= Time.deltaTime * detectionSpeed;
                         }
                         else if (concelableArea.exposurePercentage <= 0)
                         {
-                            if (!detected)
+                            if (!detected && !vorgonKnows)
                                 hearingExposure -= Time.deltaTime * detectionSpeed;
                         }
                         else if (concelableArea.rotator.transform.localRotation.y > 0 || concelableArea.rotator.transform.localRotation.x > 0 || concelableArea.rotator.transform.localRotation.z > 0)
@@ -149,7 +151,7 @@ public class ConcelableDetection : MonoBehaviour
                     }
                     else
                     {
-                        if (!detected)
+                        if (!detected && !vorgonKnows)
                             hearingExposure -= Time.deltaTime * detectionSpeed;
                     }
                 }
