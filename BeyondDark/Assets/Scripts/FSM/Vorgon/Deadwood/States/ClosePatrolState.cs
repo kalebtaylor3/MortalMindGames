@@ -91,6 +91,11 @@ public class ClosePatrolState : FSMState
         {
             if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
             {
+                if(vorgonControl.sawConceal)
+                {
+                    vorgonFSM.PerformTransition(Transition.ReachedPlayer);
+                }
+
                 if(vorgonControl.SearchAnimCanPlay)
                 {
                     if (!vorgonControl.SearchAnimIsPlaying)

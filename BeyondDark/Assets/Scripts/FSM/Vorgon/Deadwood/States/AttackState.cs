@@ -42,7 +42,7 @@ public class AttackState : FSMState
                 // If wrong section -> Seek
                 vorgonFSM.PerformTransition(Transition.WrongSection);
             }
-            else
+            else if(!vorgonControl.sawConceal)
             {
                 // -> Lost
                 vorgonFSM.PerformTransition(Transition.PlayerLost);
@@ -54,13 +54,32 @@ public class AttackState : FSMState
     {
         // Actions
 
-        if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2) && !vorgonControl.playerT.isHiding)
+        if(vorgonControl.sawConceal)
+        {
+            
+            vorgonControl.Attack(true);
+            //vorgonControl.gameObject.SetActive(false);
+            //vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+            //vorgonControl.gameObject.SetActive(true);
+            vorgonControl.sawConceal = false;
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
+        }
+
+        if(vorgonControl.PlayerKillCollision.activeSelf && !vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2) && !vorgonControl.playerT.isHiding)
         {
             vorgonControl.Attack();
+            //vorgonControl.gameObject.SetActive(false);
+            //vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+            //vorgonControl.gameObject.SetActive(true);
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
         else if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 5) && vorgonControl.playerT.isHiding)
         {
             vorgonControl.Attack(true);
+            //vorgonControl.gameObject.SetActive(false);
+            
+            //vorgonControl.gameObject.SetActive(true);
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
 
         if (!vorgonControl.navAgent.isStopped)

@@ -206,7 +206,8 @@ namespace MMG
         public static event Action OnTeleport;
 
         [SerializeField] public bool isHiding = false;
-        
+
+        [SerializeField] public GameObject PlayerKillCollision;
 
         #endregion
 
@@ -614,7 +615,7 @@ namespace MMG
             {
                 if(movementInputData.IsRunning && currentSpeed >= runSpeed)
                 {
-                    staminaTest -= 0.3f * Time.deltaTime;
+                    staminaTest -= 0.15f * Time.deltaTime;
                 }
                 else if (!movementInputData.IsRunning)
                 {
@@ -949,6 +950,11 @@ namespace MMG
                     }
                 }
             }
+
+        public void ConcealEnterKillCollision(bool flag)
+        {
+            PlayerKillCollision.SetActive(flag);
+        }
 
         public void HandleRealmTransport()
         {

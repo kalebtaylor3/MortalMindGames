@@ -13,6 +13,8 @@ namespace MMG
     {
         [SerializeField] public HiddingCameraController concelableAreaCam;
         [SerializeField] private CinemachineVirtualCamera playerCamera;
+        [SerializeField] private GameObject player;
+        public PlayerController playerController;
         [SerializeField] public AudioSource doorCreak;
         [HideInInspector] public float exposurePercentage;
         private bool isHidding = false;
@@ -21,12 +23,14 @@ namespace MMG
         Vector3 lookAtStartPosition;
         Quaternion startRotation;
 
+        public GameObject deathCAA;
+
         public enum clamp { X, Y, Z };
         public clamp cameraClamp;
         [SerializeField] public float maxLocalRotationValue;
         public bool negativeRotation;
 
-        [SerializeField] Animator enteranceAnimator;
+        [SerializeField] public Animator enteranceAnimator;
         [SerializeField] public GameObject rotator;
         public float rotationSpeed = 25;
 
@@ -35,7 +39,7 @@ namespace MMG
         bool happenOnce = false;
         bool canInteract = false;
         bool canRotate = true;
-        bool canCreak = false;
+        [HideInInspector] public bool canCreak = false;
         bool canExit = false;
 
         public Transform searchPos;
@@ -52,6 +56,9 @@ namespace MMG
 
             concelableAreaCam.cam.LookAt = lookAtTransform;
             startRotation = rotator.transform.rotation;
+
+            player = GameObject.FindGameObjectWithTag("Player");
+            playerController = player.GetComponent<PlayerController>();
 
             if (cameraClamp == clamp.Y)
                 concelableAreaCam.cam.Follow = lookAtTransform;
@@ -225,6 +232,10 @@ namespace MMG
                     //playerCameraHolder.enabled = false;
                     exposurePercentage = 0;
                     enteranceAnimator.SetTrigger("Enter");
+
+                    // Turns off kill collision
+                    playerController.ConcealEnterKillCollision(false);
+
                     StartCoroutine(WaitForEnterAnimation());
                     isHidding = true;
                     canExit = false;
@@ -243,7 +254,7 @@ namespace MMG
         IEnumerator WaitForEnterAnimation()
         {
             yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
-            playerCamera.gameObject.SetActive(false);
+            playerCamera.gameObject.SetActive(false);            
             concelableAreaCam.gameObject.SetActive(true);
             StartCoroutine(WaitForCloseAnimation());
         }
@@ -266,6 +277,11 @@ namespace MMG
             happenOnce=false;
             canCreak = true;
             concelableAreaCam.cam.LookAt = lookAtTransform;
+
+            //Move Player
+            //player.transform.position = transform.position;
+            //playerCamera.LookAt = lookAtTransform;
+
             canExit = true;
             this.GetComponent<BoxCollider>().enabled = true;
             OnEnteredSpot?.Invoke();
@@ -290,14 +306,58 @@ namespace MMG
             enteranceAnimator.enabled = true;
             //Debug.Log("Exiting Area");
             StartCoroutine(WaitForExit());
+
+            // Turns on kill collision
+            playerController.ConcealEnterKillCollision(true);
+
             enteranceAnimator.SetTrigger("Enter");
             StartCoroutine(WaitForExitClose());
             canCreak = false;
         }
 
+        public void ToggleConcealDeath()
+        {
+            StartCoroutine(ToggleDeath());
+        }
+
+        public void ToggleCamChange()
+        {
+            playerCamera.gameObject.SetActive(true);
+            concelableAreaCam.gameObject.SetActive(false);
+            rotator.transform.rotation = startRotation;
+        }
+
+        IEnumerator ToggleDeath()
+        {
+            deathCAA.SetActive(true);
+            yield return new WaitForSeconds(1.5f);
+
+
+            //playerCamera.gameObject.SetActive(true);
+            //concelableAreaCam.gameObject.SetActive(false);
+
+            //WorldData.Instance.fadeOut.SetActive(true);
+            canCreak = false;
+            isHidding = false;
+            happenOnce = false;
+            input.canMove = true;
+            OnLeaveSpot?.Invoke();
+            deathCAA.SetActive(false);
+            enteranceAnimator.SetTrigger("Inside");
+            //yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length + 1);
+
+            // Turns on kill collision
+            playerController.ConcealEnterKillCollision(true);
+
+        }
+
         IEnumerator WaitForExit()
         {
             yield return new WaitForSeconds(0.9f);
+            //Move Player
+            //player.transform.position = searchPos.position;
+            //playerCamera.LookAt = lookAtTransform;
+
             playerCamera.gameObject.SetActive(true);
             concelableAreaCam.gameObject.SetActive(false);
             input.canMove = true;
@@ -312,6 +372,7 @@ namespace MMG
         {
             yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length + 1);
             enteranceAnimator.SetTrigger("Inside");
+
         }
 
 

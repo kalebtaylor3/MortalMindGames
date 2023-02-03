@@ -19,7 +19,7 @@ public class StealthDetection : MonoBehaviour
     public VorgonController vorgon;
 
     public PlayerController player; // reference to the player's transform
-    private float detection; // current detection level
+    public float detection; // current detection level
 
     private static StealthDetection instance;
 

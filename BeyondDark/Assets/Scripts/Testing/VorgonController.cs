@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.XR;
-using static UnityEditor.FilePathAttribute;
+//using static UnityEditor.FilePathAttribute;
 using UnityEngine.UI;
 using UnityEngine.ProBuilder.Shapes;
 
@@ -18,6 +18,7 @@ public class VorgonController : MonoBehaviour
 
     [SerializeField] public NavMeshAgent navAgent;
     [SerializeField] public PlayerController playerT;
+    [SerializeField] public GameObject PlayerKillCollision;
     [SerializeField] public VorgonDeadwoodFSM vorgonFSM;
     [SerializeField] private float stunDuration;
     [SerializeField] AudioSource alertAudioSource;
@@ -37,7 +38,7 @@ public class VorgonController : MonoBehaviour
 
     public Image detectionUI; // reference to the UI image on the canvas
     public CanvasGroup sightCanvas;
-    private float detection;
+    public float detection;
     public float detectionSpeed = 0.4f;
 
     private List<AudioClip>[] audioClips = new List<AudioClip>[10];
@@ -49,6 +50,7 @@ public class VorgonController : MonoBehaviour
 
     bool flashing = false;
     bool happenOnce = false;
+    public bool sawConceal = false;
 
     #endregion
 
@@ -67,12 +69,24 @@ public class VorgonController : MonoBehaviour
     [HideInInspector] public bool SearchAnimCanPlay = true;
     [HideInInspector] public bool SearchAnimIsPlaying = false;
 
+    [HideInInspector] public bool playerDead = false;
+
+    public bool detectionOut = false;
+
     #endregion
 
     private void Start()
     {
         audioClips[0] = ALERTSounds;
         audioClips[1] = GROWLSounds;
+    }
+
+
+    private void OnEnable()
+    {
+        detectionOut = true;
+        sawConceal = false;
+        //StealthDetection.Instance.detection = 0;
     }
 
     private void Update()
@@ -82,6 +96,15 @@ public class VorgonController : MonoBehaviour
         Debug.DrawRay(transform.position, transform.forward, rayColor);
         LineOfSight();
 
+        if(detectionOut)
+        {
+            detection -= Time.deltaTime * detectionSpeed;
+            if(detection <= 0)
+            {
+                detection = 0;
+                detectionOut = false;
+            }
+        }
     }
 
     public void StunVorgon()
@@ -120,11 +143,19 @@ public class VorgonController : MonoBehaviour
 
         if (detection >= 1)
         {
+
+            if (playerT.isHiding)
+            {
+                SetLastDetectedLocation(WorldData.Instance.lastConceal.searchPos.position, WorldData.Instance.lastConceal, VorgonController.EVENT_TYPE.SOUND); /// HERE
+            }
+
             detection = 1;
             if (!happenOnce)
             {
                 if (!flashing)
                 {
+                    
+
                     StartCoroutine(Flash(1));
                     happenOnce = true;
                 }
@@ -136,45 +167,47 @@ public class VorgonController : MonoBehaviour
             detectionUI.color = Color.white;
         }
 
-
-        Vector3 dir = (playerT.transform.position - transform.position).normalized;
-
-        Debug.DrawRay(transform.position, dir, Color.yellow);
-
-        Vector3 forwardV = transform.forward;
-        float angle = Vector3.Angle(dir, forwardV);
-
-        if (angle <= 45.0f && !playerT.isHiding)
+        if (!playerDead)
         {
-            float distanceToTarget = Vector3.Distance(transform.position, playerT.transform.position);
+            Vector3 dir = (playerT.transform.position - transform.position).normalized;
 
-            if (!Physics.Raycast(transform.position, dir, distanceToTarget, obstructionMask))
+            Debug.DrawRay(transform.position, dir, Color.yellow);
+
+            Vector3 forwardV = transform.forward;
+            float angle = Vector3.Angle(dir, forwardV);
+
+            if (angle <= 45.0f && !playerT.isHiding)
             {
-                detection += Time.deltaTime * detectionSpeed;
-                rayColor = Color.red;
+                float distanceToTarget = Vector3.Distance(transform.position, playerT.transform.position);
+
+                if (!Physics.Raycast(transform.position, dir, distanceToTarget, obstructionMask))
+                {
+                    detection += Time.deltaTime / (distanceToTarget * 0.18f);
+                    rayColor = Color.red;
+                }
+                else
+                {
+                    detection -= Time.deltaTime * detectionSpeed;
+                    rayColor = Color.green;
+                }
             }
             else
             {
                 detection -= Time.deltaTime * detectionSpeed;
                 rayColor = Color.green;
             }
-        }
-        else
-        {
-            detection -= Time.deltaTime * detectionSpeed;
-            rayColor = Color.green;
-        }
 
-        if (detection >= 1)
-        {
-            PlayerInSight = true;
-            canSeePlayer = true;
-        }
-        else
-        {
-            happenOnce = false;
-            canSeePlayer = false;
-            PlayerInSight = false;
+            if (detection >= 1)
+            {
+                PlayerInSight = true;
+                canSeePlayer = true;
+            }
+            else
+            {
+                happenOnce = false;
+                canSeePlayer = false;
+                PlayerInSight = false;
+            }
         }
 
         sightCanvas.alpha = Mathf.Lerp(0, 1, detection);

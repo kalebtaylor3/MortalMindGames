@@ -70,6 +70,11 @@ namespace MMG
             ConcelableAreaInteractable.OnEnteredSpot += ResetFOV;
         }
 
+        public void ResetCam()
+        {
+            WorldData.Instance.lastConceal.concelableAreaCam.enabled = false;
+        }
+
         public void ResetFOV()
         {
             if(this.gameObject.activeInHierarchy)

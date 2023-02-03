@@ -1,7 +1,6 @@
 using MMG;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using UnityEngine;
 using static RelicSpawnManager;
 
@@ -45,6 +44,10 @@ public class WorldData : MonoBehaviour
     [SerializeField] InputController input;
     [SerializeField] GameObject playerDeathMR;
     [SerializeField] GameObject vorgonModel;
+    [SerializeField] public GameObject fadeOut;
+    [SerializeField] public CameraController playerCam;
+
+    public VorgonController vorgon;
 
     // FOR AI
     [SerializeField] List<Section> sections = null;
@@ -124,25 +127,75 @@ public class WorldData : MonoBehaviour
     IEnumerator TriggerPlayerDeathMR()
     {
         input.canMove = false;
+        //lastConceal.enteranceAnimator.SetTrigger("Enter");
 
-        vorgonModel.SetActive(false);
-        playerDeathMR.SetActive(true);
-
-        
         if (lastConceal != null && player.isHiding)
         {
-            lastConceal.ExitArea();
+            //dont call exit. first check if door is open. if door is open use the animator to play the open animation. wait for lenght of animation. then set jumpscare active then wait for lenght wait for for how ever many seconds are before fade to black. Before fade to black starts switch the cameras
+            //lastConceal.enteranceAnimator.SetTrigger("Enter");
+            //yield return new WaitForSeconds(lastConceal.enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
+            //playerDeathMR.SetActive(true);
+            
+
+            yield return new WaitForSeconds(1);
+
+            lastConceal.ToggleConcealDeath();
+            vorgonModel.SetActive(false);
+            vorgon.playerDead = true;
+            vorgon.detection = 0;
+            lastConceal.canCreak = false;
+            ConcelableDetection.Instance.hearingExposure = 0;
+            ConcelableDetection.Instance.exposure = 0;
+            ConcelableDetection.Instance.playerDead = true;
+
+            yield return new WaitForSeconds(1.0f);
+            fadeOut.SetActive(true);
+            lastConceal.ToggleCamChange();
+            TpTest.Instance.MortalRealmDeath(pickUpCP);            
+            yield return new WaitForSeconds(4);
+            fadeOut.SetActive(false);
+            vorgon.playerDead = false;
+            ConcelableDetection.Instance.playerDead = false;
+
+            
+            //lastConceal.ExitArea();
+            //yield return new WaitForSeconds(2.5f);
+
+        }
+        else
+        {
+            playerDeathMR.SetActive(true);
+            vorgonModel.SetActive(false);
+            vorgon.playerDead = true;
+            vorgon.detection = 0;
+            yield return new WaitForSeconds(1);
+            TpTest.Instance.MortalRealmDeath(pickUpCP);
+            fadeOut.SetActive(true);
+            playerDeathMR.SetActive(false);
+            yield return new WaitForSeconds(1);
+            fadeOut.SetActive(false);
+            vorgon.playerDead = false;
         }
 
-        yield return new WaitForSeconds(1);
-        TpTest.Instance.MortalRealmDeath(pickUpCP);
-        yield return new WaitForSeconds(1);
-        playerDeathMR.SetActive(false);
+        //lastConceal.enteranceAnimator.SetTrigger("Inside");
+
+        //yield return new WaitForSeconds(1);
+
+        //playerDeathMR.SetActive(false);
+        vorgon.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
         vorgonModel.SetActive(true);
+        //yield return new WaitForSeconds(1);
+        //fadeOut.SetActive(false);
 
+        //playerCam.ResetCam();
+
+        if(lastConceal != null)
+        {
+            lastConceal.ToggleCamChange();
+            lastConceal = null;
+        }
         
-
-        lastConceal = null;
+        
         input.canMove = true;
     }
 
