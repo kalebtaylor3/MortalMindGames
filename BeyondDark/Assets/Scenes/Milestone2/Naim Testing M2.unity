@@ -2638,6 +2638,12 @@ Transform:
   m_Father: {fileID: 278421249}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &678869446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4953499145835600119, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1837035314}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &681008471 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3026158913526272995, guid: c634aeb9cb3dfca4cbf5b37dbdb6454a,
@@ -5109,18 +5115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0217791945a1064fbd0a34d70bdee8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1326173118 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3355022823466939473, guid: 4ee7d5f18f6370a429e5e1024be1680c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1837035314}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1326173103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0ec50a9a300a24e8db9b23ed0f0043, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1341052322
 GameObject:
   m_ObjectHideFlags: 0
@@ -7102,11 +7096,6 @@ PrefabInstance:
       propertyPath: input
       value: 
       objectReference: {fileID: 1326173107}
-    - target: {fileID: 1432220041037614963, guid: 4ee7d5f18f6370a429e5e1024be1680c,
-        type: 3}
-      propertyPath: rumbler
-      value: 
-      objectReference: {fileID: 1326173118}
     - target: {fileID: 1432220041037614963, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
       propertyPath: UiManager
@@ -9381,6 +9370,11 @@ PrefabInstance:
       propertyPath: playerDeathMR
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 713387290447941632, guid: 9f75ddd6567e3a0469e350022c6aa962,
+        type: 3}
+      propertyPath: PlayerKillCollision
+      value: 
+      objectReference: {fileID: 678869446}
     - target: {fileID: 713387290447941632, guid: 9f75ddd6567e3a0469e350022c6aa962,
         type: 3}
       propertyPath: alertSounds.Array.size
