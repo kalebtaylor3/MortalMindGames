@@ -62,7 +62,7 @@ public class AttackState : FSMState
             //vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
             //vorgonControl.gameObject.SetActive(true);
             vorgonControl.sawConceal = false;
-            vorgonFSM.PerformTransition(Transition.PlayerLost);
+            //vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
 
         if(vorgonControl.PlayerKillCollision.activeSelf && !vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2) && !vorgonControl.playerT.isHiding)
@@ -71,7 +71,7 @@ public class AttackState : FSMState
             //vorgonControl.gameObject.SetActive(false);
             //vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
             //vorgonControl.gameObject.SetActive(true);
-            vorgonFSM.PerformTransition(Transition.PlayerLost);
+            //vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
         else if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 5) && vorgonControl.playerT.isHiding)
         {
@@ -79,7 +79,7 @@ public class AttackState : FSMState
             //vorgonControl.gameObject.SetActive(false);
             
             //vorgonControl.gameObject.SetActive(true);
-            vorgonFSM.PerformTransition(Transition.PlayerLost);
+            //vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
 
         if (!vorgonControl.navAgent.isStopped)
