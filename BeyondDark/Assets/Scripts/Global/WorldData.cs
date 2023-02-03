@@ -149,6 +149,7 @@ public class WorldData : MonoBehaviour
             ConcelableDetection.Instance.playerDead = true;
 
             yield return new WaitForSeconds(1.0f);
+            ConcelableDetection.Instance.vorgonKnows = false;
             fadeOut.SetActive(true);
             lastConceal.ToggleCamChange();
             TpTest.Instance.MortalRealmDeath(pickUpCP);            
@@ -156,6 +157,10 @@ public class WorldData : MonoBehaviour
             fadeOut.SetActive(false);
             vorgon.playerDead = false;
             ConcelableDetection.Instance.playerDead = false;
+
+            lastConceal.enteranceAnimator.SetTrigger("Inside");
+
+            lastConceal.Rest();
 
             
             //lastConceal.ExitArea();

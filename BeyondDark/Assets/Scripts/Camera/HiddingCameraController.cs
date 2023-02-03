@@ -9,7 +9,7 @@ public class HiddingCameraController : MonoBehaviour
 {
     public CinemachineVirtualCamera cam;
     [SerializeField] CameraInputData inputData;
-    private float revealPercentage = 0f;
+    [HideInInspector] public float revealPercentage = 0f;
     public enum clamp { X, Y };
     public clamp cameraClamp;
 
