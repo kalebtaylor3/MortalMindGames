@@ -159,7 +159,7 @@ namespace MMG
 
             combatInputData.StartWallPlace = Gamepad.current.leftTrigger.wasPressedThisFrame;
 
-            if (combatInputData.CanCreateWall && combatInputData.StartWallPlace)
+            if (combatInputData.CanCreateWall)
                 combatInputData.CreateWall = Gamepad.current.leftTrigger.wasPressedThisFrame;
         }
 

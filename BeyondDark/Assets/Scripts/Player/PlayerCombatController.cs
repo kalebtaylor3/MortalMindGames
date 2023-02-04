@@ -1,3 +1,4 @@
+using Cinemachine;
 using MMG;
 using System;
 using System.Collections;
@@ -17,7 +18,7 @@ public class PlayerCombatController : MonoBehaviour
     public Transform LHFirePoint, RHFirepoint;
     public float projectileSpeed = 70;
     public float fireRate = 4;
-    public float wallRate = 1f;
+    public float wallRate = 8f;
     public float arcRange = 1;
 
 
@@ -27,6 +28,17 @@ public class PlayerCombatController : MonoBehaviour
     private float timeToFire;
 
     private float timeToWall;
+
+    private float placeDelay;
+    bool delayOnce = false;
+
+
+    public GameObject wallMarker;
+    private bool isInRange = false;
+    private Vector3 wallDestination;
+    private Quaternion wallRotation;
+
+    private bool activeWall = false;
 
 
 
@@ -44,7 +56,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        wallMarker.SetActive(false);
     }
 
     #region Functions
@@ -161,24 +173,65 @@ public class PlayerCombatController : MonoBehaviour
             ShootFlamesRightHand();
         }
 
-        if (combatInputData.StartWallPlace)
+        if (activeWall)
+            UpdateWallHolo();
+
+        if (!delayOnce)
         {
-            //timeToWall = Time.time + 1 / wallRate;
-            Debug.Log("wall Holo");
-            //SpawnWallOfSouls();
+            if (combatInputData.StartWallPlace)
+            {
+                placeDelay = Time.time + 1 / 2f;
+                Debug.Log("wall Holo");
+                activeWall = true;
+                wallMarker.SetActive(true);
+                delayOnce = true;
+            }
         }
 
-        if(combatInputData.CreateWall)
+        if (combatInputData.CreateWall && Time.time >= placeDelay)
         {
-            timeToWall = Time.time + 1 / wallRate;
+            timeToWall = Time.time + wallRate;
             SpawnWallOfSouls();
         }
 
     }
 
+    void UpdateWallHolo()
+    {
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit, 20))
+        {
+            isInRange = true;
+            wallDestination = hit.point;
+            wallRotation = Quaternion.LookRotation(ray.direction);
+        }
+        else
+        {
+            isInRange = false;
+        }
+
+        if(isInRange)
+        {
+            wallMarker.transform.position = wallDestination;
+            wallRotation = new Quaternion(wallMarker.transform.rotation.x, wallRotation.y, wallMarker.transform.rotation.z, wallMarker.transform.rotation.w);
+            wallMarker.transform.rotation = wallRotation;
+            wallMarker.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Invalded Placement");
+        }
+    }
+
+
     void SpawnWallOfSouls()
     {
         Debug.Log("Wall Of Souls Spawned");
+        delayOnce = false;
+        activeWall = false;
+        wallMarker.SetActive(false);
         combatInputData.StartWallPlace = false;
     }
 

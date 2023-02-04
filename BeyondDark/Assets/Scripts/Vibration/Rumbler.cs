@@ -23,6 +23,25 @@ public class Rumbler : MonoBehaviour
     private float rumbleStep;
     private bool isMotorActive = false;
 
+    private static Rumbler instance;
+
+    public static Rumbler Instance
+    {
+        get
+        {
+            if (instance == null)
+                Debug.LogError("Null");
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        instance = this;
+        _playerInput = GetComponent<PlayerInput>();
+    }
+
+
     // Public Methods
     public void RumbleConstant(float low, float high, float durration)
     {
@@ -62,13 +81,6 @@ public class Rumbler : MonoBehaviour
         {
             gamepad.SetMotorSpeeds(0, 0);
         }
-    }
-
-
-    // Unity MonoBehaviors
-    private void Awake()
-    {
-        _playerInput = GetComponent<PlayerInput>();
     }
 
     private void Update()
