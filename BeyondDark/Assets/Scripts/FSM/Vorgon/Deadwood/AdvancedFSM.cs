@@ -17,6 +17,7 @@ public enum Transition
     PlayerFound,
     PlayerDetected,
     PlayerLost,
+    AlertReached,
     ReachedPlayer,
     ReachedSection,
     Stunned,
@@ -30,6 +31,7 @@ public enum FSMStateID
     Lost,
     Patrol,
     Attack,
+    Alerted,
     ClosePatrol,
     Seek,
     Stunned
@@ -78,7 +80,7 @@ public class AdvancedFSM : FSM
         {
             if (state.ID == fsmState.ID)
             {
-                Debug.LogError("FSM ERROR: Trying to add a state that was already inside the list");
+                Debug.LogError("FSM ERROR: Trying to add a state that was already inside the list");    
                 return;
             }
         }

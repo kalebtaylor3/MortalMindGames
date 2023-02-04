@@ -5,10 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class VorgonDeadwoodFSM : AdvancedFSM
-{
-    //Adjust these as needed...
-    //public static int SLOT_DIST = 1;
-    //public static int ATTACK_DIST = 25;
+{    
     [SerializeField ] public static int CHASE_DIST = 10;
     public static int WAYPOINT_DIST = 1;
         
@@ -31,11 +28,7 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         return state;
     }
 
-    private Transform playerTransform;
-    //private GameObject[] pointList;
-    //private SlotManager playerSlotManager;
-    //private SlotManager coverSlotManager;
-    //private bool debugDraw;
+    private Transform playerTransform;    
     private VorgonController vorgonController;
 
     //// Initialize the FSM for the NPC tank.
@@ -47,17 +40,7 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         // Find the Player and init appropriate data.
         GameObject objPlayer = GameObject.FindGameObjectWithTag("Player");
         playerTransform = objPlayer.transform;
-        //playerSlotManager = objPlayer.GetComponent<SlotManager>();
-        //coverSlotManager = GameObject.FindGameObjectWithTag("CoverSlotManager").GetComponent<SlotManager>();
-        //rigBody = GetComponent<Rigidbody>();
-
-        //receivedAttackCommand = false;
-
-        // Listen to attack events
-        //AIManager.instance.startAttackEvent.AddListener(HandleStartAttackEvent);
-        //AIManager.instance.stopAttackEvent.AddListener(HandleStopAttackEvent);
-
-        // Create the FSM for the tank.
+        
         ConstructFSM();
     }
 
@@ -70,31 +53,17 @@ public class VorgonDeadwoodFSM : AdvancedFSM
             CurrentState.Act();
         }
 
-        StringState = GetStateString();
-        //if (debugDraw)
-        //{
-        //    UsefullFunctions.DebugRay(transform.position, transform.forward * 5.0f, Color.red);
-        //}
+        StringState = GetStateString();        
     }
 
     private void ConstructFSM()
     {
-        ////pointList = GameObject.FindGameObjectsWithTag("WayPoint");
-        //// Creating a waypoint transform array for each state.
-        //Transform[] waypoints = new Transform[pointList.Length];
-        //int i = 0;
-        //foreach (GameObject obj in pointList)
-        //{
-        //    waypoints[i] = obj.transform;
-        //    i++;
-        //}
-        
 
         // Chase
         ChaseState chase = new ChaseState(vorgonController);
         chase.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         chase.AddTransition(Transition.ReachedPlayer, FSMStateID.Attack);
-        chase.AddTransition(Transition.PlayerLost, FSMStateID.ClosePatrol);
+        chase.AddTransition(Transition.PlayerLost, FSMStateID.Alerted);
         chase.AddTransition(Transition.Stunned, FSMStateID.Stunned);
 
 
@@ -104,14 +73,14 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         lost.AddTransition(Transition.Stunned, FSMStateID.Stunned);
         lost.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
         lost.AddTransition(Transition.PlayerLost, FSMStateID.Patrol);
-        lost.AddTransition(Transition.PlayerDetected, FSMStateID.ClosePatrol);
+        lost.AddTransition(Transition.PlayerDetected, FSMStateID.Alerted);
 
         // Patrol
         PatrolState patrol = new PatrolState(vorgonController);
         patrol.AddTransition(Transition.WrongSection, FSMStateID.Seek);
         patrol.AddTransition(Transition.Stunned, FSMStateID.Stunned);
         patrol.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
-        patrol.AddTransition(Transition.PlayerDetected, FSMStateID.ClosePatrol);
+        patrol.AddTransition(Transition.PlayerDetected, FSMStateID.Alerted);
 
         // Attack
         AttackState attack = new AttackState(vorgonController);
@@ -120,6 +89,14 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         attack.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
         attack.AddTransition(Transition.PlayerLost, FSMStateID.Lost);
 
+        // Alerted
+        AlertedState alerted = new AlertedState(vorgonController);
+        alerted.AddTransition(Transition.Stunned, FSMStateID.Stunned);
+        alerted.AddTransition(Transition.PlayerDetected, FSMStateID.ClosePatrol);
+        alerted.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
+        alerted.AddTransition(Transition.WrongSection, FSMStateID.Seek);
+        alerted.AddTransition(Transition.ReachedPlayer, FSMStateID.Attack);
+
         // Close Patrol
         ClosePatrolState closePatrol = new ClosePatrolState(vorgonController);
         closePatrol.AddTransition(Transition.WrongSection, FSMStateID.Seek);
@@ -127,13 +104,14 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         closePatrol.AddTransition(Transition.ReachedPlayer, FSMStateID.Attack);
         closePatrol.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
         closePatrol.AddTransition(Transition.PlayerLost, FSMStateID.Lost);
+        closePatrol.AddTransition(Transition.PlayerDetected, FSMStateID.Alerted);
 
         // Seek
         SeekState seek = new SeekState(vorgonController);
         seek.AddTransition(Transition.ReachedSection, FSMStateID.Lost);
         seek.AddTransition(Transition.Stunned, FSMStateID.Stunned);
         seek.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
-        seek.AddTransition(Transition.PlayerDetected, FSMStateID.ClosePatrol);
+        seek.AddTransition(Transition.PlayerDetected, FSMStateID.Alerted);
 
         // Stunned
         StunnedState stunned = new StunnedState(vorgonController);
@@ -141,32 +119,18 @@ public class VorgonDeadwoodFSM : AdvancedFSM
         stunned.AddTransition(Transition.StunDone, FSMStateID.Lost);
         stunned.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
 
-
+        
         // Add State to FSM
         AddFSMState(patrol);
         AddFSMState(chase);
-        AddFSMState(lost);
-        
+        AddFSMState(lost);        
         AddFSMState(attack);
+        AddFSMState(alerted);
         AddFSMState(closePatrol);
         AddFSMState(seek);
         AddFSMState(stunned);
 
     }
-
-    //void HandleStartAttackEvent(int number)
-    //{
-    //    if (number == enemyControl.charID && CurrentStateID == FSMStateID.Attacking)
-    //    {
-    //        // Shoot
-    //        receivedAttackCommand = true;
-    //    }
-    //}
-
-    //void HandleStopAttackEvent()
-    //{
-    //    receivedAttackCommand = false;
-    //}
 
     private void OnEnable()
     {

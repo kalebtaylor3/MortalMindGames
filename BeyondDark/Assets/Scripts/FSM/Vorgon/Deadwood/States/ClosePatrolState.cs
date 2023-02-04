@@ -7,18 +7,18 @@ public class ClosePatrolState : FSMState
     VorgonController vorgonControl;
     VorgonDeadwoodFSM vorgonFSM;
 
-    private bool reachedLastSeen;
+    private bool reachedLastpoint;
     private int searchCount = 0;
     float range = 10;
-    private bool detectedAgain;
+    //private bool detectedAgain;
 
     public ClosePatrolState(VorgonController controller)
     {
         stateID = FSMStateID.ClosePatrol;
         vorgonControl = controller;
         vorgonFSM = controller.vorgonFSM;
-        reachedLastSeen = false;
-        detectedAgain = false;
+        reachedLastpoint = false;
+        //detectedAgain = false;
         searchCount = 0;
     }
 
@@ -27,41 +27,37 @@ public class ClosePatrolState : FSMState
         //base.EnterStateInit();
         vorgonControl.navAgent.isStopped = false;
         //vorgonControl.playerDetected = false;
-        detectedAgain = false;
-        reachedLastSeen = false;
+        //detectedAgain = false;
+        reachedLastpoint = false;
         searchCount = 0;
     }
 
     public override void Reason()
     {
         // Transitions
-
-        // If stunned -> Stun
         if (vorgonControl.stunned)
         {
-            vorgonControl.playerDetected = false;
+            // If stunned -> Stun
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
         else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
         {
-            // If wrong section -> Seek
-            vorgonControl.playerDetected = false;
+            // If wrong section -> Seek            
             vorgonFSM.PerformTransition(Transition.WrongSection);
         }
-        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight && vorgonControl.playerT.isHiding) 
+        else if (vorgonControl.playerDetected)
         {
-            vorgonFSM.PerformTransition(Transition.ReachedPlayer);
-        }
-        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight && !vorgonControl.playerT.isHiding)
+            // If player Detected (stealth system) -> Alerted
+            vorgonFSM.PerformTransition(Transition.PlayerDetected);
+        }        
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
         {
-            // If player Found -> Chase
-            vorgonControl.playerDetected = false;
+            // If player Found -> Chase            
             vorgonFSM.PerformTransition(Transition.PlayerFound);
         }
         else if (searchCount >= 5)
         {
-            //If searched 5 times -> Lost
-            vorgonControl.playerDetected = false;
+            //If searched 5 times -> Lost            
             vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
     }
@@ -69,65 +65,34 @@ public class ClosePatrolState : FSMState
     public override void Act()
     {
         // Actions
-        if(vorgonControl.playerDetected)
-        {
-            reachedLastSeen = false;
-            //vorgonControl.playerDetected = false;
-            detectedAgain = true;
-        }
 
-        if(!reachedLastSeen && !vorgonControl.SearchAnimIsPlaying)
+        if (vorgonControl.SearchAnimCanPlay)
         {
-            vorgonControl.navAgent.destination = vorgonControl.LastSeen;
-
-            if (IsInCurrentRange(vorgonControl.transform, vorgonControl.LastSeen, 1))
+            if (!vorgonControl.SearchAnimIsPlaying)
             {
-                reachedLastSeen = true;
-                vorgonControl.PlaySoundEffect(VorgonController.SOUND_TYPE.ALERT);
-                vorgonControl.playerDetected = false;
+                vorgonControl.PlaySearchAnim();
             }
         }
-        else if(reachedLastSeen && !vorgonControl.SearchAnimIsPlaying)
+        else
         {
             if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
             {
-                if(vorgonControl.sawConceal)
+                Vector3 randSearchPoint;
+                if (vorgonControl.RandomPoint(vorgonControl.LastSeen, range, out randSearchPoint)) //pass in our centre point and radius of area
                 {
-                    vorgonFSM.PerformTransition(Transition.ReachedPlayer);
+                    Debug.DrawRay(randSearchPoint, Vector3.up, Color.magenta, 1.0f); //so you can see with gizmos
+                    vorgonControl.navAgent.destination = randSearchPoint;
+                    vorgonControl.SearchAnimCanPlay = true;
+                    searchCount++;
                 }
-
-                if(vorgonControl.SearchAnimCanPlay)
-                {
-                    if (!vorgonControl.SearchAnimIsPlaying)
-                    {
-                        vorgonControl.PlaySearchAnim();
-                    }
-                }
-                else
-                {
-                    Vector3 randSearchPoint;
-                    if (vorgonControl.RandomPoint(vorgonControl.LastSeen, range, out randSearchPoint)) //pass in our centre point and radius of area
-                    {
-                        Debug.DrawRay(randSearchPoint, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
-                        vorgonControl.navAgent.destination = randSearchPoint;
-                        vorgonControl.SearchAnimCanPlay = true;
-                        searchCount++;
-                    }
-                }
-                
             }
-        }
-        else if(!reachedLastSeen && vorgonControl.SearchAnimIsPlaying && !detectedAgain)
-        {
-            vorgonControl.navAgent.isStopped = true;
-           
+
         }
 
-        if (vorgonControl.concealPos != Vector3.zero && reachedLastSeen && vorgonControl.SearchAnimIsPlaying)
-        {
-            Vector3 direction = (vorgonControl.concealPos - vorgonControl.transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            vorgonControl.transform.rotation = Quaternion.Slerp(vorgonControl.transform.rotation, lookRotation, Time.deltaTime);            
-        }
+        
+
+
+
+
     }
 }

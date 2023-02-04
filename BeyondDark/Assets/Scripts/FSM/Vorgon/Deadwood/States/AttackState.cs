@@ -54,7 +54,7 @@ public class AttackState : FSMState
     {
         // Actions
 
-        if(vorgonControl.sawConceal)
+        if ((!vorgonControl.isAttacking && vorgonControl.sawConceal) || !vorgonControl.isAttacking && vorgonControl.playerT.isHiding) 
         {
             
             vorgonControl.Attack(true);
@@ -65,7 +65,7 @@ public class AttackState : FSMState
             //vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
 
-        if(vorgonControl.PlayerKillCollision.activeSelf && !vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2) && !vorgonControl.playerT.isHiding)
+        if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 2) && !vorgonControl.playerT.isHiding)
         {
             vorgonControl.Attack();
             //vorgonControl.gameObject.SetActive(false);
@@ -73,14 +73,8 @@ public class AttackState : FSMState
             //vorgonControl.gameObject.SetActive(true);
             //vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
-        else if(!vorgonControl.isAttacking && IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 5) && vorgonControl.playerT.isHiding)
-        {
-            vorgonControl.Attack(true);
-            //vorgonControl.gameObject.SetActive(false);
-            
-            //vorgonControl.gameObject.SetActive(true);
-            //vorgonFSM.PerformTransition(Transition.PlayerLost);
-        }
+        
+        
 
         if (!vorgonControl.navAgent.isStopped)
         {
