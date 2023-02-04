@@ -17,6 +17,7 @@ namespace MMG
             [SerializeField] private InventoryInputData inventoryInputData = null;
             [SerializeField] private ItemInputData itemInputData = null;
             [SerializeField] private QuickTimeEventInputData quickTimeInputData = null;
+            [SerializeField] private CombatInputData combatInputData = null;
 
             [HideInInspector] public bool canMove = true;
             [HideInInspector] public bool canInteract = true;
@@ -71,6 +72,9 @@ namespace MMG
             GetInventoryInputData();
             GetItemInputData();
             GetQuickTimeEventInputData();
+
+            if (isVorgonCharacter)
+                GetCombatInput();
 
         }
 
@@ -136,6 +140,27 @@ namespace MMG
         {
             if (movementInputData.HasActiveItem)
                 itemInputData.UseItemClick = Input.GetMouseButtonDown(0);
+        }
+
+
+        void GetCombatInput()
+        {
+
+            if (combatInputData.IsThirdRelic)
+            {
+                if (combatInputData.CanCastFire)
+                    combatInputData.CastFire = Gamepad.current.leftTrigger.wasPressedThisFrame;
+            }
+            else
+            {
+                if (combatInputData.CanCastFire)
+                    combatInputData.CastFire = Gamepad.current.rightTrigger.wasPressedThisFrame;
+            }
+
+            combatInputData.StartWallPlace = Gamepad.current.leftTrigger.wasPressedThisFrame;
+
+            if (combatInputData.CanCreateWall && combatInputData.StartWallPlace)
+                combatInputData.CreateWall = Gamepad.current.leftTrigger.wasPressedThisFrame;
         }
 
         #endregion

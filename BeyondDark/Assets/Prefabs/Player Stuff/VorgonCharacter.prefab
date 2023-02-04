@@ -1440,6 +1440,7 @@ GameObject:
   - component: {fileID: 7875834651585816819}
   - component: {fileID: 1518623808785623219}
   - component: {fileID: 1682988298889813695}
+  - component: {fileID: 2191753472279431516}
   - component: {fileID: 1632568335691777780}
   - component: {fileID: 6908309956863632861}
   - component: {fileID: 2924305282579409172}
@@ -1662,6 +1663,7 @@ MonoBehaviour:
   rumbler: {fileID: 1449523820756433018}
   UiManager: {fileID: 0}
   isHiding: 0
+  PlayerKillCollision: {fileID: 0}
 --- !u!114 &7875834651585816819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1724,6 +1726,23 @@ MonoBehaviour:
   quickTimeInputData: {fileID: 11400000, guid: 99f7761add0fe354fb6065c02efe0d6c, type: 2}
   canMove: 1
   canInteract: 1
+--- !u!114 &2191753472279431516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3119439025166842683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c00705e821c0142819a4e15c02fd60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryInputData: {fileID: 0}
+  items: 000000
+  spellBook: {fileID: 0}
+  closeBookSource: {fileID: 0}
+  inventoryOpen: 0
 --- !u!114 &1632568335691777780
 MonoBehaviour:
   m_ObjectHideFlags: 0

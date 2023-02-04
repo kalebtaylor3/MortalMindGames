@@ -53,6 +53,8 @@ public class WorldData : MonoBehaviour
     [SerializeField] List<Section> sections = null;
     public ConcelableAreaInteractable lastConceal;
 
+    public PlayerCombatController combatInventory;
+
 
 
 
@@ -101,6 +103,25 @@ public class WorldData : MonoBehaviour
         if(type == RELIC_TYPE.MAP)
         {
             RelicSpawnManager.Instance.RelicPickedUp(go);
+        }
+
+        switch(type)
+        {
+            case RELIC_TYPE.FLAMES:
+                combatInventory.items[0] = true;
+                combatInventory.items[1] = false;
+                combatInventory.items[2] = false;
+                break;
+            case RELIC_TYPE.WALL:
+                combatInventory.items[0] = false;
+                combatInventory.items[1] = true;
+                combatInventory.items[2] = false;
+                break;
+            case RELIC_TYPE.SWORD:
+                combatInventory.items[0] = false;
+                combatInventory.items[1] = false;
+                combatInventory.items[2] = true;
+                break;
         }
     }
 
