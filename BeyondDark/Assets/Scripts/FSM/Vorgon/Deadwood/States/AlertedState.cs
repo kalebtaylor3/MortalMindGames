@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class AlertedState : FSMState
@@ -10,6 +11,7 @@ public class AlertedState : FSMState
     bool alertReached = false;
     bool detectedAgain = false;
     bool killConceal = false;
+    bool closePatrolFlag = true;
 
     public AlertedState(VorgonController controller)
     {
@@ -23,12 +25,52 @@ public class AlertedState : FSMState
         alertReached = false;
         detectedAgain = false;
         killConceal = false;
+        closePatrolFlag = true;
 
         vorgonControl.playerDetected = false;
     }
 
     public override void Reason()
     {
+        //Logic
+
+        if (vorgonControl.SearchAnimIsPlaying)
+        {
+            vorgonControl.navAgent.isStopped = true;
+        }
+        else
+        {
+            vorgonControl.navAgent.isStopped = false;
+        }
+
+
+        if (alertReached)
+        {
+            if (!vorgonControl.SearchAnimIsPlaying)
+            {
+                if (vorgonControl.sawConceal || vorgonControl.PlayerInSight)
+                {
+                    //killConceal = true;
+
+                    if(killConceal)
+                    {
+                        vorgonControl.playerDetected = false;
+                        vorgonFSM.PerformTransition(Transition.ReachedPlayer);
+                    }
+                    // If saw enter conceal and reached the conceal pos -> Attack
+                    
+                    // closePatrolFlag = false;
+                }
+                else
+                {
+                    // If point reached -> Close Patrol
+                    vorgonFSM.PerformTransition(Transition.PlayerDetected);
+                    //closePatrolFlag = true;
+                }
+            }
+
+        }
+
         // Transitions
         if (vorgonControl.stunned)
         {
@@ -36,22 +78,11 @@ public class AlertedState : FSMState
             vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
-        else if ((killConceal && vorgonControl.sawConceal && vorgonControl.playerT.isHiding) || (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 30) && vorgonControl.playerT.isHiding && vorgonControl.PlayerInSight))
-        {
-            // If saw enter conceal and reached the conceal pos -> Attack
-            vorgonControl.playerDetected = false;
-            vorgonFSM.PerformTransition(Transition.ReachedPlayer);
-        }
-        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 30) && vorgonControl.PlayerInSight)
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 30) && vorgonControl.PlayerInSight && !vorgonControl.playerT.isHiding)
         {
             // If player Found -> Chase
             vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.PlayerFound);
-        }        
-        else if (alertReached && !detectedAgain)
-        {
-            // If point reached -> Close Patrol
-            vorgonFSM.PerformTransition(Transition.PlayerDetected);
         }
         else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
         {
@@ -70,6 +101,7 @@ public class AlertedState : FSMState
             alertReached = false;
             //vorgonControl.playerDetected = false;
             detectedAgain = true;
+            //closePatrolFlag = false;
         }
 
         if (!alertReached && !vorgonControl.SearchAnimIsPlaying)
@@ -78,7 +110,6 @@ public class AlertedState : FSMState
 
             if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
             {
-
                 if (vorgonControl.SearchAnimCanPlay)
                 {
                     if (!vorgonControl.SearchAnimIsPlaying)
@@ -88,26 +119,40 @@ public class AlertedState : FSMState
                 }
 
                 alertReached = true;
+                detectedAgain = false;
                 vorgonControl.PlaySoundEffect(VorgonController.SOUND_TYPE.ALERT);
                 vorgonControl.playerDetected = false;
             }
-        }     
-        else if(alertReached && vorgonControl.sawConceal && vorgonControl.SearchAnimIsPlaying)
-        {
-            killConceal = true;
-        }
-        else if (!alertReached && vorgonControl.SearchAnimIsPlaying && !detectedAgain)
-        {
-            vorgonControl.navAgent.isStopped = true;
         }
 
-        if (vorgonControl.concealPos != Vector3.zero && alertReached && vorgonControl.SearchAnimIsPlaying)
+        if (vorgonControl.concealPos != Vector3.zero && alertReached)
         {
+            vorgonControl.navAgent.isStopped = false;
             Vector3 direction = (vorgonControl.concealPos - vorgonControl.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             vorgonControl.transform.rotation = Quaternion.Slerp(vorgonControl.transform.rotation, lookRotation, Time.deltaTime);
+
+            if (Quaternion.Angle(vorgonControl.transform.rotation, lookRotation) <= 10) 
+            {
+                killConceal = true;
+            }
         }
 
+
+        //else if (alertReached && (vorgonControl.sawConceal || vorgonControl.PlayerInSight) && !vorgonControl.SearchAnimIsPlaying)
+        //{
+        //    killConceal = true;
+        //    closePatrolFlag = false;
+        //}
+        //else if (!alertReached && vorgonControl.SearchAnimIsPlaying && !detectedAgain && !vorgonControl.playerT.isHiding)
+        //{
+        //    vorgonControl.navAgent.isStopped = true;
+        //    closePatrolFlag = true;
+        //}
+        //else if (alertReached && !vorgonControl.SearchAnimIsPlaying && vorgonControl.playerT.isHiding)
+        //{
+        //    closePatrolFlag = true;
+        //}
 
     }
 }
