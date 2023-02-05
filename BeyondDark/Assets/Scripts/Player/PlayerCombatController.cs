@@ -145,6 +145,7 @@ public class PlayerCombatController : MonoBehaviour
 
     void InstantiateProjectile(Transform firePoint)
     {
+        CameraShake.Instance.ShakeCamera();
         var projectileObj = Instantiate(projectile, firePoint.position, Quaternion.identity) as GameObject;
         projectileObj.GetComponent<Rigidbody>().velocity = (destination - firePoint.position).normalized * projectileSpeed;
         iTween.PunchPosition(projectileObj, new Vector3(UnityEngine.Random.Range(-arcRange, arcRange), UnityEngine.Random.Range(-arcRange, arcRange), 0), UnityEngine.Random.Range(0.5f, 2.0f));
