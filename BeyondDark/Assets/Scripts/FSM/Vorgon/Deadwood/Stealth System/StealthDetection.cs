@@ -50,6 +50,14 @@ public class StealthDetection : MonoBehaviour
         hearingDetectionUI.fillAmount = detection; // update the UI to match the detection level
     }
 
+    private void OnEnable()
+    {
+        StopAllCoroutines();
+        hearingDetectionUI.color = Color.white;
+        detection = 0f; // start with no detection
+        hearingDetectionUI.fillAmount = detection;
+    }
+
     private void Update()
     {
         

@@ -161,6 +161,7 @@ public class WorldData : MonoBehaviour
             lastConceal.lookAtTransform.position = lastConceal.lookAtStartPosition;
             lastConceal.doorCreak.enabled = false;
             ConcelableDetection.Instance.seeingCanvas.gameObject.SetActive(false);
+            vorgon.sightCanvas.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(1);
 
@@ -192,6 +193,7 @@ public class WorldData : MonoBehaviour
             lastConceal.Rest();
             lastConceal.doorCreak.enabled = true;
             ConcelableDetection.Instance.seeingCanvas.gameObject.SetActive(true);
+            vorgon.sightCanvas.gameObject.SetActive(true);
 
             //lastConceal.ExitArea();
             //yield return new WaitForSeconds(2.5f);
