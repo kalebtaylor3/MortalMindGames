@@ -20,7 +20,7 @@ namespace MMG
         private bool isHidding = false;
         public Transform cameraPosition;
         public Transform lookAtTransform;
-        Vector3 lookAtStartPosition;
+        [HideInInspector] public Vector3 lookAtStartPosition;
         Quaternion startRotation;
 
         public GameObject deathCAA;
@@ -71,7 +71,10 @@ namespace MMG
         {
             //set reveal % to what is returned from hiding spot camera 
 
-            exposurePercentage = concelableAreaCam.GetRevealPercentage();
+            if (canCreak)
+                exposurePercentage = concelableAreaCam.GetRevealPercentage();
+            else
+                exposurePercentage = 0;
 
             if (isHidding)
                 displayText = "Press X to Exit";
@@ -398,8 +401,6 @@ namespace MMG
 
             rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
 
-            enteranceAnimator.SetTrigger("Inside");
-
             ResetRotator();
 
             input.canMove = true;
@@ -412,9 +413,6 @@ namespace MMG
             canExit = false;
             canRotate = true;
             exposurePercentage = 0;
-
-            enteranceAnimator.ResetTrigger("Enter");
-            enteranceAnimator.ResetTrigger("Inside");
             enteranceAnimator.enabled = true;
         }
 

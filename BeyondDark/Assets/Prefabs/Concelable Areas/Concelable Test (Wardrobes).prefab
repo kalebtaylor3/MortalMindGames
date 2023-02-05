@@ -1771,7 +1771,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2091,6 +2091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 4486899958126474519}
   inputData: {fileID: 11400000, guid: 91ebd8974cbf1964f86a0e8b5e93ed5c, type: 2}
+  revealPercentage: 0
   cameraClamp: 0
 --- !u!1 &4486899958292939369
 GameObject:
@@ -2450,10 +2451,12 @@ MonoBehaviour:
   concelableAreaCam: {fileID: 4486899958126474521}
   playerCamera: {fileID: 0}
   player: {fileID: 0}
+  playerController: {fileID: 0}
   doorCreak: {fileID: 8146744313050851661}
   exposurePercentage: 0
   cameraPosition: {fileID: 2597375166718141064}
   lookAtTransform: {fileID: 3975464654848557385}
+  lookAtStartPosition: {x: 0, y: 0, z: 0}
   deathCAA: {fileID: 2577883698755099277}
   cameraClamp: 0
   maxLocalRotationValue: 0.35
@@ -2462,6 +2465,7 @@ MonoBehaviour:
   rotator: {fileID: 4486899957548985217}
   rotationSpeed: 25
   input: {fileID: 0}
+  canCreak: 0
   searchPos: {fileID: 4244283677206133971}
 --- !u!136 &4486899958458049695
 CapsuleCollider:
@@ -2533,7 +2537,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

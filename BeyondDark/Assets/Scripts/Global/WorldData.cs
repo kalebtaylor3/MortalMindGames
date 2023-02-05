@@ -157,9 +157,16 @@ public class WorldData : MonoBehaviour
             //yield return new WaitForSeconds(lastConceal.enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
             //playerDeathMR.SetActive(true);
             lastConceal.enteranceAnimator.enabled = true;
+            lastConceal.canCreak = false;
+            lastConceal.lookAtTransform.position = lastConceal.lookAtStartPosition;
+            lastConceal.doorCreak.enabled = false;
+            ConcelableDetection.Instance.seeingCanvas.gameObject.SetActive(false);
+
+            yield return new WaitForSeconds(1);
+
             lastConceal.enteranceAnimator.SetTrigger("Enter");
 
-            yield return new WaitForSeconds(lastConceal.enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
+            yield return new WaitForSeconds(2);
 
             lastConceal.ToggleConcealDeath();
             vorgonModel.SetActive(false);
@@ -183,8 +190,9 @@ public class WorldData : MonoBehaviour
             lastConceal.enteranceAnimator.SetTrigger("Inside");
 
             lastConceal.Rest();
+            lastConceal.doorCreak.enabled = true;
+            ConcelableDetection.Instance.seeingCanvas.gameObject.SetActive(true);
 
-            
             //lastConceal.ExitArea();
             //yield return new WaitForSeconds(2.5f);
 

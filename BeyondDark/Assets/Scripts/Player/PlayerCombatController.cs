@@ -203,9 +203,13 @@ public class PlayerCombatController : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit, 20))
         {
-            isInRange = true;
-            wallDestination = hit.point;
-            wallRotation = Quaternion.LookRotation(ray.direction);
+            Vector3 aimDirection = cam.transform.forward;
+
+            // Set the position of the object to be relative to the player camera
+            wallDestination = cam.transform.position + aimDirection;
+
+            // Set the rotation of the object to face the direction the player is aiming
+            transform.rotation = Quaternion.LookRotation(aimDirection);
         }
         else
         {
