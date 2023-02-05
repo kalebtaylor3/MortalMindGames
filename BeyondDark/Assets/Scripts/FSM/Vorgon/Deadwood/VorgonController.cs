@@ -235,7 +235,7 @@ public class VorgonController : MonoBehaviour
         }
         else
         {
-            yield return new WaitForSeconds(7.0f);
+            yield return new WaitForSeconds(3.0f);
         }
         
         SearchAnimCanPlay = false;
@@ -284,7 +284,7 @@ public class VorgonController : MonoBehaviour
 
                 //SearchAnimCanPlay = false;
                 SearchAnimIsPlaying = false;
-                navAgent.isStopped = false;                
+                //navAgent.isStopped = false;                
             }
             else if (type == EVENT_TYPE.SOUND)
             {
@@ -307,7 +307,10 @@ public class VorgonController : MonoBehaviour
     public void PlaySoundEffect(SOUND_TYPE type)
     {
         int rand = Random.Range(0, ALERTSounds.Count - 1);
-        alertAudioSource.PlayOneShot(audioClips[(int)type][rand]);
+        if(!alertAudioSource.isPlaying)
+        {
+            alertAudioSource.PlayOneShot(audioClips[(int)type][rand]);
+        }        
     }
 
     public bool RandomPoint(Vector3 center, float range, out Vector3 result)

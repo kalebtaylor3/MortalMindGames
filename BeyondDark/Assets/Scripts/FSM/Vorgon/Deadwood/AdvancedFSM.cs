@@ -21,7 +21,9 @@ public enum Transition
     ReachedPlayer,
     ReachedSection,
     Stunned,
-    StunDone,       
+    StunDone,
+    // Minions + playerFound, playerDetected, ReachedPlayer, playerLost
+    OnFlames
 }
 
 public enum FSMStateID
@@ -34,7 +36,10 @@ public enum FSMStateID
     Alerted,
     ClosePatrol,
     Seek,
-    Stunned
+    Stunned,
+    // Minions + attack, chase, patrol.
+    Aim,
+    Burning
 }
 
 public class AdvancedFSM : FSM
