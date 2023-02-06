@@ -40,6 +40,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private bool activeWall = false;
 
+    public LayerMask ground;
 
 
     #endregion
@@ -109,39 +110,6 @@ public class PlayerCombatController : MonoBehaviour
 
         combatInputData.CastFire = false;
     }
-    void ShootFlamesRightHand()
-    {
-        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-            destination = hit.point;
-        else
-            destination = ray.GetPoint(100000);
-
-
-        InstantiateProjectile(RHFirepoint);
-
-        combatInputData.CastFire = false;
-    }
-
-    void ShootFlamesLeftHand()
-    {
-        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-            destination = hit.point;
-        else
-            destination = ray.GetPoint(100000);
-
-
-        InstantiateProjectile(LHFirePoint);
-
-        combatInputData.CastFire = false;
-    }
-
-
 
     void InstantiateProjectile(Transform firePoint)
     {
@@ -197,20 +165,36 @@ public class PlayerCombatController : MonoBehaviour
 
     }
 
+    void ShootFlamesRightHand()
+    {
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+            destination = hit.point;
+        else
+            destination = ray.GetPoint(100000);
+
+
+        InstantiateProjectile(RHFirepoint);
+
+        combatInputData.CastFire = false;
+    }
+
+
     void UpdateWallHolo()
     {
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit, 20))
+        if(Physics.Raycast(ray, out hit, 8, ground))
         {
-            Vector3 aimDirection = cam.transform.forward;
-
             // Set the position of the object to be relative to the player camera
-            wallDestination = cam.transform.position + aimDirection;
-
+            wallDestination = hit.point;
             // Set the rotation of the object to face the direction the player is aiming
-            transform.rotation = Quaternion.LookRotation(aimDirection);
+            wallRotation = Quaternion.LookRotation(ray.direction);
+
+            isInRange = true;
         }
         else
         {
@@ -227,6 +211,7 @@ public class PlayerCombatController : MonoBehaviour
         else
         {
             Debug.Log("Invalded Placement");
+            wallMarker.SetActive(false);
         }
     }
 
@@ -246,6 +231,23 @@ public class PlayerCombatController : MonoBehaviour
 
         //need to manage switching between left hand abilities
     }
+
+    void ShootFlamesLeftHand()
+    {
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+            destination = hit.point;
+        else
+            destination = ray.GetPoint(100000);
+
+
+        InstantiateProjectile(LHFirePoint);
+
+        combatInputData.CastFire = false;
+    }
+
 
 }
     #endregion
