@@ -39,6 +39,10 @@ public class PlayerCombatController : MonoBehaviour
     private Quaternion wallRotation;
 
     private bool activeWall = false;
+    private bool buildingWall = false;
+    public int wallCubeAmount = 3;
+    public GameObject wallCube;
+    public float wallCubeDistace = 0.5f;
 
     public LayerMask ground;
 
@@ -157,11 +161,18 @@ public class PlayerCombatController : MonoBehaviour
             }
         }
 
-        if (combatInputData.CreateWall && Time.time >= placeDelay)
+        Debug.Log(wallRate);
+
+        if (combatInputData.CreateWall && Time.time >= placeDelay && !buildingWall)
         {
             timeToWall = Time.time + wallRate;
+            //display ui for delay of next wall place
             SpawnWallOfSouls();
         }
+
+        //if building wall, time is less than place delay or can create wall is false. then display ui so the play knows they cannot place a wall.
+
+        //also if temp wall is active give the player the option to cancel the wall place
 
     }
 
@@ -223,6 +234,21 @@ public class PlayerCombatController : MonoBehaviour
         activeWall = false;
         wallMarker.SetActive(false);
         combatInputData.StartWallPlace = false;
+        buildingWall = true;
+        GameObject wall = new GameObject();
+        wall.transform.position = wallDestination;
+        wall.name = "Wall of Souls";
+
+        for(int i = 0; i < wallCubeAmount; i++)
+        {
+            var cube = Instantiate(wallCube, wallDestination + new Vector3(i * wallCubeDistace, 0, 0), Quaternion.identity) as GameObject;
+            cube.transform.SetParent(wall.transform);
+        }
+
+        wall.transform.rotation = wallRotation;
+        wall.transform.Translate(new Vector3(-(int)(wallCubeAmount / 2) * wallCubeDistace, 1.5f, 0), Space.Self);
+
+        buildingWall = false;
     }
 
     void PathThree()
