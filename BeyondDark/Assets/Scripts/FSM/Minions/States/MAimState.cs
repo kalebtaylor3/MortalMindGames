@@ -51,26 +51,33 @@ public class MAimState : FSMState
     public override void Act()
     {
         // Actions
-
-        if(navAgent.isStopped == false)
-        {
-            //navAgent.isStopped = true;
-        }
         
 
         if (angleReached == false)
         {
-            navAgent.isStopped = false;
-            Vector3 direction = (playerT.position - minionController.transform.position).normalized;
+            // Minion Body Rotation
+            Vector3 direction = (playerT.position - minionController.shootPos.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             minionController.transform.rotation = Quaternion.Slerp(minionController.transform.rotation, lookRotation, Time.deltaTime);
 
-            float angle = Quaternion.Angle(minionController.transform.rotation, lookRotation);
+
+            // Minion Head Rotation
+            minionController.shootPos.rotation = Quaternion.Slerp(minionController.shootPos.rotation, lookRotation, Time.deltaTime);
+
+
+            //Vector3 target = playerT.position - minionController.shootPos.position;
+            //Vector3 Hdirection = Vector3.RotateTowards(minionController.shootPos.forward, target, 1 * Time.deltaTime, 0);
+            //minionController.shootPos.rotation = Quaternion.LookRotation(Hdirection);
+
+            Debug.DrawRay(minionController.shootPos.position, minionController.shootPos.forward, Color.magenta);
+
+            float angle = Quaternion.Angle(minionController.shootPos.rotation, lookRotation);
 
             if (angle <= 1)
             {
                 angleReached = true;
             }
+
         }
     }
 }

@@ -111,7 +111,7 @@ public class MinionController : MonoBehaviour
     {
         StartCoroutine(IsAttacking(rangedAttackDuration));
         var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
-        projectileObj.GetComponent<Rigidbody>().velocity = transform.forward * projectileSpeed;
+        projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
     }
 
 
