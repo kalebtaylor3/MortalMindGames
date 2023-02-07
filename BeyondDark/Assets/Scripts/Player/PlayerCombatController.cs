@@ -49,7 +49,7 @@ public class PlayerCombatController : MonoBehaviour
     public LayerMask ground;
 
     private float holdTime = 0;
-    private float chargeThreshold = 1;
+    public float chargeThreshold = 1;
     private bool attackButtonPressed = false;
 
     public Image chargeBarForeground;
@@ -82,6 +82,18 @@ public class PlayerCombatController : MonoBehaviour
 
         if (attackButtonPressed && holdTime >= 0.3f)
         {
+
+            if (holdTime >= chargeThreshold)
+                holdTime = chargeThreshold;
+
+            if (holdTime <= chargeThreshold || holdTime > chargeThreshold)
+            {
+                Rumbler.Instance.RumblePulse(0, (holdTime / 20), 0.1f, 0.1f);
+                CameraShake.Instance.ShakeCamera((holdTime / 13), (holdTime / 3));
+            }
+            else
+                Rumbler.Instance.StopRumble();
+
             holdTime += Time.deltaTime;
             float fillAmount = Mathf.Clamp01(holdTime / chargeThreshold);
             chargeBarForeground.fillAmount = fillAmount;
