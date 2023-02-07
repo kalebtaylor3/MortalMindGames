@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCombatController : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class PlayerCombatController : MonoBehaviour
 
 
     public Camera cam;
-    public GameObject projectile;
+    public GameObject regularProjectile;
+    public GameObject specialProjectile;
     public Transform LHFirePoint, RHFirepoint;
     public float projectileSpeed = 70;
     public float fireRate = 4;
@@ -46,6 +48,11 @@ public class PlayerCombatController : MonoBehaviour
 
     public LayerMask ground;
 
+    private float holdTime = 0;
+    private float chargeThreshold = 1;
+    private bool attackButtonPressed = false;
+
+    public Image chargeBarForeground;
 
     #endregion
 
@@ -72,12 +79,28 @@ public class PlayerCombatController : MonoBehaviour
             PathOne();
         else if (items[1] == true)
             PathTwo();
-            
+
+        if (attackButtonPressed && holdTime >= 0.3f)
+        {
+            holdTime += Time.deltaTime;
+            float fillAmount = Mathf.Clamp01(holdTime / chargeThreshold);
+            chargeBarForeground.fillAmount = fillAmount;
+
+            if (fillAmount >= 1)
+            {
+                chargeBarForeground.color = Color.red;
+            }
+        }
+        else
+        {
+            chargeBarForeground.color = Color.white;
+            chargeBarForeground.fillAmount = 0;
+        }
+
     }
 
     void PathOne()
     {
-
         combatInputData.IsThirdRelic = false;
 
         if (Time.time >= timeToFire)
@@ -87,9 +110,59 @@ public class PlayerCombatController : MonoBehaviour
 
         if (combatInputData.CastFire)
         {
-            timeToFire = Time.time + 1 / fireRate;
-            ShootFlamesTwoHanded();
+            holdTime += Time.deltaTime;
+            attackButtonPressed = true;
         }
+
+        if (!combatInputData.CastFire && attackButtonPressed)
+        {
+            attackButtonPressed = false;
+
+            if (CheckCharge())
+            {
+                timeToFire = Time.time + 1 / fireRate;
+                ShootSpecialProjectile();
+            }
+            else
+            {
+                timeToFire = Time.time + 1 / fireRate;
+                ShootFlamesTwoHanded();
+            }
+        }
+    }
+
+    bool CheckCharge()
+    {
+        if (holdTime >= chargeThreshold)
+            return true;
+        else
+            return false;
+    }
+
+    void ShootSpecialProjectile()
+    {
+        // Code for spawning the special projectile
+        Debug.Log("Shot Special");
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+            destination = hit.point;
+        else
+            destination = ray.GetPoint(100000);
+        if (leftHand)
+        {
+            leftHand = false;
+            InstantiateProjectile(LHFirePoint, specialProjectile, true);
+        }
+        else
+        {
+            leftHand = true;
+            InstantiateProjectile(RHFirepoint, specialProjectile, true);
+        }
+
+        combatInputData.CastFire = false;
+        holdTime = 0;
     }
 
     void ShootFlamesTwoHanded()
@@ -104,20 +177,24 @@ public class PlayerCombatController : MonoBehaviour
         if (leftHand)
         {
             leftHand = false;
-            InstantiateProjectile(LHFirePoint);
+            InstantiateProjectile(LHFirePoint, regularProjectile, false);
         }
         else
         {
             leftHand = true;
-            InstantiateProjectile(RHFirepoint);
+            InstantiateProjectile(RHFirepoint, regularProjectile, false);
         }
 
         combatInputData.CastFire = false;
+        holdTime = 0;
     }
 
-    void InstantiateProjectile(Transform firePoint)
+    void InstantiateProjectile(Transform firePoint, GameObject projectile, bool special)
     {
-        CameraShake.Instance.ShakeCamera();
+        if(special)
+            CameraShake.Instance.ShakeCamera(2f, 2.5f);
+        else
+            CameraShake.Instance.ShakeCamera(0.7f, 1.5f);
         var projectileObj = Instantiate(projectile, firePoint.position, Quaternion.identity) as GameObject;
         projectileObj.GetComponent<Rigidbody>().velocity = (destination - firePoint.position).normalized * projectileSpeed;
         iTween.PunchPosition(projectileObj, new Vector3(UnityEngine.Random.Range(-arcRange, arcRange), UnityEngine.Random.Range(-arcRange, arcRange), 0), UnityEngine.Random.Range(0.5f, 2.0f));
@@ -142,8 +219,24 @@ public class PlayerCombatController : MonoBehaviour
 
         if (combatInputData.CastFire)
         {
-            timeToFire = Time.time + 1 / fireRate;
-            ShootFlamesRightHand();
+            holdTime += Time.deltaTime;
+            attackButtonPressed = true;
+        }
+
+        if (!combatInputData.CastFire && attackButtonPressed)
+        {
+            attackButtonPressed = false;
+
+            if (CheckCharge())
+            {
+                timeToFire = Time.time + 1 / fireRate;
+                ShootSpecialProjectileRightHand();
+            }
+            else
+            {
+                timeToFire = Time.time + 1 / fireRate;
+                ShootFlamesRightHand();
+            }
         }
 
         if (activeWall)
@@ -187,7 +280,24 @@ public class PlayerCombatController : MonoBehaviour
             destination = ray.GetPoint(100000);
 
 
-        InstantiateProjectile(RHFirepoint);
+        InstantiateProjectile(RHFirepoint, regularProjectile, false);
+
+        combatInputData.CastFire = false;
+        holdTime = 0;
+    }
+
+    void ShootSpecialProjectileRightHand()
+    {
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+            destination = hit.point;
+        else
+            destination = ray.GetPoint(100000);
+
+
+        InstantiateProjectile(RHFirepoint, specialProjectile, true);
 
         combatInputData.CastFire = false;
     }
@@ -269,9 +379,10 @@ public class PlayerCombatController : MonoBehaviour
             destination = ray.GetPoint(100000);
 
 
-        InstantiateProjectile(LHFirePoint);
+        InstantiateProjectile(LHFirePoint, regularProjectile, false);
 
         combatInputData.CastFire = false;
+        holdTime = 0;
     }
 
 
