@@ -64,7 +64,7 @@ public class MinionFSM : AdvancedFSM
         // Patrol BOTH
         MPatrolState patrol = new MPatrolState(minionController, playerTransform, navAgent);
         patrol.AddTransition(Transition.PlayerFound, FSMStateID.Chase);     // Melee
-        patrol.AddTransition(Transition.PlayerDetected, FSMStateID.Attack); // Ranged
+        patrol.AddTransition(Transition.PlayerDetected, FSMStateID.Aim);    // Ranged
         patrol.AddTransition(Transition.OnFlames, FSMStateID.Burning);      // Both
 
         // Chase MELEE
@@ -83,14 +83,13 @@ public class MinionFSM : AdvancedFSM
         // Aim RANGED
         MAimState aim = new MAimState(minionController, playerTransform, navAgent);
         aim.AddTransition(Transition.PlayerLost, FSMStateID.Patrol);
-        aim.AddTransition(Transition.ReachedPlayer, FSMStateID.Attack);
+        aim.AddTransition(Transition.ReachedPlayer, FSMStateID.Attack);        
 
 
         // Burning MELEE
         MBurningState burning = new MBurningState(minionController, playerTransform, navAgent);
         burning.AddTransition(Transition.PlayerLost, FSMStateID.Patrol);
         burning.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
-
 
 
         // Add State to FSM

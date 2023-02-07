@@ -13,6 +13,7 @@ public class MChaseState : FSMState
     public NavMeshAgent navAgent;
 
 
+
     public MChaseState(MinionController controller, Transform player, NavMeshAgent agent)
     {
         stateID = FSMStateID.Chase;
@@ -25,18 +26,41 @@ public class MChaseState : FSMState
 
     public override void EnterStateInit()
     {
+        navAgent.isStopped = false;
     }
 
     public override void Reason()
     {
         // Transitions
 
+        if (minionController.onFire)
+        {
+            // If on Fire -> Burning
+            minionFSM.PerformTransition(Transition.OnFlames);
+        }
+
+        if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
+        {
+            // Out of range -> Patrol
+            minionFSM.PerformTransition(Transition.PlayerLost);
+        }
+
+        if(IsInCurrentRange(minionController.transform, playerT.position, 2))
+        {
+            // Reached player -> Attack
+            minionFSM.PerformTransition(Transition.ReachedPlayer);
+        }
+
+
     }
 
     public override void Act()
     {
         // Actions
-        navAgent.isStopped = false;
+        if (navAgent.isStopped == true)
+        {
+            navAgent.isStopped = false;
+        }
 
         navAgent.destination = playerT.position;
 
