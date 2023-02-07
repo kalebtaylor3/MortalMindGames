@@ -15,8 +15,10 @@ public class MAttackState : FSMState
 
     bool attacked;
 
+    int availableSlot = -1;
+    SlotManager playerSM = null;
 
-    public MAttackState(MinionController controller, Transform player, NavMeshAgent agent)
+    public MAttackState(MinionController controller, Transform player, NavMeshAgent agent, SlotManager playerSlotManager)
     {
         stateID = FSMStateID.Attack;
         minionController = controller;
@@ -24,6 +26,7 @@ public class MAttackState : FSMState
         minionType = controller.type;
         playerT = player;
         navAgent = agent;
+        playerSM = playerSlotManager;
     }
 
     public override void EnterStateInit()

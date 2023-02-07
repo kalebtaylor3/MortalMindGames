@@ -20,12 +20,13 @@ public class MBurningState : FSMState
         minionFSM = controller.minionFSM;
         minionType = controller.type;
         playerT = player;
-        navAgent = agent;
+        navAgent = agent;        
     }
 
     public override void EnterStateInit()
     {
         navAgent.isStopped = false;
+        navAgent.ResetPath();
     }
 
     public override void Reason()

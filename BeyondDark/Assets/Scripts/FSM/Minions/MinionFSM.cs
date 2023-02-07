@@ -12,6 +12,10 @@ public class MinionFSM : AdvancedFSM
     public NavMeshAgent navAgent;
     [SerializeField] string StringState;
 
+    SlotManager playerSlot = null;
+    private Transform playerTransform;
+    private MinionController minionController;
+
 
     public Transform GetPlayerTransform()
     {
@@ -26,10 +30,7 @@ public class MinionFSM : AdvancedFSM
             state = CurrentState.ToString();
         }
         return state;
-    }
-
-    private Transform playerTransform;
-    private MinionController minionController;
+    }    
 
     //// Initialize the FSM for the NPC tank.
     protected override void Initialize()
@@ -40,6 +41,7 @@ public class MinionFSM : AdvancedFSM
         // Find the Player and init appropriate data.
         GameObject objPlayer = GameObject.FindGameObjectWithTag("VorgonRealmPlayer");
         playerTransform = objPlayer.transform;
+        playerSlot = objPlayer.GetComponent<SlotManager>();
 
         navAgent = minionController.navAgent;
 
@@ -68,13 +70,13 @@ public class MinionFSM : AdvancedFSM
         patrol.AddTransition(Transition.OnFlames, FSMStateID.Burning);      // Both
 
         // Chase MELEE
-        MChaseState chase = new MChaseState(minionController, playerTransform, navAgent);
+        MChaseState chase = new MChaseState(minionController, playerTransform, navAgent, playerSlot);
         chase.AddTransition(Transition.PlayerLost, FSMStateID.Patrol);     
         chase.AddTransition(Transition.ReachedPlayer, FSMStateID.Attack); 
         chase.AddTransition(Transition.OnFlames, FSMStateID.Burning);
 
         // Attack BOTH
-        MAttackState attack = new MAttackState(minionController, playerTransform, navAgent);
+        MAttackState attack = new MAttackState(minionController, playerTransform, navAgent, playerSlot);
         attack.AddTransition(Transition.PlayerLost, FSMStateID.Patrol);     // Both
         attack.AddTransition(Transition.PlayerFound, FSMStateID.Chase);     // Melee
         attack.AddTransition(Transition.OnFlames, FSMStateID.Burning);      // Both

@@ -12,9 +12,10 @@ public class MChaseState : FSMState
     Transform playerT;
     public NavMeshAgent navAgent;
 
+    int availableSlot = -1;
+    SlotManager playerSM = null;
 
-
-    public MChaseState(MinionController controller, Transform player, NavMeshAgent agent)
+    public MChaseState(MinionController controller, Transform player, NavMeshAgent agent, SlotManager playerSlotManager)
     {
         stateID = FSMStateID.Chase;
         minionController = controller;
@@ -22,6 +23,7 @@ public class MChaseState : FSMState
         minionType = controller.type;
         playerT = player;
         navAgent = agent;
+        playerSM = playerSlotManager;
     }
 
     public override void EnterStateInit()
@@ -32,6 +34,18 @@ public class MChaseState : FSMState
     public override void Reason()
     {
         // Transitions
+        playerSM.ClearSlots(minionController.gameObject);
+        availableSlot = playerSM.ReserveSlotAroundObject(minionController.gameObject);
+
+        if (availableSlot != -1)
+        {
+            destPos = playerSM.GetSlotPosition(availableSlot);
+        }
+        else
+        {
+            navAgent.isStopped = true;
+            //destPos = Vector3.zero;
+        }
 
         if (minionController.onFire)
         {
@@ -45,7 +59,7 @@ public class MChaseState : FSMState
             minionFSM.PerformTransition(Transition.PlayerLost);
         }
 
-        if(IsInCurrentRange(minionController.transform, playerT.position, 2))
+        if(IsInCurrentRange(minionController.transform, destPos, 1))
         {
             // Reached player -> Attack
             minionFSM.PerformTransition(Transition.ReachedPlayer);
@@ -57,12 +71,12 @@ public class MChaseState : FSMState
     public override void Act()
     {
         // Actions
-        if (navAgent.isStopped == true)
+        if (navAgent.isStopped == true && availableSlot != -1)
         {
             navAgent.isStopped = false;
         }
 
-        navAgent.destination = playerT.position;
+        navAgent.destination = destPos;
 
     }
 }
