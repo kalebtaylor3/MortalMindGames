@@ -88,7 +88,7 @@ public class PlayerCombatController : MonoBehaviour
 
             if (holdTime <= chargeThreshold || holdTime > chargeThreshold)
             {
-                Rumbler.Instance.RumblePulse(0, (holdTime / 20), 0.1f, 0.1f);
+                Rumbler.Instance.RumblePulse(0, holdTime * 0.2f, 0.1f, 0.1f);
                 CameraShake.Instance.ShakeCamera((holdTime / 13), (holdTime / 3));
             }
             else
