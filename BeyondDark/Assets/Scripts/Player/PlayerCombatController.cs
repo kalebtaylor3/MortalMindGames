@@ -300,6 +300,7 @@ public class PlayerCombatController : MonoBehaviour
         InstantiateProjectile(RHFirepoint, specialProjectile, true);
 
         combatInputData.CastFire = false;
+        holdTime = 0;
     }
 
 
