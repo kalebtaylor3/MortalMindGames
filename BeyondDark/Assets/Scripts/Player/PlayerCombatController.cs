@@ -356,7 +356,7 @@ public class PlayerCombatController : MonoBehaviour
         }
 
         wall.transform.rotation = wallRotation;
-        wall.transform.Translate(new Vector3(-(int)(wallCubeAmount / 2) * wallCubeDistace, 1.5f, 0), Space.Self);
+        wall.transform.Translate(new Vector3(-(int)(wallCubeAmount / 2) * wallCubeDistace, -1.2f, 0), Space.Self);
 
         buildingWall = false;
     }
