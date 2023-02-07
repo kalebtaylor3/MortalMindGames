@@ -149,12 +149,12 @@ namespace MMG
             if (combatInputData.IsThirdRelic)
             {
                 if (combatInputData.CanCastFire)
-                    combatInputData.CastFire = Gamepad.current.leftTrigger.wasPressedThisFrame;
+                    combatInputData.CastFire = Gamepad.current.leftTrigger.isPressed;
             }
             else
             {
                 if (combatInputData.CanCastFire)
-                    combatInputData.CastFire = Gamepad.current.rightTrigger.wasPressedThisFrame;
+                    combatInputData.CastFire = Gamepad.current.rightTrigger.isPressed;
             }
 
             combatInputData.StartWallPlace = Gamepad.current.leftTrigger.wasPressedThisFrame;
