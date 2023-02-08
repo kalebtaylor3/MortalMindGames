@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerCombatController : MonoBehaviour
@@ -82,11 +83,11 @@ public class PlayerCombatController : MonoBehaviour
         else if (items[1] == true)
             PathTwo();
 
-        Mathf.Clamp(rumbleTime, -2, 0.3f);
+        Mathf.Clamp(rumbleTime, 0, 0.0001f);
 
         if (attackButtonPressed && holdTime >= 0.3f)
         {
-            rumbleTime += Time.deltaTime * 0.8f;
+            rumbleTime += Time.deltaTime;
 
             if (holdTime >= chargeThreshold)
                 holdTime = chargeThreshold;
@@ -94,9 +95,12 @@ public class PlayerCombatController : MonoBehaviour
             if (rumbleTime >= chargeThreshold)
                 rumbleTime = chargeThreshold;
 
-            if (holdTime <= chargeThreshold || holdTime > chargeThreshold)
+            if(holdTime >= chargeThreshold)
+                Rumbler.Instance.RumblePulse(0, 0.8f, 0.1f, 0.1f);
+
+            if (holdTime <= chargeThreshold)
             {
-                Rumbler.Instance.RumblePulse(-2, rumbleTime, 0.1f, 0.1f);
+                Rumbler.Instance.RumblePulse(0, 0.01f, 0.1f, 0.1f);
                 CameraShake.Instance.ShakeCamera((holdTime / 13), (holdTime / 3));
             }
             else
