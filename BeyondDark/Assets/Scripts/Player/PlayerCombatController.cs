@@ -53,9 +53,10 @@ public class PlayerCombatController : MonoBehaviour
     public float chargeThreshold = 1;
     private bool attackButtonPressed = false;
 
-    float rumbleTime = 0;
+    float rumbleTime = 0.009f;
 
     public Image chargeBarForeground;
+    bool rumbleOnce = false;
 
     #endregion
 
@@ -83,11 +84,11 @@ public class PlayerCombatController : MonoBehaviour
         else if (items[1] == true)
             PathTwo();
 
-        Mathf.Clamp(rumbleTime, 0, 0.0001f);
+        Mathf.Clamp(rumbleTime, 0.009f, 0.4f);
 
         if (attackButtonPressed && holdTime >= 0.3f)
         {
-            rumbleTime += Time.deltaTime;
+            rumbleTime += Time.deltaTime * 0.01f;
 
             if (holdTime >= chargeThreshold)
                 holdTime = chargeThreshold;
@@ -96,17 +97,21 @@ public class PlayerCombatController : MonoBehaviour
                 rumbleTime = chargeThreshold;
 
             if(holdTime >= chargeThreshold)
-                Rumbler.Instance.RumblePulse(0, 0.8f, 0.1f, 0.1f);
+                Rumbler.Instance.RumblePulse(0, 0.4f, 0.1f, 0.1f);
 
             if (holdTime <= chargeThreshold)
+                CameraShake.Instance.ShakeCamera((holdTime / 10), (holdTime / 3), chargeThreshold);
+
+            if (holdTime < chargeThreshold && !rumbleOnce)
             {
-                Rumbler.Instance.RumblePulse(0, 0.01f, 0.1f, 0.1f);
-                CameraShake.Instance.ShakeCamera((holdTime / 13), (holdTime / 3));
+                Rumbler.Instance.RumblePulse(0, rumbleTime, 0.25f, chargeThreshold);
+                rumbleOnce = true;
             }
             else
             {
                 Rumbler.Instance.StopRumble();
-                rumbleTime = 0;
+                rumbleOnce = false;
+                rumbleTime = 0.009f;
             }
 
             holdTime += Time.deltaTime;
@@ -122,7 +127,8 @@ public class PlayerCombatController : MonoBehaviour
         {
             chargeBarForeground.color = Color.white;
             chargeBarForeground.fillAmount = 0;
-            rumbleTime = 0;
+            rumbleTime = 0.009f;
+            rumbleOnce = false;
         }
 
     }
@@ -220,9 +226,9 @@ public class PlayerCombatController : MonoBehaviour
     void InstantiateProjectile(Transform firePoint, GameObject projectile, bool special)
     {
         if(special)
-            CameraShake.Instance.ShakeCamera(2f, 2.5f);
+            CameraShake.Instance.ShakeCamera(2f, 2.5f, 0.3f);
         else
-            CameraShake.Instance.ShakeCamera(0.7f, 1.5f);
+            CameraShake.Instance.ShakeCamera(0.7f, 1.5f, 0.3f);
         var projectileObj = Instantiate(projectile, firePoint.position, Quaternion.identity) as GameObject;
         projectileObj.GetComponent<Rigidbody>().velocity = (destination - firePoint.position).normalized * projectileSpeed;
         iTween.PunchPosition(projectileObj, new Vector3(UnityEngine.Random.Range(-arcRange, arcRange), UnityEngine.Random.Range(-arcRange, arcRange), 0), UnityEngine.Random.Range(0.5f, 2.0f));
@@ -268,7 +274,18 @@ public class PlayerCombatController : MonoBehaviour
         }
 
         if (activeWall)
+        {
             UpdateWallHolo();
+
+            if (combatInputData.CancelWall)
+            {
+                delayOnce = false;
+                activeWall = false;
+                wallMarker.SetActive(false);
+                combatInputData.StartWallPlace = false;
+            }
+
+        }
 
         if (!delayOnce)
         {
@@ -383,6 +400,9 @@ public class PlayerCombatController : MonoBehaviour
             var cube = Instantiate(wallCube, wallDestination + new Vector3(i * wallCubeDistace, 0, 0), Quaternion.identity) as GameObject;
             cube.transform.SetParent(wall.transform);
         }
+
+        Rumbler.Instance.RumbleConstant(0, 0.01f, 1.5f);
+        CameraShake.Instance.ShakeCamera(1.5f, 2, 1.5f);
 
         wall.transform.rotation = wallRotation;
         wall.transform.Translate(new Vector3(-(int)(wallCubeAmount / 2) * wallCubeDistace, -1.2f, 0), Space.Self);

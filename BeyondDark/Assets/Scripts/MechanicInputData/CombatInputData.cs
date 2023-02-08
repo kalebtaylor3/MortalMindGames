@@ -14,6 +14,8 @@ public class CombatInputData : ScriptableObject
 
     private bool isThirdRelic;
 
+    private bool cancelWall;
+
     public bool CastFire
     {
         get => castFire;
@@ -49,5 +51,11 @@ public class CombatInputData : ScriptableObject
         get => isThirdRelic;
         set => isThirdRelic = value;
     }
+
+    public bool CancelWall 
+    {
+        get => cancelWall; 
+        set => cancelWall = value; 
+    }    
 
 }

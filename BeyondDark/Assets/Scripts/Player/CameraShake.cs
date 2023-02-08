@@ -34,11 +34,11 @@ public class CameraShake : MonoBehaviour
         vcam = GetComponent<CinemachineVirtualCamera>();
     }
 
-    public void ShakeCamera(float amplitude, float frequency)
+    public void ShakeCamera(float amplitude, float frequency, float duration)
     {
         shakeAmplitude = amplitude;
         shakeFrequency = frequency;
-        shakeElapsedTime = shakeDuration;
+        shakeElapsedTime = duration;
     }
 
     private void Update()

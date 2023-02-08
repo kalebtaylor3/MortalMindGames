@@ -161,6 +161,9 @@ namespace MMG
 
             if (combatInputData.CanCreateWall)
                 combatInputData.CreateWall = Gamepad.current.leftTrigger.wasPressedThisFrame;
+
+            combatInputData.CancelWall = Gamepad.current.buttonNorth.wasPressedThisFrame;
+
         }
 
         #endregion
