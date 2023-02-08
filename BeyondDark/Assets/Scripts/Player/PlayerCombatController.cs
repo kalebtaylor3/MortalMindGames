@@ -414,8 +414,8 @@ public class PlayerCombatController : MonoBehaviour
             cube.transform.SetParent(wall.transform);
         }
 
-        Rumbler.Instance.RumbleConstant(0, 0.01f, 1.5f);
-        CameraShake.Instance.ShakeCamera(1.5f, 2, 1.5f);
+        Rumbler.Instance.RumbleConstant(0, 0.01f, 1.8f);
+        CameraShake.Instance.ShakeCamera(1.5f, 2, 1.8f);
 
         wall.transform.rotation = wallRotation;
         wall.transform.Translate(new Vector3(-(int)(wallCubeAmount / 2) * wallCubeDistace, -1.2f, 0), Space.Self);
