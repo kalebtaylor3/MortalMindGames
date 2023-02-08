@@ -58,6 +58,8 @@ public class PlayerCombatController : MonoBehaviour
     public Image chargeBarForeground;
     bool rumbleOnce = false;
 
+    public Image wallProgressBar;
+
     #endregion
 
     #region Events
@@ -104,7 +106,7 @@ public class PlayerCombatController : MonoBehaviour
 
             if (holdTime < chargeThreshold && !rumbleOnce)
             {
-                Rumbler.Instance.RumblePulse(0, rumbleTime, 0.25f, chargeThreshold);
+                Rumbler.Instance.RumblePulse(0, rumbleTime, 0.8f, chargeThreshold);
                 rumbleOnce = true;
             }
             else
@@ -305,7 +307,18 @@ public class PlayerCombatController : MonoBehaviour
         {
             timeToWall = Time.time + wallRate;
             //display ui for delay of next wall place
+            wallProgressBar.gameObject.SetActive(true);
             SpawnWallOfSouls();
+        }
+
+        if (wallProgressBar.gameObject.activeInHierarchy)
+        {
+            wallProgressBar.fillAmount = 1 - ((Time.time - timeToWall + wallRate) / wallRate);
+            if (wallProgressBar.fillAmount <= 0)
+            {
+                wallProgressBar.gameObject.SetActive(false);
+                wallProgressBar.fillAmount = 1;
+            }
         }
 
         //if building wall, time is less than place delay or can create wall is false. then display ui so the play knows they cannot place a wall.
