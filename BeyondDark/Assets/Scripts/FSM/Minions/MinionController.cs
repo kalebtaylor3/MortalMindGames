@@ -28,8 +28,6 @@ public class MinionController : MonoBehaviour
     [SerializeField] public float projectileSpeed;
     
 
-
-
     public bool minionDeath = false;
     public bool onFire = false;
     public float fireDamage = 1;
@@ -39,7 +37,7 @@ public class MinionController : MonoBehaviour
     public float MeleeAttackDuration = 2.0f;
 
     public bool foundWall = false;
-    public GameObject currentWall = null;    
+    public Transform currentWall = null;    
 
 
     private void OnEnable()
@@ -110,7 +108,7 @@ public class MinionController : MonoBehaviour
         }
         else if(other.CompareTag("WallOfSouls"))
         {
-            FoundWallOfSouls(other.gameObject);
+            FoundWallOfSouls(other.gameObject.GetComponent<WallHealthTEMP>().ShotPos);
         }
     }
 
@@ -149,7 +147,7 @@ public class MinionController : MonoBehaviour
         onFire = false;
     }
 
-    public void FoundWallOfSouls(GameObject wall)
+    public void FoundWallOfSouls(Transform wall)
     {
         foundWall = true;
         currentWall = wall;

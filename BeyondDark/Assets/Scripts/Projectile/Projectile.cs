@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public float damage = 5;
     public GameObject impactPrefab;
     private bool Collided;
     private void OnCollisionEnter(Collision collision)

@@ -25,7 +25,7 @@ public class MProjectile : MonoBehaviour
 
             if (collision.gameObject.CompareTag("WallOfSouls"))
             {
-                minionControl.FoundWallOfSouls(collision.gameObject);
+                minionControl.FoundWallOfSouls(collision.gameObject.GetComponent<WallHealthTEMP>().ShotPos);
             }
         }
     }
