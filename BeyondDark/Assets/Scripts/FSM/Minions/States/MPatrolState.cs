@@ -36,6 +36,12 @@ public class MPatrolState : FSMState
             minionFSM.PerformTransition(Transition.OnFlames);
         }
 
+        if(minionController.foundWall)
+        {
+            // If found wall -> Attack Wall
+            minionFSM.PerformTransition(Transition.FoundWall);
+        }
+
         // RANGED
         if(minionType == MinionController.MINION_TYPE.RANGED)
         {

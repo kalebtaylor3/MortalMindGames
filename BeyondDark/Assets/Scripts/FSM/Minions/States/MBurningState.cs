@@ -32,7 +32,13 @@ public class MBurningState : FSMState
     public override void Reason()
     {
         // Transitions
-        if(!minionController.onFire)
+        if (minionController.foundWall)
+        {
+            // If found wall -> Attack Wall
+            minionFSM.PerformTransition(Transition.FoundWall);
+        }
+
+        if (!minionController.onFire)
         {
             if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
             {

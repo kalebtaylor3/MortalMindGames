@@ -47,6 +47,12 @@ public class MChaseState : FSMState
             //destPos = Vector3.zero;
         }
 
+        if (minionController.foundWall)
+        {
+            // If found wall -> Attack Wall
+            minionFSM.PerformTransition(Transition.FoundWall);
+        }
+
         if (minionController.onFire)
         {
             // If on Fire -> Burning

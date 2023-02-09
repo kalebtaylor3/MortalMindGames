@@ -38,6 +38,9 @@ public class MinionController : MonoBehaviour
     public float rangedAttackDuration = 2.0f;
     public float MeleeAttackDuration = 2.0f;
 
+    public bool foundWall = false;
+    public GameObject currentWall = null;    
+
 
     private void OnEnable()
     {
@@ -105,6 +108,10 @@ public class MinionController : MonoBehaviour
                 ReceiveDamage(5f);
             }
         }
+        else if(other.CompareTag("WallOfSouls"))
+        {
+            FoundWallOfSouls(other.gameObject);
+        }
     }
 
     public void RangedAttack()
@@ -112,6 +119,7 @@ public class MinionController : MonoBehaviour
         StartCoroutine(IsAttacking(rangedAttackDuration));
         var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
         projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
+        projectileObj.GetComponent<MProjectile>().minionControl = this;
     }
 
 
@@ -139,6 +147,18 @@ public class MinionController : MonoBehaviour
         float rand = Random.Range(5, 15);
         yield return new WaitForSeconds(rand);
         onFire = false;
+    }
+
+    public void FoundWallOfSouls(GameObject wall)
+    {
+        foundWall = true;
+        currentWall = wall;
+    }
+
+    public void WallDeath()
+    {
+        currentWall = null;
+        foundWall = false;
     }
 
 

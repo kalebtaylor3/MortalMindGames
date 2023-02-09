@@ -36,6 +36,12 @@ public class MAimState : FSMState
     {
         // Transitions
 
+        if (minionController.foundWall)
+        {
+            // If found wall -> Attack Wall
+            minionFSM.PerformTransition(Transition.FoundWall);
+        }
+
         if (angleReached && !minionController.isAttacking)
         {
             // Anlge reached - > Attack

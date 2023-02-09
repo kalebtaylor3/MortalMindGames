@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class MProjectile : MonoBehaviour
 {
+    public float damage = 5;
     public GameObject impactPrefab;
+    public MinionController minionControl = null;
     private bool Collided;
     private void OnCollisionEnter(Collision collision)
     {
@@ -21,6 +23,10 @@ public class MProjectile : MonoBehaviour
             Destroy(impact, 2.0f);
             Destroy(gameObject);
 
+            if (collision.gameObject.CompareTag("WallOfSouls"))
+            {
+                minionControl.FoundWallOfSouls(collision.gameObject);
+            }
         }
     }
 }
