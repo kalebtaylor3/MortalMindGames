@@ -32,6 +32,7 @@ public class MinionController : MonoBehaviour
     public bool onFire = false;
     public float fireDamage = 1;
     public bool isAttacking = false;
+    public bool safe = true;
 
     public float rangedAttackDuration = 2.0f;
     public float MeleeAttackDuration = 2.0f;
@@ -87,9 +88,13 @@ public class MinionController : MonoBehaviour
 
     public void ReceiveDamage(float amount)
     {
-        
+        if (amount >= 15) 
+        {
+            safe = false;
+            StartCoroutine(OnFire());
+        }
 
-        // Lowe Health
+        // Low Health
         healthPoints = Mathf.Clamp(healthPoints - amount, 0, maxHealthPoints);
 
         HandleHP();
@@ -103,7 +108,7 @@ public class MinionController : MonoBehaviour
             {
                 //Apply DAMAGE (TEMP default to 5 for the projectile dont want to touch a work in progress)
                 SetOnFireRand();
-                ReceiveDamage(5f);
+                ReceiveDamage(other.GetComponent<Projectile>().damage);
             }
         }
         else if(other.CompareTag("WallOfSouls"))
@@ -141,10 +146,12 @@ public class MinionController : MonoBehaviour
 
     IEnumerator OnFire()
     {
+        safe = false;
         onFire = true;
         float rand = Random.Range(5, 15);
         yield return new WaitForSeconds(rand);
         onFire = false;
+        safe = true;
     }
 
     public void FoundWallOfSouls(Transform wall)

@@ -38,6 +38,12 @@ public class MBurningState : FSMState
             minionFSM.PerformTransition(Transition.FoundWall);
         }
 
+        if (!minionController.safe)
+        {
+            // If unsafe -> Run Away
+            minionFSM.PerformTransition(Transition.Unsafe);
+        }
+
         if (!minionController.onFire)
         {
             if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))

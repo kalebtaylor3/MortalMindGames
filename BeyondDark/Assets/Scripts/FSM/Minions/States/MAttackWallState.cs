@@ -35,8 +35,13 @@ public class MAttackWallState : FSMState
         // Transitions
 
         //RUNAWAY ADD
+        if (!minionController.safe)
+        {
+            // If unsafe -> Run Away
+            minionFSM.PerformTransition(Transition.Unsafe);
+        }
 
-        if(!minionController.foundWall)
+        if (!minionController.foundWall)
         {
             if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
             {

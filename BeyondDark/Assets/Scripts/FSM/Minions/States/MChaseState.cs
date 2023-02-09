@@ -53,6 +53,12 @@ public class MChaseState : FSMState
             minionFSM.PerformTransition(Transition.FoundWall);
         }
 
+        if(!minionController.safe)
+        {
+            // If unsafe -> Run Away
+            minionFSM.PerformTransition(Transition.Unsafe);
+        }
+
         if (minionController.onFire)
         {
             // If on Fire -> Burning

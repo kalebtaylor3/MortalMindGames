@@ -24,7 +24,8 @@ public enum Transition
     StunDone,
     // Minions + playerFound, playerDetected, ReachedPlayer, playerLost
     OnFlames,
-    FoundWall
+    FoundWall,
+    Unsafe
 }
 
 public enum FSMStateID
