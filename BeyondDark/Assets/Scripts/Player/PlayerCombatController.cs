@@ -435,6 +435,9 @@ public class PlayerCombatController : MonoBehaviour
 
     void PathThree()
     {
+
+        //ui needs to reset properly.
+
         combatInputData.IsThirdRelic = true;
 
         //0 being fire, 1 being wall;
@@ -545,7 +548,7 @@ public class PlayerCombatController : MonoBehaviour
 
     IEnumerator WaitForSpawn()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         swordOfVorgon.SetActive(true);
         swordAnimator.SetTrigger("Unsheathe");
     }
