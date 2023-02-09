@@ -152,6 +152,7 @@ namespace MMG
                     combatInputData.CastFire = Gamepad.current.leftTrigger.isPressed;
 
                 combatInputData.SwitchAbility = Gamepad.current.leftShoulder.wasPressedThisFrame;
+                combatInputData.SwingSword = Gamepad.current.rightTrigger.wasPressedThisFrame;
             }
             else
             {

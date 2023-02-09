@@ -65,6 +65,11 @@ public class PlayerCombatController : MonoBehaviour
     bool firstSpawn3rdPath = false;
 
     int currentMagicAbility = 0;
+    public float swingCoolDown = 2f;
+    private float nextSwingTime = 0f;
+    public static int noOfPresses = 0;
+    float lastClickedTime = 0;
+    float maxComboDelay = 1;
 
     #endregion
 
@@ -442,6 +447,8 @@ public class PlayerCombatController : MonoBehaviour
 
         //0 being fire, 1 being wall;
 
+        HandleSwordCombat();
+
         Debug.Log(currentMagicAbility);
 
         if(combatInputData.SwitchAbility)
@@ -542,8 +549,68 @@ public class PlayerCombatController : MonoBehaviour
             StartCoroutine(WaitForSpawn());
             firstSpawn3rdPath = true;
         }
+        else
+        {
+            swordOfVorgon.SetActive(true);
+        }
 
         //need to manage switching between left hand abilities
+    }
+
+    void HandleSwordCombat()
+    {
+
+
+        if (swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
+        {
+            swordAnimator.SetBool("hit1", false);
+        }
+
+        if (swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
+        {
+            swordAnimator.SetBool("hit2", false);
+        }
+
+        if (swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
+        {
+            swordAnimator.SetBool("hit3", false);
+            noOfPresses = 0;
+        }
+
+        if(Time.time - lastClickedTime > maxComboDelay)
+        {
+            noOfPresses = 0;
+        }
+        if(Time.time > nextSwingTime)
+        {
+            if (combatInputData.SwingSword)
+                OnSwing();
+        }
+
+    }
+
+    void OnSwing()
+    {
+        lastClickedTime = Time.time;
+        noOfPresses++;
+        if(noOfPresses == 1)
+        {
+            swordAnimator.SetBool("hit1", true);
+        }
+        noOfPresses = Mathf.Clamp(noOfPresses, 0, 3);
+
+        if (noOfPresses >= 2 && swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
+        {
+            swordAnimator.SetBool("hit1", false);
+            swordAnimator.SetBool("hit2", true);
+        }
+
+        if(noOfPresses >= 3 && swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
+        {
+            swordAnimator.SetBool("hit2", false);
+            swordAnimator.SetBool("hit3", true);
+        }
+
     }
 
     IEnumerator WaitForSpawn()

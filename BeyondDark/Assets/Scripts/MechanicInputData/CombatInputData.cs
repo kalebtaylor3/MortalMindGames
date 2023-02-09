@@ -18,6 +18,8 @@ public class CombatInputData : ScriptableObject
 
     private bool cancelWall;
 
+    private bool swingSword;
+
     public bool CastFire
     {
         get => castFire;
@@ -64,6 +66,12 @@ public class CombatInputData : ScriptableObject
     {
         get => switchAbility;
         set => switchAbility = value;
+    }
+
+    public bool SwingSword
+    {
+        get => swingSword;
+        set => swingSword = value;
     }
 
 }
