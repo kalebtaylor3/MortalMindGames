@@ -70,6 +70,8 @@ public class PlayerCombatController : MonoBehaviour
     public static int noOfPresses = 0;
     float lastClickedTime = 0;
     float maxComboDelay = 1;
+    public TrailRenderer swingTrail;
+    private float trailTime = 0.7f;
 
     #endregion
 
@@ -88,6 +90,7 @@ public class PlayerCombatController : MonoBehaviour
         wallMarker.SetActive(false);
         swordOfVorgon.SetActive(false);
         currentMagicAbility = 0;
+        swingTrail.enabled = false;
     }
 
     #region Functions
@@ -560,7 +563,6 @@ public class PlayerCombatController : MonoBehaviour
     void HandleSwordCombat()
     {
 
-
         if (swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
             swordAnimator.SetBool("hit1", false);
@@ -577,25 +579,38 @@ public class PlayerCombatController : MonoBehaviour
             noOfPresses = 0;
         }
 
-        if(Time.time - lastClickedTime > maxComboDelay)
+        if (Time.time - lastClickedTime > trailTime)
+        {
+            swingTrail.enabled = false;
+        }
+
+
+        if (Time.time - lastClickedTime > maxComboDelay)
         {
             noOfPresses = 0;
+            swordAnimator.SetBool("hit1", false);
+            swordAnimator.SetBool("hit2", false);
+            swordAnimator.SetBool("hit3", false);
         }
         if(Time.time > nextSwingTime)
         {
             if (combatInputData.SwingSword)
+            {
                 OnSwing();
+            }
         }
-
     }
 
     void OnSwing()
     {
         lastClickedTime = Time.time;
         noOfPresses++;
-        if(noOfPresses == 1)
+        swingTrail.enabled = true;
+        if (noOfPresses == 1)
         {
             swordAnimator.SetBool("hit1", true);
+            trailTime = 0.7f;
+            Rumbler.Instance.RumblePulse(0, 0.1f, 0.1f, 0.2f);
         }
         noOfPresses = Mathf.Clamp(noOfPresses, 0, 3);
 
@@ -603,12 +618,16 @@ public class PlayerCombatController : MonoBehaviour
         {
             swordAnimator.SetBool("hit1", false);
             swordAnimator.SetBool("hit2", true);
+            trailTime = 0.7f;
+            Rumbler.Instance.RumblePulse(0, 0.2f, 0.1f, 0.2f);
         }
 
         if(noOfPresses >= 3 && swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
             swordAnimator.SetBool("hit2", false);
             swordAnimator.SetBool("hit3", true);
+            trailTime = 1.5f;
+            Rumbler.Instance.RumbleConstant(0, 0.3f, 1.5f);
         }
 
     }
