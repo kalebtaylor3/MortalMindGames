@@ -150,6 +150,8 @@ namespace MMG
             {
                 if (combatInputData.CanCastFire)
                     combatInputData.CastFire = Gamepad.current.leftTrigger.isPressed;
+
+                combatInputData.SwitchAbility = Gamepad.current.leftShoulder.wasPressedThisFrame;
             }
             else
             {

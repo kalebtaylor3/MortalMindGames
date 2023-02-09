@@ -60,6 +60,12 @@ public class PlayerCombatController : MonoBehaviour
 
     public Image wallProgressBar;
 
+    public GameObject swordOfVorgon;
+    public Animator swordAnimator;
+    bool firstSpawn3rdPath = false;
+
+    int currentMagicAbility = 0;
+
     #endregion
 
     #region Events
@@ -75,6 +81,8 @@ public class PlayerCombatController : MonoBehaviour
     private void OnEnable()
     {
         wallMarker.SetActive(false);
+        swordOfVorgon.SetActive(false);
+        currentMagicAbility = 0;
     }
 
     #region Functions
@@ -85,6 +93,8 @@ public class PlayerCombatController : MonoBehaviour
             PathOne();
         else if (items[1] == true)
             PathTwo();
+        else if (items[2] == true)
+            PathThree();
 
         Mathf.Clamp(rumbleTime, 0.009f, 0.4f);
 
@@ -427,7 +437,117 @@ public class PlayerCombatController : MonoBehaviour
     {
         combatInputData.IsThirdRelic = true;
 
+        //0 being fire, 1 being wall;
+
+        Debug.Log(currentMagicAbility);
+
+        if(combatInputData.SwitchAbility)
+        {
+            if (currentMagicAbility == 0)
+                currentMagicAbility = 1;
+            else if (currentMagicAbility == 1)
+                currentMagicAbility = 0;
+        }
+
+        if(currentMagicAbility == 0)
+        {
+            if (Time.time >= timeToFire)
+                combatInputData.CanCastFire = true;
+            else
+                combatInputData.CanCastFire = false;
+
+            if (combatInputData.CastFire)
+            {
+                holdTime += Time.deltaTime;
+                attackButtonPressed = true;
+            }
+
+            if (!combatInputData.CastFire && attackButtonPressed)
+            {
+                attackButtonPressed = false;
+
+                if (CheckCharge())
+                {
+                    timeToFire = Time.time + 1 / fireRate;
+                    ShootSpecialProjectileLeftHand();
+                }
+                else
+                {
+                    timeToFire = Time.time + 1 / fireRate;
+                    ShootFlamesLeftHand();
+                }
+            }
+        }
+        else if(currentMagicAbility == 1)
+        {
+            if (Time.time >= timeToWall)
+                combatInputData.CanCreateWall = true;
+            else
+                combatInputData.CanCreateWall = false;
+
+            if (activeWall)
+            {
+                UpdateWallHolo();
+
+                if (combatInputData.CancelWall)
+                {
+                    delayOnce = false;
+                    activeWall = false;
+                    wallMarker.SetActive(false);
+                    combatInputData.StartWallPlace = false;
+                }
+
+            }
+
+            if (!delayOnce)
+            {
+                if (combatInputData.StartWallPlace)
+                {
+                    placeDelay = Time.time + 1 / 2f;
+                    Debug.Log("wall Holo");
+                    activeWall = true;
+                    wallMarker.SetActive(true);
+                    delayOnce = true;
+                }
+            }
+
+            if (combatInputData.CreateWall && Time.time >= placeDelay && !buildingWall)
+            {
+                timeToWall = Time.time + wallRate;
+                //display ui for delay of next wall place
+                wallProgressBar.gameObject.SetActive(true);
+                SpawnWallOfSouls();
+            }
+
+            if (wallProgressBar.gameObject.activeInHierarchy)
+            {
+                wallProgressBar.fillAmount = 1 - ((Time.time - timeToWall + wallRate) / wallRate);
+                if (wallProgressBar.fillAmount <= 0)
+                {
+                    wallProgressBar.gameObject.SetActive(false);
+                    wallProgressBar.fillAmount = 1;
+                }
+            }
+        }
+
+        //current left hand ability
+
+        //logic for sword combat
+
+        if(!firstSpawn3rdPath)
+        {
+            StartCoroutine(WaitForSpawn());
+            firstSpawn3rdPath = true;
+        }
+
         //need to manage switching between left hand abilities
+    }
+
+    IEnumerator WaitForSpawn()
+    {
+        yield return new WaitForSeconds(2);
+        swordOfVorgon.SetActive(true);
+        swordAnimator.SetTrigger("Unsheathe");
     }
 
     void ShootFlamesLeftHand()
@@ -442,6 +562,23 @@ public class PlayerCombatController : MonoBehaviour
 
 
         InstantiateProjectile(LHFirePoint, regularProjectile, false);
+
+        combatInputData.CastFire = false;
+        holdTime = 0;
+    }
+
+    void ShootSpecialProjectileLeftHand()
+    {
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+            destination = hit.point;
+        else
+            destination = ray.GetPoint(100000);
+
+
+        InstantiateProjectile(LHFirePoint, specialProjectile, true);
 
         combatInputData.CastFire = false;
         holdTime = 0;
