@@ -4884,7 +4884,7 @@ GameObject:
   - component: {fileID: 4345749600609866870}
   m_Layer: 0
   m_Name: vfxProjectileMinion
-  m_TagString: Bullet
+  m_TagString: MinionBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4947,8 +4947,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0faa09e8532af0479849e8e2590b348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 5
   impactPrefab: {fileID: 2455392716044395548, guid: a14a328a9d46ad9469cb8c16a4072253,
     type: 3}
+  minionControl: {fileID: 0}
 --- !u!1 &6827673861950669707
 GameObject:
   m_ObjectHideFlags: 0

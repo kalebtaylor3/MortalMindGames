@@ -83,7 +83,7 @@ public class MAttackWallState : FSMState
             // Minion Body Rotation
             if(!angleReached)
             {
-                Vector3 direction = (minionController.currentWall.transform.position - minionController.shootPos.position).normalized;
+                Vector3 direction = (minionController.currentWall.position - minionController.shootPos.position).normalized;
                 Quaternion lookRotation = Quaternion.LookRotation(direction);
                 minionController.transform.rotation = Quaternion.Slerp(minionController.transform.rotation, lookRotation, Time.deltaTime);
 
