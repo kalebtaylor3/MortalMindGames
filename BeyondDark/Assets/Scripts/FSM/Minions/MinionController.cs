@@ -59,6 +59,7 @@ public class MinionController : MonoBehaviour
     {
         //navAgent.destination = player.transform.position;
 
+        // BURNING
         if(onFire)
         {
             flamesParticle.SetActive(true);
@@ -68,6 +69,13 @@ public class MinionController : MonoBehaviour
         {
             flamesParticle.SetActive(false);
         }
+        
+        // Wall of Souls Detection
+        if(currentWall == false && foundWall)
+        {
+            foundWall = false;
+        }
+
     }
 
     void HandleHP()
@@ -115,7 +123,13 @@ public class MinionController : MonoBehaviour
         {
             FoundWallOfSouls(other.gameObject.GetComponent<WallHealthTEMP>().ShotPos);
         }
+        else if(other.CompareTag("MassDamage") && safe)
+        {
+            ReceiveDamage(other.GetComponent<MassDamage>().damage);
+        }
     }
+
+    
 
     public void RangedAttack()
     {

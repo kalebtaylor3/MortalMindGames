@@ -14,6 +14,11 @@ public class Projectile : MonoBehaviour
             Collided = true;
 
             var impact = Instantiate(impactPrefab, collision.contacts[0].point, Quaternion.identity) as GameObject;
+
+            if(impact.GetComponent<MassDamage>() != null)
+            {
+                impact.GetComponent<MassDamage>().damage = damage;
+            }
             
 
             Rumbler.Instance.RumbleConstant(0, 0.2f, 0.4f);

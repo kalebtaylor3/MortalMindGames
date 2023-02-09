@@ -115,7 +115,7 @@ public class MAttackWallState : FSMState
                 if(!minionController.isAttacking)
                 {
                     minionController.RangedAttack();
-                }                
+                }
             }
 
            
@@ -124,7 +124,11 @@ public class MAttackWallState : FSMState
         {
             // Call Attack (check range)
 
-            //attacked = true;
+            if(!navAgent.isStopped)
+            {
+                navAgent.isStopped = true;
+            }
+            
         }
     }
 }

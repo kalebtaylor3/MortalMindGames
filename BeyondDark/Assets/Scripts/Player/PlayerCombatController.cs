@@ -316,7 +316,7 @@ public class PlayerCombatController : MonoBehaviour
             }
         }
 
-        Debug.Log(wallRate);
+        //Debug.Log(wallRate);
 
         if (combatInputData.CreateWall && Time.time >= placeDelay && !buildingWall)
         {
