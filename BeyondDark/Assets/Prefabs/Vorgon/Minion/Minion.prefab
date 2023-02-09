@@ -5195,7 +5195,7 @@ GameObject:
   - component: {fileID: 6517060811180018889}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Minion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5451,12 +5451,13 @@ MonoBehaviour:
   type: 0
   navAgent: {fileID: 6517060811194979070}
   minionFSM: {fileID: 6517060811194979063}
-  player: {fileID: 0}
   healthPoints: 30
   maxHealthPoints: 30
   healthUI: {fileID: 6517060809745480103}
   flamesParticle: {fileID: 6517060809711138807}
   projectile: {fileID: 6264007014961518346, guid: 683ae6917a24f33449cd6472dc8da810,
+    type: 3}
+  acidProjectile: {fileID: 7378313644962461987, guid: 00dcc803067ce4c4291aa70f9af9c37f,
     type: 3}
   shootPos: {fileID: 6517060811180018894}
   projectileSpeed: 15
@@ -5464,8 +5465,11 @@ MonoBehaviour:
   onFire: 0
   fireDamage: 1
   isAttacking: 0
+  safe: 1
   rangedAttackDuration: 5
   MeleeAttackDuration: 2
+  foundWall: 0
+  currentWall: {fileID: 0}
 --- !u!114 &6517060811194979063
 MonoBehaviour:
   m_ObjectHideFlags: 0

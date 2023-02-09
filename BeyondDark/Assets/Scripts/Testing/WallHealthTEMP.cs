@@ -6,6 +6,7 @@ public class WallHealthTEMP : MonoBehaviour
 {
     public float health = 15;
     public bool alive = true;
+    
 
     public Transform ShotPos = null;
 

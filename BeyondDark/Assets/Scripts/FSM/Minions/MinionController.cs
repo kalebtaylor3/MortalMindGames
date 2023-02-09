@@ -15,7 +15,7 @@ public class MinionController : MonoBehaviour
     [SerializeField] public MINION_TYPE type;
     [SerializeField] public NavMeshAgent navAgent;
     [SerializeField] public MinionFSM minionFSM;
-    [SerializeField] public PlayerController player;
+    //[SerializeField] public PlayerController player;
 
     [SerializeField] public float healthPoints;
     [SerializeField] public float maxHealthPoints;
@@ -24,6 +24,7 @@ public class MinionController : MonoBehaviour
     [SerializeField] public Slider healthUI;
     [SerializeField] public GameObject flamesParticle;
     [SerializeField] public GameObject projectile;
+    [SerializeField] public GameObject acidProjectile;    
     [SerializeField] public Transform shootPos;
     [SerializeField] public float projectileSpeed;
     
@@ -52,6 +53,8 @@ public class MinionController : MonoBehaviour
         minionDeath = false;
         onFire = false;
         isAttacking = false;
+
+        //player = GameObject.FindGameObjectWithTag("VorgonRealmPlayer").GetComponent<player>;
     }
 
     // Update is called once per frame
@@ -129,14 +132,24 @@ public class MinionController : MonoBehaviour
         }
     }
 
-    
-
     public void RangedAttack()
     {
         StartCoroutine(IsAttacking(rangedAttackDuration));
         var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
         projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
         projectileObj.GetComponent<MProjectile>().minionControl = this;
+    }
+
+    public void RangedReposition(bool safeFlag)
+    {
+        safe = safeFlag;
+
+        if(!safe)
+        {
+            var projectileObj = Instantiate(acidProjectile, shootPos.position, Quaternion.identity) as GameObject;
+            projectileObj.GetComponent<Rigidbody>().AddForce(shootPos.up * 5, ForceMode.Impulse);
+            projectileObj.GetComponent<MProjectile>().minionControl = this;
+        }
     }
 
 

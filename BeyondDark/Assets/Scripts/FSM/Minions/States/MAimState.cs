@@ -50,13 +50,17 @@ public class MAimState : FSMState
 
         if (angleReached && !minionController.isAttacking)
         {
-            // Anlge reached - > Attack
+            // Angle reached - > Attack
             minionFSM.PerformTransition(Transition.ReachedPlayer);
         }
         else if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.RANGED_DIST))
         {
             // Out of range -> Patrol
             minionFSM.PerformTransition(Transition.PlayerLost);
+        }
+        else if(IsInCurrentRange(minionController.transform, playerT.position, 15))
+        {
+            minionController.RangedReposition(false);
         }
     }
 

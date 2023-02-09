@@ -64,6 +64,10 @@ public class MRunAwayState : FSMState
                 }
             }
         }
+        else if (!IsInCurrentRange(minionController.transform, playerT.position, 15))
+        {
+            minionController.RangedReposition(true);
+        }
     }
 
     public override void Act()
