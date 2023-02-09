@@ -42,8 +42,14 @@ public class MPatrolState : FSMState
             minionFSM.PerformTransition(Transition.FoundWall);
         }
 
+        if (!minionController.safe)
+        {
+            // If unsafe -> Run Away
+            minionFSM.PerformTransition(Transition.Unsafe);
+        }
+
         // RANGED
-        if(minionType == MinionController.MINION_TYPE.RANGED)
+        if (minionType == MinionController.MINION_TYPE.RANGED)
         {
             if(IsInCurrentRange(minionController.transform, playerT.position, minionFSM.RANGED_DIST))
             {

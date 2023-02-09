@@ -45,6 +45,12 @@ public class MAttackState : FSMState
             minionFSM.PerformTransition(Transition.FoundWall);
         }
 
+        if (!minionController.safe)
+        {
+            // If unsafe -> Run Away
+            minionFSM.PerformTransition(Transition.Unsafe);
+        }
+
         // RANGED
         if (minionType == MinionController.MINION_TYPE.RANGED)
         {
