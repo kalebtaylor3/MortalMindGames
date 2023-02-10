@@ -454,8 +454,6 @@ public class PlayerCombatController : MonoBehaviour
 
         HandleSwordCombat();
 
-        Debug.Log(currentMagicAbility);
-
         if(combatInputData.SwitchAbility)
         {
             if (currentMagicAbility == 0)
@@ -586,6 +584,10 @@ public class PlayerCombatController : MonoBehaviour
             swingTrail.enabled = false;
         }
 
+        if (swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Sword004_Chainsaw") && !swordAnimator.GetBool("hit1"))
+        {
+            SwordDamage.Instance.SetDamage(0);
+        }
 
         if (Time.time - lastClickedTime > maxComboDelay)
         {
@@ -634,6 +636,7 @@ public class PlayerCombatController : MonoBehaviour
             trailTime = 0.7f;
             Rumbler.Instance.RumbleConstant(0, 0.1f, 0.2f);
             CameraShake.Instance.ShakeCamera(0.2f, 0.5f, 0.3f);
+            SwordDamage.Instance.SetDamage(5);
         }
         noOfPresses = Mathf.Clamp(noOfPresses, 0, 3);
 
@@ -645,6 +648,7 @@ public class PlayerCombatController : MonoBehaviour
             trailTime = 0.7f;
             Rumbler.Instance.RumbleConstant(0, 0.15f, 0.2f);
             CameraShake.Instance.ShakeCamera(0.3f, 0.5f, 0.3f);
+            SwordDamage.Instance.SetDamage(10);
         }
 
         if(noOfPresses >= 3 && swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.4f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
@@ -660,7 +664,10 @@ public class PlayerCombatController : MonoBehaviour
 
     IEnumerator WaitForHit()
     {
-        yield return new WaitForSeconds(1.1f);
+
+        yield return new WaitForSeconds(0.8f);
+        SwordDamage.Instance.SetDamage(20);
+        yield return new WaitForSeconds(0.3f);
         Rumbler.Instance.RumbleConstant(0, 0.3f, 0.4f);
         CameraShake.Instance.ShakeCamera(0.4f, 1, 0.3f);
     }
