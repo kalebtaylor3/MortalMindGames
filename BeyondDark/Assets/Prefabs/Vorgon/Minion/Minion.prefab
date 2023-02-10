@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: 6517060811194979066}
   - component: {fileID: 6517060811194979067}
   - component: {fileID: 6517060811194979064}
+  - component: {fileID: 8698447265267858559}
   - component: {fileID: 6517060811194979060}
   - component: {fileID: 6517060811194979065}
   - component: {fileID: 6517060811194979070}
@@ -517,8 +518,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6517060811194979060
-BoxCollider:
+--- !u!136 &8698447265267858559
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -527,8 +528,22 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
+  m_Radius: 1
+  m_Height: 2.208325
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.1, z: 0}
+--- !u!65 &6517060811194979060
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6517060811194979068}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
+  m_Size: {x: 0, y: 0, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &6517060811194979065
 CapsuleCollider:
@@ -540,10 +555,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 1
+  m_Height: 2.208325
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!195 &6517060811194979070
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -591,6 +606,7 @@ MonoBehaviour:
     type: 3}
   shootPos: {fileID: 6517060811180018894}
   projectileSpeed: 15
+  spawning: 1
   minionDeath: 0
   onFire: 0
   fireDamage: 1

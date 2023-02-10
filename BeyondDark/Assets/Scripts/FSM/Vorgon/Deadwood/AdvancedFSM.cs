@@ -23,6 +23,7 @@ public enum Transition
     Stunned,
     StunDone,
     // Minions + playerFound, playerDetected, ReachedPlayer, playerLost
+    Spawned,
     OnFlames,
     FoundWall,
     Unsafe
@@ -40,6 +41,7 @@ public enum FSMStateID
     Seek,
     Stunned,
     // Minions + attack, chase, patrol, runaway, Attack Wall.
+    Spawning,
     Aim,
     Burning,
     RunAway,

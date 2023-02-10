@@ -63,6 +63,11 @@ public class MinionFSM : AdvancedFSM
     private void ConstructFSM()
     {
         // STATES
+
+        // Spawning 
+        MSpawningState spawning = new MSpawningState(minionController, playerTransform, navAgent);
+        spawning.AddTransition(Transition.Spawned, FSMStateID.Patrol);
+
         // Patrol BOTH
         MPatrolState patrol = new MPatrolState(minionController, playerTransform, navAgent);
         patrol.AddTransition(Transition.PlayerFound, FSMStateID.Chase);     // Melee
@@ -121,7 +126,10 @@ public class MinionFSM : AdvancedFSM
 
 
 
+
+
         // Add State to FSM
+        AddFSMState(spawning);
         AddFSMState(patrol);
         AddFSMState(chase);
         AddFSMState(attack);
