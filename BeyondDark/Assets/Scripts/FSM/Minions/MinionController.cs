@@ -27,8 +27,8 @@ public class MinionController : MonoBehaviour
     [SerializeField] public GameObject acidProjectile;    
     [SerializeField] public Transform shootPos;
     [SerializeField] public float projectileSpeed;
-    
 
+    public bool spawning = true;
     public bool minionDeath = false;
     public bool onFire = false;
     public float fireDamage = 1;
@@ -50,9 +50,13 @@ public class MinionController : MonoBehaviour
 
         healthUI.maxValue = healthPoints;
         healthUI.value = healthPoints;
+
+        spawning = true;
         minionDeath = false;
         onFire = false;
         isAttacking = false;
+
+        StartCoroutine(SpawnMinion());
 
         //player = GameObject.FindGameObjectWithTag("VorgonRealmPlayer").GetComponent<player>;
     }
@@ -79,6 +83,13 @@ public class MinionController : MonoBehaviour
             foundWall = false;
         }
 
+    }
+
+    IEnumerator SpawnMinion()
+    {
+        // Change to wait for animation
+        yield return new WaitForSeconds(3f);
+        spawning = false;
     }
 
     void HandleHP()
