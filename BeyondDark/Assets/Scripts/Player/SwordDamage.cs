@@ -45,15 +45,17 @@ public class SwordDamage : MonoBehaviour
             Ray ray = playerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 1.5f))
+            if (Physics.Raycast(ray, out hit, 1.8f))
             {
-                if (hit.collider.gameObject.tag == "Wall" && sparkOnce)
+                if (hit.collider.gameObject.tag == "Wall" && sparkOnce && currentAmountOfDamage > 0)
                 {
                     Debug.Log("Hitwall");
                     StartCoroutine(SparkDelay());
                     sparkOnce = false;
                     GameObject obj = Instantiate(sparks);
                     obj.transform.position = hit.point;
+                    obj.transform.LookAt(playerCam.transform);
+                    CameraShake.Instance.ShakeCamera(0.5f, 0.5f, 0.2f);
                 }
             }
         }
@@ -61,7 +63,7 @@ public class SwordDamage : MonoBehaviour
 
     IEnumerator SparkDelay()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.95f);
         sparkOnce = true;
     }
 
