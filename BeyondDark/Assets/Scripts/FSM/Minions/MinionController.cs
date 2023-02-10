@@ -39,7 +39,9 @@ public class MinionController : MonoBehaviour
     public float MeleeAttackDuration = 2.0f;
 
     public bool foundWall = false;
-    public Transform currentWall = null;    
+    public Transform currentWall = null;
+
+    public bool canTakeSwordDamage = true;
 
 
     private void OnEnable()
@@ -110,18 +112,21 @@ public class MinionController : MonoBehaviour
 
     public void ReceiveDamage(float amount)
     {
-        if(!spawning)
+        if (canTakeSwordDamage)
         {
-            if (amount >= 15)
+            if (!spawning)
             {
-                safe = false;
-                StartCoroutine(OnFire());
+                if (amount >= 15)
+                {
+                    safe = false;
+                    StartCoroutine(OnFire());
+                }
+
+                // Low Health
+                healthPoints = Mathf.Clamp(healthPoints - amount, 0, maxHealthPoints);
+
+                HandleHP();
             }
-
-            // Low Health
-            healthPoints = Mathf.Clamp(healthPoints - amount, 0, maxHealthPoints);
-
-            HandleHP();
         }
     }
 
