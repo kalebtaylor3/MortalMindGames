@@ -31,43 +31,52 @@ public class MRunAwayState : FSMState
     public override void Reason()
     {
         // Transitions
-        if(minionController.safe)
+        if (minionController.minionDeath)
         {
-            // RANGED
-            if (minionType == MinionController.MINION_TYPE.RANGED)
+            // Minion Death
+            minionFSM.PerformTransition(Transition.MinionDeath);
+        }
+        else
+        {
+            if (minionController.safe)
             {
-                if (IsInCurrentRange(minionController.transform, playerT.position, minionFSM.RANGED_DIST))
+                // RANGED
+                if (minionType == MinionController.MINION_TYPE.RANGED)
                 {
-                    // If on chase range -> Aim
-                    minionFSM.PerformTransition(Transition.PlayerDetected);
-                }
+                    if (IsInCurrentRange(minionController.transform, playerT.position, minionFSM.RANGED_DIST))
+                    {
+                        // If on chase range -> Aim
+                        minionFSM.PerformTransition(Transition.PlayerDetected);
+                    }
 
-                if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.RANGED_DIST))
+                    if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.RANGED_DIST))
+                    {
+                        // Out of range -> Patrol
+                        minionFSM.PerformTransition(Transition.PlayerLost);
+                    }
+                }
+                //MELEE
+                else if (minionType == MinionController.MINION_TYPE.MELEE)
                 {
-                    // Out of range -> Patrol
-                    minionFSM.PerformTransition(Transition.PlayerLost);
+                    if (IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
+                    {
+                        // If on chase range -> Chase
+                        minionFSM.PerformTransition(Transition.PlayerFound);
+                    }
+
+                    if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
+                    {
+                        // Out of range -> Patrol
+                        minionFSM.PerformTransition(Transition.PlayerLost);
+                    }
                 }
             }
-            //MELEE
-            else if (minionType == MinionController.MINION_TYPE.MELEE)
+            else if (!IsInCurrentRange(minionController.transform, playerT.position, 15))
             {
-                if (IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
-                {
-                    // If on chase range -> Chase
-                    minionFSM.PerformTransition(Transition.PlayerFound);
-                }
-
-                if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
-                {
-                    // Out of range -> Patrol
-                    minionFSM.PerformTransition(Transition.PlayerLost);
-                }
+                minionController.RangedReposition(true);
             }
         }
-        else if (!IsInCurrentRange(minionController.transform, playerT.position, 15))
-        {
-            minionController.RangedReposition(true);
-        }
+        
     }
 
     public override void Act()

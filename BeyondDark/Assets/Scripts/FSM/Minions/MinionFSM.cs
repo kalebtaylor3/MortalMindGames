@@ -64,7 +64,7 @@ public class MinionFSM : AdvancedFSM
     {
         // STATES
 
-        // Spawning 
+        // Spawning BOTH
         MSpawningState spawning = new MSpawningState(minionController, playerTransform, navAgent);
         spawning.AddTransition(Transition.Spawned, FSMStateID.Patrol);
 
@@ -75,6 +75,7 @@ public class MinionFSM : AdvancedFSM
         patrol.AddTransition(Transition.OnFlames, FSMStateID.Burning);      // Both
         patrol.AddTransition(Transition.FoundWall, FSMStateID.AttackWall);  // Both
         patrol.AddTransition(Transition.Unsafe, FSMStateID.RunAway);        // Both
+        patrol.AddTransition(Transition.MinionDeath, FSMStateID.Dead);        // Both
 
         // Chase MELEE
         MChaseState chase = new MChaseState(minionController, playerTransform, navAgent, playerSlot);
@@ -82,7 +83,8 @@ public class MinionFSM : AdvancedFSM
         chase.AddTransition(Transition.ReachedPlayer, FSMStateID.Attack); 
         chase.AddTransition(Transition.OnFlames, FSMStateID.Burning);
         chase.AddTransition(Transition.FoundWall, FSMStateID.AttackWall);
-        chase.AddTransition(Transition.Unsafe, FSMStateID.RunAway);        // Both
+        chase.AddTransition(Transition.Unsafe, FSMStateID.RunAway);
+        chase.AddTransition(Transition.MinionDeath, FSMStateID.Dead);
 
         // Attack BOTH
         MAttackState attack = new MAttackState(minionController, playerTransform, navAgent, playerSlot);
@@ -92,13 +94,15 @@ public class MinionFSM : AdvancedFSM
         attack.AddTransition(Transition.PlayerDetected, FSMStateID.Aim);    // Ranged
         attack.AddTransition(Transition.FoundWall, FSMStateID.AttackWall);  // Both
         attack.AddTransition(Transition.Unsafe, FSMStateID.RunAway);        // Both
+        attack.AddTransition(Transition.MinionDeath, FSMStateID.Dead);        // Both
 
         // Aim RANGED
         MAimState aim = new MAimState(minionController, playerTransform, navAgent);
         aim.AddTransition(Transition.PlayerLost, FSMStateID.Patrol);
         aim.AddTransition(Transition.ReachedPlayer, FSMStateID.Attack);
         aim.AddTransition(Transition.FoundWall, FSMStateID.AttackWall);
-        aim.AddTransition(Transition.Unsafe, FSMStateID.RunAway);        
+        aim.AddTransition(Transition.Unsafe, FSMStateID.RunAway);
+        aim.AddTransition(Transition.MinionDeath, FSMStateID.Dead);
 
 
         // Burning MELEE
@@ -106,7 +110,8 @@ public class MinionFSM : AdvancedFSM
         burning.AddTransition(Transition.PlayerLost, FSMStateID.Patrol);
         burning.AddTransition(Transition.PlayerFound, FSMStateID.Chase);
         burning.AddTransition(Transition.FoundWall, FSMStateID.AttackWall);
-        burning.AddTransition(Transition.Unsafe, FSMStateID.RunAway);        
+        burning.AddTransition(Transition.Unsafe, FSMStateID.RunAway);
+        burning.AddTransition(Transition.MinionDeath, FSMStateID.Dead);
 
         // Attack Wall BOTH
         MAttackWallState attackWall = new MAttackWallState(minionController, playerTransform, navAgent);
@@ -115,6 +120,7 @@ public class MinionFSM : AdvancedFSM
         attackWall.AddTransition(Transition.OnFlames, FSMStateID.Burning);      // Both
         attackWall.AddTransition(Transition.PlayerDetected, FSMStateID.Aim);    // Ranged
         attackWall.AddTransition(Transition.Unsafe, FSMStateID.RunAway);        // Both
+        attackWall.AddTransition(Transition.MinionDeath, FSMStateID.Dead);            // Both
 
         // Run Away BOTH
         MRunAwayState runAway = new MRunAwayState(minionController, playerTransform, navAgent);
@@ -122,6 +128,11 @@ public class MinionFSM : AdvancedFSM
         runAway.AddTransition(Transition.PlayerFound, FSMStateID.Chase);     // Melee
         runAway.AddTransition(Transition.OnFlames, FSMStateID.Burning);      // Both
         runAway.AddTransition(Transition.PlayerDetected, FSMStateID.Aim);    // Ranged
+        runAway.AddTransition(Transition.MinionDeath, FSMStateID.Dead);      // Both
+
+        // Dead BOTH
+        MDeadState dead = new MDeadState(minionController, playerTransform, navAgent);
+        
 
 
 
@@ -137,6 +148,7 @@ public class MinionFSM : AdvancedFSM
         AddFSMState(burning);
         AddFSMState(attackWall);
         AddFSMState(runAway);
+        AddFSMState(dead);
     }
 
     private void OnEnable()

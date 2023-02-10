@@ -30,40 +30,49 @@ public class MPatrolState : FSMState
     public override void Reason()
     {
         // Transitions
-        if(minionController.onFire)
-        {
-            // If on Fire -> Burning
-            minionFSM.PerformTransition(Transition.OnFlames);
-        }
 
-        if(minionController.foundWall)
+        if (minionController.minionDeath)
         {
-            // If found wall -> Attack Wall
-            minionFSM.PerformTransition(Transition.FoundWall);
+            // Minion Death
+            minionFSM.PerformTransition(Transition.MinionDeath);
         }
-
-        if (!minionController.safe)
+        else
         {
-            // If unsafe -> Run Away
-            minionFSM.PerformTransition(Transition.Unsafe);
-        }
-
-        // RANGED
-        if (minionType == MinionController.MINION_TYPE.RANGED)
-        {
-            if(IsInCurrentRange(minionController.transform, playerT.position, minionFSM.RANGED_DIST))
+            if (minionController.onFire)
             {
-                // If on chase range -> Aim
-                minionFSM.PerformTransition(Transition.PlayerDetected);
+                // If on Fire -> Burning
+                minionFSM.PerformTransition(Transition.OnFlames);
             }
-        }
-        //MELEE
-        else if(minionType == MinionController.MINION_TYPE.MELEE)
-        {
-            if (IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
+
+            if (minionController.foundWall)
             {
-                // If on chase range -> Chase
-                minionFSM.PerformTransition(Transition.PlayerFound);
+                // If found wall -> Attack Wall
+                minionFSM.PerformTransition(Transition.FoundWall);
+            }
+
+            if (!minionController.safe)
+            {
+                // If unsafe -> Run Away
+                minionFSM.PerformTransition(Transition.Unsafe);
+            }
+
+            // RANGED
+            if (minionType == MinionController.MINION_TYPE.RANGED)
+            {
+                if (IsInCurrentRange(minionController.transform, playerT.position, minionFSM.RANGED_DIST))
+                {
+                    // If on chase range -> Aim
+                    minionFSM.PerformTransition(Transition.PlayerDetected);
+                }
+            }
+            //MELEE
+            else if (minionType == MinionController.MINION_TYPE.MELEE)
+            {
+                if (IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
+                {
+                    // If on chase range -> Chase
+                    minionFSM.PerformTransition(Transition.PlayerFound);
+                }
             }
         }
     }

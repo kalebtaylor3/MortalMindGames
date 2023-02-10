@@ -83,6 +83,7 @@ public class MinionController : MonoBehaviour
             foundWall = false;
         }
 
+        // 
     }
 
     IEnumerator SpawnMinion()
@@ -98,8 +99,7 @@ public class MinionController : MonoBehaviour
         if (healthPoints <= 0)
         {
             healthPoints = 0;
-            minionDeath = true;
-            
+            minionDeath = true;            
 
             //CHANGE TO COROUTINE FOR ANIMATION
             Destroy(gameObject, 1.5f);
@@ -110,16 +110,19 @@ public class MinionController : MonoBehaviour
 
     public void ReceiveDamage(float amount)
     {
-        if (amount >= 15) 
+        if(!spawning)
         {
-            safe = false;
-            StartCoroutine(OnFire());
+            if (amount >= 15)
+            {
+                safe = false;
+                StartCoroutine(OnFire());
+            }
+
+            // Low Health
+            healthPoints = Mathf.Clamp(healthPoints - amount, 0, maxHealthPoints);
+
+            HandleHP();
         }
-
-        // Low Health
-        healthPoints = Mathf.Clamp(healthPoints - amount, 0, maxHealthPoints);
-
-        HandleHP();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -184,8 +187,12 @@ public class MinionController : MonoBehaviour
 
     IEnumerator OnFire()
     {
+        if(!safe)
+        {
+            onFire = true;
+        }
         safe = false;
-        onFire = true;
+        
         float rand = Random.Range(5, 15);
         yield return new WaitForSeconds(rand);
         onFire = false;

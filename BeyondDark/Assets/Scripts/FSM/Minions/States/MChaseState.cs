@@ -47,37 +47,43 @@ public class MChaseState : FSMState
             //destPos = Vector3.zero;
         }
 
-        if (minionController.foundWall)
+        if (minionController.minionDeath)
         {
-            // If found wall -> Attack Wall
-            minionFSM.PerformTransition(Transition.FoundWall);
+            // Minion Death
+            minionFSM.PerformTransition(Transition.MinionDeath);
         }
-
-        if(!minionController.safe)
+        else
         {
-            // If unsafe -> Run Away
-            minionFSM.PerformTransition(Transition.Unsafe);
+            if (minionController.foundWall)
+            {
+                // If found wall -> Attack Wall
+                minionFSM.PerformTransition(Transition.FoundWall);
+            }
+
+            if (!minionController.safe)
+            {
+                // If unsafe -> Run Away
+                minionFSM.PerformTransition(Transition.Unsafe);
+            }
+
+            if (minionController.onFire)
+            {
+                // If on Fire -> Burning
+                minionFSM.PerformTransition(Transition.OnFlames);
+            }
+
+            if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
+            {
+                // Out of range -> Patrol
+                minionFSM.PerformTransition(Transition.PlayerLost);
+            }
+
+            if (IsInCurrentRange(minionController.transform, destPos, 1))
+            {
+                // Reached player -> Attack
+                minionFSM.PerformTransition(Transition.ReachedPlayer);
+            }
         }
-
-        if (minionController.onFire)
-        {
-            // If on Fire -> Burning
-            minionFSM.PerformTransition(Transition.OnFlames);
-        }
-
-        if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
-        {
-            // Out of range -> Patrol
-            minionFSM.PerformTransition(Transition.PlayerLost);
-        }
-
-        if(IsInCurrentRange(minionController.transform, destPos, 1))
-        {
-            // Reached player -> Attack
-            minionFSM.PerformTransition(Transition.ReachedPlayer);
-        }
-
-
     }
 
     public override void Act()

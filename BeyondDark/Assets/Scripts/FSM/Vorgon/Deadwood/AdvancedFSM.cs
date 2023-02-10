@@ -26,7 +26,8 @@ public enum Transition
     Spawned,
     OnFlames,
     FoundWall,
-    Unsafe
+    Unsafe,
+    MinionDeath
 }
 
 public enum FSMStateID
@@ -45,7 +46,8 @@ public enum FSMStateID
     Aim,
     Burning,
     RunAway,
-    AttackWall
+    AttackWall,
+    Dead
 }
 
 public class AdvancedFSM : FSM
@@ -144,7 +146,7 @@ public class AdvancedFSM : FSM
         FSMStateID id = currentState.GetOutputState(trans);
         if (id == FSMStateID.None)
         {
-            Debug.LogError("FSM ERROR: Current State does not have a target state for this transition");
+            Debug.LogError("FSM ERROR: Current State does not have a target state for this transition" + id + " " + currentStateID + " " + trans);
             return;
         }
 

@@ -36,6 +36,12 @@ public class MAimState : FSMState
     {
         // Transitions
 
+        if(minionController.minionDeath)
+        {
+            // Minion Death
+            minionFSM.PerformTransition(Transition.MinionDeath);
+        }
+
         if (minionController.foundWall)
         {
             // If found wall -> Attack Wall

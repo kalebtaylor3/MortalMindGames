@@ -32,30 +32,39 @@ public class MBurningState : FSMState
     public override void Reason()
     {
         // Transitions
-        if (minionController.foundWall)
-        {
-            // If found wall -> Attack Wall
-            minionFSM.PerformTransition(Transition.FoundWall);
-        }
 
-        if (!minionController.safe)
+        if (minionController.minionDeath)
         {
-            // If unsafe -> Run Away
-            minionFSM.PerformTransition(Transition.Unsafe);
+            // Minion Death
+            minionFSM.PerformTransition(Transition.MinionDeath);
         }
-
-        if (!minionController.onFire)
+        else
         {
-            if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
+            if (minionController.foundWall)
             {
-                // Out of range -> Patrol
-                minionFSM.PerformTransition(Transition.PlayerLost);
+                // If found wall -> Attack Wall
+                minionFSM.PerformTransition(Transition.FoundWall);
             }
 
-            if (IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
+            if (!minionController.safe)
             {
-                // If on chase range -> Chase
-                minionFSM.PerformTransition(Transition.PlayerFound);
+                // If unsafe -> Run Away
+                minionFSM.PerformTransition(Transition.Unsafe);
+            }
+
+            if (!minionController.onFire)
+            {
+                if (!IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
+                {
+                    // Out of range -> Patrol
+                    minionFSM.PerformTransition(Transition.PlayerLost);
+                }
+
+                if (IsInCurrentRange(minionController.transform, playerT.position, minionFSM.CHASE_DIST))
+                {
+                    // If on chase range -> Chase
+                    minionFSM.PerformTransition(Transition.PlayerFound);
+                }
             }
         }
     }

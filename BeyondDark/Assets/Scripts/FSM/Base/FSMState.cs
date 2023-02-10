@@ -88,7 +88,7 @@ public abstract class FSMState
             return map[trans];
         }
 
-        Debug.LogError("FSMState ERROR: " + trans + " Transition passed to the State was not on the list");
+        Debug.LogError("FSMState ERROR: " + trans + " Transition passed to the State was not on the list" + ID);
         return FSMStateID.None;
     }
     /// <summary>
