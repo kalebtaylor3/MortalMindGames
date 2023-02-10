@@ -658,6 +658,7 @@ public class PlayerCombatController : MonoBehaviour
             swordAnimator.SetBool("hit3", true);
             trailTime = 1.5f;
             StartCoroutine(WaitForHit());
+            SwordDamage.Instance.SetDamage(0);
         }
 
     }

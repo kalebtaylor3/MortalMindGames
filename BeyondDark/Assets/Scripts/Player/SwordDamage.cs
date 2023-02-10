@@ -40,6 +40,8 @@ public class SwordDamage : MonoBehaviour
 
     private void Update()
     {
+
+        Debug.Log(canDamage);
         if(currentAmountOfDamage > 0)
         {
             Ray ray = playerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -71,16 +73,24 @@ public class SwordDamage : MonoBehaviour
     {
         if (other != null)
         {
-            if (other.tag == "Minion" && canDamage)
+            if (other.tag == "Minion" && canDamage && currentAmountOfDamage > 0)
             {
                 other.GetComponent<MinionController>().ReceiveDamage(currentAmountOfDamage);
                 canDamage = false;
+                StopCoroutine(WaitForDamageAgain());
+                StartCoroutine(WaitForDamageAgain());
             }
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    IEnumerator WaitForDamageAgain()
     {
+        yield return new WaitForSeconds(0.5f);
         canDamage = true;
     }
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    canDamage = true;
+    //}
 }
