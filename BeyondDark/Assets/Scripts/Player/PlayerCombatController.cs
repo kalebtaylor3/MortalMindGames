@@ -69,9 +69,11 @@ public class PlayerCombatController : MonoBehaviour
     private float nextSwingTime = 0f;
     public static int noOfPresses = 0;
     float lastClickedTime = 0;
-    float maxComboDelay = 1;
+    public float maxComboDelay = 1.2f;
     public TrailRenderer swingTrail;
     private float trailTime = 0.7f;
+
+    bool canSwing = true;
 
     #endregion
 
@@ -120,7 +122,7 @@ public class PlayerCombatController : MonoBehaviour
                 Rumbler.Instance.RumblePulse(0, 0.4f, 0.1f, 0.1f);
 
             if (holdTime <= chargeThreshold)
-                CameraShake.Instance.ShakeCamera((holdTime / 10), (holdTime / 3), chargeThreshold);
+                CameraShake.Instance.ShakeCamera((holdTime / 5), (holdTime / 3), chargeThreshold);
 
             if (holdTime < chargeThreshold && !rumbleOnce)
             {
@@ -563,7 +565,7 @@ public class PlayerCombatController : MonoBehaviour
     void HandleSwordCombat()
     {
 
-        if (swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
+        if (swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.4f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
             swordAnimator.SetBool("hit1", false);
         }
@@ -604,32 +606,63 @@ public class PlayerCombatController : MonoBehaviour
     void OnSwing()
     {
         lastClickedTime = Time.time;
-        noOfPresses++;
-        swingTrail.enabled = true;
+
+        if (swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Sword004_Chainsaw"))
+        {
+            canSwing = true;
+        }
+
+        if (noOfPresses == 0 && canSwing)
+        {
+            noOfPresses = 1;
+            canSwing = false;
+        }
+        else if (noOfPresses == 1)
+        {
+            noOfPresses = 2;
+            canSwing = true;
+        }
+        else if (noOfPresses == 2)
+            noOfPresses = 3;
+
         if (noOfPresses == 1)
         {
+            swingTrail.enabled = true;
             swordAnimator.SetBool("hit1", true);
+            swordAnimator.SetBool("hit2", false);
+            swordAnimator.SetBool("hit3", false);
             trailTime = 0.7f;
-            Rumbler.Instance.RumblePulse(0, 0.1f, 0.1f, 0.2f);
+            Rumbler.Instance.RumbleConstant(0, 0.1f, 0.2f);
+            CameraShake.Instance.ShakeCamera(0.2f, 0.5f, 0.3f);
         }
         noOfPresses = Mathf.Clamp(noOfPresses, 0, 3);
 
-        if (noOfPresses >= 2 && swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
+        if (noOfPresses >= 2 && swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.4f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
             swordAnimator.SetBool("hit1", false);
             swordAnimator.SetBool("hit2", true);
+            swordAnimator.SetBool("hit3", false);
             trailTime = 0.7f;
-            Rumbler.Instance.RumblePulse(0, 0.2f, 0.1f, 0.2f);
+            Rumbler.Instance.RumbleConstant(0, 0.15f, 0.2f);
+            CameraShake.Instance.ShakeCamera(0.3f, 0.5f, 0.3f);
         }
 
-        if(noOfPresses >= 3 && swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
+        if(noOfPresses >= 3 && swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.4f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
+            swordAnimator.SetBool("hit1", false);
             swordAnimator.SetBool("hit2", false);
             swordAnimator.SetBool("hit3", true);
             trailTime = 1.5f;
-            Rumbler.Instance.RumbleConstant(0, 0.3f, 1.5f);
+            StartCoroutine(WaitForHit());
         }
 
+    }
+
+    IEnumerator WaitForHit()
+    {
+        yield return new WaitForSeconds(1.1f);
+        Rumbler.Instance.RumbleConstant(0, 0.3f, 0.4f);
+        CameraShake.Instance.ShakeCamera(0.4f, 1, 0.3f);
     }
 
     IEnumerator WaitForSpawn()
