@@ -71,7 +71,7 @@ public class SwordDamage : MonoBehaviour
 
     IEnumerator SparkDelay()
     {
-        yield return new WaitForSeconds(0.95f);
+        yield return new WaitForSeconds(0.8f);
         sparkOnce = true;
     }
 
