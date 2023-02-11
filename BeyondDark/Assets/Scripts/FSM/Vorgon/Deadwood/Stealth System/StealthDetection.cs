@@ -61,7 +61,7 @@ public class StealthDetection : MonoBehaviour
     private void Update()
     {
         
-        float distance = Vector3.Distance(player.transform.position, transform.position); // calculate distance between AI and player
+        float distance = Vector3.Distance(player.transform.position, vorgon.transform.position); // calculate distance between AI and player
 
         if (detection <= 0)
         {
@@ -196,6 +196,7 @@ public class StealthDetection : MonoBehaviour
 
     public void SetDetection(float amount)
     {
+        StopCoroutine(WaitForDetection());
         detected = true;
         detection += amount;
         hearingDetectionUI.fillAmount = Mathf.Lerp(0, amount, 0.95f * Time.deltaTime);
@@ -206,6 +207,7 @@ public class StealthDetection : MonoBehaviour
 
     private IEnumerator Flash()
     {
+        StopCoroutine(Flash());
         flashing = true;
         while (detection >= 1)
         {
@@ -227,13 +229,13 @@ public class StealthDetection : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, hearingRange1);
+        Gizmos.DrawWireSphere(vorgon.transform.position, hearingRange1);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, hearingRange2);
+        Gizmos.DrawWireSphere(vorgon.transform.position, hearingRange2);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, hearingRange3);
+        Gizmos.DrawWireSphere(vorgon.transform.position, hearingRange3);
     }
 
 }

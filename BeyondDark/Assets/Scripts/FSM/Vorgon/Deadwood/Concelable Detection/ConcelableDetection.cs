@@ -57,6 +57,17 @@ public class ConcelableDetection : MonoBehaviour
         instance = this;
     }
 
+    private void OnEnable()
+    {
+        happenOnce = false;
+        flashingHearing = false;
+        flashingSight = false;
+        detected = false;
+        vorgonKnows = false;
+        exposure = 0;
+        hearingExposure = 0;
+    }
+
 
     private void Update()
     {
@@ -113,7 +124,7 @@ public class ConcelableDetection : MonoBehaviour
             {
                 if (!playerDead)
                 {
-                    float distance = Vector3.Distance(concelableArea.transform.position, transform.position);
+                    float distance = Vector3.Distance(concelableArea.transform.position, vorgon.transform.position);
 
                     if (distance <= hearingRange)
                     {
@@ -163,20 +174,20 @@ public class ConcelableDetection : MonoBehaviour
 
                 if (!playerDead)
                 {
-                    Vector3 dir = (concelableArea.transform.position - transform.position).normalized;
+                    Vector3 dir = (concelableArea.transform.position - vorgon.transform.position).normalized;
 
-                    Debug.DrawRay(transform.position, dir, rayColor);
+                    Debug.DrawRay(vorgon.transform.position, dir, rayColor);
 
-                    Vector3 forwardV = transform.forward;
+                    Vector3 forwardV = vorgon.transform.forward;
                     float angle = Vector3.Angle(dir, forwardV);
 
                     if (angle <= 45.0f)
                     {
-                        float distanceToTarget = Vector3.Distance(transform.position, concelableArea.transform.position);
+                        float distanceToTarget = Vector3.Distance(vorgon.transform.position, concelableArea.transform.position);
 
-                        Debug.DrawRay(transform.position, dir, Color.yellow);
+                        Debug.DrawRay(vorgon.transform.position, dir, Color.yellow);
 
-                        if (!Physics.Raycast(transform.position, dir, distanceToTarget, obstructionMask))
+                        if (!Physics.Raycast(vorgon.transform.position, dir, distanceToTarget, obstructionMask))
                         {
                             if (concelableArea.rotator.transform.localRotation.y > 0.25f || concelableArea.rotator.transform.localRotation.x > 0.25f || concelableArea.rotator.transform.localRotation.z > 0.25f)
                             {
@@ -280,7 +291,7 @@ public class ConcelableDetection : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, hearingRange);
+        Gizmos.DrawWireSphere(vorgon.transform.position, hearingRange);
     }
 
 }
