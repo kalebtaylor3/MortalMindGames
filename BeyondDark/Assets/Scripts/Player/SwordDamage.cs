@@ -63,7 +63,7 @@ public class SwordDamage : MonoBehaviour
                     GameObject obj = Instantiate(sparks);
                     obj.transform.position = hit.point;
                     obj.transform.LookAt(playerCam.transform);
-                    CameraShake.Instance.ShakeCamera(0.5f, 0.5f, 0.2f);
+                    CameraShake.Instance.ShakeCamera(0.7f, 0.5f, 0.3f);
                 }
             }
         }
@@ -71,7 +71,7 @@ public class SwordDamage : MonoBehaviour
 
     IEnumerator SparkDelay()
     {
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.7f);
         sparkOnce = true;
     }
 
@@ -91,7 +91,7 @@ public class SwordDamage : MonoBehaviour
 
     IEnumerator WaitForDamageAgain(Collider other)
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.4f);
         other.GetComponent<MinionController>().canTakeSwordDamage = true;
     }
 
