@@ -177,6 +177,12 @@ public class PlayerCombatController : MonoBehaviour
         {
             flameIcon.gameObject.SetActive(false);
             wallIcon.gameObject.SetActive(false);
+            swordOfVorgon.SetActive(false);
+        }
+        else
+        {
+            flameIcon.gameObject.SetActive(true);
+            wallIcon.gameObject.SetActive(true);
         }
 
 
