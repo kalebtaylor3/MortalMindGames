@@ -73,6 +73,18 @@ public class PlayerCombatController : MonoBehaviour
     public TrailRenderer swingTrail;
     private float trailTime = 0.7f;
 
+    public GameObject cancelText;
+    public Image flameIcon;
+    public Image wallIcon;
+    private Color flameImageColor;
+    bool fadeFlamesOnce = false;
+    bool fadeWallOnce = false;
+    bool canSwitch = true;
+
+
+    public float fadeTime = 1.0f;
+
+
     bool canSwing = true;
 
     #endregion
@@ -93,6 +105,14 @@ public class PlayerCombatController : MonoBehaviour
         swordOfVorgon.SetActive(false);
         currentMagicAbility = 0;
         swingTrail.enabled = false;
+    }
+
+    private void Start()
+    {
+        flameImageColor = flameIcon.color;
+        flameIcon.color = Color.clear;
+        wallIcon.color = Color.clear;
+        cancelText.SetActive(false);
     }
 
     #region Functions
@@ -152,6 +172,18 @@ public class PlayerCombatController : MonoBehaviour
             rumbleTime = 0.009f;
             rumbleOnce = false;
         }
+
+        if(!combatInputData.IsThirdRelic)
+        {
+            flameIcon.gameObject.SetActive(false);
+            wallIcon.gameObject.SetActive(false);
+        }
+
+
+        if (activeWall)
+            cancelText.SetActive(true);
+        else
+            cancelText.SetActive(false);
 
     }
 
@@ -454,16 +486,29 @@ public class PlayerCombatController : MonoBehaviour
 
         HandleSwordCombat();
 
-        if(combatInputData.SwitchAbility)
+
+        if(combatInputData.SwitchAbility && canSwitch)
         {
             if (currentMagicAbility == 0)
                 currentMagicAbility = 1;
             else if (currentMagicAbility == 1)
                 currentMagicAbility = 0;
+
+            canSwitch = false;
+            StartCoroutine(WaitForSwitch());
         }
 
         if(currentMagicAbility == 0)
         {
+            if (!fadeFlamesOnce)
+            {
+                StartCoroutine(FadeImage(false, wallIcon, Color.white));
+                StartCoroutine(FadeImage(true, flameIcon, flameImageColor));
+                fadeFlamesOnce = true;
+                fadeWallOnce = false;
+            }
+            
+
             if (Time.time >= timeToFire)
                 combatInputData.CanCastFire = true;
             else
@@ -490,9 +535,33 @@ public class PlayerCombatController : MonoBehaviour
                     ShootFlamesLeftHand();
                 }
             }
+
+            wallMarker.SetActive(false);
+            wallProgressBar.gameObject.SetActive(false);
+            activeWall = false;
+            delayOnce = false;
+
         }
         else if(currentMagicAbility == 1)
         {
+            if (!fadeWallOnce)
+            {
+                StartCoroutine(FadeImage(false, flameIcon, flameImageColor));
+                StartCoroutine(FadeImage(true, wallIcon, Color.white));
+                fadeWallOnce = true;
+                fadeFlamesOnce = false;
+            }
+
+            combatInputData.CanCastFire = false;
+            attackButtonPressed = false;
+            holdTime = 0;
+
+            if(Time.time >= placeDelay)
+            {
+                wallProgressBar.gameObject.SetActive(true);
+            }
+
+
             if (Time.time >= timeToWall)
                 combatInputData.CanCreateWall = true;
             else
@@ -557,7 +626,37 @@ public class PlayerCombatController : MonoBehaviour
             swordOfVorgon.SetActive(true);
         }
 
-        //need to manage switching between left hand abilities
+        //need to manage switching between left hand abilities (disabling things related to inactive ability)
+    }
+
+    IEnumerator WaitForSwitch()
+    {
+        yield return new WaitForSeconds(fadeTime);
+        canSwitch = true;
+    }
+
+    IEnumerator FadeImage(bool fadeIn, Image image, Color theColor)
+    {
+        float elapsedTime = 0.0f;
+        Color originalColor = image.color;
+        if (!fadeIn)
+        {
+            while (elapsedTime < fadeTime)
+            {
+                elapsedTime += Time.deltaTime;
+                image.color = Color.Lerp(originalColor, Color.clear, Mathf.Clamp01(elapsedTime / fadeTime));
+                yield return null;
+            }
+        }
+        else
+        {
+            while (elapsedTime < fadeTime)
+            {
+                elapsedTime += Time.deltaTime;
+                image.color = Color.Lerp(originalColor, theColor, Mathf.Clamp01(elapsedTime / fadeTime));
+                yield return null;
+            }
+        }
     }
 
     void HandleSwordCombat()
