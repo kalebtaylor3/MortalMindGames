@@ -43,6 +43,8 @@ public class MinionController : MonoBehaviour
 
     public bool canTakeSwordDamage = true;
 
+    public AudioSource hitSound;
+
 
     private void OnEnable()
     {
@@ -122,6 +124,7 @@ public class MinionController : MonoBehaviour
                     StartCoroutine(OnFire());
                 }
 
+                hitSound.Play();    
                 // Low Health
                 healthPoints = Mathf.Clamp(healthPoints - amount, 0, maxHealthPoints);
 
