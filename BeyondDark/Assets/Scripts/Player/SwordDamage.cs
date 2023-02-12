@@ -17,7 +17,8 @@ public class SwordDamage : MonoBehaviour
 
     public GameObject sparks;
 
-    BoxCollider hitbox;
+    public AudioClip wallDing;
+    public AudioSource swordAudioSource;
 
     public static SwordDamage Instance
     {
@@ -32,17 +33,11 @@ public class SwordDamage : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        hitbox = GetComponent<BoxCollider>();
     }
 
     public void SetDamage(float value)
     {
         currentAmountOfDamage = value;
-
-        if (currentAmountOfDamage <= 0)
-            hitbox.enabled = false;
-        else
-            hitbox.enabled = true;
 
     }
 
@@ -59,6 +54,7 @@ public class SwordDamage : MonoBehaviour
                 {
                     Debug.Log("Hitwall");
                     StartCoroutine(SparkDelay());
+                    swordAudioSource.PlayOneShot(wallDing);
                     sparkOnce = false;
                     GameObject obj = Instantiate(sparks);
                     obj.transform.position = hit.point;
@@ -83,6 +79,7 @@ public class SwordDamage : MonoBehaviour
             {
                 other.GetComponent<MinionController>().ReceiveDamage(currentAmountOfDamage);
                 other.GetComponent<MinionController>().canTakeSwordDamage = false;
+
                 //StopCoroutine(WaitForDamageAgain());
                 StartCoroutine(WaitForDamageAgain(other));
             }

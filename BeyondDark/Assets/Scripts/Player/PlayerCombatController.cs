@@ -87,6 +87,9 @@ public class PlayerCombatController : MonoBehaviour
 
     bool canSwing = true;
 
+    public AudioClip swordSwoosh;
+    public AudioSource swordSwingAudio;
+
     #endregion
 
     #region Events
@@ -714,6 +717,9 @@ public class PlayerCombatController : MonoBehaviour
     {
         lastClickedTime = Time.time;
 
+        if (noOfPresses != 2)
+            swordSwingAudio.PlayOneShot(swordSwoosh);
+
         if (swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Sword004_Chainsaw"))
         {
             canSwing = true;
@@ -772,6 +778,7 @@ public class PlayerCombatController : MonoBehaviour
     {
 
         yield return new WaitForSeconds(0.8f);
+        swordSwingAudio.PlayOneShot(swordSwoosh);
         SwordDamage.Instance.SetDamage(20);
         yield return new WaitForSeconds(0.3f);
         Rumbler.Instance.RumbleConstant(0, 0.3f, 0.4f);
