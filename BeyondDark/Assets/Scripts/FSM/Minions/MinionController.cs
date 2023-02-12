@@ -112,7 +112,7 @@ public class MinionController : MonoBehaviour
         healthUI.value = healthPoints;
     }
 
-    public void ReceiveDamage(float amount)
+    public void ReceiveDamage(float amount, bool sword = false)
     {
         if (canTakeSwordDamage)
         {
@@ -124,7 +124,11 @@ public class MinionController : MonoBehaviour
                     StartCoroutine(OnFire());
                 }
 
-                hitSound.Play();    
+                if(sword)
+                {
+                    hitSound.Play();
+                }                   
+
                 // Low Health
                 healthPoints = Mathf.Clamp(healthPoints - amount, 0, maxHealthPoints);
 

@@ -17,7 +17,7 @@ public class SwordDamage : MonoBehaviour
 
     public GameObject sparks;
 
-    public AudioClip wallDing;
+    public AudioClip wallDing;   
     public AudioSource swordAudioSource;
 
     public static SwordDamage Instance
@@ -77,7 +77,7 @@ public class SwordDamage : MonoBehaviour
         {
             if (other.tag == "Minion" && currentAmountOfDamage > 0)
             {
-                other.GetComponent<MinionController>().ReceiveDamage(currentAmountOfDamage);
+                other.GetComponent<MinionController>().ReceiveDamage(currentAmountOfDamage, true);
                 other.GetComponent<MinionController>().canTakeSwordDamage = false;
 
                 //StopCoroutine(WaitForDamageAgain());
@@ -89,7 +89,11 @@ public class SwordDamage : MonoBehaviour
     IEnumerator WaitForDamageAgain(Collider other)
     {
         yield return new WaitForSeconds(0.4f);
-        other.GetComponent<MinionController>().canTakeSwordDamage = true;
+
+        if (other != null) 
+        {            
+            other.GetComponent<MinionController>().canTakeSwordDamage = true;
+        }        
     }
 
     //private void OnTriggerExit(Collider other)
