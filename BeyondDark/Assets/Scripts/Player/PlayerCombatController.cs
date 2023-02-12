@@ -80,6 +80,7 @@ public class PlayerCombatController : MonoBehaviour
     bool fadeFlamesOnce = false;
     bool fadeWallOnce = false;
     bool canSwitch = true;
+    bool swooshOnce = true;
 
 
     public float fadeTime = 1.0f;
@@ -717,22 +718,23 @@ public class PlayerCombatController : MonoBehaviour
     {
         lastClickedTime = Time.time;
 
-        if (noOfPresses != 2)
-            swordSwingAudio.PlayOneShot(swordSwoosh);
-
         if (swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Sword004_Chainsaw"))
         {
             canSwing = true;
+            swooshOnce = true;
         }
+
 
         if (noOfPresses == 0 && canSwing)
         {
             noOfPresses = 1;
+            swordSwingAudio.PlayOneShot(swordSwoosh);
             canSwing = false;
         }
         else if (noOfPresses == 1)
         {
             noOfPresses = 2;
+            swordSwingAudio.PlayOneShot(swordSwoosh);
             canSwing = true;
         }
         else if (noOfPresses == 2)
@@ -768,7 +770,11 @@ public class PlayerCombatController : MonoBehaviour
             swordAnimator.SetBool("hit2", false);
             swordAnimator.SetBool("hit3", true);
             trailTime = 1.5f;
-            StartCoroutine(WaitForHit());
+            if (swooshOnce)
+            {
+                StartCoroutine(WaitForHit());
+                swooshOnce = false;
+            }
             SwordDamage.Instance.SetDamage(0);
         }
 
@@ -776,7 +782,6 @@ public class PlayerCombatController : MonoBehaviour
 
     IEnumerator WaitForHit()
     {
-
         yield return new WaitForSeconds(0.8f);
         swordSwingAudio.PlayOneShot(swordSwoosh);
         SwordDamage.Instance.SetDamage(20);
