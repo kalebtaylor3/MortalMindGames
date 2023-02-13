@@ -40,8 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2496239083343520801}
-  - component: {fileID: 8377892593339399771}
-  - component: {fileID: 8576842799868227143}
   m_Layer: 0
   m_Name: VorgonBoss
   m_TagString: Untagged
@@ -66,72 +64,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!95 &8377892593339399771
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3021841222715276955}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 3efbf89c7581bdd4ea2e101d8484bca5, type: 3}
-  m_Controller: {fileID: 9100000, guid: f7a2d7e7979fe2f4783409f38e963e70, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:LeftArm'\n\tTransform
-    'mixamorig:LeftForeArm'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation
-    clip 'Slam'\nTransform 'mixamorig:LeftToeBase' has been deleted\nTransform 'mixamorig:LeftFoot'
-    has been deleted\nTransform 'mixamorig:LeftLeg' has been deleted\nTransform 'mixamorig:LeftUpLeg'
-    has been deleted\nTransform 'mixamorig:RightToeBase' has been deleted\nTransform
-    'mixamorig:RightFoot' has been deleted\nTransform 'mixamorig:RightLeg' has been
-    deleted\nTransform 'mixamorig:RightUpLeg' has been deleted\nTransform 'mixamorig:LeftHandIndex3'
-    has been deleted\nTransform 'mixamorig:LeftHandIndex2' has been deleted\nTransform
-    'mixamorig:LeftHandIndex1' has been deleted\nTransform 'mixamorig:LeftHand' has
-    been deleted\nTransform 'mixamorig:LeftForeArm' has been deleted\nTransform 'mixamorig:LeftArm'
-    has been deleted\nTransform 'mixamorig:LeftShoulder' has been deleted\nTransform
-    'mixamorig:Head' has been deleted\nTransform 'mixamorig:Neck' has been deleted\nTransform
-    'mixamorig:RightHandIndex3' has been deleted\nTransform 'mixamorig:RightHandIndex2'
-    has been deleted\nTransform 'mixamorig:RightHandIndex1' has been deleted\nTransform
-    'mixamorig:RightHand' has been deleted\nTransform 'mixamorig:RightForeArm' has
-    been deleted\nTransform 'mixamorig:RightArm' has been deleted\nTransform 'mixamorig:RightShoulder'
-    has been deleted\nTransform 'mixamorig:Spine2' has been deleted\nTransform 'mixamorig:Spine1'
-    has been deleted\nTransform 'mixamorig:Spine' has been deleted\nTransform 'mixamorig:Hips'
-    has been deleted"
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8576842799868227143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3021841222715276955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e384827f48270a243960b77029286ee8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  player: {fileID: 0}
-  closeSlam: {fileID: 0}
-  rotationSpeed: 5
-  maxBackupDistance: 10
-  backupSpeed: 2
-  triggerRadius: 110
-  attackRadius: 80
-  closeSlamRadius: 10
-  rangeAttackDistance: 120
-  slamIndication: {fileID: 0}
-  minZ: -140
-  maxZ: -180.3
-  vorgonAnimator: {fileID: 8377892593339399771}
 --- !u!1001 &5775666248570660633
 PrefabInstance:
   m_ObjectHideFlags: 0
