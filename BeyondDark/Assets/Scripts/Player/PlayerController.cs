@@ -29,6 +29,7 @@ namespace MMG
         [SerializeField] private float walkSpeed = 2f;
         [SerializeField] private float runSpeed = 3f;
         [SerializeField] private float jumpSpeed = 5f;
+        [SerializeField] private float dashSpeed = 6f;
         [Slider(0f, 1f)][SerializeField] private float moveBackwardsSpeedPercentStanding = 0.4f;
         [Slider(0f, 1f)][SerializeField] private float moveBackwardsSpeedPercentCrouching = 0.5f;
         [Slider(0f, 1f)][SerializeField] private float moveSideSpeedPercent = 0.75f;
@@ -138,6 +139,7 @@ namespace MMG
 
         [SerializeField]
         public float currentSpeed;
+        public bool isDashing = false;
         [SerializeField]
         private float smoothCurrentSpeed;
         private float finalSmoothCurrentSpeed;
@@ -530,6 +532,7 @@ namespace MMG
                 currentSpeed = movementInputData.IsRunning && CanRun() ? runSpeed : walkSpeed;
                 currentSpeed = movementInputData.IsCrouching ? crouchSpeed : currentSpeed;
                 currentSpeed = !movementInputData.HasInput ? 0f : currentSpeed;
+                currentSpeed = isDashing ? dashSpeed : currentSpeed;
                 if(!movementInputData.IsCrouching)
                     currentSpeed = movementInputData.InputVector.y <= -1 ? currentSpeed * moveBackwardsSpeedPercentStanding : currentSpeed;
                 else
@@ -596,7 +599,7 @@ namespace MMG
 
             //if (currentSpeed < 0.5f)
             //    currentSpeed = 0;
-        }
+            }
 
             void CalculateFinalMovement()
             {
@@ -853,6 +856,11 @@ namespace MMG
                 }
             }
 
+            public void PlayerDash(bool state)
+            {
+                isDashing = state;
+            }
+
             void ApplyMovement()
             {
                 characterController.Move(finalMoveVector * Time.deltaTime);
@@ -865,6 +873,8 @@ namespace MMG
 
                 transform.rotation = Quaternion.Slerp(currentRot,desiredRot,Time.deltaTime * smoothRotateSpeed);
             }
+
+
 
         #endregion
 
