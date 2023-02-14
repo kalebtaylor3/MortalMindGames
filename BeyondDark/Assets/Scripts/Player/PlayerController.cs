@@ -859,6 +859,15 @@ namespace MMG
             public void PlayerDash(bool state)
             {
                 isDashing = state;
+
+                if (isDashing)
+                {
+                    cameraController.ChangeRunFOV(false);
+                }
+                else if (!isDashing)
+                {
+                    cameraController.ChangeRunFOV(true);
+                }
             }
 
             void ApplyMovement()
