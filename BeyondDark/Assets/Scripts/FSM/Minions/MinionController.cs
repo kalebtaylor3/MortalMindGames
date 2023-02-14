@@ -1,6 +1,8 @@
 using MMG;
+//using System;
 using System.Collections;
 using System.Collections.Generic;
+//sing Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.ProBuilder;
@@ -43,7 +45,23 @@ public class MinionController : MonoBehaviour
 
     public bool canTakeSwordDamage = true;
 
-    public AudioSource hitSound;
+    [Header("Audio")]
+    //Source
+    public AudioSource movementSource;
+    public AudioSource effectsSource;
+    public AudioSource burningSource;
+
+    //Sounds
+    public List<AudioClip> clipsWalk;
+    public List<AudioClip> clipsHurt;
+    public List<AudioClip> clipsttack;
+    public List<AudioClip> clipsRangedAttack;
+    public AudioClip clipShooting;
+    public AudioClip clipAiming;
+    public AudioClip clipbreathing; //AIM
+    //public AudioClip clipOnfire; // SET UP ON SOURCE
+
+
 
 
     private void OnEnable()
@@ -126,7 +144,8 @@ public class MinionController : MonoBehaviour
 
                 if(sword)
                 {
-                    hitSound.Play();
+                    int rand = Random.Range(0, clipsHurt.Count);
+                    effectsSource.PlayOneShot(clipsHurt[rand]);
                 }                   
 
                 // Low Health
@@ -160,6 +179,10 @@ public class MinionController : MonoBehaviour
 
     public void RangedAttack()
     {
+        // Sound (Move based on timing)
+        int rand = Random.Range(0, clipsRangedAttack.Count);
+        effectsSource.PlayOneShot(clipsRangedAttack[rand]);
+
         StartCoroutine(IsAttacking(rangedAttackDuration));
         var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
         projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
@@ -202,12 +225,15 @@ public class MinionController : MonoBehaviour
         if(!safe)
         {
             onFire = true;
+            burningSource.Play();
+
         }
         safe = false;
         
         float rand = Random.Range(5, 15);
         yield return new WaitForSeconds(rand);
         onFire = false;
+        burningSource.Stop();
         safe = true;
     }
 
