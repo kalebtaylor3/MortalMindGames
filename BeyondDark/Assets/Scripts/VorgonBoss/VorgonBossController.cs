@@ -122,6 +122,8 @@ public class VorgonBossController : MonoBehaviour
 
         if (playerRange < rangeAttackDistance && playerCloseSlam > closeSlamRadius && playerRange > attackRadius)
         {
+            canRotate = true;
+            canAttack = true;
             //check if can do ranged attack. all happen so often. delay will varry on what type of attack it is.
             if (canCast)
                 state = State.RangeAttack;
@@ -145,7 +147,7 @@ public class VorgonBossController : MonoBehaviour
         {
             case State.RangeAttack:
                 int randomNumber = Random.Range(0, 100);
-                if (randomNumber >= 70)
+                if (randomNumber >= 60)
                     RangeAttack(1);
                 else
                     RangeAttack(0);
@@ -224,6 +226,7 @@ public class VorgonBossController : MonoBehaviour
                 break;
             case 1:
                 Debug.Log("Doing hellfire");
+                canRotate = true;
                 vorgonAnimator.SetTrigger("HellFire");
                 vorgonAnimator.SetBool("notHellFire", true);
                 rainFire = true;
@@ -238,9 +241,9 @@ public class VorgonBossController : MonoBehaviour
     IEnumerator RainFire()
     {
         //first create one at players position
-        GameObject playerMarker  = Instantiate(fireWarning, player.position, Quaternion.identity);
+        GameObject playerMarker1  = Instantiate(fireWarning, new Vector3(player.position.x, 0, player.position.z), Quaternion.identity);
         List<GameObject> points = new List<GameObject>();
-        points.Add(playerMarker);    
+        points.Add(playerMarker1);    
 
         for (int i = 0; i < numberOfHitPoints; i++)
         {
@@ -281,6 +284,11 @@ public class VorgonBossController : MonoBehaviour
         objectPositions.Clear();
         points.Clear();
 
+        GameObject playerMarker2 = Instantiate(fireWarning, new Vector3(player.position.x, 0, player.position.z), Quaternion.identity);
+        //List<GameObject> points = new List<GameObject>();
+        points.Add(playerMarker2);
+
+
         for (int i = 0; i < numberOfHitPoints; i++)
         {
             Vector3 randomPoint = player.position + Random.insideUnitSphere * hellFireRange;
@@ -319,6 +327,10 @@ public class VorgonBossController : MonoBehaviour
 
         objectPositions.Clear();
         points.Clear();
+
+        GameObject playerMarker3 = Instantiate(fireWarning, new Vector3(player.position.x, 0, player.position.z), Quaternion.identity);
+        //List<GameObject> points = new List<GameObject>();
+        points.Add(playerMarker3);
 
         for (int i = 0; i < numberOfHitPoints; i++)
         {
