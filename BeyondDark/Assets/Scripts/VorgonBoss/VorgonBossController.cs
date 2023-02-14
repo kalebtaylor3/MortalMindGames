@@ -1,21 +1,16 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class VorgonBossController : MonoBehaviour
 {
-
     /*
      *************************************
      *huge wip. need to clean up
      ***************************************
      */
 
-    public enum  State { RangeAttack, Slam, CloseSlam, FireWall, RainFire, Idle}
+    public enum State { RangeAttack, Slam, CloseSlam, FireWall, RainFire, Idle }
     public State state;
 
     public Transform player;
@@ -23,16 +18,18 @@ public class VorgonBossController : MonoBehaviour
     public float rotationSpeed = 5f; // The speed of the movement
     public float maxBackupDistance = 10f;
     public float backupSpeed = 2f;
-    public float triggerRadius = 100f;
-    public float attackRadius = 80f;
-    public float closeSlamRadius = 10f;
+    public float triggerRadius = 110f;
+    public float attackRadius = 76;
+    public float closeSlamRadius = 13f;
     public float rangeAttackDistance = 120;
+    public float hellFireRange;
+    public float hellFireSwitchTime;
 
     //public GameObject slamIndication;
     public GameObject fireWarning;
 
-    public float minZ = 0.0f;
-    public float maxZ = 10.0f;
+    public float minZ = -135;
+    public float maxZ = -180;
 
     private float currentZ;
     private float targetZ;
@@ -48,7 +45,11 @@ public class VorgonBossController : MonoBehaviour
 
     public Animator vorgonAnimator;
 
-    public GameObject ground;
+    public LayerMask groundLayer;
+    public int numberOfHitPoints;
+    public float minDistanceBetweenObjects;
+
+    List<Vector3> objectPositions = new List<Vector3>();
 
     // Start is called before the first frame update
     void Start()
@@ -59,9 +60,6 @@ public class VorgonBossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(rainFire)
-            RainFire();
 
         if (isCloseSlamming)
         {
@@ -117,7 +115,7 @@ public class VorgonBossController : MonoBehaviour
         float playerCloseSlam = Vector3.Distance(closeSlam.position, player.position);
         float playerRange = Vector3.Distance(transform.position, player.position);
 
-        if(!canAttack || !canCloseSlam || !canCast)
+        if (!canAttack || !canCloseSlam || !canCast)
             state = State.Idle;
 
         //if in shoot range distance & not in melee or close range
@@ -125,7 +123,7 @@ public class VorgonBossController : MonoBehaviour
         if (playerRange < rangeAttackDistance && playerCloseSlam > closeSlamRadius && playerRange > attackRadius)
         {
             //check if can do ranged attack. all happen so often. delay will varry on what type of attack it is.
-            if(canCast)
+            if (canCast)
                 state = State.RangeAttack;
         }
 
@@ -143,11 +141,14 @@ public class VorgonBossController : MonoBehaviour
 
     void Act()
     {
-        switch(state)
+        switch (state)
         {
             case State.RangeAttack:
-                vorgonAnimator.SetTrigger("RangeAttack");
-                RangeAttack(1);
+                int randomNumber = Random.Range(0, 100);
+                if (randomNumber >= 70)
+                    RangeAttack(1);
+                else
+                    RangeAttack(0);
                 break;
             case State.Slam:
                 vorgonAnimator.ResetTrigger("RangeAttack");
@@ -195,7 +196,7 @@ public class VorgonBossController : MonoBehaviour
 
         yield return new WaitForSeconds(4);
         canAttack = true;
-    }    
+    }
 
     IEnumerator WaitForCloseSlam()
     {
@@ -214,20 +215,154 @@ public class VorgonBossController : MonoBehaviour
         switch (attackNom)
         {
             case 0:
-                StartCoroutine(WaitForCast(8f));
+                Debug.Log("Normal cast");
+                vorgonAnimator.SetTrigger("RangeAttack");
+                //var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
+                //projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
+                //projectileObj.GetComponent<MProjectile>().minionControl = this;
+                StartCoroutine(WaitForCast(4f));
                 break;
             case 1:
+                Debug.Log("Doing hellfire");
+                vorgonAnimator.SetTrigger("HellFire");
+                vorgonAnimator.SetBool("notHellFire", true);
                 rainFire = true;
-                StartCoroutine(WaitForCast(15f));
+                StartCoroutine(RainFire());
+                //StartCoroutine(WaitForCast(15f));
                 break;
         }
 
         canCast = false;
     }
 
-    void RainFire()
+    IEnumerator RainFire()
     {
-        
+        //first create one at players position
+        GameObject playerMarker  = Instantiate(fireWarning, player.position, Quaternion.identity);
+        List<GameObject> points = new List<GameObject>();
+        points.Add(playerMarker);    
+
+        for (int i = 0; i < numberOfHitPoints; i++)
+        {
+            Vector3 randomPoint = player.position + Random.insideUnitSphere * hellFireRange;
+            randomPoint.y = 100;
+            Debug.DrawRay(randomPoint, Vector3.down, Color.red, 100);
+
+            if (Physics.Raycast(randomPoint, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundLayer))
+            {
+                bool isTooClose = false;
+
+                foreach(Vector3 objPos in objectPositions)
+                {
+                    if(Vector3.Distance(objPos, hit.point) < minDistanceBetweenObjects)
+                    {
+                        isTooClose = true;
+                        break;
+                    }
+                }
+
+                if(!isTooClose)
+                {
+                    GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    points.Add(obj);
+                    objectPositions.Add(hit.point);
+                }
+
+                //Instantiate(fireWarning, hit.point, Quaternion.identity);
+            }
+
+        }
+
+        yield return new WaitForSeconds(hellFireSwitchTime);
+        for (int i = 0; i < points.Count; i++)
+            Destroy(points[i]);
+
+
+        objectPositions.Clear();
+        points.Clear();
+
+        for (int i = 0; i < numberOfHitPoints; i++)
+        {
+            Vector3 randomPoint = player.position + Random.insideUnitSphere * hellFireRange;
+            randomPoint.y = 100;
+            Debug.DrawRay(randomPoint, Vector3.down, Color.red, 100);
+
+            if (Physics.Raycast(randomPoint, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundLayer))
+            {
+                bool isTooClose = false;
+
+                foreach (Vector3 objPos in objectPositions)
+                {
+                    if (Vector3.Distance(objPos, hit.point) < minDistanceBetweenObjects)
+                    {
+                        isTooClose = true;
+                        break;
+                    }
+                }
+
+                if (!isTooClose)
+                {
+                    GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    points.Add(obj);
+                    objectPositions.Add(hit.point);
+                }
+
+                //Instantiate(fireWarning, hit.point, Quaternion.identity);
+            }
+
+        }
+
+        yield return new WaitForSeconds(hellFireSwitchTime);
+        for (int i = 0; i < points.Count; i++)
+            Destroy(points[i]);
+
+
+        objectPositions.Clear();
+        points.Clear();
+
+        for (int i = 0; i < numberOfHitPoints; i++)
+        {
+            Vector3 randomPoint = player.position + Random.insideUnitSphere * hellFireRange;
+            randomPoint.y = 100;
+            Debug.DrawRay(randomPoint, Vector3.down, Color.red, 100);
+
+            if (Physics.Raycast(randomPoint, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundLayer))
+            {
+                bool isTooClose = false;
+
+                foreach (Vector3 objPos in objectPositions)
+                {
+                    if (Vector3.Distance(objPos, hit.point) < minDistanceBetweenObjects)
+                    {
+                        isTooClose = true;
+                        break;
+                    }
+                }
+
+                if (!isTooClose)
+                {
+                    GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    points.Add(obj);
+                    objectPositions.Add(hit.point);
+                }
+
+                //Instantiate(fireWarning, hit.point, Quaternion.identity);
+            }
+
+        }
+
+        yield return new WaitForSeconds(hellFireSwitchTime);
+        for (int i = 0; i < points.Count; i++)
+            Destroy(points[i]);
+
+
+        objectPositions.Clear();
+        points.Clear();
+
+        vorgonAnimator.SetBool("notHellFire", false);
+
+
+        StartCoroutine(WaitForCast(8f));
     }
 
     IEnumerator WaitForCast(float delay)
@@ -257,5 +392,4 @@ public class VorgonBossController : MonoBehaviour
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, attackRadius);
     }
-
 }
