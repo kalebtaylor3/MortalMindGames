@@ -227,12 +227,18 @@ MonoBehaviour:
   attackRadius: 76
   closeSlamRadius: 13
   rangeAttackDistance: 120
-  fireWarning: {fileID: 4391827696419749784, guid: a6c9a5c98bede0f45abd2630b382dd78,
+  hellFireRange: 30
+  hellFireSwitchTime: 4
+  fireWarning: {fileID: 4391827696419749784, guid: 39fff1d1b5fc4b3468b804d4af904160,
     type: 3}
   minZ: -135
   maxZ: -180
   vorgonAnimator: {fileID: 93973557289474696}
-  ground: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  numberOfHitPoints: 200
+  minDistanceBetweenObjects: 8
 --- !u!1 &8469274855499516440 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2715566404302941441, guid: 8131cc049b217f84088979ce87dbfb93,
