@@ -20,6 +20,14 @@ public class CombatInputData : ScriptableObject
 
     private bool swingSword;
 
+    private bool dashFlag;
+
+    public bool DashFlag
+    {
+        get => dashFlag;
+        set => dashFlag = value;
+    }
+
     public bool CastFire
     {
         get => castFire;
