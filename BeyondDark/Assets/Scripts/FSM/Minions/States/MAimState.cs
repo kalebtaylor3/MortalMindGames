@@ -85,8 +85,7 @@ public class MAimState : FSMState
 
             // Minion Head Rotation
             minionController.shootPos.rotation = Quaternion.Slerp(minionController.shootPos.rotation, lookRotation, Time.deltaTime);
-
-
+            
             //Vector3 target = playerT.position - minionController.shootPos.position;
             //Vector3 Hdirection = Vector3.RotateTowards(minionController.shootPos.forward, target, 1 * Time.deltaTime, 0);
             //minionController.shootPos.rotation = Quaternion.LookRotation(Hdirection);
