@@ -122,10 +122,11 @@ namespace MMG
                 movementInputData.IsRunning = false;
 
             movementInputData.JumpClicked = Gamepad.current.buttonSouth.wasPressedThisFrame;
-            movementInputData.CrouchClicked = Gamepad.current.buttonEast.wasPressedThisFrame;
+            
 
             if(!isVorgonCharacter)
             {
+                movementInputData.CrouchClicked = Gamepad.current.buttonEast.wasPressedThisFrame;
                 cameraInputData.IsPeakingLeft = Gamepad.current.leftShoulder.isPressed;
                 cameraInputData.IsPeakingRight = Gamepad.current.rightShoulder.isPressed;
             }
@@ -145,6 +146,8 @@ namespace MMG
 
         void GetCombatInput()
         {
+            combatInputData.DashFlag = Gamepad.current.buttonEast.wasPressedThisFrame;
+
 
             if (combatInputData.IsThirdRelic)
             {

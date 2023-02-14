@@ -196,7 +196,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624822586756848108}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.00000011920929, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1731,6 +1731,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3857864375823558151}
   - component: {fileID: 8669243361031899025}
+  - component: {fileID: 75362227715228947}
   - component: {fileID: 575891987762870135}
   - component: {fileID: 7875834651585816819}
   - component: {fileID: 1518623808785623219}
@@ -1794,6 +1795,26 @@ CharacterController:
   m_SkinWidth: 0.01
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &75362227715228947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3119439025166842683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b9a929073f30ee4f8d4254bb961460a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatInputData: {fileID: 11400000, guid: 25e59e2e850484c46acb59645f9ef7c5, type: 2}
+  vorgonPlayer: {fileID: 8669243361031899025}
+  orientation: {fileID: 3857864375823558151}
+  playerMovement: {fileID: 575891987762870135}
+  dashForce: 20
+  dashUpForce: 0
+  dashDuration: 0.25
+  dashCooldown: 1.5
 --- !u!114 &575891987762870135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1814,6 +1835,7 @@ MonoBehaviour:
   walkSpeed: 4
   runSpeed: 9
   jumpSpeed: 9
+  dashSpeed: 6
   moveBackwardsSpeedPercentStanding: 0.4
   moveBackwardsSpeedPercentCrouching: 0.6
   moveSideSpeedPercent: 0.5
@@ -1933,6 +1955,7 @@ MonoBehaviour:
   smoothInputMagnitudeSpeed: 5
   cameraController: {fileID: 1416498724462142281}
   currentSpeed: 0
+  isDashing: 0
   smoothCurrentSpeed: 0
   stepSpeed: 0.5
   footStepAudioSource: {fileID: 2924305282579409172}
@@ -2778,7 +2801,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
