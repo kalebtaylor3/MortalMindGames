@@ -178,7 +178,7 @@ PrefabInstance:
         already bound by a Humanoid avatar. These transforms can only be changed
         by Humanoid clips.\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:LeftArm'\n\tTransform
         'mixamorig:LeftForeArm'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation
-        clip 'Slam'"
+        clip 'Slam'\n\tFrom animation clip 'CloseSlam'"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8131cc049b217f84088979ce87dbfb93, type: 3}
@@ -219,14 +219,15 @@ MonoBehaviour:
   maxBackupDistance: 10
   backupSpeed: 2
   triggerRadius: 110
-  attackRadius: 85
-  closeSlamRadius: 10
+  attackRadius: 76
+  closeSlamRadius: 13
   rangeAttackDistance: 120
-  slamIndication: {fileID: 4391827696419749784, guid: fbd249e65abce544cbee19e2d7a04eb4,
+  fireWarning: {fileID: 4391827696419749784, guid: a6c9a5c98bede0f45abd2630b382dd78,
     type: 3}
-  minZ: -140
-  maxZ: -180.3
+  minZ: -135
+  maxZ: -180
   vorgonAnimator: {fileID: 93973557289474696}
+  ground: {fileID: 0}
 --- !u!1 &8469274855499516440 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2715566404302941441, guid: 8131cc049b217f84088979ce87dbfb93,
@@ -246,3 +247,92 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10.94
   m_Center: {x: 0, y: 10.97, z: 0}
+--- !u!1001 &6937712930721040867
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6317970453696151794}
+    m_Modifications:
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 24.190699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.19116975
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 24.190699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 43.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 54.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000015177648
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.00000004937101
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000016251511
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402503570387209004, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4391827696419749784, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_Name
+      value: FireWarning
+      objectReference: {fileID: 0}
+    - target: {fileID: 4391827696419749784, guid: a6c9a5c98bede0f45abd2630b382dd78,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a6c9a5c98bede0f45abd2630b382dd78, type: 3}

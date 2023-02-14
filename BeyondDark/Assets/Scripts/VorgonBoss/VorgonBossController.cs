@@ -28,7 +28,8 @@ public class VorgonBossController : MonoBehaviour
     public float closeSlamRadius = 10f;
     public float rangeAttackDistance = 120;
 
-    public GameObject slamIndication;
+    //public GameObject slamIndication;
+    public GameObject fireWarning;
 
     public float minZ = 0.0f;
     public float maxZ = 10.0f;
@@ -41,8 +42,12 @@ public class VorgonBossController : MonoBehaviour
     bool canRotate = true;
     bool canAttack = true;
     bool canCloseSlam = true;
+    bool canCast = true;
+    bool isCloseSlamming = false;
 
     public Animator vorgonAnimator;
+
+    public GameObject ground;
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +58,14 @@ public class VorgonBossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (isCloseSlamming)
+        {
+            currentZ = maxZ;
+            var lookPos = player.position - transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        }
 
 
         if (canRotate)
@@ -63,87 +75,168 @@ public class VorgonBossController : MonoBehaviour
             var rotation = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
 
-
-
             float playerDistance = Vector3.Distance(transform.position, player.position);
-            float playerCloseSlam = Vector3.Distance(closeSlam.position, player.position);
-            float playerRange = Vector3.Distance(transform.position, player.position);
 
-            if (playerRange < rangeAttackDistance && playerCloseSlam > closeSlamRadius && playerDistance > attackRadius)
-            {
-                vorgonAnimator.SetTrigger("RangeAttack");
-            }
-
-            if (playerDistance < triggerRadius && playerCloseSlam > closeSlamRadius)
+            if (playerDistance < triggerRadius)
             {
                 currentZ = Mathf.Lerp(minZ, maxZ, playerDistance / triggerRadius);
-
-                if(playerDistance < attackRadius && canAttack)
-                {
-                    vorgonAnimator.ResetTrigger("RangeAttack");
-                    vorgonAnimator.ResetTrigger("CloseSlam");
-                    vorgonAnimator.SetTrigger("Slam1");
-                    Attack(0);
-                }
-
-            }
-            else if (playerCloseSlam < closeSlamRadius && canCloseSlam)
-            {
-                vorgonAnimator.ResetTrigger("RangeAttack");
-                vorgonAnimator.ResetTrigger("Slam1");
-                vorgonAnimator.SetTrigger("CloseSlam");
-                Attack(1);
             }
             else
             {
                 currentZ = maxZ;
-                canRotate = true;
             }
 
-            transform.position = new Vector3(transform.position.x, transform.position.y, currentZ);
+
+
+            GetState();
+            Act();
+        }
+
+        transform.position = new Vector3(transform.position.x, transform.position.y, currentZ);
+
+        //float playerDistance = Vector3.Distance(transform.position, player.position);
+        //if (playerDistance < triggerRadius)
+        //{
+        //    currentZ = Mathf.Lerp(minZ, maxZ, playerDistance / triggerRadius);
+        //}
+        //else
+        //{
+        //    currentZ = maxZ;
+        //}
+
+        //transform.position = new Vector3(transform.position.x, transform.position.y, currentZ);
+    }
+
+    void GetState()
+    {
+        float playerCloseSlam = Vector3.Distance(closeSlam.position, player.position);
+        float playerRange = Vector3.Distance(transform.position, player.position);
+
+        if(!canAttack || !canCloseSlam || !canCast)
+            state = State.Idle;
+
+        //if in shoot range distance & not in melee or close range
+
+        if (playerRange < rangeAttackDistance && playerCloseSlam > closeSlamRadius && playerRange > attackRadius)
+        {
+            //check if can do ranged attack. all happen so often. delay will varry on what type of attack it is.
+            if(canCast)
+                state = State.RangeAttack;
+        }
+
+        if (playerCloseSlam > closeSlamRadius)
+        {
+            if (playerRange < attackRadius && canAttack && !isCloseSlamming)
+                state = State.Slam;
+            else
+                canRotate = true;
+        }
+
+        if (playerCloseSlam < closeSlamRadius && canCloseSlam)
+            state = State.CloseSlam;
+    }
+
+    void Act()
+    {
+        switch(state)
+        {
+            case State.RangeAttack:
+                vorgonAnimator.SetTrigger("RangeAttack");
+                RangeAttack(1);
+                break;
+            case State.Slam:
+                vorgonAnimator.ResetTrigger("RangeAttack");
+                vorgonAnimator.ResetTrigger("CloseSlam");
+                vorgonAnimator.SetTrigger("Slam1");
+                Attack(0);
+                break;
+            case State.CloseSlam:
+                vorgonAnimator.ResetTrigger("RangeAttack");
+                vorgonAnimator.ResetTrigger("Slam1");
+                vorgonAnimator.SetTrigger("CloseSlam");
+                Attack(1);
+                break;
         }
     }
 
     void Attack(int attackNom)
     {
 
-        GameObject warning = Instantiate(slamIndication);
-        warning.transform.position = player.position;
+        //GameObject warning = Instantiate(slamIndication);
+        //warning.transform.position = player.position;
+        canCast = true;
 
         switch (attackNom)
         {
             case 0:
                 canRotate = false;
                 canAttack = false;
-                StartCoroutine(WaitForAttack(warning));
+                StartCoroutine(WaitForAttack());
                 break;
             case 1:
+                canRotate = false;
                 canCloseSlam = false;
-                StartCoroutine(WaitForCloseSlam(warning));
+                isCloseSlamming = true;
+                StartCoroutine(WaitForCloseSlam());
                 break;
         }
     }
 
-    IEnumerator WaitForAttack(GameObject warning)
+    IEnumerator WaitForAttack()
     {
 
-        yield return new WaitForSeconds(2);
-        Destroy(warning);
-
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(12);
         canRotate = true;
 
         yield return new WaitForSeconds(4);
         canAttack = true;
     }    
 
-    IEnumerator WaitForCloseSlam(GameObject warning)
+    IEnumerator WaitForCloseSlam()
     {
-        yield return new WaitForSeconds(1);
-        Destroy(warning);
+        yield return new WaitForSeconds(8f);
+        canRotate = true;
+        isCloseSlamming = false;
 
         yield return new WaitForSeconds(6);
         canCloseSlam = true;
+    }
+
+
+    void RangeAttack(int attackNom)
+    {
+        canCast = false;
+        //0 being normal 1 being hell fire
+        switch (attackNom)
+        {
+            case 0:
+                StartCoroutine(WaitForCast(8f));
+                break;
+            case 1:
+                RainFire();
+                StartCoroutine(WaitForCast(15f));
+                break;
+        }
+    }
+
+    void RainFire()
+    {
+        Bounds bounds = ground.GetComponent<Collider>().bounds;
+        for (int i = 0; i < 20; i++)
+        {
+            float offsetX = Random.Range(-bounds.extents.x, bounds.extents.x);
+            float offsetY = Random.Range(-bounds.extents.y, bounds.extents.y);
+            float offsetZ = Random.Range(-bounds.extents.z, bounds.extents.z);
+
+            GameObject newHazard = GameObject.Instantiate(fireWarning);
+            newHazard.transform.position = bounds.center + new Vector3(offsetX, offsetY, offsetZ);
+        }
+    }
+
+    IEnumerator WaitForCast(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        canCast = true;
     }
 
     private void OnDrawGizmosSelected()
