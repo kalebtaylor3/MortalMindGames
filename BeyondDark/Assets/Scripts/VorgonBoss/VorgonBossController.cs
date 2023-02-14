@@ -196,7 +196,7 @@ public class VorgonBossController : MonoBehaviour
         yield return new WaitForSeconds(12);
         canRotate = true;
 
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3);
         canAttack = true;
     }
 
@@ -241,9 +241,10 @@ public class VorgonBossController : MonoBehaviour
     IEnumerator RainFire()
     {
         //first create one at players position
-        GameObject playerMarker1  = Instantiate(fireWarning, new Vector3(player.position.x, 0, player.position.z), Quaternion.identity);
+        GameObject playerMarker1  = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
         List<GameObject> points = new List<GameObject>();
-        points.Add(playerMarker1);    
+        points.Add(playerMarker1);
+        objectPositions.Add(playerMarker1.transform.position);
 
         for (int i = 0; i < numberOfHitPoints; i++)
         {
@@ -284,9 +285,10 @@ public class VorgonBossController : MonoBehaviour
         objectPositions.Clear();
         points.Clear();
 
-        GameObject playerMarker2 = Instantiate(fireWarning, new Vector3(player.position.x, 0, player.position.z), Quaternion.identity);
+        GameObject playerMarker2 = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
         //List<GameObject> points = new List<GameObject>();
         points.Add(playerMarker2);
+        objectPositions.Add(playerMarker2.transform.position);
 
 
         for (int i = 0; i < numberOfHitPoints; i++)
@@ -328,9 +330,10 @@ public class VorgonBossController : MonoBehaviour
         objectPositions.Clear();
         points.Clear();
 
-        GameObject playerMarker3 = Instantiate(fireWarning, new Vector3(player.position.x, 0, player.position.z), Quaternion.identity);
+        GameObject playerMarker3 = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
         //List<GameObject> points = new List<GameObject>();
         points.Add(playerMarker3);
+        objectPositions.Add(playerMarker3.transform.position);
 
         for (int i = 0; i < numberOfHitPoints; i++)
         {
