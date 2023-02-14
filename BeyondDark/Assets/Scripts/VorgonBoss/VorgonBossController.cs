@@ -239,6 +239,11 @@ public class VorgonBossController : MonoBehaviour
         canCast = true;
     }
 
+    public void SlamShake()
+    {
+        CameraShake.Instance.ShakeCamera(10, 10, 1);
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
