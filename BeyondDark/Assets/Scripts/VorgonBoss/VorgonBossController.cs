@@ -44,6 +44,7 @@ public class VorgonBossController : MonoBehaviour
     bool canCloseSlam = true;
     bool canCast = true;
     bool isCloseSlamming = false;
+    bool rainFire = false;
 
     public Animator vorgonAnimator;
 
@@ -58,6 +59,10 @@ public class VorgonBossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(rainFire)
+            RainFire();
+
         if (isCloseSlamming)
         {
             currentZ = maxZ;
@@ -205,7 +210,6 @@ public class VorgonBossController : MonoBehaviour
 
     void RangeAttack(int attackNom)
     {
-        canCast = false;
         //0 being normal 1 being hell fire
         switch (attackNom)
         {
@@ -213,35 +217,30 @@ public class VorgonBossController : MonoBehaviour
                 StartCoroutine(WaitForCast(8f));
                 break;
             case 1:
-                RainFire();
+                rainFire = true;
                 StartCoroutine(WaitForCast(15f));
                 break;
         }
+
+        canCast = false;
     }
 
     void RainFire()
     {
-        Bounds bounds = ground.GetComponent<Collider>().bounds;
-        for (int i = 0; i < 20; i++)
-        {
-            float offsetX = Random.Range(-bounds.extents.x, bounds.extents.x);
-            float offsetY = Random.Range(-bounds.extents.y, bounds.extents.y);
-            float offsetZ = Random.Range(-bounds.extents.z, bounds.extents.z);
-
-            GameObject newHazard = GameObject.Instantiate(fireWarning);
-            newHazard.transform.position = bounds.center + new Vector3(offsetX, offsetY, offsetZ);
-        }
+        
     }
 
     IEnumerator WaitForCast(float delay)
     {
         yield return new WaitForSeconds(delay);
         canCast = true;
+        rainFire = false;
     }
 
     public void SlamShake()
     {
         CameraShake.Instance.ShakeCamera(10, 10, 1);
+        Rumbler.Instance.RumbleConstant(0.5f, 2f, 1);
     }
 
     private void OnDrawGizmosSelected()
