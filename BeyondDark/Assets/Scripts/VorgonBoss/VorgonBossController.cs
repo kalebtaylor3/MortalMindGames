@@ -42,9 +42,9 @@ public class VorgonBossController : MonoBehaviour
     float distanceToMaintain = 50;
 
     bool canRotate = true;
-    bool canAttack = true;
+    bool canAttack = false;
     bool canCloseSlam = true;
-    bool canCast = true;
+    bool canCast = false;
     bool isCloseSlamming = false;
     bool rainFire = false;
     bool isTaunting = false;
@@ -406,6 +406,8 @@ public class VorgonBossController : MonoBehaviour
     public void Taunt()
     {
         isTaunting = true;
+        canAttack = false;
+        canCast = false;
         vorgonAnimator.SetTrigger("Taunt");
         StartCoroutine(WaitForTaunt());
     }
@@ -413,6 +415,8 @@ public class VorgonBossController : MonoBehaviour
     IEnumerator WaitForTaunt()
     {
         yield return new WaitForSeconds(3);
+        canCast = true;
+        canAttack = true;
         isTaunting = false;
     }
 
