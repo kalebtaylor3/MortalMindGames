@@ -70,7 +70,7 @@ public class VorgonBossController : MonoBehaviour
 
         if (isCloseSlamming)
         {
-            currentZ = maxZ;
+            currentZ = maxZ - 5;
             var lookPos = player.position - transform.position;
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
