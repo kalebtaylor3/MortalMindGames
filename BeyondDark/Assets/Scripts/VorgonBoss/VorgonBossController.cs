@@ -47,6 +47,8 @@ public class VorgonBossController : MonoBehaviour
     bool canCast = true;
     bool isCloseSlamming = false;
     bool rainFire = false;
+    bool isTaunting = false;
+    bool isSummoning = false;
 
     public Animator vorgonAnimator;
 
@@ -97,9 +99,11 @@ public class VorgonBossController : MonoBehaviour
             }
 
 
-
-            GetState();
-            Act();
+            if (!isTaunting && !isSummoning)
+            {
+                GetState();
+                Act();
+            }
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, currentZ);
@@ -399,10 +403,37 @@ public class VorgonBossController : MonoBehaviour
         rainFire = false;
     }
 
+    public void Taunt()
+    {
+        isTaunting = true;
+        vorgonAnimator.SetTrigger("Taunt");
+        StartCoroutine(WaitForTaunt());
+    }
+
+    IEnumerator WaitForTaunt()
+    {
+        yield return new WaitForSeconds(3);
+        isTaunting = false;
+    }
+
     public void SlamShake()
     {
         CameraShake.Instance.ShakeCamera(5, 5, 1);
         Rumbler.Instance.RumbleConstant(0.5f, 2f, 1);
+    }
+
+    public void SummonMinions()
+    {
+        isSummoning = true;
+        //do the same math as hell fire expect create minions at the locations of the markers
+        StartCoroutine(WaitForSummon());
+    }
+
+    IEnumerator WaitForSummon()
+    {
+        vorgonAnimator.SetTrigger("Summon");
+        yield return new WaitForSeconds(2);
+        isSummoning = false;
     }
 
     private void OnDrawGizmosSelected()
