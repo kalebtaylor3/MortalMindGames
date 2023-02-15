@@ -15,6 +15,7 @@ public class VorgonProjectile : MonoBehaviour
     private void OnEnable()
     {
         Destroy(gameObject, 20);
+        Physics.IgnoreLayerCollision(13,14);
     }
 
     private void OnCollisionEnter(Collision collision)

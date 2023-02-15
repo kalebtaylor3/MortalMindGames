@@ -153,11 +153,14 @@ public class VorgonBossController : MonoBehaviour
         switch (state)
         {
             case State.RangeAttack:
-                int randomNumber = Random.Range(0, 100);
-                if (randomNumber >= 60)
-                    RangeAttack(1);
-                else
-                    RangeAttack(0);
+                if (canCast)
+                {
+                    int randomNumber = Random.Range(0, 100);
+                    if (randomNumber >= 70)
+                        RangeAttack(1);
+                    else
+                        RangeAttack(0);
+                }
                 break;
             case State.Slam:
                 vorgonAnimator.ResetTrigger("RangeAttack");
@@ -179,7 +182,7 @@ public class VorgonBossController : MonoBehaviour
 
         //GameObject warning = Instantiate(slamIndication);
         //warning.transform.position = player.position;
-        canCast = true;
+        //canCast = true;
 
         switch (attackNom)
         {
@@ -221,24 +224,27 @@ public class VorgonBossController : MonoBehaviour
     void RangeAttack(int attackNom)
     {
         //0 being normal 1 being hell fire
-        switch (attackNom)
+        if (canCast)
         {
-            case 0:
-                Debug.Log("Normal cast");
-                vorgonAnimator.SetTrigger("RangeAttack");
-                var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
-                projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
-                StartCoroutine(WaitForCast(4f));
-                break;
-            case 1:
-                Debug.Log("Doing hellfire");
-                canRotate = true;
-                vorgonAnimator.SetTrigger("HellFire");
-                vorgonAnimator.SetBool("notHellFire", true);
-                rainFire = true;
-                StartCoroutine(RainFire());
-                //StartCoroutine(WaitForCast(15f));
-                break;
+            switch (attackNom)
+            {
+                case 0:
+                    Debug.Log("Normal cast");
+                    vorgonAnimator.SetTrigger("RangeAttack");
+                    var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
+                    projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
+                    StartCoroutine(WaitForCast(4f));
+                    break;
+                case 1:
+                    Debug.Log("Doing hellfire");
+                    canRotate = true;
+                    vorgonAnimator.SetTrigger("HellFire");
+                    vorgonAnimator.SetBool("notHellFire", true);
+                    rainFire = true;
+                    StartCoroutine(RainFire());
+                    //StartCoroutine(WaitForCast(15f));
+                    break;
+            }
         }
 
         canCast = false;
@@ -383,7 +389,7 @@ public class VorgonBossController : MonoBehaviour
         vorgonAnimator.SetBool("notHellFire", false);
 
 
-        StartCoroutine(WaitForCast(8f));
+        StartCoroutine(WaitForCast(6f));
     }
 
     IEnumerator WaitForCast(float delay)
@@ -395,7 +401,7 @@ public class VorgonBossController : MonoBehaviour
 
     public void SlamShake()
     {
-        CameraShake.Instance.ShakeCamera(10, 10, 1);
+        CameraShake.Instance.ShakeCamera(5, 5, 1);
         Rumbler.Instance.RumbleConstant(0.5f, 2f, 1);
     }
 
