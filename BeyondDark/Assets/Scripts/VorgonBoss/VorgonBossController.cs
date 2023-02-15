@@ -28,6 +28,11 @@ public class VorgonBossController : MonoBehaviour
     //public GameObject slamIndication;
     public GameObject fireWarning;
 
+    public GameObject projectile;
+    public Transform shootPos;
+
+    public float projectileSpeed = 15f;
+
     public float minZ = -135;
     public float maxZ = -180;
 
@@ -60,6 +65,8 @@ public class VorgonBossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        shootPos.LookAt(player.position);
 
         if (isCloseSlamming)
         {
@@ -219,9 +226,8 @@ public class VorgonBossController : MonoBehaviour
             case 0:
                 Debug.Log("Normal cast");
                 vorgonAnimator.SetTrigger("RangeAttack");
-                //var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
-                //projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
-                //projectileObj.GetComponent<MProjectile>().minionControl = this;
+                var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
+                projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
                 StartCoroutine(WaitForCast(4f));
                 break;
             case 1:
