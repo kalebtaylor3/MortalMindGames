@@ -2,6 +2,7 @@ using MMG;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,11 +15,14 @@ public class SwordDamage : MonoBehaviour
     private static SwordDamage instance;
 
     bool sparkOnce = true;
+    bool damageOnce = true;
 
     public GameObject sparks;
 
     public AudioClip wallDing;   
     public AudioSource swordAudioSource;
+
+    public static event Action<float> DealDamage;
 
     public static SwordDamage Instance
     {
@@ -61,6 +65,19 @@ public class SwordDamage : MonoBehaviour
                     obj.transform.LookAt(playerCam.transform);
                     CameraShake.Instance.ShakeCamera(0.7f, 0.5f, 0.3f);
                 }
+
+                if (hit.collider.gameObject.tag == "Arm" && damageOnce && currentAmountOfDamage > 0)
+                {
+                    Debug.Log("Hitwall");
+                    StartCoroutine(DamageDelay());
+                    swordAudioSource.PlayOneShot(wallDing);
+                    damageOnce = false;
+                    GameObject obj = Instantiate(sparks);
+                    obj.transform.position = hit.point;
+                    obj.transform.LookAt(playerCam.transform);
+                    CameraShake.Instance.ShakeCamera(0.7f, 0.5f, 0.3f);
+                    DealDamage?.Invoke(currentAmountOfDamage * 2);
+                }
             }
         }
     }
@@ -69,6 +86,13 @@ public class SwordDamage : MonoBehaviour
     {
         yield return new WaitForSeconds(0.7f);
         sparkOnce = true;
+    }
+
+
+    IEnumerator DamageDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        damageOnce = true;
     }
 
     private void OnTriggerEnter(Collider other)

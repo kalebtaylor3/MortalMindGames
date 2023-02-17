@@ -25,12 +25,17 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'VorgonRig_LowerArmL23' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'VorgonRig_LowerArmR21'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'VorgonRig_LowerArmR23'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -46,11 +51,11 @@ ModelImporter:
       lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: 0.5
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -75,13 +80,13 @@ ModelImporter:
       lastFrame: 250
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: 0.5
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
@@ -143,8 +148,877 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
-    human: []
-    skeleton: []
+    human:
+    - boneName: VorgonRig_Pelvis
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_CalfL1
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_CalfR1
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_CalfL2
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_CalfR2
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_CalfLAnkle
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_CalfRAnkle
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_Spine1
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_Spine2
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_Spine
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLCollarbone
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRCollarbone
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmL1
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmR1
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmL22
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmR22
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLPalmL
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRPalm
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_CalfLDigit11
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_CalfRDigit11
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_Jaw
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLThumb1
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLThumb2
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLThumb3
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLIndexFinger1
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLIndexFinger2
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLIndexFinger3
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLMiddleFinger1
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLMiddleFinger2
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLMiddleFinger3
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLRingFinger1
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLRingFinger2
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLRingFinger3
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLPinkyFinger1
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLPinkyFinger2
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmLPinkyFinger3
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRThumb1
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRThumb2
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRThumb3
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRIndexFinger1
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRIndexFinger2
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRIndexFinger3
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRMiddleFinger1
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRMiddleFinger2
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRMiddleFinger3
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRRingFinger1
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRRingFinger2
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRRingFinger3
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRPinkyFinger1
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRPinkyFinger2
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_LowerArmRPinkyFinger3
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: VorgonRig_Chest
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: BigVorgon_Anim(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VorgonLP
+      parentName: BigVorgon_Anim(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ThighArmorR_Low
+      parentName: VorgonLP
+      position: {x: 0.13070786, y: 0.94717604, z: 0.0017565155}
+      rotation: {x: 0.00000005960464, y: -0, z: -0, w: 1}
+      scale: {x: 0.145104, y: 0.266404, z: 0.145104}
+    - name: ThighArmorL_Low
+      parentName: VorgonLP
+      position: {x: -0.21246456, y: 0.8233805, z: 0.019761276}
+      rotation: {x: -0.002540632, y: -0.50421315, z: 0.25198677, w: 0.82599354}
+      scale: {x: 0.072701, y: 0.133476, z: 0.063959}
+    - name: HeadArmor01_Low
+      parentName: VorgonLP
+      position: {x: 0.034237575, y: 2.0577083, z: -0.00000030517577}
+      rotation: {x: 0.00000005960464, y: -0, z: -0, w: 1}
+      scale: {x: 0.178187, y: 0.178187, z: 0.178187}
+    - name: Teeth
+      parentName: VorgonLP
+      position: {x: 0.0018438151, y: 1.8419102, z: 0.12834686}
+      rotation: {x: -0.65379786, y: 0, z: -0, w: 0.7566692}
+      scale: {x: 0.605693, y: 0.527227, z: 0.527227}
+    - name: BackVines
+      parentName: VorgonLP
+      position: {x: -0.03935946, y: 1.25627, z: -0.1830928}
+      rotation: {x: 0.50000006, y: 0.50000006, z: -0.50000006, w: -0.49999997}
+      scale: {x: 0.817979, y: 0.817979, z: 0.817979}
+    - name: Eyes
+      parentName: VorgonLP
+      position: {x: -0.00034777392, y: 2.0229142, z: 0.06940674}
+      rotation: {x: 0.00000005960465, y: 0, z: -0, w: 1}
+      scale: {x: 0.048523, y: 0.048523, z: 0.048523}
+    - name: ChestArmor_Low
+      parentName: VorgonLP
+      position: {x: 0.15537205, y: 1.6342716, z: 0.026145019}
+      rotation: {x: 0.00000005960464, y: -0, z: -0, w: 1}
+      scale: {x: 0.234002, y: 0.234002, z: 0.147913}
+    - name: Nails
+      parentName: VorgonLP
+      position: {x: 0.05412894, y: 0.032169264, z: 0.3225304}
+      rotation: {x: -0.000000087509605, y: -3.7922618e-17, z: 8.658484e-10, w: 1}
+      scale: {x: 0.773101, y: 0.773101, z: 0.773101}
+    - name: VorgonRig_
+      parentName: BigVorgon_Anim(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.50000006, y: -0.49999997, z: -0.49999997, w: 0.50000006}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VorgonRig_Pelvis
+      parentName: BigVorgon_Anim(Clone)
+      position: {x: 0.0000001092219, y: 1.149802, z: -0.03219002}
+      rotation: {x: 0.49978065, y: -0.5002193, z: -0.49978065, w: 0.5002193}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VorgonRig_PelvisHelper
+      parentName: VorgonRig_Pelvis
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000017881393, y: 0.00000017881393, z: -0.00043851137, w: 0.99999994}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000004}
+    - name: VorgonRig_Spine1
+      parentName: VorgonRig_Pelvis
+      position: {x: -0.05331985, y: -0.008727931, z: 0.0000000016994449}
+      rotation: {x: -0.00000005960465, y: 0.0000001192093, z: 0.012165279, w: 0.99992603}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000004}
+    - name: VorgonRig_vines
+      parentName: VorgonRig_Spine1
+      position: {x: -0.137559, y: 0.000000009536743, z: 0}
+      rotation: {x: 0.000000063038996, y: 0.000000056123472, z: 0.7845259, w: 0.6200961}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: VorgonRig_TopR
+      parentName: VorgonRig_vines
+      position: {x: -0.23728149, y: -0.0070730587, z: -0.0150626395}
+      rotation: {x: 0.11994797, y: 0.71165687, z: -0.11756725, w: 0.68215466}
+      scale: {x: 1.0000007, y: 0.9999999, z: 0.9999997}
+    - name: VorgonRig_1Bone001Bone001Bone002
+      parentName: VorgonRig_TopR
+      position: {x: -0.15716659, y: 0, z: 0.000000019073491}
+      rotation: {x: 0.010032869, y: 0.0689814, z: 0.21192977, w: 0.97479576}
+      scale: {x: 1.000001, y: 0.9999995, z: 0.9999999}
+    - name: VorgonRig_1Bone001Bone001Bone002Bone001
+      parentName: VorgonRig_1Bone001Bone001Bone002
+      position: {x: -0.1194466, y: 0, z: 0.00000003814697}
+      rotation: {x: 0.0041031768, y: -0.06026027, z: -0.31983727, w: 0.94554543}
+      scale: {x: 1.000002, y: 0.99999857, z: 1.0000011}
+    - name: VorgonRig_BottomR
+      parentName: VorgonRig_vines
+      position: {x: -0.23384741, y: -0.04928009, z: -0.00002532125}
+      rotation: {x: 0.19662488, y: 0.7163886, z: -0.037746254, w: 0.66835725}
+      scale: {x: 1.0000008, y: 1, z: 1}
+    - name: VorgonRig_1Bone001Bone001Bone002
+      parentName: VorgonRig_BottomR
+      position: {x: -0.1398783, y: 0, z: 0}
+      rotation: {x: 0.027210187, y: -0.016012428, z: 0.26558983, w: 0.96356905}
+      scale: {x: 1.0000012, y: 0.9999997, z: 1.000001}
+    - name: VorgonRig_1Bone001Bone001Bone002Bone001
+      parentName: VorgonRig_1Bone001Bone001Bone002
+      position: {x: -0.09234855, y: 0.00000007629395, z: -0.000000019073491}
+      rotation: {x: 0.0052636857, y: -0.060170148, z: -0.33799827, w: 0.9392066}
+      scale: {x: 1.0000024, y: 0.99999934, z: 1.000001}
+    - name: VorgonRig_TopL
+      parentName: VorgonRig_vines
+      position: {x: -0.23678419, y: -0.019522019, z: 0.008229322}
+      rotation: {x: 0.08712151, y: 0.74688464, z: 0.036525153, w: -0.65820915}
+      scale: {x: 1.0000018, y: 1, z: 1.0000006}
+    - name: VorgonRig_1Bone001Bone001Bone002
+      parentName: VorgonRig_TopL
+      position: {x: -0.15716669, y: -0.00000007629395, z: -0.000000019073491}
+      rotation: {x: 0.012470246, y: 0.066430494, z: 0.18639794, w: 0.9801465}
+      scale: {x: 1.0000023, y: 1.0000001, z: 1.0000013}
+    - name: VorgonRig_1Bone001Bone001Bone002Bone001
+      parentName: VorgonRig_1Bone001Bone001Bone002
+      position: {x: -0.119446695, y: 0, z: -0.000000019073491}
+      rotation: {x: 0.0041031013, y: -0.060260165, z: -0.31983718, w: 0.9455454}
+      scale: {x: 1.0000011, y: 1, z: 1.0000012}
+    - name: VorgonRig_BottomL
+      parentName: VorgonRig_vines
+      position: {x: -0.2348067, y: -0.029919889, z: -0.02944829}
+      rotation: {x: 0.14805855, y: 0.72783345, z: -0.035202418, w: -0.66865385}
+      scale: {x: 1.0000014, y: 1.0000001, z: 1.0000005}
+    - name: VorgonRig_1Bone001Bone001Bone002
+      parentName: VorgonRig_BottomL
+      position: {x: -0.127305, y: 0, z: -0.000000019073491}
+      rotation: {x: 0.024019927, y: 0.086990684, z: 0.22329742, w: 0.97056377}
+      scale: {x: 1.0000013, y: 0.99999946, z: 1.0000013}
+    - name: VorgonRig_1Bone001Bone001Bone002Bone001
+      parentName: VorgonRig_1Bone001Bone001Bone002
+      position: {x: -0.1194466, y: 0, z: 0}
+      rotation: {x: 0.0041031903, y: -0.060260165, z: -0.31983688, w: 0.94554555}
+      scale: {x: 1.000002, y: 0.9999996, z: 1.0000008}
+    - name: VorgonRig_Spine2
+      parentName: VorgonRig_Spine1
+      position: {x: -0.137559, y: 0.000000009536743, z: 0}
+      rotation: {x: 0.00000027233637, y: -0.00000003077603, z: -0.03785284, w: 0.9992834}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000005}
+    - name: VorgonRig_Chest
+      parentName: VorgonRig_Spine2
+      position: {x: -0.1136606, y: 0, z: -0.000000001192093}
+      rotation: {x: -0.00000012149675, y: 0.0000000021761828, z: 0.025255049, w: 0.99968106}
+      scale: {x: 1.0000006, y: 1.0000007, z: 1.0000004}
+    - name: VorgonRig_LowerArmLCollarbone
+      parentName: VorgonRig_Chest
+      position: {x: -0.3044073, y: 0.0000000035762788, z: 0.059708808}
+      rotation: {x: -0.000000037156667, y: 0.8120778, z: 0.000000023196248, w: 0.5835491}
+      scale: {x: 1.0000011, y: 1.0000024, z: 1.0000024}
+    - name: VorgonRig_LowerArmL1
+      parentName: VorgonRig_LowerArmLCollarbone
+      position: {x: -0.2485963, y: 0, z: 0}
+      rotation: {x: 0.10511205, y: -0.10057326, z: 0.037937548, w: 0.98863405}
+      scale: {x: 0.9999986, y: 0.9999997, z: 0.99999934}
+    - name: VorgonRig_LowerArmL21
+      parentName: VorgonRig_LowerArmL1
+      position: {x: -0.2389487, y: 0, z: 0}
+      rotation: {x: -0.09810385, y: -0.1395159, z: -0.09023707, w: 0.9812076}
+      scale: {x: 1.0000015, y: 1.0000002, z: 1.0000008}
+    - name: VorgonRig_LowerArmL22
+      parentName: VorgonRig_LowerArmL21
+      position: {x: -0.080396175, y: 0, z: 0}
+      rotation: {x: -0.027636217, y: 0.04454515, z: 0.051388092, w: 0.997302}
+      scale: {x: 1.0000001, y: 1, z: 1.0000002}
+    - name: VorgonRig_LowerArmL23
+      parentName: VorgonRig_LowerArmL22
+      position: {x: -0.08039615, y: 0, z: 0.0000001525879}
+      rotation: {x: -0.05138644, y: -5.9360156e-10, z: -0.00000002207743, w: 0.9986789}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: VorgonRig_LowerArmLPalmL
+      parentName: VorgonRig_LowerArmL23
+      position: {x: -0.08039615, y: -0.00000007629395, z: 0}
+      rotation: {x: -0.7227628, y: 0.08770662, z: 0.048556134, w: 0.6837864}
+      scale: {x: 1.0000002, y: 1.0000004, z: 0.9999997}
+    - name: VorgonRig_LowerArmLThumb1
+      parentName: VorgonRig_LowerArmLPalmL
+      position: {x: -0.07378965, y: -0.030334929, z: 0.058631357}
+      rotation: {x: 0.5357068, y: 0.32789072, z: -0.11418147, w: 0.76971984}
+      scale: {x: 0.9999997, y: 0.9999991, z: 1.0000002}
+    - name: VorgonRig_LowerArmLThumb2
+      parentName: VorgonRig_LowerArmLThumb1
+      position: {x: -0.05576149, y: 0.0000001525879, z: 0}
+      rotation: {x: 0.8004661, y: 0.005121244, z: 0.008348403, w: 0.599298}
+      scale: {x: 0.99999994, y: 0.99999946, z: 1.0000006}
+    - name: VorgonRig_LowerArmLThumb3
+      parentName: VorgonRig_LowerArmLThumb2
+      position: {x: -0.071193196, y: -0.00000007629395, z: 0}
+      rotation: {x: -0.6435349, y: 0.037991136, z: 0.04604675, w: 0.76308537}
+      scale: {x: 1.0000004, y: 0.99999946, z: 1.0000002}
+    - name: VorgonRig_LowerArmLRingFinger1
+      parentName: VorgonRig_LowerArmLPalmL
+      position: {x: -0.19936119, y: 0.0071799466, z: -0.03535294}
+      rotation: {x: -0.003232149, y: 0.009488218, z: 0.0424848, w: 0.9990469}
+      scale: {x: 0.99999934, y: 1.0000008, z: 0.99999887}
+    - name: VorgonRig_LowerArmLRingFinger2
+      parentName: VorgonRig_LowerArmLRingFinger1
+      position: {x: -0.074216686, y: -0.00000007629395, z: 0}
+      rotation: {x: 0.0007254581, y: -0.002570555, z: 0.03825898, w: 0.99926436}
+      scale: {x: 0.99999994, y: 1.0000002, z: 0.9999998}
+    - name: VorgonRig_LowerArmLRingFinger3
+      parentName: VorgonRig_LowerArmLRingFinger2
+      position: {x: -0.04685005, y: 0, z: 0}
+      rotation: {x: 0.0049674893, y: 0.014359167, z: 0.1089562, w: 0.9939304}
+      scale: {x: 1.0000005, y: 1.0000013, z: 1.000001}
+    - name: VorgonRig_LowerArmLMiddleFinger1
+      parentName: VorgonRig_LowerArmLPalmL
+      position: {x: -0.19885321, y: 0.01251083, z: 0.006988907}
+      rotation: {x: -0.002746491, y: 0.0034726763, z: 0.04435453, w: 0.9990061}
+      scale: {x: 0.9999991, y: 1.000001, z: 0.99999994}
+    - name: VorgonRig_LowerArmLMiddleFinger2
+      parentName: VorgonRig_LowerArmLMiddleFinger1
+      position: {x: -0.0777227, y: -0.00000003814697, z: 0}
+      rotation: {x: 0.0060906084, y: -0.0050314027, z: 0.035727955, w: 0.9993304}
+      scale: {x: 0.999999, y: 1.0000015, z: 0.99999994}
+    - name: VorgonRig_LowerArmLMiddleFinger3
+      parentName: VorgonRig_LowerArmLMiddleFinger2
+      position: {x: -0.04601181, y: -0.000000057220458, z: 0.00000007629395}
+      rotation: {x: 0.006421131, y: 0.035239037, z: 0.07564694, w: 0.9964911}
+      scale: {x: 0.9999998, y: 1.0000017, z: 1.0000002}
+    - name: VorgonRig_LowerArmLPinkyFinger1
+      parentName: VorgonRig_LowerArmLPalmL
+      position: {x: -0.1932313, y: -0.01611526, z: -0.0780307}
+      rotation: {x: -0.0030399242, y: 0.012819275, z: 0.04224453, w: 0.9990205}
+      scale: {x: 1, y: 1.0000011, z: 0.9999992}
+    - name: VorgonRig_LowerArmLPinkyFinger2
+      parentName: VorgonRig_LowerArmLPinkyFinger1
+      position: {x: -0.06480995, y: -0.00000003814697, z: 0}
+      rotation: {x: -0.0000060612756, y: -0.0000002207233, z: 0.033589482, w: 0.9994358}
+      scale: {x: 1.0000002, y: 1.0000008, z: 0.9999991}
+    - name: VorgonRig_LowerArmLPinkyFinger3
+      parentName: VorgonRig_LowerArmLPinkyFinger2
+      position: {x: -0.03573547, y: 0, z: 0}
+      rotation: {x: 0.00000015657764, y: -0.00000061288114, z: 0.005251048, w: 0.99998623}
+      scale: {x: 1.0000019, y: 1.0000018, z: 0.9999992}
+    - name: VorgonRig_LowerArmLIndexFinger1
+      parentName: VorgonRig_LowerArmLPalmL
+      position: {x: -0.19719, y: 0.0006101227, z: 0.04543175}
+      rotation: {x: -0.0043554883, y: 0.025271755, z: 0.04685282, w: 0.99857265}
+      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
+    - name: VorgonRig_LowerArmLIndexFinger2
+      parentName: VorgonRig_LowerArmLIndexFinger1
+      position: {x: -0.06471924, y: 0, z: 0}
+      rotation: {x: -0.0022281194, y: -0.01555808, z: 0.032898553, w: 0.99933517}
+      scale: {x: 0.99999946, y: 0.99999946, z: 0.99999994}
+    - name: VorgonRig_LowerArmLIndexFinger3
+      parentName: VorgonRig_LowerArmLIndexFinger2
+      position: {x: -0.03454941, y: -0.000000019073491, z: 0}
+      rotation: {x: 0.008736975, y: -0.0012150741, z: 0.1204103, w: 0.9926851}
+      scale: {x: 1.0000011, y: 1.0000011, z: 0.9999991}
+    - name: VorgonRig_Spine
+      parentName: VorgonRig_Chest
+      position: {x: -0.3623262, y: -0.05004257, z: 0.00000001192093}
+      rotation: {x: -0.000000399666, y: 0.0000017373841, z: 0.087920025, w: -0.9961276}
+      scale: {x: 1.0000011, y: 1.0000018, z: 1.0000005}
+    - name: VorgonRig_Head
+      parentName: VorgonRig_Spine
+      position: {x: -0.2296587, y: -0.00000007629395, z: 0}
+      rotation: {x: 0.0000004830164, y: -0.0000016141233, z: -0.08791996, w: -0.9961276}
+      scale: {x: 1.0000001, y: 1.0000014, z: 1.000001}
+    - name: VorgonRig_Jaw
+      parentName: VorgonRig_Head
+      position: {x: 0.1491054, y: 0.04079201, z: 0.00000006198883}
+      rotation: {x: 0.000000024391477, y: 0.0000000988749, z: -0.86602527, w: 0.5000004}
+      scale: {x: 0.9999998, y: 1.0000023, z: 1.0000004}
+    - name: VorgonRig_LowerArmRCollarbone
+      parentName: VorgonRig_Chest
+      position: {x: -0.3044095, y: -0.0000001811981, z: -0.059708368}
+      rotation: {x: 0.000000029706111, y: 0.8120779, z: -0.00000008669977, w: -0.58354896}
+      scale: {x: 1.000004, y: 1.0000033, z: 1.0000005}
+    - name: VorgonRig_LowerArmR1
+      parentName: VorgonRig_LowerArmRCollarbone
+      position: {x: -0.2485963, y: 0.00000003814697, z: 0}
+      rotation: {x: -0.10775402, y: 0.10543854, z: 0.044401348, w: 0.9875729}
+      scale: {x: 0.9999983, y: 0.99999994, z: 0.9999991}
+    - name: VorgonRig_LowerArmR21
+      parentName: VorgonRig_LowerArmR1
+      position: {x: -0.2548311, y: 0, z: -0.0000001525879}
+      rotation: {x: 0.099947855, y: 0.115028545, z: -0.112224035, w: 0.981929}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000002}
+    - name: VorgonRig_LowerArmR22
+      parentName: VorgonRig_LowerArmR21
+      position: {x: -0.09393372, y: 0, z: 0.0000001525879}
+      rotation: {x: 0.0282941, y: -0.030343425, z: 0.059730735, w: 0.997352}
+      scale: {x: 1.0000005, y: 1, z: 1.0000001}
+    - name: VorgonRig_LowerArmR23
+      parentName: VorgonRig_LowerArmR22
+      position: {x: -0.09393372, y: 0, z: -0.0000001525879}
+      rotation: {x: 0.052605808, y: 0.000000024060373, z: 0.000000032542673, w: 0.99861544}
+      scale: {x: 1.0000006, y: 1.0000001, z: 1.0000006}
+    - name: VorgonRig_LowerArmRPalm
+      parentName: VorgonRig_LowerArmR23
+      position: {x: -0.09393375, y: 0, z: 0}
+      rotation: {x: 0.7231246, y: -0.07281077, z: 0.070647, w: 0.6832265}
+      scale: {x: 1.0000029, y: 1.0000015, z: 0.99999934}
+    - name: VorgonRig_LowerArmRThumb1
+      parentName: VorgonRig_LowerArmRPalm
+      position: {x: -0.06957216, y: -0.0135568995, z: -0.062318876}
+      rotation: {x: -0.52113533, y: -0.32272112, z: -0.10252472, w: 0.783427}
+      scale: {x: 1.0000021, y: 1.0000018, z: 0.99999803}
+    - name: VorgonRig_LowerArmRThumb2
+      parentName: VorgonRig_LowerArmRThumb1
+      position: {x: -0.07335754, y: 0, z: -0.00000003814697}
+      rotation: {x: -0.8066742, y: 0.03737294, z: 0.004615022, w: 0.58979553}
+      scale: {x: 1.0000005, y: 1.0000032, z: 0.9999984}
+    - name: VorgonRig_LowerArmRThumb3
+      parentName: VorgonRig_LowerArmRThumb2
+      position: {x: -0.0666331, y: 0, z: 0}
+      rotation: {x: 0.6376891, y: -0.07848182, z: 0.01905968, w: 0.7660483}
+      scale: {x: 1.0000014, y: 1.0000023, z: 0.9999996}
+    - name: VorgonRig_LowerArmRMiddleFinger1
+      parentName: VorgonRig_LowerArmRPalm
+      position: {x: -0.19720599, y: 0.01348427, z: -0.00067604054}
+      rotation: {x: 0.002770513, y: 0.007038011, z: 0.0435012, w: 0.99902475}
+      scale: {x: 0.9999997, y: 1.0000024, z: 0.9999998}
+    - name: VorgonRig_LowerArmRMiddleFinger2
+      parentName: VorgonRig_LowerArmRMiddleFinger1
+      position: {x: -0.04393036, y: -0.00000003814697, z: 0.00000007629395}
+      rotation: {x: -0.05086111, y: -0.004027179, z: -0.027183082, w: 0.9983276}
+      scale: {x: 0.999999, y: 1.0000005, z: 1.000003}
+    - name: VorgonRig_LowerArmRMiddleFinger3
+      parentName: VorgonRig_LowerArmRMiddleFinger2
+      position: {x: -0.052875206, y: 0, z: -0.00000007629395}
+      rotation: {x: 0.04556879, y: -0.017628158, z: 0.18419887, w: 0.9816739}
+      scale: {x: 1.0000006, y: 1.0000013, z: 0.9999998}
+    - name: VorgonRig_LowerArmRRingFinger1
+      parentName: VorgonRig_LowerArmRPalm
+      position: {x: -0.1997281, y: 0.007824249, z: 0.03265793}
+      rotation: {x: 0.1292682, y: 0.010088428, z: 0.04204116, w: 0.9906667}
+      scale: {x: 1.0000014, y: 1.0000024, z: 0.9999998}
+    - name: VorgonRig_LowerArmRRingFinger2
+      parentName: VorgonRig_LowerArmRRingFinger1
+      position: {x: -0.04793793, y: 0, z: 0.00000007629395}
+      rotation: {x: -0.011974652, y: 0.008924196, z: 0.04028727, w: 0.9990766}
+      scale: {x: 1.0000004, y: 1.0000023, z: 1}
+    - name: VorgonRig_LowerArmRRingFinger3
+      parentName: VorgonRig_LowerArmRRingFinger2
+      position: {x: -0.036356807, y: 0, z: 0}
+      rotation: {x: 0.005732183, y: 0.035652634, z: 0.09707242, w: 0.99462205}
+      scale: {x: 1.0000026, y: 1.0000007, z: 1.0000005}
+    - name: VorgonRig_LowerArmRIndexFinger1
+      parentName: VorgonRig_LowerArmRPalm
+      position: {x: -0.190505, y: 0.004972458, z: -0.040895462}
+      rotation: {x: 0.022200488, y: -0.04591555, z: 0.02237282, w: 0.998448}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1.000002}
+    - name: VorgonRig_LowerArmRIndexFinger2
+      parentName: VorgonRig_LowerArmRIndexFinger1
+      position: {x: -0.041890867, y: 0, z: 0}
+      rotation: {x: -0.0035207353, y: 0.007719555, z: 0.03511186, w: 0.99934745}
+      scale: {x: 1.0000017, y: 0.9999986, z: 1.0000023}
+    - name: VorgonRig_LowerArmRIndexFinger3
+      parentName: VorgonRig_LowerArmRIndexFinger2
+      position: {x: -0.03780014, y: 0, z: -0.00000007629395}
+      rotation: {x: -0.013217746, y: 0.047577586, z: 0.21905184, w: 0.9744629}
+      scale: {x: 1.0000036, y: 0.9999986, z: 0.99999934}
+    - name: VorgonRig_LowerArmRPinkyFinger1
+      parentName: VorgonRig_LowerArmRPalm
+      position: {x: -0.18682858, y: -0.008230208, z: 0.06546555}
+      rotation: {x: 0.11204243, y: 0.036186825, z: 0.028663192, w: 0.9926306}
+      scale: {x: 1.0000008, y: 1.0000027, z: 0.9999984}
+    - name: VorgonRig_LowerArmRPinkyFinger2
+      parentName: VorgonRig_LowerArmRPinkyFinger1
+      position: {x: -0.03931786, y: -0.00000003814697, z: 0}
+      rotation: {x: -0.010649576, y: -0.028604735, z: 0.027356435, w: 0.9991597}
+      scale: {x: 1.0000021, y: 1.0000014, z: 0.99999994}
+    - name: VorgonRig_LowerArmRPinkyFinger3
+      parentName: VorgonRig_LowerArmRPinkyFinger2
+      position: {x: -0.03276566, y: 0, z: -0.00000007629395}
+      rotation: {x: -0.007195205, y: -0.07478714, z: 0.082154974, w: 0.9937836}
+      scale: {x: 1.0000021, y: 1, z: 1.0000001}
+    - name: VorgonRig_CalfL1
+      parentName: VorgonRig_Pelvis
+      position: {x: 0.050120767, y: 0.0000005340576, z: 0.1155945}
+      rotation: {x: 0.03522813, y: 0.99853796, z: 0.007164835, w: 0.04036824}
+      scale: {x: 1.0000002, y: 1.0000006, z: 1.0000007}
+    - name: VorgonRig_CalfL2
+      parentName: VorgonRig_CalfL1
+      position: {x: -0.5723415, y: -0.000000019073491, z: -0.000000057220458}
+      rotation: {x: -0.0023246044, y: 0.003969867, z: 0.019509811, w: 0.99979913}
+      scale: {x: 0.9999999, y: 0.99999994, z: 0.9999998}
+    - name: VorgonRig_CalfLAnkle
+      parentName: VorgonRig_CalfL2
+      position: {x: -0.4669003, y: 0.000000019073491, z: -0.000000019073491}
+      rotation: {x: -0.08214511, y: -0.03981728, z: -0.67243576, w: 0.7345046}
+      scale: {x: 1, y: 1.0000011, z: 1.0000001}
+    - name: VorgonRig_CalfLDigit11
+      parentName: VorgonRig_CalfLAnkle
+      position: {x: -0.215027, y: 0.0036251089, z: 0.0009430885}
+      rotation: {x: -0.010551452, y: 0.013020318, z: -0.05018883, w: 0.9985991}
+      scale: {x: 0.9999999, y: 1, z: 1.0000001}
+    - name: VorgonRig_CalfR1
+      parentName: VorgonRig_Pelvis
+      position: {x: 0.050120767, y: 0.0000005364418, z: -0.1155945}
+      rotation: {x: 0.035228014, y: 0.998538, z: -0.007164538, w: -0.040368497}
+      scale: {x: 1.0000004, y: 1.0000013, z: 1.0000004}
+    - name: VorgonRig_CalfR2
+      parentName: VorgonRig_CalfR1
+      position: {x: -0.5723413, y: 0.0000001239777, z: -0.000000019073491}
+      rotation: {x: 0.0023258873, y: -0.004041258, z: 0.019512286, w: 0.9997987}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000013}
+    - name: VorgonRig_CalfRAnkle
+      parentName: VorgonRig_CalfR2
+      position: {x: -0.4669003, y: 0, z: -0.000000019073491}
+      rotation: {x: 0.08221269, y: 0.03999683, z: -0.6724382, w: 0.734485}
+      scale: {x: 0.9999998, y: 1.0000004, z: 1}
+    - name: VorgonRig_CalfRDigit11
+      parentName: VorgonRig_CalfRAnkle
+      position: {x: -0.20284049, y: 0.002394958, z: -0.0006058121}
+      rotation: {x: 0.0105602555, y: -0.013192033, z: -0.05017497, w: 0.99859756}
+      scale: {x: 1.0000002, y: 0.99999994, z: 1}
+    - name: VorgonRig_CalfLPlatform
+      parentName: BigVorgon_Anim(Clone)
+      position: {x: -0.2483966, y: -0.010965119, z: -0.07889163}
+      rotation: {x: 0.5905541, y: -0.5618293, z: -0.40513358, w: 0.41407776}
+      scale: {x: 1, y: 0.9999999, z: 0.9999999}
+    - name: VorgonRig_CalfRPlatform
+      parentName: BigVorgon_Anim(Clone)
+      position: {x: 0.26149628, y: -0.005002592, z: -0.08018541}
+      rotation: {x: 0.4523121, y: -0.4171205, z: -0.537882, w: 0.57628757}
+      scale: {x: 1, y: 0.9999999, z: 0.9999999}
+    - name: VorgonRig_LowerArmRIKTarget
+      parentName: BigVorgon_Anim(Clone)
+      position: {x: 1.9202819, y: 1.3018429, z: 0.21092738}
+      rotation: {x: -0.1841038, y: -0.5593622, z: -0.6285575, w: 0.5080702}
+      scale: {x: 1.000001, y: 1, z: 0.9999985}
+    - name: VorgonRig_LowerArmLIKTarget
+      parentName: BigVorgon_Anim(Clone)
+      position: {x: -1.098957, y: 1.3670989, z: 0.6610268}
+      rotation: {x: 0.68526834, y: -0.5121216, z: 0.24056976, w: 0.4585466}
+      scale: {x: 1.000001, y: 1, z: 0.9999996}
+    - name: Character001
+      parentName: BigVorgon_Anim(Clone)
+      position: {x: -3.842984, y: 0, z: 1.242289}
+      rotation: {x: 0.50000006, y: -0.49999997, z: -0.49999997, w: 0.50000006}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Plane001
+      parentName: BigVorgon_Anim(Clone)
+      position: {x: -0.0023964308, y: 1.1927391, z: 0.8870989}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Box001
+      parentName: BigVorgon_Anim(Clone)
+      position: {x: -0.005112723, y: 1.0490083, z: 0.8899787}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -155,13 +1029,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0

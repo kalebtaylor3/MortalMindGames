@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VorgonBossController : MonoBehaviour
 {
@@ -58,15 +59,30 @@ public class VorgonBossController : MonoBehaviour
 
     List<Vector3> objectPositions = new List<Vector3>();
 
+
+    public float maxHealth;
+    public float currentHealth;
+    public Animator healthBar;
+    public Slider healthBarSlider;
+
+
     // Start is called before the first frame update
     void Start()
     {
         state = State.Idle;
     }
 
+    private void OnEnable()
+    {
+        Projectile.DealDamage += TakeDamage;
+        SwordDamage.DealDamage += TakeDamage;
+    }
+
     // Update is called once per frame
     void Update()
     {
+
+        healthBarSlider.value = currentHealth;
 
         shootPos.LookAt(player.position);
 
@@ -120,6 +136,12 @@ public class VorgonBossController : MonoBehaviour
 
         //transform.position = new Vector3(transform.position.x, transform.position.y, currentZ);
     }
+
+    public void TakeDamage(float amount)
+    {
+        currentHealth = currentHealth - amount;
+    }
+
 
     void GetState()
     {
