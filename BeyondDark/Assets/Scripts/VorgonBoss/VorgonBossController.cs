@@ -64,6 +64,7 @@ public class VorgonBossController : MonoBehaviour
     public float currentHealth;
     public Animator healthBar;
     public Slider healthBarSlider;
+    bool lastPhase = false;
 
 
     // Start is called before the first frame update
@@ -81,6 +82,16 @@ public class VorgonBossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(currentHealth <= 250 && !lastPhase)
+        {
+            canAttack = false;
+            canCast = false;
+            canRotate = false;
+            canCloseSlam = false;
+            vorgonAnimator.SetTrigger("Death");
+            lastPhase = true;
+        }
 
         healthBarSlider.value = currentHealth;
 
