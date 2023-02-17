@@ -55,8 +55,22 @@ public class FPSShooter : MonoBehaviour
     void InstantiateProjectile(Transform firePoint)
     {
         var projectileObj = Instantiate(projectile,firePoint.position,Quaternion.identity) as GameObject;
+        RotateToDestination(projectileObj, destination, true);
         projectileObj.GetComponent<Rigidbody>().velocity = (destination - firePoint.position).normalized *projectileSpeed;
-        iTween.PunchPosition(projectileObj, new Vector3(Random.Range(-arcRange, arcRange), Random.Range(-arcRange, arcRange), 0), Random.Range(0.5f, 2.0f));
+        iTween.PunchPosition(projectileObj, new Vector3(Random.Range(-arcRange, arcRange), Random.Range(-arcRange, arcRange), 0), Random.Range(3.0f, 5.0f));
+    }
+    void RotateToDestination(GameObject obj, Vector3 destination, bool onlyY)
+    {
+        var direction = destination - obj.transform.position;
+        var rotation = Quaternion.LookRotation(direction);
+
+        if(onlyY)
+        {
+            rotation.x = 0;
+            rotation.z = 0;
+
+        }
+        obj.transform.localRotation = Quaternion.Lerp(obj.transform.rotation, rotation, 1);
     }
 
 
