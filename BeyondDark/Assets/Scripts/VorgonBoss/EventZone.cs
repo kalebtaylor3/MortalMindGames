@@ -5,9 +5,9 @@ using UnityEngine;
 public class EventZone : MonoBehaviour
 {
     
-        public UnityEngine.Events.UnityEvent onTriggerEnterEvent;
-        void OnTriggerEnter(Collider other)
-        {
-            onTriggerEnterEvent.Invoke();
+    public UnityEngine.Events.UnityEvent onTriggerEnterEvent;
+    void OnTriggerEnter(Collider other)
+    {
+        onTriggerEnterEvent.Invoke();
     }
 }

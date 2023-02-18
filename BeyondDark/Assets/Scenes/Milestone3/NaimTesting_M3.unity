@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0062525608, g: 0.0065220376, b: 0.006380001, a: 1}
+  m_IndirectSpecularColor: {r: 0.0062924307, g: 0.0065593976, b: 0.006414456, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2846,7 +2846,7 @@ PrefabInstance:
     - target: {fileID: 574389754069431714, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3303765435054822361, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
@@ -2998,10 +2998,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6076669012149125715, guid: d986174fc53a17f469747d21442a5adf,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6076669012149125742, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7108663861198911616, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
@@ -3011,7 +3016,7 @@ PrefabInstance:
     - target: {fileID: 7176991988035216368, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7176991989125349074, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
@@ -3071,7 +3076,7 @@ PrefabInstance:
     - target: {fileID: 9219462949079136906, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d986174fc53a17f469747d21442a5adf, type: 3}
@@ -12669,6 +12674,8 @@ GameObject:
   - component: {fileID: 1552238607}
   - component: {fileID: 1552238606}
   - component: {fileID: 1552238608}
+  - component: {fileID: 1552238610}
+  - component: {fileID: 1552238609}
   m_Layer: 0
   m_Name: WorldData
   m_TagString: Untagged
@@ -12739,6 +12746,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4dcdad4de36f147856a7387451f073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1552238609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552238605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae39378640875d42ab1e250222e3a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hearingRange1: 17
+  hearingRange2: 11
+  hearingRange3: 3
+  runningDetectionSpeed: 0.5
+  walkingDetectionSpeed: 0.2
+  crouchingDetectionSpeed: 0.1
+  hearingDetectionUI: {fileID: 594986072}
+  hearingCanvas: {fileID: 648476786}
+  vorgon: {fileID: 5410905569674020596}
+  player: {fileID: 1326173115}
+  detection: 0
+  flashSpeed: 0.2
+--- !u!114 &1552238610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552238605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93d1247c0ca14e94d8a456b9d80818f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  concelableArea: {fileID: 0}
+  player: {fileID: 1326173115}
+  hearingRange: 13.18
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  vorgon: {fileID: 5410905569674020596}
+  detectionSpeed: 0.8
+  seeingDetectionSpeed: 0.4
+  hearingDetectionUI: {fileID: 1020209803}
+  hearingCanvas: {fileID: 1373006532}
+  seeingDetectionUI: {fileID: 524205583}
+  seeingCanvas: {fileID: 469591912}
+  flashSpeed: 0.2
+  hearingExposure: 0
+  exposure: 0
+  vorgonKnows: 0
+  playerDead: 0
 --- !u!1 &1569416793
 GameObject:
   m_ObjectHideFlags: 0
@@ -91247,7 +91308,7 @@ PrefabInstance:
     - target: {fileID: 4564336066582545215, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4564336066582545215, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
@@ -94420,7 +94481,7 @@ PrefabInstance:
     - target: {fileID: 1908062772642417286, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: far clip plane
-      value: 1000
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1908062772642417286, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
@@ -94542,7 +94603,7 @@ PrefabInstance:
     - target: {fileID: 3119439025166842683, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3167395496240002158, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
@@ -94617,17 +94678,17 @@ PrefabInstance:
     - target: {fileID: 5610152156308896045, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 315.55
       objectReference: {fileID: 0}
     - target: {fileID: 5610152156308896045, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000011920929
+      value: -1.3999943
       objectReference: {fileID: 0}
     - target: {fileID: 5610152156308896045, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -279.39008
       objectReference: {fileID: 0}
     - target: {fileID: 6326569732834555467, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
@@ -94672,6 +94733,16 @@ PrefabInstance:
     - target: {fileID: 8462277499797591766, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8510160074803153986, guid: 97f71427c81384d4bb7ded40758c3f6b,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8510160074803153986, guid: 97f71427c81384d4bb7ded40758c3f6b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8669243361031899025, guid: 97f71427c81384d4bb7ded40758c3f6b,
@@ -94982,35 +95053,29 @@ PrefabInstance:
     - target: {fileID: 192992167577111225, guid: 9f75ddd6567e3a0469e350022c6aa962,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 593597824061484574, guid: 9f75ddd6567e3a0469e350022c6aa962,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: player
       value: 
       objectReference: {fileID: 1326173115}
-    - target: {fileID: 593597824061484574, guid: 9f75ddd6567e3a0469e350022c6aa962,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: seeingCanvas
       value: 
       objectReference: {fileID: 469591912}
-    - target: {fileID: 593597824061484574, guid: 9f75ddd6567e3a0469e350022c6aa962,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: hearingCanvas
       value: 
       objectReference: {fileID: 1373006532}
-    - target: {fileID: 593597824061484574, guid: 9f75ddd6567e3a0469e350022c6aa962,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: detectionSpeed
       value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 593597824061484574, guid: 9f75ddd6567e3a0469e350022c6aa962,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: seeingDetectionUI
       value: 
       objectReference: {fileID: 524205583}
-    - target: {fileID: 593597824061484574, guid: 9f75ddd6567e3a0469e350022c6aa962,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: hearingDetectionUI
       value: 
       objectReference: {fileID: 1020209803}
@@ -95149,18 +95214,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 713387290447941637, guid: 9f75ddd6567e3a0469e350022c6aa962,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: player
       value: 
       objectReference: {fileID: 1326173115}
-    - target: {fileID: 713387290447941637, guid: 9f75ddd6567e3a0469e350022c6aa962,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: hearingCanvas
       value: 
       objectReference: {fileID: 648476786}
-    - target: {fileID: 713387290447941637, guid: 9f75ddd6567e3a0469e350022c6aa962,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: hearingDetectionUI
       value: 
       objectReference: {fileID: 594986072}

@@ -67,6 +67,9 @@ public class VorgonBossController : MonoBehaviour
     bool lastPhase = false;
 
 
+    //if not attacking & no active minions & in second phase. spawn minions
+
+
     // Start is called before the first frame update
     void Start()
     {

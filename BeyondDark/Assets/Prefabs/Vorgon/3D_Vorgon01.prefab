@@ -262,8 +262,6 @@ GameObject:
   - component: {fileID: 713387290447941638}
   - component: {fileID: 713387290447941632}
   - component: {fileID: 713387290447941633}
-  - component: {fileID: 593597824061484574}
-  - component: {fileID: 713387290447941637}
   - component: {fileID: 713387290447941634}
   - component: {fileID: 1361401332071526390}
   m_Layer: 0
@@ -333,11 +331,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navAgent: {fileID: 713387290447941634}
   playerT: {fileID: 0}
+  PlayerKillCollision: {fileID: 0}
   vorgonFSM: {fileID: 713387290447941633}
   stunDuration: 5
   alertAudioSource: {fileID: 1361401332071526390}
-  playerDeathMR: {fileID: 0}
-  vorgonModel: {fileID: 0}
   targetMask:
     serializedVersion: 2
     m_Bits: 512
@@ -348,6 +345,7 @@ MonoBehaviour:
   concealArea: {fileID: 0}
   detectionUI: {fileID: 0}
   sightCanvas: {fileID: 0}
+  detection: 0
   detectionSpeed: 0.4
   ALERTSounds:
   - {fileID: 8300000, guid: 7c9c60d4004f9884c99b880ede5a9a73, type: 3}
@@ -355,6 +353,7 @@ MonoBehaviour:
   GROWLSounds:
   - {fileID: 8300000, guid: 16557386e8d541042bff1151a58f8396, type: 3}
   flashSpeed: 0.1
+  sawConceal: 0
   stunned: 0
   isAttacking: 0
   PlayerInSight: 0
@@ -365,6 +364,8 @@ MonoBehaviour:
   LastSeen: {x: 0, y: 0, z: 0}
   SearchAnimCanPlay: 0
   SearchAnimIsPlaying: 0
+  playerDead: 0
+  detectionOut: 0
 --- !u!114 &713387290447941633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,55 +380,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navAgent: {fileID: 713387290447941634}
   StringState: 
---- !u!114 &593597824061484574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192992167577111225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93d1247c0ca14e94d8a456b9d80818f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  concelableArea: {fileID: 0}
-  player: {fileID: 0}
-  hearingRange: 13.18
-  obstructionMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  vorgon: {fileID: 713387290447941632}
-  detectionSpeed: 0.5
-  seeingDetectionSpeed: 0.4
-  hearingDetectionUI: {fileID: 0}
-  hearingCanvas: {fileID: 0}
-  seeingDetectionUI: {fileID: 0}
-  seeingCanvas: {fileID: 0}
-  flashSpeed: 0.2
---- !u!114 &713387290447941637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192992167577111225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ae39378640875d42ab1e250222e3a73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearingRange1: 17
-  hearingRange2: 11
-  hearingRange3: 3
-  runningDetectionSpeed: 0.5
-  walkingDetectionSpeed: 0.2
-  crouchingDetectionSpeed: 0.1
-  hearingDetectionUI: {fileID: 0}
-  hearingCanvas: {fileID: 0}
-  vorgon: {fileID: 713387290447941632}
-  player: {fileID: 0}
-  flashSpeed: 0.2
 --- !u!195 &713387290447941634
 NavMeshAgent:
   m_ObjectHideFlags: 0

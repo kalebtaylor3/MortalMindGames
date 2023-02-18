@@ -36,4 +36,13 @@ public class VorgonProjectile : MonoBehaviour
 
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "VorgonRealmPlayer")
+        {
+            PlayerHealthSystem.Instance.currentPlayerHealth -= damage;
+            PlayerHealthSystem.Instance.TakeDamage();
+        }
+    }
 }
