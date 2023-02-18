@@ -34,7 +34,7 @@ public class HellFireDamage : MonoBehaviour
 
             if (type == PROJECTILE_TYPE.BULLET)
             {
-                Rumbler.Instance.RumbleConstant(0, 0.2f, 0.4f);
+                Rumbler.Instance.RumbleConstant(0, 0.1f, 0.2f);
                 //Rumbler.Instance.RumbleConstant(0, 0.2f, 0.4f);
                 Destroy(impact, 2.0f);
             }
