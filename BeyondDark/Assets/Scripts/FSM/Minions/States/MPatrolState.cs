@@ -80,9 +80,6 @@ public class MPatrolState : FSMState
     public override void Act()
     {
         // Actions
-        if (navAgent.isStopped == false)
-        {
-            navAgent.isStopped = true;
-        }
+
     }
 }

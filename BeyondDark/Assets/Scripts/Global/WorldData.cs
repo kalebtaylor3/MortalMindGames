@@ -35,6 +35,7 @@ public class WorldData : MonoBehaviour
     public SECTIONS activeVorgonSection;
     public Section ActiveVorgonSection;
     public PlayerController player;
+    public bool gamePaused = false;
 
     //UI
     public GameObject detectionUI;
