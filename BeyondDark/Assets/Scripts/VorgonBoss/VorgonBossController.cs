@@ -65,6 +65,17 @@ public class VorgonBossController : MonoBehaviour
     public Animator healthBar;
     public Slider healthBarSlider;
     bool lastPhase = false;
+    bool isDeadForLastPhase = false;
+
+
+    //minions spawning
+    bool isSpawningMinions = false;
+    bool canSpawnMinions = true;
+
+    public List<Transform> minionSpawns = new List<Transform>();
+    public GameObject minion;
+
+    List<MinionController> activeMinions = new List<MinionController>();
 
 
     //if not attacking & no active minions & in second phase. spawn minions
@@ -80,20 +91,43 @@ public class VorgonBossController : MonoBehaviour
     {
         Projectile.DealDamage += TakeDamage;
         SwordDamage.DealDamage += TakeDamage;
+        MinionController.OnDeath += OnMinionDeath;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+        if (activeMinions.Count <= 2)
+            canSpawnMinions = true;
+
+        if (currentHealth <= 750)
+        {
+            //spawn minions
+            if(vorgonAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isSpawningMinions && canSpawnMinions)
+            {
+                isSpawningMinions = true;
+                canSpawnMinions = false;
+                vorgonAnimator.SetTrigger("Summon");
+                Debug.Log("I would have spawned some minions");
+                SpawnMinions();
+                StartCoroutine(MinionSpawnDelay());
+            }
+        }
+
         if(currentHealth <= 250 && !lastPhase)
+        {
+            vorgonAnimator.SetTrigger("Death");
+            lastPhase = true;
+            isDeadForLastPhase = true;
+        }
+
+        if(isDeadForLastPhase)
         {
             canAttack = false;
             canCast = false;
             canRotate = false;
             canCloseSlam = false;
-            vorgonAnimator.SetTrigger("Death");
-            lastPhase = true;
         }
 
         healthBarSlider.value = currentHealth;
@@ -151,6 +185,37 @@ public class VorgonBossController : MonoBehaviour
         //transform.position = new Vector3(transform.position.x, transform.position.y, currentZ);
     }
 
+    void SpawnMinions()
+    {
+
+        for(int i = 0; i < minionSpawns.Count; i++)
+        {
+            GameObject spawnie = Instantiate(minion);
+            Vector3 pos = new Vector3(minionSpawns[i].transform.position.x, 0.75f, minionSpawns[i].transform.position.z);
+            spawnie.transform.position = pos;
+            activeMinions.Add(spawnie.GetComponent<MinionController>());
+
+            float rand = UnityEngine.Random.Range(0, 1);
+            if (rand == 1)
+                spawnie.GetComponent<MinionController>().type = MinionController.MINION_TYPE.RANGED;
+            else
+                spawnie.GetComponent<MinionController>().type = MinionController.MINION_TYPE.MELEE;
+        }
+    }
+
+    void OnMinionDeath(MinionController minion)
+    {
+        activeMinions.Remove(minion);
+    }
+
+    IEnumerator MinionSpawnDelay()
+    {
+        yield return new WaitForSeconds(3);
+        isSpawningMinions = false;
+        vorgonAnimator.ResetTrigger("Summon");
+    }
+
+
     public void TakeDamage(float amount)
     {
         currentHealth = currentHealth - amount;
@@ -169,22 +234,22 @@ public class VorgonBossController : MonoBehaviour
 
         if (playerRange < rangeAttackDistance && playerCloseSlam > closeSlamRadius && playerRange > attackRadius)
         {
-            canRotate = true;
+            //canRotate = true;
             canAttack = true;
             //check if can do ranged attack. all happen so often. delay will varry on what type of attack it is.
-            if (canCast)
+            if (canCast && !isSpawningMinions)
                 state = State.RangeAttack;
         }
 
         if (playerCloseSlam > closeSlamRadius)
         {
-            if (playerRange < attackRadius && canAttack && !isCloseSlamming)
+            if (playerRange < attackRadius && canAttack && !isCloseSlamming && !isSpawningMinions)
                 state = State.Slam;
             else
                 canRotate = true;
         }
 
-        if (playerCloseSlam < closeSlamRadius && canCloseSlam)
+        if (playerCloseSlam < closeSlamRadius && canCloseSlam && !isSpawningMinions)
             state = State.CloseSlam;
     }
 

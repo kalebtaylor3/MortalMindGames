@@ -8,7 +8,7 @@ public class PlayerHealthSystem : MonoBehaviour
 {
 
     public float currentPlayerHealth = 100f;
-    [SerializeField] private float maxPlaerHealth = 100f;
+    [SerializeField] private float maxPlayerHealth = 100f;
     [SerializeField] private int regenRate = 1;
     private bool canRegen = false;
 
@@ -66,14 +66,14 @@ public class PlayerHealthSystem : MonoBehaviour
 
         if(canRegen)
         {
-            if(currentPlayerHealth <= maxPlaerHealth - 0.01)
+            if(currentPlayerHealth <= maxPlayerHealth - 0.01)
             {
                 currentPlayerHealth += Time.deltaTime * regenRate;
                 UpdateHealth();
             }
             else
             {
-                currentPlayerHealth = maxPlaerHealth;
+                currentPlayerHealth = maxPlayerHealth;
                 healCooldown = maxHealCooldown;
                 canRegen = false;
             }
@@ -90,9 +90,7 @@ public class PlayerHealthSystem : MonoBehaviour
     void UpdateHealth()
     {
         Color bloodAlpha = bloodImage.color;
-        float value = currentPlayerHealth / 100;
-        Debug.Log(value);
-        bloodAlpha.a = 1- value;
+        bloodAlpha.a = 1- (currentPlayerHealth / maxPlayerHealth);
         bloodImage.color = bloodAlpha;
     }
 

@@ -24,6 +24,12 @@ public class VorgonProjectile : MonoBehaviour
         {
             Collided = true;
 
+            if (collision.gameObject.tag == "VorgonRealmPlayer")
+            {
+                PlayerHealthSystem.Instance.currentPlayerHealth -= damage;
+                PlayerHealthSystem.Instance.TakeDamage();
+            }
+
             var impact = Instantiate(impactPrefab, collision.GetContact(0).point, Quaternion.identity) as GameObject;
 
             Rumbler.Instance.RumbleConstant(0.5f, 1f, 0.6f);

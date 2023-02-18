@@ -1,4 +1,5 @@
 using MMG;
+using System;
 //using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -62,7 +63,7 @@ public class MinionController : MonoBehaviour
     //public AudioClip clipOnfire; // SET UP ON SOURCE
 
 
-
+    public static event Action<MinionController> OnDeath;
 
     private void OnEnable()
     {
@@ -121,8 +122,8 @@ public class MinionController : MonoBehaviour
         if (healthPoints <= 0)
         {
             healthPoints = 0;
-            minionDeath = true;            
-
+            minionDeath = true;
+            OnDeath?.Invoke(this);
             //CHANGE TO COROUTINE FOR ANIMATION
             Destroy(gameObject, 1.5f);
         }
@@ -144,7 +145,7 @@ public class MinionController : MonoBehaviour
 
                 if(sword)
                 {
-                    int rand = Random.Range(0, clipsHurt.Count);
+                    int rand = UnityEngine.Random.Range(0, clipsHurt.Count);
                     effectsSource.PlayOneShot(clipsHurt[rand]);
                 }                   
 
@@ -180,7 +181,7 @@ public class MinionController : MonoBehaviour
     public void RangedAttack()
     {
         // Sound (Move based on timing)
-        int rand = Random.Range(0, clipsRangedAttack.Count);
+        int rand = UnityEngine.Random.Range(0, clipsRangedAttack.Count);
         effectsSource.PlayOneShot(clipsRangedAttack[rand]);
 
         StartCoroutine(IsAttacking(rangedAttackDuration));
@@ -212,7 +213,7 @@ public class MinionController : MonoBehaviour
     void SetOnFireRand()
     {
         // Burn (RANDOM)
-        int rand = Random.Range(0, 2);
+        int rand = UnityEngine.Random.Range(0, 2);
 
         if (rand == 1)
         {
@@ -230,7 +231,7 @@ public class MinionController : MonoBehaviour
         }
         safe = false;
         
-        float rand = Random.Range(5, 15);
+        float rand = UnityEngine.Random.Range(5, 15);
         yield return new WaitForSeconds(rand);
         onFire = false;
         burningSource.Stop();
@@ -253,7 +254,7 @@ public class MinionController : MonoBehaviour
     public bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
 
-        Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
+        Vector3 randomPoint = center + UnityEngine.Random.insideUnitSphere * range; //random point in a sphere 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas)) //documentation: https://docs.unity3d.com/ScriptReference/AI.NavMesh.SamplePosition.html
         {
