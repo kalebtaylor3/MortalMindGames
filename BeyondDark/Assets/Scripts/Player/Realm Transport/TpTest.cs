@@ -63,28 +63,31 @@ public class TpTest : MonoBehaviour
 
             mortalRealmPlayer.SetActive(false);
 
-            WorldData.Instance.vorgon.gameObject.SetActive(false);
+            WorldData.Instance.RealmTeleport(false, WorldData.REALMS.VORGON);
+
+            //WorldData.Instance.vorgon.gameObject.SetActive(false);
             InteractionUIPanel.Instance.ResetUI();
             
-            WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
+            //WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
         }
         else if (WorldData.Instance.activeRealm == WorldData.REALMS.VORGON)
         {
             mortalRealmPlayer.transform.position = tpPosition;
 
-            //CopySpecialComponents(VorgonRealmPlayer, mortalRealmPlayer);
+            
             mortalRealmPlayer.SetActive(true);
             mortalRealmPlayer.GetComponent<PlayerController>().HandleRealmTransport();
 
-            //Move vorgon character to next location
             
 
             VorgonRealmPlayer.SetActive(false);
 
-            WorldData.Instance.vorgon.gameObject.SetActive(true);
+            WorldData.Instance.RealmTeleport(true, WorldData.REALMS.MORTAL);
+
+            //WorldData.Instance.vorgon.gameObject.SetActive(true);
             InteractionUIPanel.Instance.ResetUI();
-            //RealmTransportation?.Invoke();
-            WorldData.Instance.activeRealm = WorldData.REALMS.MORTAL;
+            
+            //WorldData.Instance.activeRealm = WorldData.REALMS.MORTAL;
         }
 
 

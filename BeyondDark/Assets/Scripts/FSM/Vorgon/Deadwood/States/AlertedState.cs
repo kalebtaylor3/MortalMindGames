@@ -27,6 +27,8 @@ public class AlertedState : FSMState
         killConceal = false;
         closePatrolFlag = true;
 
+        vorgonControl.navAgent.isStopped = false;
+
         vorgonControl.playerDetected = false;
     }
 

@@ -19,7 +19,7 @@ public class SeekState : FSMState
     public override void EnterStateInit()
     {
         //base.EnterStateInit();
-        vorgonControl.navAgent.isStopped = true;
+        vorgonControl.navAgent.isStopped = false;
         //destination = WorldData.Instance.FindSectionCenter(WorldData.Instance.activePlayerSection);
     }
 

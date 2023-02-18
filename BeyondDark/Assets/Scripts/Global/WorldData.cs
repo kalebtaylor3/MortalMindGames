@@ -36,6 +36,9 @@ public class WorldData : MonoBehaviour
     public Section ActiveVorgonSection;
     public PlayerController player;
 
+    //UI
+    public GameObject detectionUI;
+
     // FOR CHECKPOINT
     private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;    
     private int collectedRelicsCountCP;
@@ -55,12 +58,20 @@ public class WorldData : MonoBehaviour
 
     public PlayerCombatController combatInventory;
 
-
-
-
     #endregion
 
-    #region Functions
+    public void RealmTeleport(bool flag, REALMS realm)
+    {
+        //Change Realm && Turn Vorgon on/off
+        activeRealm = realm;
+        vorgon.gameObject.SetActive(flag);
+
+        //UI
+        detectionUI.SetActive(flag);
+    }
+
+
+    #region Mortal Realm Functions
 
     private void Start()
     {
@@ -235,6 +246,12 @@ public class WorldData : MonoBehaviour
         
         input.canMove = true;
     }
+
+    #endregion
+
+    #region Vorgon's Realm Functions
+
+
 
     #endregion
 }

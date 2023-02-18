@@ -86,6 +86,15 @@ public class VorgonController : MonoBehaviour
     {
         detectionOut = true;
         sawConceal = false;
+        SearchAnimIsPlaying = false;
+        SearchAnimCanPlay = true;
+
+        if (WorldData.Instance.activePlayerSection != WorldData.SECTIONS.NONE)
+        {
+            transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+            //navAgent.isStopped = false;
+        }
+        
         //StealthDetection.Instance.detection = 0;
     }
 

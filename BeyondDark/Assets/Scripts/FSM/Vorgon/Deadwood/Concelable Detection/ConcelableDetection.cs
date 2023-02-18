@@ -283,10 +283,12 @@ public class ConcelableDetection : MonoBehaviour
         flashingSight = false;
     }
 
+
     public void SetConcelableArea(ConcelableAreaInteractable newArea)
     {
         concelableArea = newArea;
     }
+
 
     private void OnDrawGizmosSelected()
     {
