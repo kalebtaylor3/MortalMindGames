@@ -196,7 +196,7 @@ public class VorgonBossController : MonoBehaviour
             //spawnie.transform.position = pos;
             activeMinions.Add(spawnie.GetComponent<MinionController>());
 
-            float rand = UnityEngine.Random.Range(0, 1);
+            float rand = UnityEngine.Random.Range(0, 2);
             if (rand == 1)
                 spawnie.GetComponent<MinionController>().type = MinionController.MINION_TYPE.RANGED;
             else

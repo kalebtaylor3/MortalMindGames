@@ -34,6 +34,13 @@ public class Projectile : MonoBehaviour
                 DealDamage?.Invoke(5);
             }
 
+            if (collision.gameObject.tag == "Arm")
+            {
+                Debug.Log("Hit Vorgon In Body");
+                DealDamage?.Invoke(10);
+            }
+
+
             var impact = Instantiate(impactPrefab, collision.contacts[0].point, Quaternion.identity) as GameObject;
 
             if(impact.GetComponent<MassDamage>() != null)
