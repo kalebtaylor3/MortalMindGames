@@ -57,25 +57,27 @@ namespace MMG
 
         void Update()
         {
-            GetCameraInput();
-
-            if(canMove)
-                GetMovementInputData();
-            else
+            if(!WorldData.Instance.gamePaused)
             {
-                movementInputData.InputVectorY = 0;
-                movementInputData.InputVectorX = 0;
+                GetCameraInput();
+
+                if (canMove)
+                    GetMovementInputData();
+                else
+                {
+                    movementInputData.InputVectorY = 0;
+                    movementInputData.InputVectorX = 0;
+                }
+
+                if (canInteract)
+                    GetInteractionInputData();
+                GetInventoryInputData();
+                GetItemInputData();
+                GetQuickTimeEventInputData();
+
+                if (isVorgonCharacter)
+                    GetCombatInput();
             }
-
-            if(canInteract)
-                GetInteractionInputData();
-            GetInventoryInputData();
-            GetItemInputData();
-            GetQuickTimeEventInputData();
-
-            if (isVorgonCharacter)
-                GetCombatInput();
-
         }
 
         void GetQuickTimeEventInputData()
