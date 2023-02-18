@@ -20,7 +20,7 @@ public class MProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "Minion" && collision.gameObject.tag != "MinionBullet" && !Collided)
+        if (collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "Minion" && collision.gameObject.tag != "MinionBullet" && collision.gameObject.layer != 13  && !Collided)
         {
             Collided = true;
 
@@ -51,8 +51,6 @@ public class MProjectile : MonoBehaviour
 
             
             Destroy(gameObject);
-
-            
         }
     }
 }
