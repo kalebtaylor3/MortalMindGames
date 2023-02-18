@@ -51,7 +51,9 @@ public class PlayerHealthSystem : MonoBehaviour
 
         if(currentPlayerHealth <= 0)
         {
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
+#endif
         }
 
         if(startCooldown)

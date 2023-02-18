@@ -17,7 +17,8 @@ public class MenuManager : MonoBehaviour
 
     #endregion
 
-    [SerializeField] GameObject PauseMenuGO;
+
+    [SerializeField] GameObject PauseMenuGO;    
 
     [SerializeField] GameObject OptionsMenuGO;
 
@@ -46,12 +47,14 @@ public class MenuManager : MonoBehaviour
         }        
 
         PauseMenuGO.SetActive(pause);        
-        WorldData.Instance.gamePaused = pause;
+        OptionsMenuGO.GetComponent<OptionsMenu>().TurnMenuOff();
+        WorldData.Instance.SetPauseGame(pause);
     }
 
     public void OptionsMenu(bool state)
     {
         PauseMenuGO.SetActive(!state);
+        OptionsMenuGO.GetComponent<OptionsMenu>().TurnMenuOff();
         OptionsMenuGO.SetActive(state);
     }
 }
