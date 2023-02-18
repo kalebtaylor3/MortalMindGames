@@ -188,11 +188,12 @@ public class VorgonBossController : MonoBehaviour
     void SpawnMinions()
     {
 
-        for(int i = 0; i < minionSpawns.Count; i++)
+        for (int i = 0; i < minionSpawns.Count; i++) 
         {
-            GameObject spawnie = Instantiate(minion);
             Vector3 pos = new Vector3(minionSpawns[i].transform.position.x, 0.75f, minionSpawns[i].transform.position.z);
-            spawnie.transform.position = pos;
+            GameObject spawnie = Instantiate(minion, pos, Quaternion.identity);
+            
+            //spawnie.transform.position = pos;
             activeMinions.Add(spawnie.GetComponent<MinionController>());
 
             float rand = UnityEngine.Random.Range(0, 1);
