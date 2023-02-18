@@ -39,6 +39,7 @@ public class WorldData : MonoBehaviour
 
     //UI
     public GameObject detectionUI;
+    public GameObject canvas;
 
     // FOR CHECKPOINT
     private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;    
@@ -69,6 +70,13 @@ public class WorldData : MonoBehaviour
 
         //UI
         detectionUI.SetActive(flag);
+    }
+
+    public void SetPauseGame(bool state)
+    {
+        gamePaused = state;
+
+        canvas.SetActive(!state);
     }
 
 
