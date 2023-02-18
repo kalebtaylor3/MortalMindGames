@@ -10,7 +10,7 @@ public class HellFireController : MonoBehaviour
     public Transform shootPos;
     public float projectileSpeed = 10;
     public float delay = 1f; // change this value to adjust the delay
-    private bool canShoot = true;
+    private bool canShoot = false;
 
     List<GameObject> shootList = new List<GameObject>();
 
@@ -18,6 +18,15 @@ public class HellFireController : MonoBehaviour
     void Start()
     {
         //StartCoroutine(DisableShooting());
+        canShoot = false;
+        float random = Random.Range(0, 0.6f);
+        StartCoroutine(WaitToShoot(random));
+    }
+
+    IEnumerator WaitToShoot(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        canShoot = true;
     }
 
     private void OnDestroy()

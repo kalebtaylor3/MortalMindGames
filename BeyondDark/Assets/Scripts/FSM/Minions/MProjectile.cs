@@ -24,6 +24,12 @@ public class MProjectile : MonoBehaviour
         {
             Collided = true;
 
+            if(collision.gameObject.tag == "VorgonRealmPlayer")
+            {
+                PlayerHealthSystem.Instance.currentPlayerHealth -= damage;
+                PlayerHealthSystem.Instance.TakeDamage();
+            }
+
             var impact = Instantiate(impactPrefab, collision.GetContact(0).point, Quaternion.identity) as GameObject;
 
             if (type == PROJECTILE_TYPE.BULLET)
