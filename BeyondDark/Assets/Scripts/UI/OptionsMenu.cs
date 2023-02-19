@@ -45,8 +45,12 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] Slider effectsSlider;
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider dialogueSlider;
-
     [SerializeField] AudioMixer masterMixer;
+
+    [Header("Controls Settings")]
+    [SerializeField] GameObject controlsMR;
+    [SerializeField] GameObject controlsVR;
+    [SerializeField] TextMeshProUGUI realmTxt;
 
 
 
@@ -221,6 +225,23 @@ public class OptionsMenu : MonoBehaviour
         masterMixer.SetFloat("EffectsVolume", Mathf.Log10(effectsSlider.value) * 20);
         masterMixer.SetFloat("MusicVolume", Mathf.Log10(musicSlider.value) * 20);
         masterMixer.SetFloat("DialogueVolume", Mathf.Log10(dialogueSlider.value) * 20);
+    }
+
+    public void ChangeControlsImage()
+    {
+        if(controlsMR.activeSelf)
+        {
+            controlsMR.SetActive(false);
+            controlsVR.SetActive(true);
+
+            realmTxt.text = "Vorgon's Realm";
+        }
+        else
+        {
+            controlsMR.SetActive(true);
+            controlsVR.SetActive(false);
+            realmTxt.text = "Mortal Realm";
+        }
     }
 }
 
