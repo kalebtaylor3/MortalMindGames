@@ -138,6 +138,8 @@ public class VorgonBossController : MonoBehaviour
             lastPhase = true;
             isDeadForLastPhase = true;
             SpawnMinions();
+            healthBarSlider.gameObject.SetActive(false);
+            healthBar.SetTrigger("End");
         }
 
         if(lastPhase)
@@ -149,6 +151,9 @@ public class VorgonBossController : MonoBehaviour
                 Debug.Log("Minions gone time to finish");
                 GameObject vorgon = Instantiate(finalVorgon, finalSpawnPos.position, finalSpawnPos.rotation);
                 playerCam.m_LookAt = vorgon.transform;
+                healthBarSlider.gameObject.SetActive(true);
+                healthBar.SetTrigger("Start");
+                healthBarSlider.value = maxHealth;
                 once = true;
             }
         }
@@ -161,7 +166,8 @@ public class VorgonBossController : MonoBehaviour
             canCloseSlam = false;
         }
 
-        healthBarSlider.value = currentHealth;
+        if(!lastPhase)
+            healthBarSlider.value = currentHealth;
 
         shootPos.LookAt(player.position);
 
@@ -267,7 +273,7 @@ public class VorgonBossController : MonoBehaviour
         if (playerRange < rangeAttackDistance && playerCloseSlam > closeSlamRadius && playerRange > attackRadius)
         {
             //canRotate = true;
-            canAttack = true;
+            //canAttack = true;
             //check if can do ranged attack. all happen so often. delay will varry on what type of attack it is.
             if (canCast && !isSpawningMinions)
                 state = State.RangeAttack;
