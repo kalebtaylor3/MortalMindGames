@@ -273,7 +273,7 @@ public class VorgonBossController : MonoBehaviour
                     if (canHellFire)
                     {
                         int randomNumber = Random.Range(0, 100);
-                        if (randomNumber >= 55)
+                        if (randomNumber >= 60)
                             RangeAttack(1);
                         else
                             RangeAttack(0);
@@ -556,6 +556,50 @@ public class VorgonBossController : MonoBehaviour
         //List<GameObject> points = new List<GameObject>();
         points.Add(playerMarker5);
         objectPositions.Add(playerMarker5.transform.position);
+
+        for (int i = 0; i < numberOfHitPoints; i++)
+        {
+            Vector3 randomPoint = player.position + Random.insideUnitSphere * hellFireRange;
+            randomPoint.y = 100;
+            Debug.DrawRay(randomPoint, Vector3.down, Color.red, 100);
+
+            if (Physics.Raycast(randomPoint, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundLayer))
+            {
+                bool isTooClose = false;
+
+                foreach (Vector3 objPos in objectPositions)
+                {
+                    if (Vector3.Distance(objPos, hit.point) < minDistanceBetweenObjects)
+                    {
+                        isTooClose = true;
+                        break;
+                    }
+                }
+
+                if (!isTooClose)
+                {
+                    GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    points.Add(obj);
+                    objectPositions.Add(hit.point);
+                }
+
+                //Instantiate(fireWarning, hit.point, Quaternion.identity);
+            }
+
+        }
+
+        yield return new WaitForSeconds(hellFireSwitchTime);
+        for (int i = 0; i < points.Count; i++)
+            Destroy(points[i]);
+
+
+        objectPositions.Clear();
+        points.Clear();
+
+        GameObject playerMarker6 = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
+        //List<GameObject> points = new List<GameObject>();
+        points.Add(playerMarker6);
+        objectPositions.Add(playerMarker6.transform.position);
 
         for (int i = 0; i < numberOfHitPoints; i++)
         {
