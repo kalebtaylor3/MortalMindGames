@@ -9,7 +9,7 @@ public class TriggerTaunt : MonoBehaviour
 
     public void Taunt()
     {
-        boss.Taunt();
+        boss.Taunt(true);
         boss.healthBar.SetTrigger("Start");
         Rumbler.Instance.RumbleConstant(0.5f, 1f, 1.5f);
         CameraShake.Instance.ShakeCamera(1, 1, 1.5f);

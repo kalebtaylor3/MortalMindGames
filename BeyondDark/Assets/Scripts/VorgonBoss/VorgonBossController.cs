@@ -51,6 +51,9 @@ public class VorgonBossController : MonoBehaviour
     bool isTaunting = false;
     bool isSummoning = false;
 
+    bool canHellFire = false;
+    bool secondPhase = false;
+
     public Animator vorgonAnimator;
 
     public LayerMask groundLayer;
@@ -101,7 +104,13 @@ public class VorgonBossController : MonoBehaviour
         if (activeMinions.Count <= 2)
             canSpawnMinions = true;
 
-        if (currentHealth <= 750)
+        if (currentHealth <= 800 && !secondPhase)
+        {
+            Taunt(false);
+            secondPhase = true;
+        }
+
+        if (currentHealth <= 650)
         {
             //spawn minions
             if(vorgonAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isSpawningMinions && canSpawnMinions)
@@ -261,11 +270,18 @@ public class VorgonBossController : MonoBehaviour
             case State.RangeAttack:
                 if (canCast)
                 {
-                    int randomNumber = Random.Range(0, 100);
-                    if (randomNumber >= 70)
-                        RangeAttack(1);
+                    if (canHellFire)
+                    {
+                        int randomNumber = Random.Range(0, 100);
+                        if (randomNumber >= 55)
+                            RangeAttack(1);
+                        else
+                            RangeAttack(0);
+                    }
                     else
+                    {
                         RangeAttack(0);
+                    }
                 }
                 break;
             case State.Slam:
@@ -309,16 +325,16 @@ public class VorgonBossController : MonoBehaviour
     IEnumerator WaitForAttack()
     {
 
-        yield return new WaitForSeconds(12);
+        yield return new WaitForSeconds(8);
         canRotate = true;
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(6);
         canAttack = true;
     }
 
     IEnumerator WaitForCloseSlam()
     {
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(7);
         canRotate = true;
         isCloseSlamming = false;
 
@@ -492,10 +508,98 @@ public class VorgonBossController : MonoBehaviour
         objectPositions.Clear();
         points.Clear();
 
+        GameObject playerMarker4 = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
+        //List<GameObject> points = new List<GameObject>();
+        points.Add(playerMarker4);
+        objectPositions.Add(playerMarker4.transform.position);
+
+        for (int i = 0; i < numberOfHitPoints; i++)
+        {
+            Vector3 randomPoint = player.position + Random.insideUnitSphere * hellFireRange;
+            randomPoint.y = 100;
+            Debug.DrawRay(randomPoint, Vector3.down, Color.red, 100);
+
+            if (Physics.Raycast(randomPoint, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundLayer))
+            {
+                bool isTooClose = false;
+
+                foreach (Vector3 objPos in objectPositions)
+                {
+                    if (Vector3.Distance(objPos, hit.point) < minDistanceBetweenObjects)
+                    {
+                        isTooClose = true;
+                        break;
+                    }
+                }
+
+                if (!isTooClose)
+                {
+                    GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    points.Add(obj);
+                    objectPositions.Add(hit.point);
+                }
+
+                //Instantiate(fireWarning, hit.point, Quaternion.identity);
+            }
+
+        }
+
+        yield return new WaitForSeconds(hellFireSwitchTime);
+        for (int i = 0; i < points.Count; i++)
+            Destroy(points[i]);
+
+
+        objectPositions.Clear();
+        points.Clear();
+
+        GameObject playerMarker5 = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
+        //List<GameObject> points = new List<GameObject>();
+        points.Add(playerMarker5);
+        objectPositions.Add(playerMarker5.transform.position);
+
+        for (int i = 0; i < numberOfHitPoints; i++)
+        {
+            Vector3 randomPoint = player.position + Random.insideUnitSphere * hellFireRange;
+            randomPoint.y = 100;
+            Debug.DrawRay(randomPoint, Vector3.down, Color.red, 100);
+
+            if (Physics.Raycast(randomPoint, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundLayer))
+            {
+                bool isTooClose = false;
+
+                foreach (Vector3 objPos in objectPositions)
+                {
+                    if (Vector3.Distance(objPos, hit.point) < minDistanceBetweenObjects)
+                    {
+                        isTooClose = true;
+                        break;
+                    }
+                }
+
+                if (!isTooClose)
+                {
+                    GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    points.Add(obj);
+                    objectPositions.Add(hit.point);
+                }
+
+                //Instantiate(fireWarning, hit.point, Quaternion.identity);
+            }
+
+        }
+
+        yield return new WaitForSeconds(hellFireSwitchTime);
+        for (int i = 0; i < points.Count; i++)
+            Destroy(points[i]);
+
+
+        objectPositions.Clear();
+        points.Clear();
+
         vorgonAnimator.SetBool("notHellFire", false);
 
 
-        StartCoroutine(WaitForCast(6f));
+        StartCoroutine(WaitForCast(4f));
     }
 
     IEnumerator WaitForCast(float delay)
@@ -505,21 +609,28 @@ public class VorgonBossController : MonoBehaviour
         rainFire = false;
     }
 
-    public void Taunt()
+    public void Taunt(bool firstTaunt)
     {
         isTaunting = true;
         canAttack = false;
         canCast = false;
         vorgonAnimator.SetTrigger("Taunt");
-        StartCoroutine(WaitForTaunt());
+        StartCoroutine(WaitForTaunt(firstTaunt));
     }
 
-    IEnumerator WaitForTaunt()
+    IEnumerator WaitForTaunt(bool firstTaunt)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(4);
         canCast = true;
         canAttack = true;
         isTaunting = false;
+
+        if (!firstTaunt)
+        {
+            canHellFire = true;
+            RangeAttack(1);
+        }
+
     }
 
     public void SlamShake()
