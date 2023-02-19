@@ -1,8 +1,10 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -12,8 +14,13 @@ public enum OPTIONS_TYPE { NONE = -1, AUDIO = 0, VIDEO = 1, CONTROLS = 2 }
 
 public class OptionsMenu : MonoBehaviour
 {
-    
-    [SerializeField] GameObject audioBtn, videoBtn, controlsBtn;
+    enum AUDIO_TYPE { MASTER = 0, EFFECTS = 1, MUSIC = 2, DIALOGUE = 3 }
+
+    [Header("Menu Settings")]
+
+    [SerializeField] GameObject audioBtn;
+    [SerializeField] GameObject videoBtn;
+    [SerializeField] GameObject controlsBtn;
     [SerializeField] List<OptionScreen> screens = new List<OptionScreen>();
 
     MenuManager menu = null;
@@ -24,11 +31,22 @@ public class OptionsMenu : MonoBehaviour
     public Vector2 currentRes;
     public Vector2 desiredRes;
 
-    // For Changes    
+    [Header("Video Settings")]
+    // For Video Changes    
     [SerializeField] TMP_Dropdown resDrop;
     [SerializeField] Toggle fullscreenTog;
     [SerializeField] Toggle vsyncTog;
     [SerializeField] Toggle motionBlurTog;
+
+
+    [Header("Audio Settings")]
+    // Audio
+    [SerializeField] Slider masterSlider;
+    [SerializeField] Slider effectsSlider;
+    [SerializeField] Slider musicSlider;
+    [SerializeField] Slider dialogueSlider;
+
+    [SerializeField] AudioMixer masterMixer;
 
 
 
@@ -42,6 +60,9 @@ public class OptionsMenu : MonoBehaviour
 
         currentRes.x = Screen.width;
         currentRes.y = Screen.height;
+
+        // Audio
+        GetVolumes();
     }
 
     private void Update()
@@ -60,8 +81,7 @@ public class OptionsMenu : MonoBehaviour
                 else
                 {
                     ClearAndSelect(audioBtn);
-                }
-                
+                }                
             }
             else
             {
@@ -165,6 +185,42 @@ public class OptionsMenu : MonoBehaviour
         {
             desiredRes = currentRes;
         }
+    }
+
+    public void SetMasterVolume(int type)
+    {
+        switch((AUDIO_TYPE)type)
+        {
+            case AUDIO_TYPE.MASTER:
+                masterMixer.SetFloat("MasterVolume", Mathf.Log10(masterSlider.value) * 20);
+                PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
+                break;
+            case AUDIO_TYPE.EFFECTS:
+                masterMixer.SetFloat("EffectsVolume", Mathf.Log10(effectsSlider.value) * 20);
+                PlayerPrefs.SetFloat("EffectsVolume", effectsSlider.value);
+                break;
+            case AUDIO_TYPE.MUSIC:
+                masterMixer.SetFloat("MusicVolume", Mathf.Log10(musicSlider.value) * 20);
+                PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
+                break;
+            case AUDIO_TYPE.DIALOGUE:
+                masterMixer.SetFloat("DialogueVolume", Mathf.Log10(dialogueSlider.value) * 20);
+                PlayerPrefs.SetFloat("DialogueVolume", dialogueSlider.value);
+                break;
+        }
+    }
+
+    public void GetVolumes()
+    {
+        masterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1);
+        effectsSlider.value = PlayerPrefs.GetFloat("EffectsVolume", 1);
+        musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1);
+        dialogueSlider.value = PlayerPrefs.GetFloat("DialogueVolume", 1);
+
+        masterMixer.SetFloat("MasterVolume", Mathf.Log10(masterSlider.value) * 20);
+        masterMixer.SetFloat("EffectsVolume", Mathf.Log10(effectsSlider.value) * 20);
+        masterMixer.SetFloat("MusicVolume", Mathf.Log10(musicSlider.value) * 20);
+        masterMixer.SetFloat("DialogueVolume", Mathf.Log10(dialogueSlider.value) * 20);
     }
 }
 

@@ -24,12 +24,22 @@ public class MenuManager : MonoBehaviour
 
     bool pause = false;
 
+    private void Start()
+    {
+        OptionsMenuGO.GetComponent<OptionsMenu>().GetVolumes();
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (Gamepad.current.startButton.wasPressedThisFrame)
         {
             PauseGame();
+        }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            PlayerPrefs.DeleteAll();
         }
     }
 
