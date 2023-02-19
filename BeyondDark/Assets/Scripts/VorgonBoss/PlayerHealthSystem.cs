@@ -24,6 +24,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
     private static PlayerHealthSystem instance;
 
+    public bool invincible;
+
     public static PlayerHealthSystem Instance
     {
         get
@@ -49,11 +51,14 @@ public class PlayerHealthSystem : MonoBehaviour
     void Update()
     {
 
-        if(currentPlayerHealth <= 0)
+        if (!invincible)
         {
+            if (currentPlayerHealth <= 0)
+            {
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+                UnityEditor.EditorApplication.isPlaying = false;
 #endif
+            }
         }
 
         if(startCooldown)

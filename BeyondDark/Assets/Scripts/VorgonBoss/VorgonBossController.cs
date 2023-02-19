@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -80,6 +81,13 @@ public class VorgonBossController : MonoBehaviour
 
     List<MinionController> activeMinions = new List<MinionController>();
 
+    public CinemachineVirtualCamera playerCam;
+
+    public GameObject finalVorgon;
+    public Transform finalSpawnPos;
+
+    bool once = false;
+
 
     //if not attacking & no active minions & in second phase. spawn minions
 
@@ -129,6 +137,20 @@ public class VorgonBossController : MonoBehaviour
             vorgonAnimator.SetTrigger("Death");
             lastPhase = true;
             isDeadForLastPhase = true;
+            SpawnMinions();
+        }
+
+        if(lastPhase)
+        {
+
+            if (activeMinions.Count == 0 && !once)
+            {
+
+                Debug.Log("Minions gone time to finish");
+                GameObject vorgon = Instantiate(finalVorgon, finalSpawnPos.position, finalSpawnPos.rotation);
+                playerCam.m_LookAt = vorgon.transform;
+                once = true;
+            }
         }
 
         if(isDeadForLastPhase)

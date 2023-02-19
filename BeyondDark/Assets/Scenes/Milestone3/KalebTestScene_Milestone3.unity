@@ -8166,6 +8166,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1080097394}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1082539550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6908809244445737548, guid: 97f71427c81384d4bb7ded40758c3f6b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1449523820748826427}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1093965219
 GameObject:
   m_ObjectHideFlags: 0
@@ -12830,6 +12842,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754947399}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1761943596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1761943597}
+  m_Layer: 0
+  m_Name: Vorgon Final SpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1761943597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761943596}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -281.21, y: 0.93, z: -210.86}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 51
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &1766869501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92627,6 +92670,11 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 1510119180832082484, guid: 97f71427c81384d4bb7ded40758c3f6b,
+        type: 3}
+      propertyPath: invincible
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1518623808785623219, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: uiPanel
@@ -93576,9 +93624,19 @@ PrefabInstance:
       objectReference: {fileID: 1227615572}
     - target: {fileID: 6737833639895288252, guid: 0a782ddb20dd5ec47b38515e0bd56801,
         type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 1082539550}
+    - target: {fileID: 6737833639895288252, guid: 0a782ddb20dd5ec47b38515e0bd56801,
+        type: 3}
       propertyPath: theGround
       value: 
       objectReference: {fileID: 495794780}
+    - target: {fileID: 6737833639895288252, guid: 0a782ddb20dd5ec47b38515e0bd56801,
+        type: 3}
+      propertyPath: finalSpawnPos
+      value: 
+      objectReference: {fileID: 1761943597}
     - target: {fileID: 6737833639895288252, guid: 0a782ddb20dd5ec47b38515e0bd56801,
         type: 3}
       propertyPath: slamIndication
