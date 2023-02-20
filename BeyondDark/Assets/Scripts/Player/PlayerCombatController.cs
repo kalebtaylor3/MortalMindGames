@@ -90,6 +90,9 @@ public class PlayerCombatController : MonoBehaviour
 
     public AudioClip swordSwoosh;
     public AudioSource swordSwingAudio;
+    public AudioSource leftHandFlame;
+    public AudioSource rightHandFlame;
+    public AudioClip[] shots;
 
     #endregion
 
@@ -276,11 +279,13 @@ public class PlayerCombatController : MonoBehaviour
         {
             leftHand = false;
             InstantiateProjectile(LHFirePoint, regularProjectile, false);
+            leftHandFlame.PlayOneShot(shots[UnityEngine.Random.Range(0, shots.Length)]);
         }
         else
         {
             leftHand = true;
             InstantiateProjectile(RHFirepoint, regularProjectile, false);
+            rightHandFlame.PlayOneShot(shots[UnityEngine.Random.Range(0, shots.Length)]);
         }
 
         combatInputData.CastFire = false;

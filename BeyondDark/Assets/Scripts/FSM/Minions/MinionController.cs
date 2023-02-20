@@ -56,11 +56,11 @@ public class MinionController : MonoBehaviour
     public List<AudioClip> clipsWalk;
     public List<AudioClip> clipsHurt;
     public List<AudioClip> clipsttack;
-    public List<AudioClip> clipsRangedAttack;
     public AudioClip clipShooting;
     public AudioClip clipAiming;
     public AudioClip clipbreathing; //AIM
     //public AudioClip clipOnfire; // SET UP ON SOURCE
+    public AudioClip[] shots;
 
 
     public static event Action<MinionController> OnDeath;
@@ -181,8 +181,7 @@ public class MinionController : MonoBehaviour
     public void RangedAttack()
     {
         // Sound (Move based on timing)
-        int rand = UnityEngine.Random.Range(0, clipsRangedAttack.Count);
-        effectsSource.PlayOneShot(clipsRangedAttack[rand]);
+        effectsSource.PlayOneShot(shots[UnityEngine.Random.Range(0, shots.Length)]);
 
         StartCoroutine(IsAttacking(rangedAttackDuration));
         var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
