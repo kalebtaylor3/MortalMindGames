@@ -81,6 +81,8 @@ public class MinionController : MonoBehaviour
 
         StartCoroutine(SpawnMinion());
 
+        minionFSM.enabled = true;
+
         //player = GameObject.FindGameObjectWithTag("VorgonRealmPlayer").GetComponent<player>;
     }
 
