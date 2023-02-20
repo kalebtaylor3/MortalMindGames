@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2642836245823954660}
   - component: {fileID: 3589343942445604186}
   - component: {fileID: 8300726267135095782}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Box050
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2097718936726043615}
   - component: {fileID: 1688394193929529152}
   - component: {fileID: 649782788542704285}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Box053
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5362986503673175143}
   - component: {fileID: 5482452221682030017}
   - component: {fileID: 3501701802316311852}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: StoneWall_LP (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 9146652944753459845}
   - component: {fileID: 7619356542897973177}
   - component: {fileID: 5919516969092948821}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Box051
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 992449533810451445}
   - component: {fileID: 149348662586812418}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CobbleWall2_WindowDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 7002874603834678285}
   - component: {fileID: 156902173259040825}
   - component: {fileID: 3958527712946715581}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: StoneWall_LP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 8504129038782729322}
   - component: {fileID: 6701910151417035194}
   - component: {fileID: 5305265813437987305}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Box052
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -565,18 +565,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2473576167196812385, guid: bd15d46470467a146af7aeccb50aa7a8,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2017756
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473576167196812385, guid: bd15d46470467a146af7aeccb50aa7a8,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2093186
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473576167196812385, guid: bd15d46470467a146af7aeccb50aa7a8,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 11.689261
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473576167196812385, guid: bd15d46470467a146af7aeccb50aa7a8,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.752
+      value: -0.83379
       objectReference: {fileID: 0}
     - target: {fileID: 2473576167196812385, guid: bd15d46470467a146af7aeccb50aa7a8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.266
+      value: 0.488
       objectReference: {fileID: 0}
     - target: {fileID: 2473576167196812385, guid: bd15d46470467a146af7aeccb50aa7a8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.084
+      value: 0.078081
       objectReference: {fileID: 0}
     - target: {fileID: 2473576167196812385, guid: bd15d46470467a146af7aeccb50aa7a8,
         type: 3}
@@ -618,6 +633,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3D_Door_3
       objectReference: {fileID: 0}
+    - target: {fileID: 2961179185434017499, guid: bd15d46470467a146af7aeccb50aa7a8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd15d46470467a146af7aeccb50aa7a8, type: 3}
 --- !u!4 &523924470170373555 stripped
@@ -633,6 +653,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 992449533810451445}
     m_Modifications:
+    - target: {fileID: 304507179156428928, guid: 79097520ce43c3041b8b4f047b61ceea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 951439806833064006, guid: 79097520ce43c3041b8b4f047b61ceea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823126989456355502, guid: 79097520ce43c3041b8b4f047b61ceea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3845193141868200574, guid: 79097520ce43c3041b8b4f047b61ceea,
         type: 3}
       propertyPath: m_RootOrder
@@ -692,6 +727,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BD_SmallWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4474060588940712132, guid: 79097520ce43c3041b8b4f047b61ceea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79097520ce43c3041b8b4f047b61ceea, type: 3}
