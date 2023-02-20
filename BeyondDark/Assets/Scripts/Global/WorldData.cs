@@ -60,7 +60,37 @@ public class WorldData : MonoBehaviour
 
     public PlayerCombatController combatInventory;
 
+    public GameObject mortalRealmPPE;
+    public GameObject vorgonRealmPPE;
+
+    public GameObject realm1;
+    public GameObject realm2;
+    public GameObject realm3;
+    public GameObject deadWood;
+
+    public Material vorgonSkybox;
+    public Material mortalSkybox;
+
     #endregion
+
+    private void Update()
+    {
+
+        if(activeRealm == REALMS.MORTAL)
+        {
+            deadWood.SetActive(true);
+            RenderSettings.skybox = mortalSkybox;
+            mortalRealmPPE.SetActive(true);
+            vorgonRealmPPE.SetActive(false);
+        }
+        else
+        {
+            RenderSettings.skybox = vorgonSkybox;
+            deadWood.SetActive(false);
+            vorgonRealmPPE.SetActive(true);
+            mortalRealmPPE.SetActive(false);
+        }
+    }
 
     public void RealmTeleport(bool flag, REALMS realm)
     {
@@ -128,16 +158,19 @@ public class WorldData : MonoBehaviour
         switch(type)
         {
             case RELIC_TYPE.FLAMES:
+                realm1.SetActive(true);
                 combatInventory.items[0] = true;
                 combatInventory.items[1] = false;
                 combatInventory.items[2] = false;
                 break;
             case RELIC_TYPE.WALL:
+                realm2.SetActive(true);
                 combatInventory.items[0] = false;
                 combatInventory.items[1] = true;
                 combatInventory.items[2] = false;
                 break;
             case RELIC_TYPE.SWORD:
+                realm3.SetActive(true);
                 combatInventory.items[0] = false;
                 combatInventory.items[1] = false;
                 combatInventory.items[2] = true;

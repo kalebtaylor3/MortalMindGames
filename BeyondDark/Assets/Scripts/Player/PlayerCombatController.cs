@@ -404,6 +404,7 @@ public class PlayerCombatController : MonoBehaviour
         else
             destination = ray.GetPoint(100000);
 
+        rightHandFlame.PlayOneShot(shots[UnityEngine.Random.Range(0, shots.Length)]);
 
         InstantiateProjectile(RHFirepoint, regularProjectile, false);
 
@@ -812,6 +813,7 @@ public class PlayerCombatController : MonoBehaviour
         else
             destination = ray.GetPoint(100000);
 
+        leftHandFlame.PlayOneShot(shots[UnityEngine.Random.Range(0, shots.Length)]);
 
         InstantiateProjectile(LHFirePoint, regularProjectile, false);
 
