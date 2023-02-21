@@ -37,9 +37,10 @@ public class MenuManager : MonoBehaviour
             PauseGame();
         }
 
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Gamepad.current.selectButton.wasPressedThisFrame)
         {
-            PlayerPrefs.DeleteAll();
+            //PlayerPrefs.DeleteAll();
+            Time.timeScale = 1.0f;
         }
     }
 

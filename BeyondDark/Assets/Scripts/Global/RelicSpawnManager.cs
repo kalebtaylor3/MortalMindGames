@@ -28,7 +28,7 @@ public class RelicSpawnManager : MonoBehaviour
     private List<GameObject> SpawnSpots;
 
     [SerializeField]
-    private List<GameObject> VorgonCharacterSpots;
+    public List<GameObject> VorgonCharacterSpots;
 
     [SerializeField]
     private List<GameObject> Relics;

@@ -191,7 +191,7 @@ public class VorgonController : MonoBehaviour
             Vector3 forwardV = transform.forward;
             float angle = Vector3.Angle(dir, forwardV);
 
-            if (angle <= 45.0f && !playerT.isHiding)
+            if (angle <= 65.0f && !playerT.isHiding)
             {
                 float distanceToTarget = Vector3.Distance(transform.position, playerT.transform.position);
 

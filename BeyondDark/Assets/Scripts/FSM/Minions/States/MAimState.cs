@@ -64,7 +64,7 @@ public class MAimState : FSMState
             // Out of range -> Patrol
             minionFSM.PerformTransition(Transition.PlayerLost);
         }
-        else if(IsInCurrentRange(minionController.transform, playerT.position, 15))
+        else if(IsInCurrentRange(minionController.transform, playerT.position, 5))
         {
             minionController.RangedReposition(false);
         }

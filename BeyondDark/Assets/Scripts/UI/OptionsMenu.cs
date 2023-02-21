@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [Serializable]
-public enum OPTIONS_TYPE { NONE = -1, AUDIO = 0, VIDEO = 1, CONTROLS = 2 }
+public enum OPTIONS_TYPE { NONE = -1, AUDIO = 0, VIDEO = 1, CONTROLS = 2, DEBUG = 3 }
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -21,6 +21,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] GameObject audioBtn;
     [SerializeField] GameObject videoBtn;
     [SerializeField] GameObject controlsBtn;
+    [SerializeField] GameObject debugBtn;
     [SerializeField] List<OptionScreen> screens = new List<OptionScreen>();
 
     MenuManager menu = null;

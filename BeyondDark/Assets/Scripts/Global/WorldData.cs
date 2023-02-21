@@ -73,6 +73,12 @@ public class WorldData : MonoBehaviour
 
     #endregion
 
+    [Header("DEBUG")]
+    [SerializeField] List<Transform> RelicPos = new List<Transform>();
+
+    [SerializeField]
+    public List<GameObject> VorgonCharacterSpots;
+
     private void Update()
     {
 
@@ -298,4 +304,38 @@ public class WorldData : MonoBehaviour
 
 
     #endregion
+
+
+
+    // DEBUG
+
+    public void RelicTpDEBUG(int relic)
+    {
+        //Time.timeScale = 1;
+        TpTest.Instance.MortalRealmDeath(RelicPos[relic].position);
+        //Time.timeScale = 0;
+    }
+
+    public void PathTpDEBUG(int relic)
+    {
+        //Time.timeScale = 1;
+        switch (relic)
+        {
+            case 0:
+                
+                TpTest.Instance.tpPlayer(VorgonCharacterSpots[0].transform.position);
+                ItemPickedUp(RELIC_TYPE.FLAMES, player.transform.position);
+                break;
+            case 1:
+                
+                TpTest.Instance.tpPlayer(VorgonCharacterSpots[1].transform.position);
+                ItemPickedUp(RELIC_TYPE.WALL, player.transform.position);
+                break;
+            case 2:
+                TpTest.Instance.tpPlayer(VorgonCharacterSpots[2].transform.position);
+                ItemPickedUp(RELIC_TYPE.SWORD, player.transform.position);                
+                break;
+        }
+        //Time.timeScale = 0;
+    }
 }
