@@ -89,7 +89,7 @@ public class VorgonController : MonoBehaviour
         SearchAnimIsPlaying = false;
         SearchAnimCanPlay = true;
 
-        if (WorldData.Instance.activePlayerSection != WorldData.SECTIONS.NONE)
+        if (WorldData.Instance != null && WorldData.Instance.activePlayerSection != WorldData.SECTIONS.NONE) 
         {
             transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
             //navAgent.isStopped = false;

@@ -118,6 +118,8 @@ public class WorldData : MonoBehaviour
         activePlayerSection = SECTIONS.NONE;
         activeVorgonSection = SECTIONS.NONE;
 
+        pickUpCP = player.transform.position;
+
         SetCheckpoint();
     }
 
