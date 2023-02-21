@@ -2815,6 +2815,7 @@ MonoBehaviour:
   walkSpeed: 2.6
   runSpeed: 5
   jumpSpeed: 6
+  dashSpeed: 6
   moveBackwardsSpeedPercentStanding: 0.4
   moveBackwardsSpeedPercentCrouching: 0.6
   moveSideSpeedPercent: 0.5
@@ -2913,7 +2914,7 @@ MonoBehaviour:
   stickToGroundForce: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 1537
   rayLength: 0.1
   raySphereRadius: 0.2
   bookSlots:
@@ -2934,6 +2935,7 @@ MonoBehaviour:
   smoothInputMagnitudeSpeed: 5
   cameraController: {fileID: 555583405601545037}
   currentSpeed: 0
+  isDashing: 0
   smoothCurrentSpeed: 0
   stepSpeed: 0.5
   footStepAudioSource: {fileID: 4361883663916781840}
@@ -3024,6 +3026,7 @@ MonoBehaviour:
   inventoryInputData: {fileID: 11400000, guid: 0d9c42c1440cba848885ed0e94232424, type: 2}
   itemInputData: {fileID: 11400000, guid: 3ae00fd506ddb78479d40be5050c906b, type: 2}
   quickTimeInputData: {fileID: 11400000, guid: 99f7761add0fe354fb6065c02efe0d6c, type: 2}
+  combatInputData: {fileID: 0}
   canMove: 1
   canInteract: 1
 --- !u!114 &195258405677629168
