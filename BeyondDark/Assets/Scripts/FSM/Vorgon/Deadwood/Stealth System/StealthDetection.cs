@@ -29,6 +29,8 @@ public class StealthDetection : MonoBehaviour
 
     bool flashing = false;
 
+    public bool inRange = false;
+
     public static StealthDetection Instance
     {
         get
@@ -89,7 +91,7 @@ public class StealthDetection : MonoBehaviour
             if (distance <= hearingRange3)
             {
                 //crouching range
-
+                inRange = true;
                 if (!player.movementInputData.IsCrouching && player.currentSpeed > 0)
                     detection += Time.deltaTime * runningDetectionSpeed;
                 else
@@ -116,6 +118,7 @@ public class StealthDetection : MonoBehaviour
             }
             else if (distance <= hearingRange2) // if player is within the second sphere's detection range
             {
+                inRange = true;
                 if (!player.movementInputData.IsCrouching)
                 {
                     if (player.currentSpeed >= 1.8f && player.currentSpeed < 5) // if the player is walking or running
@@ -153,6 +156,7 @@ public class StealthDetection : MonoBehaviour
             }
             else if (distance <= hearingRange1) // if player is within the first sphere's detection range
             {
+                inRange = true;
                 if (player.movementInputData.IsRunning) // if the player is running
                 {
                     detection += Time.deltaTime * walkingDetectionSpeed; // increase detection level
@@ -182,6 +186,7 @@ public class StealthDetection : MonoBehaviour
         }
         else
         {
+            inRange = false;
             if (!detected)
             {
                 detection -= Time.deltaTime * runningDetectionSpeed; // decrease detection level
