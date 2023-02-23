@@ -65,6 +65,8 @@ namespace MMG
 
             if (cameraClamp == clamp.Z)
                 concelableAreaCam.cam.Follow = lookAtTransform;
+
+            doorCreak.enabled = false;
         }
 
         private void Update()
@@ -276,6 +278,7 @@ namespace MMG
             yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
             //enable the camera controls n stuff
             enteranceAnimator.enabled = false;
+            doorCreak.enabled = true;
             isHidding = true;
             happenOnce=false;
             canCreak = true;
