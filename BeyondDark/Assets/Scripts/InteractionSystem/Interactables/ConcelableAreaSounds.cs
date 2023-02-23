@@ -18,6 +18,18 @@ public class ConcelableAreaSounds : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (transform.localRotation == new Quaternion(0, 0, 0, 1))
+        {
+            sounds.enabled = false;
+        }
+        else
+        {
+            sounds.enabled = true;
+        }
+    }
+
     public void Close()
     {
         sounds.clip = closeSound;
