@@ -38,11 +38,11 @@ public class JumpScare : MonoBehaviour
 
         scareAudioSource.Play();
 
-        if (StealthDetection.Instance.inRange)
-        {
+        //if (StealthDetection.Instance.inRange)
+        //{
             OnJumpScare?.Invoke();
             vorgon.SetLastDetectedLocation(transform.position, null, VorgonController.EVENT_TYPE.ANIM);
-        }
+        //}
     }
 
 }
