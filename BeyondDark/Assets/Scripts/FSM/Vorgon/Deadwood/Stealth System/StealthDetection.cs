@@ -176,6 +176,7 @@ public class StealthDetection : MonoBehaviour
             }
             else
             {
+                inRange = false;
                 if (!detected)
                 {
                     detection -= Time.deltaTime * runningDetectionSpeed; // reset detection level if player is out of range

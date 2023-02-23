@@ -197,7 +197,7 @@ public class VorgonController : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, dir, distanceToTarget, obstructionMask))
                 {
-                    detection += Time.deltaTime / (distanceToTarget * 0.18f);
+                    detection += Time.deltaTime / (distanceToTarget * detectionSpeed);
                     rayColor = Color.red;
                 }
                 else
