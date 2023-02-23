@@ -51,6 +51,8 @@ public class VorgonController : MonoBehaviour
     bool happenOnce = false;
     public bool sawConceal = false;
 
+    public float noticeRate;
+
     #endregion
 
     #region Debug
@@ -196,7 +198,7 @@ public class VorgonController : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, dir, distanceToTarget, obstructionMask))
                 {
-                    detection += Time.deltaTime / (distanceToTarget * detectionSpeed);
+                    detection += Time.deltaTime / (distanceToTarget * noticeRate);
                     rayColor = Color.red;
                 }
                 else
