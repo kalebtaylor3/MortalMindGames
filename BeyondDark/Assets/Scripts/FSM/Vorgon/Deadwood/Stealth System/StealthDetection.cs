@@ -28,6 +28,7 @@ public class StealthDetection : MonoBehaviour
     bool detected = false;
 
     bool flashing = false;
+    bool jumpScare = false;
 
     public bool inRange = false;
 
@@ -58,6 +59,7 @@ public class StealthDetection : MonoBehaviour
         hearingDetectionUI.color = Color.white;
         detection = 0f; // start with no detection
         hearingDetectionUI.fillAmount = detection;
+        JumpScare.OnJumpScare += Scare;
     }
 
     private void Update()
@@ -65,7 +67,7 @@ public class StealthDetection : MonoBehaviour
         
         float distance = Vector3.Distance(player.transform.position, vorgon.transform.position); // calculate distance between AI and player
 
-        if(detected)
+        if(detected && !jumpScare)
         {
             detection -= Time.deltaTime * runningDetectionSpeed; // reset detection level if player is out of range
             hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
@@ -236,6 +238,18 @@ public class StealthDetection : MonoBehaviour
         yield return new WaitForSeconds(2);
         detected = false;
         hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
+    }
+
+    void Scare()
+    {
+        jumpScare = true;
+        StartCoroutine(WaitForJumpScare());
+    }
+
+    IEnumerator WaitForJumpScare()
+    {
+        yield return new WaitForSeconds(2);
+        jumpScare = false;
     }
 
     private void OnDrawGizmosSelected()
