@@ -33,6 +33,8 @@ public class TrapInteractable : InteractableBase
 
     public VorgonController vorgon;
 
+    public bool bearTrap;
+
     private void OnEnable()
     {
         textMessage = TooltipMessage;
@@ -168,7 +170,8 @@ public class TrapInteractable : InteractableBase
     {
         animator.SetBool("Armed", true);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length);
-        vfx.SetActive(true);
+        if(vfx != null)
+            vfx.SetActive(true);
         armedTrigger.SetActive(true);
         QuickTimeEventSystem.OnSuccess -= OnSuccsess;
         QuickTimeEventSystem.OnFailure -= OnFailure;
