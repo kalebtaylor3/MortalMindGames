@@ -14,6 +14,7 @@ public class StealthDetection : MonoBehaviour
     public float walkingDetectionSpeed = 0.4f; // detection speed when player is walking
     public float crouchingDetectionSpeed = 0.1f;
     public Image hearingDetectionUI; // reference to the UI image on the canvas
+    public Image hearingDetectionOutLine; // reference to the UI image on the canvas
     public CanvasGroup hearingCanvas;
 
     public VorgonController vorgon;
@@ -82,6 +83,7 @@ public class StealthDetection : MonoBehaviour
         if (detection >= 1)
         {
             detection = 1;
+            hearingDetectionOutLine.color = new Color(255, 0, 0, 0.3f);
             //hearingDetectionUI.color = Color.red;
             if (!flashing)
             {
@@ -90,6 +92,7 @@ public class StealthDetection : MonoBehaviour
         }
         else
         {
+            hearingDetectionOutLine.color = Color.white;
             hearingDetectionUI.color = Color.white;
         }
 
@@ -214,7 +217,7 @@ public class StealthDetection : MonoBehaviour
         detected = true;
         detection += amount;
         hearingDetectionUI.fillAmount = Mathf.Lerp(0, amount, 0.95f * Time.deltaTime);
-        hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.red, 0.95f * Time.deltaTime);
+        hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, new Color(255, 0, 0, 0.3f), 0.95f * Time.deltaTime);
         //hearingDetectionUI.color = Color.red;
         StartCoroutine(WaitForDetection());
     }
@@ -225,7 +228,7 @@ public class StealthDetection : MonoBehaviour
         flashing = true;
         while (detection >= 1)
         {
-            hearingDetectionUI.color = Color.red;
+            hearingDetectionUI.color = new Color(255, 0, 0, 0.3f);
             yield return new WaitForSeconds(flashSpeed);
             hearingDetectionUI.color = Color.white;
             yield return new WaitForSeconds(flashSpeed);
