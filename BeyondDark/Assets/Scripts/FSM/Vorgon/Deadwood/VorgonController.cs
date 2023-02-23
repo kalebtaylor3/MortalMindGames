@@ -20,7 +20,6 @@ public class VorgonController : MonoBehaviour
     [SerializeField] public PlayerController playerT;
     [SerializeField] public GameObject PlayerKillCollision;
     [SerializeField] public VorgonDeadwoodFSM vorgonFSM;
-    [SerializeField] private float stunDuration;
     [SerializeField] AudioSource alertAudioSource;
     
 
@@ -122,15 +121,15 @@ public class VorgonController : MonoBehaviour
         }
     }
 
-    public void StunVorgon()
+    public void StunVorgon(float stunTime)
     {
-        StartCoroutine(TriggerStun());
+        StartCoroutine(TriggerStun(stunTime));
     }
 
-    IEnumerator TriggerStun()
+    IEnumerator TriggerStun(float stunTime)
     {
         stunned = true;
-        yield return new WaitForSeconds(stunDuration);
+        yield return new WaitForSeconds(stunTime);
         stunned = false;
     }
 

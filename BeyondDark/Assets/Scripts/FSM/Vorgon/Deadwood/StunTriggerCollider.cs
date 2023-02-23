@@ -6,6 +6,7 @@ public class StunTriggerCollider : MonoBehaviour
 {
 
     public TrapInteractable trap;
+    public float stunTime;
 
     private void OnEnable()
     {
@@ -20,7 +21,7 @@ public class StunTriggerCollider : MonoBehaviour
             {
                 trap.animator.SetTrigger("Trigger");
             }
-            other.GetComponent<VorgonController>().StunVorgon();
+            other.GetComponent<VorgonController>().StunVorgon(stunTime);
             this.GetComponent<Collider>().enabled = false;
         }
     }
