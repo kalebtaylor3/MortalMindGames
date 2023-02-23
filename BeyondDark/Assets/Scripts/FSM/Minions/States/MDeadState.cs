@@ -40,6 +40,7 @@ public class MDeadState : FSMState
         if (navAgent.isStopped == false)
         {
             navAgent.isStopped = true;
+            minionFSM.enabled = false;
         }
     }
 }

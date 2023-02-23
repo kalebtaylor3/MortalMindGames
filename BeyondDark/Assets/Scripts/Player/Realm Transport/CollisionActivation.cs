@@ -43,8 +43,11 @@ public class CollisionActivation : MonoBehaviour
                 {
                     Debug.Log("Vorgon Realm TP SUCCESS");
                     // Move this to after a trial is completed or failed
+                    
                     RelicSpawnManager.Instance.RelicPickedUp(WorldData.Instance.lastPickUpGO);
+
                     WorldData.Instance.MortalRealmController.AddItemToInventory(WorldData.Instance.lastPickUpGO.GetComponent<PickUp>());
+
                     TpTest.Instance.tpPlayer(WorldData.Instance.pickUpCP);
                 }
                 break;

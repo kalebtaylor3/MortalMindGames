@@ -227,7 +227,7 @@ public class MinionController : MonoBehaviour
         if(!safe)
         {
             onFire = true;
-            burningSource.Play();
+            //burningSource.Play();
 
         }
         safe = false;
@@ -235,7 +235,7 @@ public class MinionController : MonoBehaviour
         float rand = UnityEngine.Random.Range(5, 15);
         yield return new WaitForSeconds(rand);
         onFire = false;
-        burningSource.Stop();
+        //burningSource.Stop();
         safe = true;
     }
 
