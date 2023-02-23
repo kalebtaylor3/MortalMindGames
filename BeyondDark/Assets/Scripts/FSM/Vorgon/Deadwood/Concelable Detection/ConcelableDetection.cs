@@ -20,6 +20,7 @@ public class ConcelableDetection : MonoBehaviour
     public float detectionSpeed = 0.8f;
     public float seeingDetectionSpeed = 0.4f;
     public Image hearingDetectionUI; // reference to the UI image on the canvas
+    public Image hearingDetectionOutline; // reference to the UI image on the canvas
     public CanvasGroup hearingCanvas;
 
     public Image seeingDetectionUI; // reference to the UI image on the canvas
@@ -86,6 +87,7 @@ public class ConcelableDetection : MonoBehaviour
         if (hearingExposure >= 1)
         {
             hearingExposure = 1;
+            hearingDetectionOutline.color = Color.red;
             //hearingDetectionUI.color = Color.red;
             if (!flashingHearing)
             {
@@ -94,6 +96,7 @@ public class ConcelableDetection : MonoBehaviour
         }
         else
         {
+            hearingDetectionOutline.color = Color.white;
             hearingDetectionUI.color = Color.white;
         }
 

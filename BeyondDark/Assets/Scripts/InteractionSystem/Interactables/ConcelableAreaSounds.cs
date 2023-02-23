@@ -12,6 +12,7 @@ public class ConcelableAreaSounds : MonoBehaviour
     {
         if (!sounds.isPlaying)
         {
+            sounds.enabled = true;
             sounds.clip = openSound;
             sounds.PlayOneShot(openSound);
         }
@@ -25,6 +26,7 @@ public class ConcelableAreaSounds : MonoBehaviour
 
     public void Stop()
     {
+        sounds.enabled = false;
         sounds.Stop();
     }
 }
