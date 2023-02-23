@@ -65,6 +65,12 @@ public class StealthDetection : MonoBehaviour
         
         float distance = Vector3.Distance(player.transform.position, vorgon.transform.position); // calculate distance between AI and player
 
+        if(detected)
+        {
+            detection -= Time.deltaTime * runningDetectionSpeed; // reset detection level if player is out of range
+            hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
+        }
+
         if (detection <= 0)
         {
             detection = 0;
