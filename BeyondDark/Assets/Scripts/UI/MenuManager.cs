@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
         if(Gamepad.current.selectButton.wasPressedThisFrame)
         {
             //PlayerPrefs.DeleteAll();
-            Time.timeScale = 1.0f;
+            //Time.timeScale = 1.0f;
         }
     }
 

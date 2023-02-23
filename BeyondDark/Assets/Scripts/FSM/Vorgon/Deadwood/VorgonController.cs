@@ -52,6 +52,7 @@ public class VorgonController : MonoBehaviour
     public bool sawConceal = false;
 
     public float noticeRate;
+    public float visionCone = 90.0f;
 
     #endregion
 
@@ -192,7 +193,7 @@ public class VorgonController : MonoBehaviour
             Vector3 forwardV = transform.forward;
             float angle = Vector3.Angle(dir, forwardV);
 
-            if (angle <= 65.0f && !playerT.isHiding)
+            if (angle <= visionCone && !playerT.isHiding)
             {
                 float distanceToTarget = Vector3.Distance(transform.position, playerT.transform.position);
 
