@@ -22,6 +22,9 @@ public class MinionController : MonoBehaviour
 
     [SerializeField] public float healthPoints;
     [SerializeField] public float maxHealthPoints;
+
+    [SerializeField] public PlayerCombatController playerController;
+    [SerializeField] public Transform aimAt;
     
 
     [SerializeField] public Slider healthUI;
@@ -82,6 +85,10 @@ public class MinionController : MonoBehaviour
         StartCoroutine(SpawnMinion());
 
         minionFSM.enabled = true;
+
+        playerController = GameObject.FindGameObjectWithTag("VorgonRealmPlayer").GetComponent<PlayerCombatController>();
+
+        aimAt = playerController.aimAt;
 
         //player = GameObject.FindGameObjectWithTag("VorgonRealmPlayer").GetComponent<player>;
     }

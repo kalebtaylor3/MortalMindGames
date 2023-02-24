@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class VorgonDeadwoodFSM : AdvancedFSM
 {    
-    [SerializeField ] public static int CHASE_DIST = 10;
+    [SerializeField ] public static int CHASE_DIST = 30;
     public static int WAYPOINT_DIST = 1;
         
     public NavMeshAgent navAgent;

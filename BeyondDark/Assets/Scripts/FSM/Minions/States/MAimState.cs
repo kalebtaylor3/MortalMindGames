@@ -78,7 +78,7 @@ public class MAimState : FSMState
         if (angleReached == false)
         {
             // Minion Body Rotation
-            Vector3 direction = (playerT.position - minionController.shootPos.position).normalized;
+            Vector3 direction = (minionController.aimAt.position - minionController.shootPos.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             minionController.transform.rotation = Quaternion.Slerp(minionController.transform.rotation, lookRotation, Time.deltaTime);
 
@@ -98,7 +98,6 @@ public class MAimState : FSMState
             {
                 angleReached = true;
             }
-
         }
     }
 }

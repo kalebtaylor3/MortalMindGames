@@ -12,6 +12,8 @@ public class PlayerCombatController : MonoBehaviour
     #region Variables
     [SerializeField] private CombatInputData combatInputData = null;
 
+    [SerializeField] public Transform aimAt;
+
     public List<bool> items = new List<bool>();
 
 
