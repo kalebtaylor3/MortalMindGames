@@ -257,11 +257,14 @@ public class PlayerCombatController : MonoBehaviour
         {
             leftHand = false;
             InstantiateProjectile(LHFirePoint, specialProjectile, true);
+            leftHandFlame.PlayOneShot(shots[UnityEngine.Random.Range(0, shots.Length)]);
+
         }
         else
         {
             leftHand = true;
             InstantiateProjectile(RHFirepoint, specialProjectile, true);
+            rightHandFlame.PlayOneShot(shots[UnityEngine.Random.Range(0, shots.Length)]);
         }
 
         combatInputData.CastFire = false;
@@ -426,6 +429,7 @@ public class PlayerCombatController : MonoBehaviour
 
 
         InstantiateProjectile(RHFirepoint, specialProjectile, true);
+        rightHandFlame.PlayOneShot(shots[UnityEngine.Random.Range(0, shots.Length)]);
 
         combatInputData.CastFire = false;
         holdTime = 0;
@@ -835,6 +839,8 @@ public class PlayerCombatController : MonoBehaviour
 
 
         InstantiateProjectile(LHFirePoint, specialProjectile, true);
+        leftHandFlame.PlayOneShot(shots[UnityEngine.Random.Range(0, shots.Length)]);
+
 
         combatInputData.CastFire = false;
         holdTime = 0;
