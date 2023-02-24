@@ -112,7 +112,7 @@ public class StealthDetection : MonoBehaviour
                         detection += Time.deltaTime * walkingDetectionSpeed;
                     else if (player.currentSpeed > 0.7f)
                         detection += Time.deltaTime * crouchingDetectionSpeed;
-                    else if (player.currentSpeed < 0.7f && !detected)
+                    else if (player.currentSpeed < 0.7f && !detected && !jumpScare)
                     {
                         detection -= Time.deltaTime * crouchingDetectionSpeed;
                         hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
@@ -140,7 +140,7 @@ public class StealthDetection : MonoBehaviour
                     {
                         detection += Time.deltaTime * runningDetectionSpeed;
                     }
-                    else if (player.currentSpeed < 1.8f && !detected)
+                    else if (player.currentSpeed < 1.8f && !detected && !jumpScare)
                     {
                         detection -= Time.deltaTime * walkingDetectionSpeed;
                         hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
@@ -148,7 +148,7 @@ public class StealthDetection : MonoBehaviour
                 }
                 else
                 {
-                    if (!detected)
+                    if (!detected &&!jumpScare)
                     {
                         detection -= Time.deltaTime * walkingDetectionSpeed;
                         hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
@@ -172,7 +172,7 @@ public class StealthDetection : MonoBehaviour
                 {
                     detection += Time.deltaTime * walkingDetectionSpeed; // increase detection level
                 }
-                else if (!player.movementInputData.IsRunning && !detected) // if the player is walking
+                else if (!player.movementInputData.IsRunning && !detected &&!jumpScare) // if the player is walking
                 {
                     detection -= Time.deltaTime * walkingDetectionSpeed; // decrease detection level
                     hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
@@ -188,7 +188,7 @@ public class StealthDetection : MonoBehaviour
             else
             {
                 inRange = false;
-                if (!detected)
+                if (!detected && !jumpScare)
                 {
                     detection -= Time.deltaTime * runningDetectionSpeed; // reset detection level if player is out of range
                     hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
@@ -199,7 +199,7 @@ public class StealthDetection : MonoBehaviour
         else
         {
             inRange = false;
-            if (!detected)
+            if (!detected && !jumpScare)
             {
                 detection -= Time.deltaTime * runningDetectionSpeed; // decrease detection level
                 hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
