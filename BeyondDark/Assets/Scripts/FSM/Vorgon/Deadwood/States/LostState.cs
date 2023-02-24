@@ -25,6 +25,7 @@ public class LostState : FSMState
         //MonoBehaviour.StartCoroutine(StartLostTimer());
         lostTimer = false;
         lostTime = 0;
+        vorgonControl.navAgent.speed = vorgonControl.defaultSpeed;
     }
 
     public override void Reason()

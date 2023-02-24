@@ -25,6 +25,7 @@ public class PatrolState : FSMState
         currentWP = 0;
         destination = WorldData.Instance.FindActiveSection(WorldData.Instance.activeVorgonSection).SectionWaypoints[currentWP].position;
         vorgonControl.navAgent.destination = destination;
+        vorgonControl.navAgent.speed = vorgonControl.defaultSpeed;
     }
 
     public override void Reason()

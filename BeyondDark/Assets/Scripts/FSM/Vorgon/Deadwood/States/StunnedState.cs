@@ -17,6 +17,7 @@ public class StunnedState : FSMState
     public override void EnterStateInit()
     {
         //base.EnterStateInit();
+        vorgonControl.navAgent.speed = vorgonControl.defaultSpeed;
     }
 
     public override void Reason()

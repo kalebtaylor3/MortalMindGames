@@ -21,7 +21,8 @@ public class VorgonController : MonoBehaviour
     [SerializeField] public GameObject PlayerKillCollision;
     [SerializeField] public VorgonDeadwoodFSM vorgonFSM;
     [SerializeField] AudioSource alertAudioSource;
-    
+    [SerializeField] public float defaultSpeed;
+    [SerializeField] public float chaseSpeed;
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
@@ -34,6 +35,8 @@ public class VorgonController : MonoBehaviour
     // ANIMATIONS
     //public Animation vorgonAnimation;
     //public List<AnimationClip> animationsMR;
+
+    [SerializeField] Animator vorgonAnimator;
 
     public Image detectionUI; // reference to the UI image on the canvas
     public CanvasGroup sightCanvas;
@@ -122,6 +125,9 @@ public class VorgonController : MonoBehaviour
             ConcelableDetection.Instance.exposure = 1;
             ConcelableDetection.Instance.vorgonKnows = true;
         }
+
+        vorgonAnimator.SetFloat("speed", navAgent.speed);
+        
     }
 
     public void StunVorgon(float stunTime)

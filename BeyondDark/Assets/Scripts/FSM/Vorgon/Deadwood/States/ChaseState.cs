@@ -20,6 +20,7 @@ public class ChaseState : FSMState
         //base.EnterStateInit();
         vorgonControl.navAgent.isStopped = false;
         vorgonControl.inChase = true;
+        vorgonControl.navAgent.speed = vorgonControl.chaseSpeed;        
     }
 
     public override void Reason()

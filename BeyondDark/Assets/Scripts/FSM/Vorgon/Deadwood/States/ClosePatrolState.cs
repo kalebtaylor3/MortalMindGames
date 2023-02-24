@@ -30,6 +30,7 @@ public class ClosePatrolState : FSMState
         //detectedAgain = false;
         reachedLastpoint = false;
         searchCount = 0;
+        vorgonControl.navAgent.speed = vorgonControl.defaultSpeed;
     }
 
     public override void Reason()

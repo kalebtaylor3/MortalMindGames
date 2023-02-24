@@ -21,6 +21,7 @@ public class SeekState : FSMState
         //base.EnterStateInit();
         vorgonControl.navAgent.isStopped = false;
         //destination = WorldData.Instance.FindSectionCenter(WorldData.Instance.activePlayerSection);
+        vorgonControl.navAgent.speed = vorgonControl.defaultSpeed;
     }
 
     public override void Reason()
