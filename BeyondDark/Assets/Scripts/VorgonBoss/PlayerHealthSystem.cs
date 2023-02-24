@@ -50,6 +50,11 @@ public class PlayerHealthSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentPlayerHealth <= 0)
+        {
+            currentPlayerHealth = 0;
+        }
+
 
         if (!invincible)
         {
