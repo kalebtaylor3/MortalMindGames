@@ -293,7 +293,11 @@ public class WorldData : MonoBehaviour
             lastConceal = null;
         }
         
-        
+        if(player.isHiding)
+        {
+            player.isHiding = false;
+        }
+
         input.canMove = true;
     }
 

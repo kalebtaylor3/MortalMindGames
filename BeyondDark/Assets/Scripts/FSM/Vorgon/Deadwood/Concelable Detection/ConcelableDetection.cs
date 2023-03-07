@@ -29,7 +29,7 @@ public class ConcelableDetection : MonoBehaviour
     public float flashSpeed = 0.2f;
 
     [HideInInspector] public float hearingExposure;
-    [HideInInspector] public float exposure;
+    public float exposure;
 
     bool detected = false;
     bool flashingHearing = false;
@@ -135,12 +135,12 @@ public class ConcelableDetection : MonoBehaviour
 
                         if (concelableArea.rotator.transform.localRotation.y > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.x > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.z > concelableArea.maxLocalRotationValue)
                         {
-                            if (!detected && !vorgonKnows)
+                            if (!detected && !vorgonKnows && !vorgon.sawConceal)
                                 hearingExposure -= Time.deltaTime * detectionSpeed;
                         }
                         else if (concelableArea.exposurePercentage <= 0)
                         {
-                            if (!detected && !vorgonKnows)
+                            if (!detected && !vorgonKnows && !vorgon.sawConceal)
                                 hearingExposure -= Time.deltaTime * detectionSpeed;
                         }
                         else if (concelableArea.rotator.transform.localRotation.y > 0 || concelableArea.rotator.transform.localRotation.x > 0 || concelableArea.rotator.transform.localRotation.z > 0)
@@ -165,7 +165,7 @@ public class ConcelableDetection : MonoBehaviour
                     }
                     else
                     {
-                        if (!detected && !vorgonKnows)
+                        if (!detected && !vorgonKnows && !vorgon.sawConceal)
                             hearingExposure -= Time.deltaTime * detectionSpeed;
                     }
                 }
@@ -237,7 +237,7 @@ public class ConcelableDetection : MonoBehaviour
                     hearingExposure -= Time.deltaTime * detectionSpeed;
                 }
 
-                if (concelableArea.exposurePercentage <= 0)
+                if (concelableArea.exposurePercentage <= 0 && !vorgon.sawConceal)
                 {
                     exposure -= Time.deltaTime * seeingDetectionSpeed;
                 }

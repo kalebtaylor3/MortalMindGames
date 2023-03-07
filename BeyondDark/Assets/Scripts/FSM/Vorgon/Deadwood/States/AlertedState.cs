@@ -11,7 +11,8 @@ public class AlertedState : FSMState
     bool alertReached = false;
     bool detectedAgain = false;
     bool killConceal = false;
-    bool closePatrolFlag = true;
+    bool closePatrolFlag = false;
+    bool rotConceal = false;
 
     public AlertedState(VorgonController controller)
     {
@@ -25,7 +26,8 @@ public class AlertedState : FSMState
         alertReached = false;
         detectedAgain = false;
         killConceal = false;
-        closePatrolFlag = true;
+        closePatrolFlag = false;
+        rotConceal = false;
 
         vorgonControl.navAgent.isStopped = false;
 
@@ -50,20 +52,20 @@ public class AlertedState : FSMState
         {
             if (!vorgonControl.SearchAnimIsPlaying)
             {
-                if (vorgonControl.sawConceal || vorgonControl.PlayerInSight)
+                if (vorgonControl.sawConceal || WorldData.Instance.GetComponent<ConcelableDetection>().exposure >= 1)
                 {
                     //killConceal = true;
 
-                    if(killConceal)
+                    if (killConceal)
                     {
                         vorgonControl.playerDetected = false;
                         vorgonFSM.PerformTransition(Transition.ReachedPlayer);
                     }
                     // If saw enter conceal and reached the conceal pos -> Attack
-                    
+
                     // closePatrolFlag = false;
                 }
-                else
+                else if (closePatrolFlag) 
                 {
                     // If point reached -> Close Patrol
                     vorgonFSM.PerformTransition(Transition.PlayerDetected);
@@ -127,16 +129,31 @@ public class AlertedState : FSMState
             }
         }
 
-        if (vorgonControl.concealPos != Vector3.zero && alertReached)
+        if (alertReached)
         {
-            vorgonControl.navAgent.isStopped = false;
-            Vector3 direction = (vorgonControl.concealPos - vorgonControl.transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            vorgonControl.transform.rotation = Quaternion.Slerp(vorgonControl.transform.rotation, lookRotation, Time.deltaTime);
-
-            if (Quaternion.Angle(vorgonControl.transform.rotation, lookRotation) <= 10) 
+            if (vorgonControl.concealPos != null)
             {
-                killConceal = true;
+                if (!rotConceal)
+                {
+                    vorgonControl.navAgent.isStopped = false;
+                    Vector3 direction = (vorgonControl.concealPos - vorgonControl.transform.position).normalized;
+                    Quaternion lookRotation = Quaternion.LookRotation(direction);
+                    vorgonControl.transform.rotation = Quaternion.Slerp(vorgonControl.transform.rotation, lookRotation, Time.deltaTime);
+
+                    if (Quaternion.Angle(vorgonControl.transform.rotation, lookRotation) <= 10)
+                    {
+                        rotConceal = true;
+                    }
+                }
+                else
+                {
+                    killConceal = true;
+                    closePatrolFlag = true;
+                }
+            }
+            else
+            {
+                closePatrolFlag = true;
             }
         }
 
