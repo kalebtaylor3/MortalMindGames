@@ -18,9 +18,11 @@ namespace MMG
             [SerializeField] private ItemInputData itemInputData = null;
             [SerializeField] private QuickTimeEventInputData quickTimeInputData = null;
             [SerializeField] private CombatInputData combatInputData = null;
+            [SerializeField] private LoreInputData loreInputData = null;
 
             [HideInInspector] public bool canMove = true;
             [HideInInspector] public bool canInteract = true;
+            [HideInInspector] public bool lookingAtLore = false;
 
         #endregion
 
@@ -37,6 +39,8 @@ namespace MMG
         {
             //ConcelableAreaInteractable.OnEnteredSpot += UnCrouch;
             //uickTimeEventSystem.QTETrigger += OnCantMove;
+            LoreInteractable.OnCollect += LookAtLore;
+            LoreInteractable.OnPutDown += LookAtLore;
         }
 
         void UnCrouch()
@@ -59,9 +63,10 @@ namespace MMG
         {
             //if(!WorldData.Instance.gamePaused)
             {
-                GetCameraInput();
+                if (!lookingAtLore)
+                    GetCameraInput();
 
-                if (canMove)
+                if (canMove && !lookingAtLore)
                     GetMovementInputData();
                 else
                 {
@@ -75,9 +80,21 @@ namespace MMG
                 GetItemInputData();
                 GetQuickTimeEventInputData();
 
+
+
                 if (isVorgonCharacter)
                     GetCombatInput();
+
+                if(lookingAtLore)
+                {
+                    GetLoreInput();
+                }
             }
+        }
+
+        void LookAtLore(bool value)
+        {
+            lookingAtLore = value;
         }
 
         void GetQuickTimeEventInputData()
@@ -172,6 +189,13 @@ namespace MMG
 
             combatInputData.CancelWall = Gamepad.current.buttonNorth.wasPressedThisFrame;
 
+        }
+
+        void GetLoreInput()
+        {
+            loreInputData.RotateLeft = Gamepad.current.leftTrigger.isPressed;
+            loreInputData.RotateRight = Gamepad.current.rightTrigger.isPressed;
+            loreInputData.PutAway = Gamepad.current.buttonEast.wasPressedThisFrame;
         }
 
         #endregion
