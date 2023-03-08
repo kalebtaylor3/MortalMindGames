@@ -224,7 +224,7 @@ public class WorldData : MonoBehaviour
             ConcelableDetection.Instance.seeingCanvas.gameObject.SetActive(false);
             vorgon.sightCanvas.gameObject.SetActive(false);
 
-            yield return new WaitForSeconds(1);
+            //yield return new WaitForSeconds(1);
 
             lastConceal.enteranceAnimator.SetTrigger("Enter");
 
