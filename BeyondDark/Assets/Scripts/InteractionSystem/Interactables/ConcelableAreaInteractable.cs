@@ -231,6 +231,7 @@ namespace MMG
                 if (!isHidding)
                 {
                     base.OnInteract();
+                    OnEnteredSpot?.Invoke();
                     input.canMove = false;
                     if(ConcelableDetection.Instance != null)
                         ConcelableDetection.Instance.SetConcelableArea(this);
@@ -279,7 +280,7 @@ namespace MMG
             //enable the camera controls n stuff
             enteranceAnimator.enabled = false;
             doorCreak.enabled = true;
-            isHidding = true;
+            //isHidding = true;
             happenOnce=false;
             canCreak = true;
             concelableAreaCam.cam.LookAt = lookAtTransform;
@@ -290,7 +291,7 @@ namespace MMG
 
             canExit = true;
             this.GetComponent<BoxCollider>().enabled = true;
-            OnEnteredSpot?.Invoke();
+            
 
             if (cameraClamp == clamp.Y)
                 concelableAreaCam.cam.Follow = lookAtTransform;

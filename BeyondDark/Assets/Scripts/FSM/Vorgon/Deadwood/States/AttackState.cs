@@ -57,12 +57,17 @@ public class AttackState : FSMState
 
         if ((!vorgonControl.isAttacking && vorgonControl.sawConceal) || !vorgonControl.isAttacking && vorgonControl.playerT.isHiding) 
         {
+         
+            if(WorldData.Instance.lastConceal.canCreak)
+            {
+                vorgonControl.Attack(true);
+                vorgonControl.sawConceal = false;
+            }
             
-            vorgonControl.Attack(true);
             //vorgonControl.gameObject.SetActive(false);
             //vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
             //vorgonControl.gameObject.SetActive(true);
-            vorgonControl.sawConceal = false;
+            
             //vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
 

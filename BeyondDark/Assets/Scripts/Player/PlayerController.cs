@@ -282,7 +282,6 @@ namespace MMG
         void SetHiding()
         {
             isHiding = true;
-
         }
 
         void NotHiding()
