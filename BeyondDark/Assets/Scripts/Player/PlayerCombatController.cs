@@ -708,6 +708,7 @@ public class PlayerCombatController : MonoBehaviour
         if (swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Sword004_Chainsaw") && !swordAnimator.GetBool("hit1"))
         {
             SwordDamage.Instance.SetDamage(0);
+            noOfPresses = 0;
         }
 
         if (Time.time - lastClickedTime > maxComboDelay)

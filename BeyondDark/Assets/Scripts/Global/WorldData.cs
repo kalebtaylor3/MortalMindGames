@@ -1,4 +1,5 @@
 using MMG;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class WorldData : MonoBehaviour
     #region Instance
 
     public static WorldData Instance { get; private set; }
+
+    public static event Action OnDeath;
 
     private void Awake()
     {
@@ -203,6 +206,7 @@ public class WorldData : MonoBehaviour
     public void PlayerDeathMortalRealm()
     {
         TriggerCheckpoint();
+        OnDeath?.Invoke();
         StartCoroutine(TriggerPlayerDeathMR());
     }
 
