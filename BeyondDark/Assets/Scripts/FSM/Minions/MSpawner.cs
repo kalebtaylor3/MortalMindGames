@@ -103,4 +103,31 @@ public class MSpawner : MonoBehaviour
             }            
         }
     }
+
+    public void RestartSpawner()
+    {
+        if (MspawnPos.Count != 0)
+        {
+            foreach (Transform Mpos in MspawnPos)
+            {
+                if(Mpos.childCount !=0)
+                {
+                    Destroy(Mpos.GetChild(0).gameObject);
+                }
+            }
+        }
+
+        if (RspawnPos.Count != 0)
+        {
+            foreach (Transform Rpos in RspawnPos)
+            {
+                if (Rpos.childCount != 0)
+                {
+                    Destroy(Rpos.GetChild(0).gameObject);
+                }                
+            }
+        }
+
+        this.gameObject.SetActive(false);
+    }
 }

@@ -71,8 +71,13 @@ public class WorldData : MonoBehaviour
     public GameObject realm3;
     public GameObject deadWood;
 
+    public int currentTrial = 0;
+
     public Material vorgonSkybox;
     public Material mortalSkybox;
+
+    public StealthDetection stealthDetection;
+    public ConcelableDetection concelDetection;
 
     #endregion
 
@@ -106,6 +111,9 @@ public class WorldData : MonoBehaviour
         //Change Realm && Turn Vorgon on/off
         activeRealm = realm;
         vorgon.gameObject.SetActive(flag);
+        concelDetection.enabled = flag;
+        stealthDetection.enabled = flag;
+
 
         //UI
         detectionUI.SetActive(flag);
@@ -170,21 +178,36 @@ public class WorldData : MonoBehaviour
         {
             case RELIC_TYPE.FLAMES:
                 realm1.SetActive(true);
+                realm2.SetActive(false);
+                realm3.SetActive(false);
+
+                currentTrial = 1;
+
                 combatInventory.items[0] = true;
                 combatInventory.items[1] = false;
                 combatInventory.items[2] = false;
                 break;
             case RELIC_TYPE.WALL:
+                realm1.SetActive(false);
                 realm2.SetActive(true);
+                realm3.SetActive(false);
+
+                currentTrial = 2;
+
                 combatInventory.items[0] = false;
                 combatInventory.items[1] = true;
                 combatInventory.items[2] = false;
                 break;
             case RELIC_TYPE.SWORD:
+                realm1.SetActive(false);
+                realm2.SetActive(false);
                 realm3.SetActive(true);
+
+                currentTrial = 3;
+
                 combatInventory.items[0] = false;
                 combatInventory.items[1] = false;
-                combatInventory.items[2] = true;
+                combatInventory.items[2] = true;                
                 break;
         }
     }
@@ -309,10 +332,32 @@ public class WorldData : MonoBehaviour
 
     #region Vorgon's Realm Functions
 
+    public void VorgonRealmPlayerDeath()
+    {
+        StartCoroutine(VRPlayerDeath());
+    }
 
+    IEnumerator VRPlayerDeath()
+    {
+        yield return new WaitForSeconds(3.1f);
+
+        switch (currentTrial)
+        {
+            case 1:
+                realm1.GetComponent<VorgonTrial>().RestartTrial();
+                break;
+            case 2:
+                realm2.GetComponent<VorgonTrial>().RestartTrial();
+                break;
+            case 3:
+                realm3.GetComponent<VorgonTrial>().RestartTrial();
+                break;
+            default:
+                break;
+        }
+    }
 
     #endregion
-
 
 
     // DEBUG

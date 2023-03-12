@@ -25,6 +25,7 @@ public class PlayerHealthSystem : MonoBehaviour
     private static PlayerHealthSystem instance;
 
     public bool invincible;
+    public bool alive = true;
 
     public static PlayerHealthSystem Instance
     {
@@ -39,6 +40,8 @@ public class PlayerHealthSystem : MonoBehaviour
     private void OnEnable()
     {
         CollisionActivation.endingPath += ResetHealth;
+        ResetHealth();
+        alive = true;
     }
 
     private void Awake()
@@ -61,46 +64,66 @@ public class PlayerHealthSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentPlayerHealth <= 0)
-        {
-            currentPlayerHealth = 0;
-        }
-
-
-        if (!invincible)
+        if(alive)
         {
             if (currentPlayerHealth <= 0)
             {
+                alive = false;
+                currentPlayerHealth = 0;
+
+                GameObject lastRelic = WorldData.Instance.lastPickUpGO;
+                WorldData.Instance.TriggerCheckpoint();
+
+                if (WorldData.Instance.lastPickUpGO != null)
+                {
+                    RelicSpawnManager.Instance.RelicPickedUp(WorldData.Instance.lastPickUpGO);
+                }
+                else
+                {
+                    lastRelic.SetActive(true);
+                }
+
+                TpTest.Instance.tpPlayer(WorldData.Instance.pickUpCP);
+                WorldData.Instance.VorgonRealmPlayerDeath();
+            }
+
+
+            if (!invincible)
+            {
+                if (currentPlayerHealth <= 0)
+                {
 #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
+                    //UnityEditor.EditorApplication.isPlaying = false;
 #endif
+                }
             }
-        }
 
-        if(startCooldown)
-        {
-            healCooldown -= Time.deltaTime;
-            if(healCooldown <= 0)
+            if (startCooldown)
             {
-                canRegen = true;
-                startCooldown = false;
+                healCooldown -= Time.deltaTime;
+                if (healCooldown <= 0)
+                {
+                    canRegen = true;
+                    startCooldown = false;
+                }
             }
-        }
 
-        if(canRegen)
-        {
-            if(currentPlayerHealth <= maxPlayerHealth - 0.01)
+            if (canRegen)
             {
-                currentPlayerHealth += Time.deltaTime * regenRate;
-                UpdateHealth();
-            }
-            else
-            {
-                currentPlayerHealth = maxPlayerHealth;
-                healCooldown = maxHealCooldown;
-                canRegen = false;
+                if (currentPlayerHealth <= maxPlayerHealth - 0.01)
+                {
+                    currentPlayerHealth += Time.deltaTime * regenRate;
+                    UpdateHealth();
+                }
+                else
+                {
+                    currentPlayerHealth = maxPlayerHealth;
+                    healCooldown = maxHealCooldown;
+                    canRegen = false;
+                }
             }
         }
+        
     }
 
     IEnumerator HurtFlash()

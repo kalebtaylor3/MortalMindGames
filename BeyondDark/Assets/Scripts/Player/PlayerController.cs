@@ -210,6 +210,7 @@ namespace MMG
         [SerializeField] public bool isHiding = false;
 
         [SerializeField] public GameObject PlayerKillCollision;
+        
 
         #endregion
 
@@ -311,7 +312,6 @@ namespace MMG
 
         private void OnEnable()
         {
-
             // Sound Effect for realm tp
             HandleRealmTransport();
 
