@@ -153,9 +153,13 @@ public class QuickTimeEventSystem : MonoBehaviour
 
     void OnDeath()
     {
-        eventTriggered = false;
         inEvent = false;
+        eventTriggered = false;
+        //audioSource.PlayOneShot(failClip);
+        OnFailure?.Invoke();
+        StartCoroutine(WaitToGoAway());
         UIPanel.SetActive(false);
+        //StartCoroutine(FadeAlert());
     }
 
     IEnumerator FadeAlert()
