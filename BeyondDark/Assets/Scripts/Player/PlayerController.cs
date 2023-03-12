@@ -618,7 +618,7 @@ namespace MMG
             {
                 if(movementInputData.IsRunning && currentSpeed >= runSpeed)
                 {
-                    staminaTest -= 0.15f * Time.deltaTime;
+                    staminaTest -= 0.10f * Time.deltaTime;
                 }
                 else if (!movementInputData.IsRunning)
                 {
@@ -628,7 +628,7 @@ namespace MMG
                 if(staminaTest <= 0f && movementInputData.IsRunning)
                 {
                     //cameraController.ResetFOV();
-                    staminaTest = -1f;
+                    staminaTest = -0.1f;
                     outOfStamina = true;
                     OnEnmptyStamina?.Invoke();
                 }

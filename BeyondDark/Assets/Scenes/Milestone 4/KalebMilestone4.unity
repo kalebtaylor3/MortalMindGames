@@ -9382,17 +9382,17 @@ PrefabInstance:
         type: 3}
       propertyPath: house1
       value: 
-      objectReference: {fileID: 2099526582}
+      objectReference: {fileID: 1982788895}
     - target: {fileID: 7108663861198911616, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: house2
       value: 
-      objectReference: {fileID: 1139466168}
+      objectReference: {fileID: 1056480014}
     - target: {fileID: 7108663861198911616, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: house3
       value: 
-      objectReference: {fileID: 1887297034}
+      objectReference: {fileID: 1602355584}
     - target: {fileID: 7108663861198911616, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: player
@@ -9407,17 +9407,17 @@ PrefabInstance:
         type: 3}
       propertyPath: houseMarkers.Array.data[0]
       value: 
-      objectReference: {fileID: 2099526582}
+      objectReference: {fileID: 0}
     - target: {fileID: 7108663861198911616, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: houseMarkers.Array.data[1]
       value: 
-      objectReference: {fileID: 1139466168}
+      objectReference: {fileID: 0}
     - target: {fileID: 7108663861198911616, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: houseMarkers.Array.data[2]
       value: 
-      objectReference: {fileID: 1887297034}
+      objectReference: {fileID: 0}
     - target: {fileID: 7176240312992432728, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
       propertyPath: m_SkipOnDrop
@@ -20882,7 +20882,7 @@ GameObject:
   - component: {fileID: 1056480014}
   m_Layer: 0
   m_Name: HouseMarker02
-  m_TagString: RelicSpawnPoints
+  m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22029,7 +22029,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1139466167}
-  - component: {fileID: 1139466168}
   m_Layer: 0
   m_Name: RelicSpawnPoint02
   m_TagString: RelicSpawnPoints
@@ -22052,20 +22051,6 @@ Transform:
   m_Father: {fileID: 1098274507}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1139466168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1139466166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12df9c271023e584f8f77dd45e6eaef0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 7900e7b6101d61d4ebd8137fd0d86b5c, type: 3}
-  image: {fileID: 0}
 --- !u!1 &1142635946
 GameObject:
   m_ObjectHideFlags: 0
@@ -29336,8 +29321,8 @@ GameObject:
   - component: {fileID: 1602355583}
   - component: {fileID: 1602355584}
   m_Layer: 0
-  m_Name: RelicSpawnPoint03 (1)
-  m_TagString: RelicSpawnPoints
+  m_Name: HouseMarker03
+  m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32229,7 +32214,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1887297033}
-  - component: {fileID: 1887297034}
   m_Layer: 0
   m_Name: RelicSpawnPoint03
   m_TagString: RelicSpawnPoints
@@ -32252,20 +32236,6 @@ Transform:
   m_Father: {fileID: 1098274507}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1887297034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887297032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12df9c271023e584f8f77dd45e6eaef0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 7900e7b6101d61d4ebd8137fd0d86b5c, type: 3}
-  image: {fileID: 0}
 --- !u!1 &1894895875
 GameObject:
   m_ObjectHideFlags: 0
@@ -34443,8 +34413,8 @@ GameObject:
   - component: {fileID: 1982788894}
   - component: {fileID: 1982788895}
   m_Layer: 0
-  m_Name: RelicSpawnPointHOUSEMARKER
-  m_TagString: RelicSpawnPoints
+  m_Name: HouseMarker01
+  m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35701,7 +35671,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2099526581}
-  - component: {fileID: 2099526582}
   m_Layer: 0
   m_Name: RelicSpawnPoint01
   m_TagString: RelicSpawnPoints
@@ -35724,20 +35693,6 @@ Transform:
   m_Father: {fileID: 1098274507}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2099526582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2099526580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12df9c271023e584f8f77dd45e6eaef0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 7900e7b6101d61d4ebd8137fd0d86b5c, type: 3}
-  image: {fileID: 0}
 --- !u!1 &2099897741
 GameObject:
   m_ObjectHideFlags: 0
