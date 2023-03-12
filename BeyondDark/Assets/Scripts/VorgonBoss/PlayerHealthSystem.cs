@@ -36,6 +36,11 @@ public class PlayerHealthSystem : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        CollisionActivation.endingPath += ResetHealth;
+    }
+
     private void Awake()
     {
         instance = this;
@@ -45,6 +50,12 @@ public class PlayerHealthSystem : MonoBehaviour
     void Start()
     {
         
+    }
+
+    void ResetHealth()
+    {
+        currentPlayerHealth = maxPlayerHealth;
+        UpdateHealth();
     }
 
     // Update is called once per frame

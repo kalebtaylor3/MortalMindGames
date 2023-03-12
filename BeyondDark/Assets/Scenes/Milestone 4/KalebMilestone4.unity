@@ -9307,8 +9307,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7176240312992432728, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
-      propertyPath: m_DirectAudioVolumes.Array.data[0]
+      propertyPath: m_DirectAudioMutes.Array.data[0]
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7176240312992432728, guid: d986174fc53a17f469747d21442a5adf,
+        type: 3}
+      propertyPath: m_DirectAudioVolumes.Array.data[0]
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7176991988035216368, guid: d986174fc53a17f469747d21442a5adf,
         type: 3}
@@ -28107,9 +28112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae39378640875d42ab1e250222e3a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hearingRange1: 25
-  hearingRange2: 20
-  hearingRange3: 7
+  hearingRange1: 35
+  hearingRange2: 25
+  hearingRange3: 12
   runningDetectionSpeed: 0.5
   walkingDetectionSpeed: 0.2
   crouchingDetectionSpeed: 0.1
@@ -31118,6 +31123,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1037924439529419394, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: far clip plane
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1101694513022229584, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}

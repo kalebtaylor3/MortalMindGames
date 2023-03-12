@@ -1,4 +1,5 @@
 using MMG;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class CollisionActivation : MonoBehaviour
     [SerializeField] TRIAL_OUTCOME EndType = TRIAL_OUTCOME.NONE;
 
     public Transform ogTpPos;
+    public static event Action endingPath;
 
     // Temporary collision to trigger realm tp from vorgons realm to the mortal realm
     private void OnTriggerEnter(Collider other)
@@ -49,6 +51,7 @@ public class CollisionActivation : MonoBehaviour
                     WorldData.Instance.MortalRealmController.AddItemToInventory(WorldData.Instance.lastPickUpGO.GetComponent<PickUp>());
 
                     TpTest.Instance.tpPlayer(WorldData.Instance.pickUpCP);
+                    StartCoroutine(WaitForHealth());
                 }
                 break;
 
@@ -57,5 +60,11 @@ public class CollisionActivation : MonoBehaviour
         }
 
         
+    }
+
+    IEnumerator WaitForHealth()
+    {
+        yield return new WaitForSeconds(3);
+        endingPath?.Invoke();
     }
 }
