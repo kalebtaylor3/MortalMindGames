@@ -13,6 +13,7 @@ public class AlertedState : FSMState
     bool killConceal = false;
     bool closePatrolFlag = false;
     bool rotConceal = false;
+    bool canConcealKill = false;
 
     public AlertedState(VorgonController controller)
     {
@@ -28,6 +29,7 @@ public class AlertedState : FSMState
         killConceal = false;
         closePatrolFlag = false;
         rotConceal = false;
+        canConcealKill = false;
 
         vorgonControl.navAgent.isStopped = false;
 
@@ -52,7 +54,7 @@ public class AlertedState : FSMState
         {
             if (!vorgonControl.SearchAnimIsPlaying)
             {
-                if (vorgonControl.sawConceal || WorldData.Instance.GetComponent<ConcelableDetection>().exposure >= 1)
+                if (vorgonControl.sawConceal || canConcealKill)
                 {
                     //killConceal = true;
 
@@ -99,6 +101,12 @@ public class AlertedState : FSMState
     public override void Act()
     {
         // Actions
+
+        if(WorldData.Instance.GetComponent<ConcelableDetection>().exposure >= 1)
+        {
+            canConcealKill = true;
+        }
+        
 
         if (vorgonControl.playerDetected)
         {
