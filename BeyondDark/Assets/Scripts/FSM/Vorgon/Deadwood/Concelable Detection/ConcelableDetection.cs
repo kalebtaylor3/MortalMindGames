@@ -69,7 +69,6 @@ public class ConcelableDetection : MonoBehaviour
         hearingExposure = 0;
     }
 
-
     private void Update()
     {
 

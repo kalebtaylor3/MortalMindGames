@@ -69,6 +69,26 @@ namespace MMG
             doorCreak.enabled = false;
         }
 
+        private void Awake()
+        {
+            startcamPosition = concelableAreaCam.transform.position;
+            lookAtStartPosition = lookAtTransform.position;
+
+            concelableAreaCam.cam.LookAt = lookAtTransform;
+            startRotation = rotator.transform.rotation;
+
+            player = GameObject.FindGameObjectWithTag("Player");
+            playerController = player.GetComponent<PlayerController>();
+
+            if (cameraClamp == clamp.Y)
+                concelableAreaCam.cam.Follow = lookAtTransform;
+
+            if (cameraClamp == clamp.Z)
+                concelableAreaCam.cam.Follow = lookAtTransform;
+
+            doorCreak.enabled = false;
+        }
+
         private void Update()
         {
             //set reveal % to what is returned from hiding spot camera 

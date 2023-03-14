@@ -67,7 +67,7 @@ namespace MMG
 
         void Update()
         {
-            //if(!WorldData.Instance.gamePaused)
+            if(!WorldData.Instance.gamePaused)
             {
                 if (!lookingAtLore)
                     GetCameraInput();

@@ -234,9 +234,9 @@ namespace MMG
             //InitVariables();
 
             playerInventory = GetComponent<PlayerInventoryController>();
-            ItemInteractable.OnPickUp += HandlePickUp;
-            ConcelableAreaInteractable.OnEnteredSpot += SetHiding;
-            ConcelableAreaInteractable.OnLeaveSpot += NotHiding;
+            //ItemInteractable.OnPickUp += HandlePickUp;
+            //ConcelableAreaInteractable.OnEnteredSpot += SetHiding;
+            //ConcelableAreaInteractable.OnLeaveSpot += NotHiding;
             //TpTest.RealmTransportation += HandleRealmTransport;
         }
 
@@ -364,6 +364,11 @@ namespace MMG
             QuickTimeEventSystem.OnFailure += HandleFailure;
             ItemInteractable.OnPickUp += HandlePickUp;
 
+            ConcelableAreaInteractable.OnEnteredSpot += SetHiding;
+            ConcelableAreaInteractable.OnLeaveSpot += NotHiding;
+
+
+
             GetComponents();
             //playerInventory = GetComponent<PlayerInventoryController>();
 
@@ -377,6 +382,10 @@ namespace MMG
             QuickTimeEventSystem.OnSuccess -= HandleSuccess;
             QuickTimeEventSystem.OnFailure -= HandleFailure;
             ItemInteractable.OnPickUp -= HandlePickUp;
+
+            //ItemInteractable.OnPickUp += HandlePickUp;
+            ConcelableAreaInteractable.OnEnteredSpot -= SetHiding;
+            ConcelableAreaInteractable.OnLeaveSpot -= NotHiding;
         }
 
         void GetComponents()
