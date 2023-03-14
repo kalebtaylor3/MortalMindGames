@@ -16,6 +16,7 @@ public class SwordDamage : MonoBehaviour
 
     bool sparkOnce = true;
     bool damageOnce = true;
+    bool bloodOnce = false;
 
     public GameObject sparks;
     public GameObject blood;
@@ -48,6 +49,10 @@ public class SwordDamage : MonoBehaviour
 
     private void Update()
     {
+
+        if (Gamepad.current.rightTrigger.wasPressedThisFrame)
+            bloodOnce = false;
+
         if(currentAmountOfDamage > 0)
         {
             Ray ray = playerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -78,15 +83,6 @@ public class SwordDamage : MonoBehaviour
                     obj.transform.LookAt(playerCam.transform);
                     CameraShake.Instance.ShakeCamera(0.7f, 0.5f, 0.3f);
                     DealDamage?.Invoke(currentAmountOfDamage * 2);
-                }
-
-                if(hit.collider.gameObject.tag == "Minion" && damageOnce && currentAmountOfDamage > 0)
-                {
-                    StartCoroutine(DamageDelay());
-                    damageOnce = false;
-                    GameObject obj = Instantiate(blood);
-                    obj.transform.position = hit.point;
-                    //obj.transform.LookAt(playerCam.transform);
                 }
             }
         }

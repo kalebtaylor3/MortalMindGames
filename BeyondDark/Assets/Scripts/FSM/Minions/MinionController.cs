@@ -49,6 +49,9 @@ public class MinionController : MonoBehaviour
 
     public bool canTakeSwordDamage = true;
 
+    public Transform bloodSpawn;
+    public GameObject blood;
+
     [Header("Audio")]
     //Source
     public AudioSource movementSource;
@@ -156,7 +159,11 @@ public class MinionController : MonoBehaviour
                 {
                     int rand = UnityEngine.Random.Range(0, clipsHurt.Count);
                     effectsSource.PlayOneShot(clipsHurt[rand]);
-                }                   
+                }
+
+                GameObject obj = Instantiate(blood);
+                obj.transform.position = bloodSpawn.position;
+                obj.transform.LookAt(Camera.main.transform);
 
                 // Low Health
                 healthPoints = Mathf.Clamp(healthPoints - amount, 0, maxHealthPoints);

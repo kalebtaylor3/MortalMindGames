@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4491568804657557851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 516353479391173166}
+  m_Layer: 0
+  m_Name: BloodSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &516353479391173166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4491568804657557851}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.315, z: 0.301}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6517060811194979061}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6517060809745480100
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,6 +484,7 @@ Transform:
   - {fileID: 6517060809711138806}
   - {fileID: 6517060810113210228}
   - {fileID: 2853990370196026821}
+  - {fileID: 516353479391173166}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -602,6 +634,8 @@ MonoBehaviour:
   minionFSM: {fileID: 6517060811194979063}
   healthPoints: 30
   maxHealthPoints: 30
+  playerController: {fileID: 0}
+  aimAt: {fileID: 0}
   healthUI: {fileID: 6517060809745480103}
   flamesParticle: {fileID: 6517060809711138807}
   projectile: {fileID: 6264007014961518346, guid: 683ae6917a24f33449cd6472dc8da810,
@@ -621,6 +655,8 @@ MonoBehaviour:
   foundWall: 0
   currentWall: {fileID: 0}
   canTakeSwordDamage: 1
+  bloodSpawn: {fileID: 516353479391173166}
+  blood: {fileID: 3564644936098676763, guid: 254eeb1f2d61f14479c263a1987343c2, type: 3}
   movementSource: {fileID: 4780086087194942569}
   effectsSource: {fileID: 5686294896835696546}
   burningSource: {fileID: 3710222961340023358}
