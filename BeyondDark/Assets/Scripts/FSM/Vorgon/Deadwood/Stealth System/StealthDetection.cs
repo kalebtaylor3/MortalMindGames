@@ -46,6 +46,12 @@ public class StealthDetection : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        detection = 0f; // start with no detection
+        hearingDetectionUI.fillAmount = detection; // update the UI to match the detection level
+        StopAllCoroutines();
+        hearingDetectionUI.color = Color.white;
+        detection = 0f; // start with no detection
+        hearingDetectionUI.fillAmount = detection;
     }
 
     private void Start()
