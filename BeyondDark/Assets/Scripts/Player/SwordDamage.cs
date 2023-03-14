@@ -18,6 +18,7 @@ public class SwordDamage : MonoBehaviour
     bool damageOnce = true;
 
     public GameObject sparks;
+    public GameObject blood;
 
     public AudioClip wallDing;   
     public AudioSource swordAudioSource;
@@ -72,11 +73,20 @@ public class SwordDamage : MonoBehaviour
                     StartCoroutine(DamageDelay());
                     swordAudioSource.PlayOneShot(wallDing);
                     damageOnce = false;
-                    GameObject obj = Instantiate(sparks);
+                    GameObject obj = Instantiate(blood);
                     obj.transform.position = hit.point;
                     obj.transform.LookAt(playerCam.transform);
                     CameraShake.Instance.ShakeCamera(0.7f, 0.5f, 0.3f);
                     DealDamage?.Invoke(currentAmountOfDamage * 2);
+                }
+
+                if(hit.collider.gameObject.tag == "Minion" && damageOnce && currentAmountOfDamage > 0)
+                {
+                    StartCoroutine(DamageDelay());
+                    damageOnce = false;
+                    GameObject obj = Instantiate(blood);
+                    obj.transform.position = hit.point;
+                    //obj.transform.LookAt(playerCam.transform);
                 }
             }
         }
