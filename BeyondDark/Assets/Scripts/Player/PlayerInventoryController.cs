@@ -67,6 +67,16 @@ namespace MMG
             }
         }
 
+        public void CloseBook()
+        {
+            Debug.Log("Spell Book Closed");
+            inventoryOpen = false;
+            spellBook.transform.position = spellBook.itemSlotPosition.position;
+            spellBook.transform.rotation = spellBook.itemSlotPosition.rotation;
+            spellBook.gameObject.SetActive(false);
+            closeBookSource.enabled = true;
+        }
+
         public void UpdatePages()
         {
             spellBook.UpdatePages(items);

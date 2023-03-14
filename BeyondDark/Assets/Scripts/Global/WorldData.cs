@@ -236,6 +236,7 @@ public class WorldData : MonoBehaviour
     IEnumerator TriggerPlayerDeathMR()
     {
         input.canMove = false;
+        PlayerInventoryController.Instance.CloseBook();
         //lastConceal.enteranceAnimator.SetTrigger("Enter");
 
         if (lastConceal != null && player.isHiding)
@@ -313,6 +314,8 @@ public class WorldData : MonoBehaviour
         //fadeOut.SetActive(false);
 
         //playerCam.ResetCam();
+
+        
 
         if(lastConceal != null)
         {
