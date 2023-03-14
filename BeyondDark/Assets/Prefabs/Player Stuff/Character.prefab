@@ -1622,6 +1622,7 @@ Transform:
   m_Children:
   - {fileID: 934783808697199133}
   - {fileID: 4489922244504986710}
+  - {fileID: 8766211517231988735}
   m_Father: {fileID: 7215750317310570580}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1648,7 +1649,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 200
   field of view: 60
   orthographic: 0
@@ -3430,6 +3431,7 @@ MonoBehaviour:
   UiManager: {fileID: 0}
   isHiding: 0
   PlayerKillCollision: {fileID: 4953499145835600119}
+  hands: {fileID: 0}
 --- !u!114 &8741816588763353335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4860,8 +4862,8 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 10
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
+    NearClipPlane: 0.01
+    FarClipPlane: 200
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -6326,3 +6328,78 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &3383676062442426472
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6469136733858005289}
+    m_Modifications:
+    - target: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.86399984
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.030998234
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636402814704891181, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+        type: 3}
+      propertyPath: m_Name
+      value: Vlad Hands (Anim) Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a2a4877feb273d14c8ffc56ca4ce35ec, type: 3}
+--- !u!4 &8766211517231988735 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6292352894370017175, guid: a2a4877feb273d14c8ffc56ca4ce35ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 3383676062442426472}
+  m_PrefabAsset: {fileID: 0}
