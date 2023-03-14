@@ -48,6 +48,7 @@ public class FearSystem : MonoBehaviour
         maxValueA = 3.5f;
         minValueF = initialFrequency;
         maxValueF = 1.5f;
+        JumpScare.OnJumpScare -= OnJumpScare;
     }
 
 

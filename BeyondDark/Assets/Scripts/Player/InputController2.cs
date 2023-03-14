@@ -33,6 +33,11 @@ namespace MMG
             ConcelableAreaInteractable.OnEnteredSpot += UnCrouch;
         }
 
+        private void OnDisable()
+        {
+            ConcelableAreaInteractable.OnEnteredSpot -= UnCrouch;
+        }
+
         void UnCrouch()
         {
             if(movementInputData.IsCrouching)

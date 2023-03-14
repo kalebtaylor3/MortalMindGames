@@ -362,6 +362,7 @@ namespace MMG
             QuickTimeEventSystem.QTETrigger += HandleQuickTimeEvent;
             QuickTimeEventSystem.OnSuccess += HandleSuccess;
             QuickTimeEventSystem.OnFailure += HandleFailure;
+            ItemInteractable.OnPickUp += HandlePickUp;
 
             GetComponents();
             //playerInventory = GetComponent<PlayerInventoryController>();

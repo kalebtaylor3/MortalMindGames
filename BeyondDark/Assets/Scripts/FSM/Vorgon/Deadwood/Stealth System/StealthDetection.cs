@@ -74,6 +74,11 @@ public class StealthDetection : MonoBehaviour
         JumpScare.OnJumpScare += Scare;
     }
 
+    private void OnDisable()
+    {
+        JumpScare.OnJumpScare -= Scare;
+    }
+
     private void Update()
     {
         

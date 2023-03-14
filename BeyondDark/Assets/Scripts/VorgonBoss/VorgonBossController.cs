@@ -105,6 +105,13 @@ public class VorgonBossController : MonoBehaviour
         MinionController.OnDeath += OnMinionDeath;
     }
 
+    private void OnDisable()
+    {
+        Projectile.DealDamage -= TakeDamage;
+        SwordDamage.DealDamage -= TakeDamage;
+        MinionController.OnDeath -= OnMinionDeath;
+    }
+
     // Update is called once per frame
     void Update()
     {

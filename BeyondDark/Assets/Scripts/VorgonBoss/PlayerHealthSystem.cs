@@ -44,6 +44,11 @@ public class PlayerHealthSystem : MonoBehaviour
         alive = true;
     }
 
+    private void OnDisable()
+    {
+        CollisionActivation.endingPath -= ResetHealth;
+    }
+
     private void Awake()
     {
         instance = this;

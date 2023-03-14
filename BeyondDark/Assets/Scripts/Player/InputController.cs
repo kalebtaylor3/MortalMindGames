@@ -43,6 +43,12 @@ namespace MMG
             LoreInteractable.OnPutDown += LookAtLore;
         }
 
+        private void OnDisable()
+        {
+            LoreInteractable.OnCollect -= LookAtLore;
+            LoreInteractable.OnPutDown -= LookAtLore;
+        }
+
         void UnCrouch()
         {
             if(movementInputData.IsCrouching)
