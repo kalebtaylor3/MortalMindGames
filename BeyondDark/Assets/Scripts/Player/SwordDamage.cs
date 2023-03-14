@@ -20,6 +20,7 @@ public class SwordDamage : MonoBehaviour
 
     public GameObject sparks;
     public GameObject blood;
+    public GameObject vorgonBlood;
 
     public AudioClip wallDing;   
     public AudioSource swordAudioSource;
@@ -78,7 +79,7 @@ public class SwordDamage : MonoBehaviour
                     StartCoroutine(DamageDelay());
                     swordAudioSource.PlayOneShot(wallDing);
                     damageOnce = false;
-                    GameObject obj = Instantiate(blood);
+                    GameObject obj = Instantiate(vorgonBlood);
                     obj.transform.position = hit.point;
                     obj.transform.LookAt(playerCam.transform);
                     CameraShake.Instance.ShakeCamera(0.7f, 0.5f, 0.3f);

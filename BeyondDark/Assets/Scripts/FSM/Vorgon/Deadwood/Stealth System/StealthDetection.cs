@@ -52,12 +52,17 @@ public class StealthDetection : MonoBehaviour
         hearingDetectionUI.color = Color.white;
         detection = 0f; // start with no detection
         hearingDetectionUI.fillAmount = detection;
+        flashing = false;
+        jumpScare = false;
+        inRange = false;
     }
 
     private void Start()
     {
         detection = 0f; // start with no detection
         hearingDetectionUI.fillAmount = detection; // update the UI to match the detection level
+        flashing = false;
+        jumpScare = false;
     }
 
     private void OnEnable()
