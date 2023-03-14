@@ -210,6 +210,8 @@ namespace MMG
         [SerializeField] public bool isHiding = false;
 
         [SerializeField] public GameObject PlayerKillCollision;
+
+        public Animator hands;
         
 
         #endregion
@@ -277,6 +279,18 @@ namespace MMG
                 UseDefend();
                 UseAttack();
                 SwitchAttack();
+
+                if (hands != null)
+                {
+                    if (currentSpeed == runSpeed)
+                    {
+                        hands.SetBool("IsRunning", true);
+                    }
+                    else
+                    {
+                        hands.SetBool("IsRunning", false);
+                    }
+                }
             }
         }
         //combat
