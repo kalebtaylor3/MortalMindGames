@@ -212,16 +212,28 @@ namespace MMG
         [SerializeField] public GameObject PlayerKillCollision;
 
         public Animator hands;
-        
+
 
         #endregion
 
         #region Functions
-        void Start()
+
+        private void Awake()
         {
+            playerInventory = GetComponent<PlayerInventoryController>();
             GetComponents();
             InitVariables();
+            //ItemInteractable.OnPickUp += HandlePickUp;
+            //ConcelableAreaInteractable.OnEnteredSpot += SetHiding;
+            //ConcelableAreaInteractable.OnLeaveSpot += NotHiding;
+        }
 
+        void Start()
+        {
+            //GetComponents();
+            //InitVariables();
+
+            playerInventory = GetComponent<PlayerInventoryController>();
             ItemInteractable.OnPickUp += HandlePickUp;
             ConcelableAreaInteractable.OnEnteredSpot += SetHiding;
             ConcelableAreaInteractable.OnLeaveSpot += NotHiding;
@@ -343,6 +355,7 @@ namespace MMG
 
         private void OnEnable()
         {
+            playerInventory = GetComponent<PlayerInventoryController>();
             // Sound Effect for realm tp
             HandleRealmTransport();
 
@@ -350,16 +363,29 @@ namespace MMG
             QuickTimeEventSystem.OnSuccess += HandleSuccess;
             QuickTimeEventSystem.OnFailure += HandleFailure;
 
+            GetComponents();
+            //playerInventory = GetComponent<PlayerInventoryController>();
+
+        }
+
+
+
+        private void OnDisable()
+        {
+            QuickTimeEventSystem.QTETrigger -= HandleQuickTimeEvent;
+            QuickTimeEventSystem.OnSuccess -= HandleSuccess;
+            QuickTimeEventSystem.OnFailure -= HandleFailure;
+            ItemInteractable.OnPickUp -= HandlePickUp;
         }
 
         void GetComponents()
             {
+                playerInventory = GetComponent<PlayerInventoryController>();
                 characterController = GetComponent<CharacterController>();
                 cameraController = GetComponentInChildren<CameraController>();
                 yawTransform = cameraController.transform;
                 camTransform = GetComponentInChildren<Camera>().transform;
                 headBob = new HeadBob(headBobData, moveBackwardsSpeedPercentStanding, moveSideSpeedPercent);
-                playerInventory = GetComponent<PlayerInventoryController>();
             }
 
             void InitVariables()
@@ -922,7 +948,7 @@ namespace MMG
             void HandlePickUp(PickUp ItemPickUp)
             {
                 // Only handle pick ups if the player is the Mortal Real Player
-                if(playerInventory.tag == "Player")
+                if(playerInventory.tag == "Player" && playerInventory)
                 {
                     // check if the item already exists in the inventory
                     bool containItem = false;

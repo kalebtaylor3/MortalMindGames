@@ -33,10 +33,10 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
-        //SceneManager.UnloadSceneAsync("KalebMilestone4");
+        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
         //SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
         //
-        StartCoroutine(SwitchScenes());
+        //StartCoroutine(SwitchScenes());
     }
 
     IEnumerator SwitchScenes()

@@ -69,6 +69,7 @@ namespace MMG
         private void OnDisable()
         {
             PlayerController.OnEnmptyStamina -= HandleEmptyStamina;
+            PlayerController.OnTeleport -= SetBreathingDefault;
             StopAllCoroutines();
         }
 

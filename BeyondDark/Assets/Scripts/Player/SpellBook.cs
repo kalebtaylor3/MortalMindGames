@@ -31,6 +31,11 @@ public class SpellBook : MonoBehaviour
         ConcelableAreaInteractable.OnEnteredSpot += CloseBook;
     }
 
+    private void OnDisable()
+    {
+        ConcelableAreaInteractable.OnEnteredSpot -= CloseBook;
+    }
+
     void CloseBook()
     {
         gameObject.SetActive(false);

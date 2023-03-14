@@ -50,6 +50,7 @@ public class QuickTimeEventSystem : MonoBehaviour
     private void OnDisable()
     {
         TrapInteractable.FailQTE -= Fail;
+        WorldData.OnDeath -= OnDeath;
         //WorldData.OnDeath -= OnDeath;
     }
 

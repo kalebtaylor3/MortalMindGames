@@ -42,9 +42,9 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
-        //SceneManager.LoadScene("KalebMilestone4", LoadSceneMode.Single);
+        SceneManager.LoadScene("KalebMilestone4", LoadSceneMode.Single);
 
-        StartCoroutine(SwitchScenes());
+        //StartCoroutine(SwitchScenes());
     }
 
     IEnumerator SwitchScenes()

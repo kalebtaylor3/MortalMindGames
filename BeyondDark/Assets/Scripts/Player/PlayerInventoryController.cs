@@ -22,7 +22,7 @@ namespace MMG
         #endregion
 
         #region Events
-        public static event Action<GameObject> OnItemSwitched;
+        //public static event Action<GameObject> OnItemSwitched;
 
         [HideInInspector] public bool inventoryOpen = false;
         #endregion
@@ -30,6 +30,16 @@ namespace MMG
         public static PlayerInventoryController Instance { get; private set; }
 
         private void Awake()
+        {
+            if (Instance == null) { Instance = this; }
+        }
+
+        private void Start()
+        {
+            if (Instance == null) { Instance = this; }
+        }
+
+        private void OnEnable()
         {
             if (Instance == null) { Instance = this; }
         }
