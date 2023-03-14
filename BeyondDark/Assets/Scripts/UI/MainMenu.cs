@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -41,7 +42,17 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
+        //SceneManager.LoadScene("KalebMilestone4", LoadSceneMode.Single);
+
+        StartCoroutine(SwitchScenes());
+    }
+
+    IEnumerator SwitchScenes()
+    {
+        SceneManager.UnloadSceneAsync("Main Menu");
+        yield return null;
         
+        SceneManager.LoadScene("KalebMilestone4", LoadSceneMode.Single);
     }
 
     public void Options()

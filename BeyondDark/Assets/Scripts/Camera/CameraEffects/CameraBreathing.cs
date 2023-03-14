@@ -59,7 +59,9 @@ namespace MMG
         private void OnEnable()
         {
             SetBreathingDefault();
-            
+
+            //perlinNoiseScroller = new PerlinNoiseScroller(noiseData);  // ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+
             PlayerController.OnEnmptyStamina += HandleEmptyStamina;
             PlayerController.OnTeleport += SetBreathingDefault;
         }

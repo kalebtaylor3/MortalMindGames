@@ -25,6 +25,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] List<OptionScreen> screens = new List<OptionScreen>();
 
     MenuManager menu = null;
+    public bool IsMainMenu = false;
 
     public OptionScreen currentScreen = new OptionScreen();
     private GameObject lastSelected = null;
@@ -141,7 +142,7 @@ public class OptionsMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(selection);
     }
 
-    public void TurnMenuOff()
+    public void TurnMenuOff(bool isMainMenu = false)
     {
         // Turn off all screens
         for (int i = 0; i < screens.Count; i++)
@@ -149,6 +150,7 @@ public class OptionsMenu : MonoBehaviour
             screens[i].screen.SetActive(false);
         }
 
+        IsMainMenu = isMainMenu;
         this.gameObject.SetActive(false);
     }
 

@@ -22,6 +22,8 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] GameObject OptionsMenuGO;
 
+    [SerializeField] GameObject MainMenuGO;
+
     bool pause = false;
     public bool mainMenu = false;
 
@@ -59,8 +61,16 @@ public class MenuManager : MonoBehaviour
 
     public void OptionsMenu(bool state)
     {
-        PauseMenuGO.SetActive(!state);
-        OptionsMenuGO.GetComponent<OptionsMenu>().TurnMenuOff();
+        if(!mainMenu)
+        {
+            PauseMenuGO.SetActive(!state);
+        }
+        else
+        {
+            MainMenuGO.SetActive(!state);
+        }
+        
+        OptionsMenuGO.GetComponent<OptionsMenu>().TurnMenuOff(mainMenu);
         OptionsMenuGO.SetActive(state);
     }
 }

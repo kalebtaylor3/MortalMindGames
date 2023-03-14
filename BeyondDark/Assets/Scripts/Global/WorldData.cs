@@ -17,7 +17,17 @@ public class WorldData : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) { Instance = this; }
-        else if (Instance != this) Destroy(gameObject);       
+        else if (Instance != this) Destroy(gameObject);
+
+        lastCollectedRelic = RELIC_TYPE.NONE;
+        activePlayerSection = SECTIONS.NONE;
+        activeVorgonSection = SECTIONS.NONE;
+
+        pickUpCP = player.transform.position;
+
+        SetCheckpoint();
+
+        StartCoroutine(ResetTime());
     }
 
     #endregion
@@ -126,18 +136,27 @@ public class WorldData : MonoBehaviour
         canvas.SetActive(!state);
     }
 
+    IEnumerator ResetTime()
+    {
+        Time.timeScale = 0;
+
+        yield return null;
+
+        Time.timeScale = 1;
+    }
+
 
     #region Mortal Realm Functions
 
     private void Start()
     {
-        lastCollectedRelic = RELIC_TYPE.NONE;
-        activePlayerSection = SECTIONS.NONE;
-        activeVorgonSection = SECTIONS.NONE;
+        //lastCollectedRelic = RELIC_TYPE.NONE;
+        //activePlayerSection = SECTIONS.NONE;
+        //activeVorgonSection = SECTIONS.NONE;
 
-        pickUpCP = player.transform.position;
+        //pickUpCP = player.transform.position;
 
-        SetCheckpoint();
+        //SetCheckpoint();
     }
 
     public Section FindActiveSection(SECTIONS section)

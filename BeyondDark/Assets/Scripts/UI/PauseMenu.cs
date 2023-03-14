@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
@@ -32,7 +33,19 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
-        Debug.Log("Go to Main Menu");
+        //SceneManager.UnloadSceneAsync("KalebMilestone4");
+        //SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+        //
+        StartCoroutine(SwitchScenes());
+    }
+
+    IEnumerator SwitchScenes()
+    {
+        SceneManager.UnloadSceneAsync("KalebMilestone4");
+        
+        yield return null;
+        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+
     }
     
     public void ExitGame() 
