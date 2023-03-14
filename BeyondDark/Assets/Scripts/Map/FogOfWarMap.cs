@@ -21,6 +21,11 @@ public class FogOfWarMap : MonoBehaviour
         Initialize();
     }
 
+    private void Awake()
+    {
+        Initialize();
+    }
+
     // Update is called once per frame
     void Update()
     {

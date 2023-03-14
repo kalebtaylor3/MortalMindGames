@@ -98,6 +98,11 @@ public class VorgonBossController : MonoBehaviour
         state = State.Idle;
     }
 
+    private void Awake()
+    {
+        state = State.Idle;
+    }
+
     private void OnEnable()
     {
         Projectile.DealDamage += TakeDamage;

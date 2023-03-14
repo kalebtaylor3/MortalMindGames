@@ -20,6 +20,15 @@ namespace MMG
         [HideInInspector] public bool isInVorgonRealm = true;
         #endregion
         #region Functions
+
+        private void Awake()
+        {
+            cameraInputData.ResetInput();
+            movementInputData.ResetInput();
+            interactionInputData.ResetInput();
+            canMove = true;
+        }
+
         void Start()
             {
                 cameraInputData.ResetInput();

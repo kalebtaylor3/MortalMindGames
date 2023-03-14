@@ -11,6 +11,11 @@ public class FSM : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //Initialize();
+    }
+
+    private void Awake()
+    {
         Initialize();
     }
 

@@ -17,6 +17,11 @@ public class JumpScare : MonoBehaviour
         vorgon = FindObjectOfType<VorgonController>();
     }
 
+    private void Awake()
+    {
+        vorgon = FindObjectOfType<VorgonController>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")

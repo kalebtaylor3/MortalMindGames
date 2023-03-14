@@ -36,6 +36,16 @@ namespace MMG
 
         #region Functions
 
+        private void Awake()
+        {
+            perlinNoiseScroller = new PerlinNoiseScroller(noiseData);
+
+            initialFrequency = noiseData.frequency;
+            initialAmplitude = noiseData.amplitude;
+
+            SetBreathingDefault();
+        }
+
         void Start()
         {
             //if(playersFear == null)

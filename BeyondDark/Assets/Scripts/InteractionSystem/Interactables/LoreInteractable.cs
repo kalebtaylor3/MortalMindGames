@@ -40,6 +40,16 @@ public class LoreInteractable : InteractableBase
         loreUI.SetActive(false);
     }
 
+    private void Awake()
+    {
+        startPos = transform.position;
+        startRot = transform.rotation;
+        loreLight.SetActive(false);
+        volume.SetActive(false);
+        cam.SetActive(false);
+        loreUI.SetActive(false);
+    }
+
 
     public override void OnInteract()
     {

@@ -26,6 +26,14 @@ public class Compas : MonoBehaviour
         AddHoseMarker(house3);
     }
 
+    private void Awake()
+    {
+        compassUnit = compasImage.rectTransform.rect.width / 360f;
+        AddHoseMarker(house1);
+        AddHoseMarker(house2);
+        AddHoseMarker(house3);
+    }
+
     private void Update()
     {
         compasImage.uvRect = new Rect(player.localEulerAngles.y / 360f, 0f, 1f, 1f);

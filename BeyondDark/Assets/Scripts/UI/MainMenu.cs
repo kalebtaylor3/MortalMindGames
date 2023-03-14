@@ -21,6 +21,15 @@ public class MainMenu : MonoBehaviour
         menu = MenuManager.Instance;
     }
 
+    private void Awake()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+
+        EventSystem.current.SetSelectedGameObject(newGameBtn);
+
+        menu = MenuManager.Instance;
+    }
+
     private void Start()
     {
         EventSystem.current.SetSelectedGameObject(null);

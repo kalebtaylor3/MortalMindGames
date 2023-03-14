@@ -79,6 +79,14 @@ public class FearSystem : MonoBehaviour
         maxValueF = 1.5f;
     }
 
+    private void Awake()
+    {
+        minValueA = initialAmplitude;
+        maxValueA = 3.5f;
+        minValueF = initialFrequency;
+        maxValueF = 1.5f;
+    }
+
     // Update is called once per frame
     private void Update()
     {

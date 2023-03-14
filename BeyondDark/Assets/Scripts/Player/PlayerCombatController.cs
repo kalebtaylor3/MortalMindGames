@@ -106,6 +106,11 @@ public class PlayerCombatController : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) { Instance = this; }
+
+        flameImageColor = flameIcon.color;
+        flameIcon.color = Color.clear;
+        wallIcon.color = Color.clear;
+        cancelText.SetActive(false);
     }
 
     private void OnEnable()

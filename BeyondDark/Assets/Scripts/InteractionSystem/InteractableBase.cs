@@ -46,6 +46,12 @@ namespace MMG
 
         #region Functions
 
+        private void Awake()
+        {
+            if (!IsPickup)
+                pickUp = null;
+        }
+
         private void Start()
         {
             if (!IsPickup)

@@ -54,6 +54,11 @@ public class QuickTimeEventSystem : MonoBehaviour
         //WorldData.OnDeath -= OnDeath;
     }
 
+    private void Awake()
+    {
+        successMarker.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+    }
+
     void Start()
     {
         successMarker.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));

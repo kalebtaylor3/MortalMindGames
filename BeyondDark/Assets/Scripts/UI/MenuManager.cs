@@ -13,6 +13,8 @@ public class MenuManager : MonoBehaviour
     {
         if (Instance == null) { Instance = this; }
         else if (Instance != this) Destroy(gameObject);
+
+        OptionsMenuGO.GetComponent<OptionsMenu>().GetVolumes();
     }
 
     #endregion
@@ -25,12 +27,14 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject MainMenuGO;
 
     bool pause = false;
-    public bool mainMenu = false;
+    public bool mainMenu = false;    
 
     private void Start()
     {
         OptionsMenuGO.GetComponent<OptionsMenu>().GetVolumes();
     }
+
+    
 
     // Update is called once per frame
     void Update()

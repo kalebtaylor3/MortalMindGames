@@ -80,6 +80,12 @@ public class VorgonController : MonoBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+        audioClips[0] = ALERTSounds;
+        audioClips[1] = GROWLSounds;
+    }
+
     private void Start()
     {
         audioClips[0] = ALERTSounds;

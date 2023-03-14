@@ -18,6 +18,10 @@ public class TestUIController : MonoBehaviour
     {
         StartPressed();
     }
+    private void Awake()
+    {
+        StartPressed();
+    }
 
     public void SetDurration(int selectedValue)
     {

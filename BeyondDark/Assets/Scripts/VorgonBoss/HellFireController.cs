@@ -14,6 +14,13 @@ public class HellFireController : MonoBehaviour
 
     List<GameObject> shootList = new List<GameObject>();
 
+    private void Awake()
+    {
+        canShoot = false;
+        float random = Random.Range(0, 0.6f);
+        StartCoroutine(WaitToShoot(random));
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +29,9 @@ public class HellFireController : MonoBehaviour
         float random = Random.Range(0, 0.6f);
         StartCoroutine(WaitToShoot(random));
     }
+
+    
+    
 
     IEnumerator WaitToShoot(float delay)
     {

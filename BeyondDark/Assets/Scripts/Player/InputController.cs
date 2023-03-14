@@ -27,6 +27,14 @@ namespace MMG
         #endregion
 
         #region Functions
+        private void Awake()
+        {
+            cameraInputData.ResetInput();
+            movementInputData.ResetInput();
+            interactionInputData.ResetInput();
+            canMove = true;
+        }
+
         void Start()
             {
                 cameraInputData.ResetInput();
