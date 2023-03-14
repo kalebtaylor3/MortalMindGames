@@ -50,7 +50,7 @@ public class QuickTimeEventSystem : MonoBehaviour
     private void OnDisable()
     {
         TrapInteractable.FailQTE -= Fail;
-        WorldData.OnDeath -= OnDeath;
+        //WorldData.OnDeath -= OnDeath;
     }
 
     void Start()
@@ -159,6 +159,7 @@ public class QuickTimeEventSystem : MonoBehaviour
         OnFailure?.Invoke();
         StartCoroutine(WaitToGoAway());
         UIPanel.SetActive(false);
+        StartCoroutine(FadeOutAlert());
         //StartCoroutine(FadeAlert());
     }
 

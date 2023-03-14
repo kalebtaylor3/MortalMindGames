@@ -290,6 +290,23 @@ namespace MMG
                     {
                         hands.SetBool("IsRunning", false);
                     }
+
+                    if(movementInputData.IsCrouching)
+                    {
+                        hands.SetBool("IsCrouched", true);
+
+                        if(currentSpeed == crouchSpeed)
+                            hands.SetBool("IsCrouchedWalking", true);
+                        else
+                            hands.SetBool("IsCrouchedWalking", false);
+
+                    }
+                    else
+                    {
+                        hands.SetBool("IsCrouched", false);
+                        hands.SetBool("IsCrouchedWalking", false);
+                    }
+
                 }
             }
         }
