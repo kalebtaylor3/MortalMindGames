@@ -23,6 +23,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject OptionsMenuGO;
 
     bool pause = false;
+    public bool mainMenu = false;
 
     private void Start()
     {
@@ -32,15 +33,9 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Gamepad.current.startButton.wasPressedThisFrame)
+        if (Gamepad.current.startButton.wasPressedThisFrame && !mainMenu)
         {
             PauseGame();
-        }
-
-        if(Gamepad.current.selectButton.wasPressedThisFrame)
-        {
-            //PlayerPrefs.DeleteAll();
-            //Time.timeScale = 1.0f;
         }
     }
 
