@@ -28,6 +28,7 @@ public class MAttackWallState : FSMState
     {
         navAgent.isStopped = false;
         angleReached = false;
+        minionType = minionController.type;
     }
 
     public override void Reason()
