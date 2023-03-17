@@ -28,6 +28,7 @@ public class WorldData : MonoBehaviour
         SetCheckpoint();
 
         StartCoroutine(ResetTime());
+        happenOnce = false;
     }
 
     #endregion
@@ -69,6 +70,8 @@ public class WorldData : MonoBehaviour
 
     // FOR AI
     [SerializeField] List<Section> sections = null;
+    [SerializeField] List<GameObject> sectionManager = null;
+
     public ConcelableAreaInteractable lastConceal;
 
     public PlayerCombatController combatInventory;
@@ -89,6 +92,8 @@ public class WorldData : MonoBehaviour
     public StealthDetection stealthDetection;
     public ConcelableDetection concelDetection;
 
+    bool happenOnce = false;
+
     #endregion
 
     [Header("DEBUG")]
@@ -96,6 +101,8 @@ public class WorldData : MonoBehaviour
 
     [SerializeField]
     public List<GameObject> VorgonCharacterSpots;
+
+    
 
     private void Update()
     {
@@ -114,6 +121,39 @@ public class WorldData : MonoBehaviour
             vorgonRealmPPE.SetActive(true);
             mortalRealmPPE.SetActive(false);
         }
+
+        if(lastCollectedRelic == RELIC_TYPE.NONE || lastCollectedRelic == RELIC_TYPE.MAP && !happenOnce)
+        {
+            //1 sections to be enabled
+            //default vorgon detection values
+            for(int i = 0; i < sectionManager.Count; i++)
+            {
+                sectionManager[i].SetActive(false);
+            }
+            sectionManager[0].SetActive(true);
+            happenOnce = true;
+        }
+        if(lastCollectedRelic == RELIC_TYPE.FLAMES && !happenOnce)
+        {
+            //2 sections to be enabled
+            //default vorgon detection values
+            for (int i = 0; i < sectionManager.Count; i++)
+            {
+                sectionManager[i].SetActive(false);
+            }
+            sectionManager[1].SetActive(true);
+            happenOnce = true;
+        }
+        if(lastCollectedRelic == RELIC_TYPE.WALL && !happenOnce)
+        {
+            for (int i = 0; i < sectionManager.Count; i++)
+            {
+                sectionManager[i].SetActive(false);
+            }
+            sectionManager[2].SetActive(true);
+            happenOnce = true;
+        }
+
     }
 
     public void RealmTeleport(bool flag, REALMS realm)
@@ -187,6 +227,7 @@ public class WorldData : MonoBehaviour
         lastPickUpGO = go;
         collectedRelicsCount++;
         pickUpCP = playerPos;
+        happenOnce = false;
         
         if(type == RELIC_TYPE.MAP)
         {
@@ -250,6 +291,7 @@ public class WorldData : MonoBehaviour
         TriggerCheckpoint();
         OnDeath?.Invoke();
         StartCoroutine(TriggerPlayerDeathMR());
+        happenOnce = false;
     }
 
     IEnumerator TriggerPlayerDeathMR()
