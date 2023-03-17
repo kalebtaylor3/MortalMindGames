@@ -18,13 +18,13 @@ public class Compas : MonoBehaviour
 
     float compassUnit;
 
-    private void Start()
-    {
-        compassUnit = compasImage.rectTransform.rect.width / 360f;
-        AddHoseMarker(house1);
-        AddHoseMarker(house2);
-        AddHoseMarker(house3);
-    }
+    //private void Start()
+    //{
+    //    compassUnit = compasImage.rectTransform.rect.width / 360f;
+    //    AddHoseMarker(house1);
+    //    AddHoseMarker(house2);
+    //    AddHoseMarker(house3);
+    //}
 
     private void Awake()
     {
