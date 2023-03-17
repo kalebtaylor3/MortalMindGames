@@ -33,6 +33,7 @@ public class MAttackState : FSMState
     {
         navAgent.isStopped = false;
         attacked = false;
+        minionType = minionController.type;
     }
 
     public override void Reason()

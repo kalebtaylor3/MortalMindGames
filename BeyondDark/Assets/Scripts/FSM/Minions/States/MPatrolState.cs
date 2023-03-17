@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.XR;
 
 public class MPatrolState : FSMState
 {
@@ -25,6 +26,7 @@ public class MPatrolState : FSMState
     public override void EnterStateInit()
     {
         navAgent.isStopped = false;
+        minionType = minionController.type;
     }
 
     public override void Reason()

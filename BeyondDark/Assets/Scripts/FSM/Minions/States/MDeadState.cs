@@ -26,6 +26,7 @@ public class MDeadState : FSMState
     public override void EnterStateInit()
     {
         navAgent.isStopped = false;
+        minionType = minionController.type;
     }
 
     public override void Reason()
