@@ -137,47 +137,59 @@ public class WorldData : MonoBehaviour
             mortalRealmPPE.SetActive(false);
         }
 
-        if(lastCollectedRelic == RELIC_TYPE.NONE || lastCollectedRelic == RELIC_TYPE.MAP && !happenOnce)
+        if(lastCollectedRelic == RELIC_TYPE.NONE || lastCollectedRelic == RELIC_TYPE.MAP)
         {
-            //1 sections to be enabled
-            //default vorgon detection values
-            for(int i = 0; i < sectionManager.Count; i++)
+            if (!happenOnce)
             {
-                sectionManager[i].SetActive(false);
+                //1 sections to be enabled
+                //default vorgon detection values
+                for (int i = 0; i < sectionManager.Count; i++)
+                {
+                    sectionManager[i].SetActive(false);
+                }
+                sectionManager[0].SetActive(true);
+                stealthDetection.hearingRange1 = startingRange1;
+                stealthDetection.hearingRange2 = startingRange2;
+                stealthDetection.hearingRange3 = startingRange3;
+                stealthDetection.jumpScare = false;
+                happenOnce = true;
+                //setup difficulty progressions (awarness values)
             }
-            sectionManager[0].SetActive(true);
-            happenOnce = true;
-            stealthDetection.hearingRange1 = startingRange1;
-            stealthDetection.hearingRange2 = startingRange2;
-            stealthDetection.hearingRange3 = startingRange3;
-            //setup difficulty progressions (awarness values)
         }
-        if (lastCollectedRelic == RELIC_TYPE.FLAMES && !happenOnce)
+        if (lastCollectedRelic == RELIC_TYPE.FLAMES)
         {
-            //2 sections to be enabled
-            //default vorgon detection values
-            for (int i = 0; i < sectionManager.Count; i++)
+            if (!happenOnce)
             {
-                sectionManager[i].SetActive(false);
+                //2 sections to be enabled
+                //default vorgon detection values
+                for (int i = 0; i < sectionManager.Count; i++)
+                {
+                    sectionManager[i].SetActive(false);
+                }
+                sectionManager[1].SetActive(true);
+                stealthDetection.hearingRange1 = 45;
+                stealthDetection.hearingRange2 = 35;
+                stealthDetection.hearingRange3 = 18;
+                stealthDetection.jumpScare = false;
+                happenOnce = true;
+                //setup difficulty progressions (awarness values)
             }
-            sectionManager[1].SetActive(true);
-            stealthDetection.hearingRange1 = 45;
-            stealthDetection.hearingRange2 = 35;
-            stealthDetection.hearingRange3 = 18;
-            happenOnce = true;
-            //setup difficulty progressions (awarness values)
         }
-        if (lastCollectedRelic == RELIC_TYPE.WALL && !happenOnce)
+        if (lastCollectedRelic == RELIC_TYPE.WALL)
         {
-            for (int i = 0; i < sectionManager.Count; i++)
+            if (!happenOnce)
             {
-                sectionManager[i].SetActive(false);
+                for (int i = 0; i < sectionManager.Count; i++)
+                {
+                    sectionManager[i].SetActive(false);
+                }
+                sectionManager[2].SetActive(true);
+                stealthDetection.hearingRange1 = 60;
+                stealthDetection.hearingRange2 = 45;
+                stealthDetection.hearingRange3 = 25;
+                stealthDetection.jumpScare = false;
+                happenOnce = true;
             }
-            sectionManager[2].SetActive(true);
-            stealthDetection.hearingRange1 = 60;
-            stealthDetection.hearingRange2 = 45;
-            stealthDetection.hearingRange3 = 25;
-            happenOnce = true;
 
             //setup difficulty progressions (awarness values)
         }
