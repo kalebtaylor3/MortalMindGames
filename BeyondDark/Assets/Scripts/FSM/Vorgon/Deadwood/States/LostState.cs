@@ -36,7 +36,7 @@ public class LostState : FSMState
 
         if(lostTimer)
         {
-            
+
             if (vorgonControl.stunned)
             {
                 // If stunned -> Stun
@@ -52,7 +52,7 @@ public class LostState : FSMState
                 // If player Detected (stealth system) -> Close Patrol
                 vorgonFSM.PerformTransition(Transition.PlayerDetected);
             }
-            else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
+            else if (WorldData.Instance.canSeek)
             {
                 // If wrong section -> Seek
                 vorgonFSM.PerformTransition(Transition.WrongSection);

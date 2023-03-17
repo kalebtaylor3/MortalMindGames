@@ -2095,7 +2095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 2
+  sectionType: 12
   vorgonTP: {fileID: 1322853896}
   SectionWaypoints:
   - {fileID: 994961125}
@@ -12123,7 +12123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 3
+  sectionType: 14
   vorgonTP: {fileID: 452491707}
   SectionWaypoints:
   - {fileID: 1901591144}
@@ -25453,7 +25453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 2
+  sectionType: 11
   vorgonTP: {fileID: 477056962}
   SectionWaypoints:
   - {fileID: 337804165}
@@ -27326,7 +27326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 2
+  sectionType: 5
   vorgonTP: {fileID: 708843817}
   SectionWaypoints: []
 --- !u!65 &1227979138
@@ -27586,7 +27586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 3
+  sectionType: 6
   vorgonTP: {fileID: 1389106723}
   SectionWaypoints:
   - {fileID: 1254686940}
@@ -29415,7 +29415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 2
+  sectionType: 9
   vorgonTP: {fileID: 30771410}
   SectionWaypoints:
   - {fileID: 20724826}
@@ -29837,7 +29837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 1
+  sectionType: 4
   vorgonTP: {fileID: 1559276095}
   SectionWaypoints:
   - {fileID: 1633712588}
@@ -31134,7 +31134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 2
+  sectionType: 18
   vorgonTP: {fileID: 1769473027}
   SectionWaypoints:
   - {fileID: 26095447}
@@ -31752,6 +31752,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -29.09375
       objectReference: {fileID: 0}
+    - target: {fileID: 4148845867622204871, guid: cd6528de9486a174ebf30864ca8caebb,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 358114845}
     - target: {fileID: 4148845867686491875, guid: cd6528de9486a174ebf30864ca8caebb,
         type: 3}
       propertyPath: m_IsActive
@@ -31762,6 +31767,11 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 646766810}
+    - target: {fileID: 4148845867763535410, guid: cd6528de9486a174ebf30864ca8caebb,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 358114845}
     - target: {fileID: 4148845867791985079, guid: cd6528de9486a174ebf30864ca8caebb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -33168,7 +33178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 3
+  sectionType: 15
   vorgonTP: {fileID: 633646074}
   SectionWaypoints:
   - {fileID: 1854038262}
@@ -33389,6 +33399,9 @@ MonoBehaviour:
   - {fileID: 1592129979}
   - {fileID: 1951014793}
   - {fileID: 1672990697}
+  playerSectionChange: 0
+  vorgonSectionChange: 0
+  canSeek: 0
   lastConceal: {fileID: 0}
   combatInventory: {fileID: 4564336066592250900}
   mortalRealmPPE: {fileID: 832575517}
@@ -33462,6 +33475,7 @@ MonoBehaviour:
   player: {fileID: 1326173115}
   detection: 0
   flashSpeed: 0.2
+  jumpScare: 0
   inRange: 0
 --- !u!114 &1552238610
 MonoBehaviour:
@@ -34744,7 +34758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 3
+  sectionType: 13
   vorgonTP: {fileID: 2075951112}
   SectionWaypoints:
   - {fileID: 1968677720}
@@ -35325,7 +35339,7 @@ GameObject:
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1672990698
 Transform:
   m_ObjectHideFlags: 0
@@ -38024,7 +38038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 3
+  sectionType: 16
   vorgonTP: {fileID: 2073325370}
   SectionWaypoints:
   - {fileID: 160891724}
@@ -38153,7 +38167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 1
+  sectionType: 10
   vorgonTP: {fileID: 974923623}
   SectionWaypoints:
   - {fileID: 184884270}
@@ -39229,7 +39243,7 @@ GameObject:
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1951014794
 Transform:
   m_ObjectHideFlags: 0
@@ -41559,7 +41573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 2
+  sectionType: 17
   vorgonTP: {fileID: 2086555610}
   SectionWaypoints:
   - {fileID: 775721692}
@@ -44015,7 +44029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 3
+  sectionType: 7
   vorgonTP: {fileID: 770993855}
   SectionWaypoints:
   - {fileID: 1935871202}
@@ -44314,7 +44328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bb67946402b4144abd1559d7ed1916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionType: 2
+  sectionType: 8
   vorgonTP: {fileID: 32513404}
   SectionWaypoints:
   - {fileID: 402835753}
@@ -48474,7 +48488,7 @@ PrefabInstance:
     - target: {fileID: 3026158913526272995, guid: c634aeb9cb3dfca4cbf5b37dbdb6454a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6024094601896389976, guid: c634aeb9cb3dfca4cbf5b37dbdb6454a,
         type: 3}
