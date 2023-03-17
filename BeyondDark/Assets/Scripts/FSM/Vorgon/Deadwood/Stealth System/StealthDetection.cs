@@ -28,7 +28,7 @@ public class StealthDetection : MonoBehaviour
 
     bool detected = false;
 
-    bool flashing = false;
+    [HideInInspector] public bool flashing = false;
     [HideInInspector] public bool jumpScare = false;
 
     public bool inRange = false;
