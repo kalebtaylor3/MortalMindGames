@@ -55,7 +55,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] GameObject controlsVR;
     [SerializeField] TextMeshProUGUI realmTxt;
     [SerializeField] Slider sensSlider;
-    [SerializeField] CameraController cam;
+    [SerializeField] CameraController cam = null;
 
 
 
@@ -234,7 +234,12 @@ public class OptionsMenu : MonoBehaviour
         masterMixer.SetFloat("DialogueVolume", Mathf.Log10(dialogueSlider.value) * 20);
 
         //Sens
-        sensSlider.value = PlayerPrefs.GetFloat("Sensitivity", 1);
+        sensSlider.value = PlayerPrefs.GetFloat("Sensitivity", 100);
+
+        if (!IsMainMenu && cam != null) 
+        {
+            //cam.sensitivity = new Vector2(sensSlider.value, sensSlider.value);
+        }
     }
 
     public void ChangeControlsImage()
@@ -256,7 +261,11 @@ public class OptionsMenu : MonoBehaviour
 
     public void ChangeSensitivity()
     {
-        cam.sensitivity = new Vector2(sensSlider.value, sensSlider.value);
+        if (!IsMainMenu && cam != null) 
+        {
+            cam.sensitivity = new Vector2(sensSlider.value, sensSlider.value);
+        }
+
         PlayerPrefs.SetFloat("Sensitivity", sensSlider.value);
     }
 }
