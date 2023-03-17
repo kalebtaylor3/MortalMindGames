@@ -29,6 +29,13 @@ public class WorldData : MonoBehaviour
 
         StartCoroutine(ResetTime());
         happenOnce = false;
+
+        startingRange1 = stealthDetection.hearingRange1;
+        startingRange2 = stealthDetection.hearingRange2;
+        startingRange3 = stealthDetection.hearingRange3;
+        runDetectionSpeed = stealthDetection.runningDetectionSpeed;
+        walkDetectionSpeed = stealthDetection.walkingDetectionSpeed;
+        crouchDetectionSpeed = stealthDetection.crouchingDetectionSpeed;
     }
 
     #endregion
@@ -94,6 +101,14 @@ public class WorldData : MonoBehaviour
 
     bool happenOnce = false;
 
+    float startingRange1;
+    float startingRange2;
+    float startingRange3;
+
+    float runDetectionSpeed;
+    float walkDetectionSpeed;
+    float crouchDetectionSpeed;
+
     #endregion
 
     [Header("DEBUG")]
@@ -132,8 +147,12 @@ public class WorldData : MonoBehaviour
             }
             sectionManager[0].SetActive(true);
             happenOnce = true;
+            stealthDetection.hearingRange1 = startingRange1;
+            stealthDetection.hearingRange2 = startingRange2;
+            stealthDetection.hearingRange3 = startingRange3;
+            //setup difficulty progressions (awarness values)
         }
-        if(lastCollectedRelic == RELIC_TYPE.FLAMES && !happenOnce)
+        if (lastCollectedRelic == RELIC_TYPE.FLAMES && !happenOnce)
         {
             //2 sections to be enabled
             //default vorgon detection values
@@ -142,16 +161,25 @@ public class WorldData : MonoBehaviour
                 sectionManager[i].SetActive(false);
             }
             sectionManager[1].SetActive(true);
+            stealthDetection.hearingRange1 = 45;
+            stealthDetection.hearingRange2 = 35;
+            stealthDetection.hearingRange3 = 18;
             happenOnce = true;
+            //setup difficulty progressions (awarness values)
         }
-        if(lastCollectedRelic == RELIC_TYPE.WALL && !happenOnce)
+        if (lastCollectedRelic == RELIC_TYPE.WALL && !happenOnce)
         {
             for (int i = 0; i < sectionManager.Count; i++)
             {
                 sectionManager[i].SetActive(false);
             }
             sectionManager[2].SetActive(true);
+            stealthDetection.hearingRange1 = 60;
+            stealthDetection.hearingRange2 = 45;
+            stealthDetection.hearingRange3 = 25;
             happenOnce = true;
+
+            //setup difficulty progressions (awarness values)
         }
 
     }
