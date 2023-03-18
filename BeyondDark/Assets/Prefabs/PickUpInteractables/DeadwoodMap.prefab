@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2997435402995987224}
   - component: {fileID: 2997435402995987225}
   - component: {fileID: -358049228022534868}
+  - component: {fileID: 4088333774954250315}
   m_Layer: 6
   m_Name: DeadwoodMap
   m_TagString: Untagged
@@ -142,6 +143,7 @@ MonoBehaviour:
   pickUp: {fileID: 2997435402995987224}
   destroyOnPickUp: 1
   dialogue: {fileID: -358049228022534868}
+  tutorial: {fileID: 4088333774954250315}
 --- !u!114 &-358049228022534868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,3 +160,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b44e9f2a17511e84082610af4ee08e25, type: 3}
   dialoguesText:
   - Oh My God Its a Map!
+--- !u!114 &4088333774954250315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997435402995987226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 163818d9fc2151649822f6a49be7b284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageTut: {fileID: 21300000, guid: bf5359899199c8a4ca0e84a2b66f593c, type: 3}
+  vidTut: {fileID: 32900000, guid: 87b8e4cafc15e58488f28b66fd6e8375, type: 3}

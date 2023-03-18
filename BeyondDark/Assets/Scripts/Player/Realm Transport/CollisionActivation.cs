@@ -26,6 +26,7 @@ public class CollisionActivation : MonoBehaviour
 
                     GameObject lastRelic = WorldData.Instance.lastPickUpGO;
                     WorldData.Instance.TriggerCheckpoint();
+                    WorldData.Instance.happenOnce = false;
 
                     if (WorldData.Instance.lastPickUpGO != null)
                     {
@@ -44,8 +45,9 @@ public class CollisionActivation : MonoBehaviour
                 if (other.gameObject.tag == "VorgonRealmPlayer" && WorldData.Instance.activeRealm == WorldData.REALMS.VORGON)
                 {
                     Debug.Log("Vorgon Realm TP SUCCESS");
+                    WorldData.Instance.happenOnce = false;
                     // Move this to after a trial is completed or failed
-                    
+
                     RelicSpawnManager.Instance.RelicPickedUp(WorldData.Instance.lastPickUpGO);
 
                     WorldData.Instance.MortalRealmController.AddItemToInventory(WorldData.Instance.lastPickUpGO.GetComponent<PickUp>());

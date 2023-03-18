@@ -112,7 +112,7 @@ public class WorldData : MonoBehaviour
     public StealthDetection stealthDetection;
     public ConcelableDetection concelDetection;
 
-    bool happenOnce = false;
+    [HideInInspector] public bool happenOnce = false;
 
     float startingRange1;
     float startingRange2;
@@ -130,10 +130,22 @@ public class WorldData : MonoBehaviour
     [SerializeField]
     public List<GameObject> VorgonCharacterSpots;
 
+    bool concelableTutorial = false;
+    [HideInInspector] public bool trapTutorial = false;
+    public TutorialTrigger concelableTut;
+    public TutorialTrigger trapTut;
+
 
 
     private void Update()
     {
+
+        if(lastConceal != null && !concelableTutorial)
+        {
+            TutorialController.instance.SetTutorial(concelableTut.imageTut, concelableTut.vidTut, 3);
+            concelableTutorial = true;
+        }
+
 
         if (activeRealm == REALMS.MORTAL)
         {
@@ -183,7 +195,6 @@ public class WorldData : MonoBehaviour
                 sectionManager[1].SetActive(true);
                 stealthDetection.hearingRange1 = 45;
                 stealthDetection.hearingRange2 = 35;
-                stealthDetection.hearingRange3 = 18;
                 stealthDetection.jumpScare = false;
                 stealthDetection.flashing = false;
                 happenOnce = true;
@@ -201,7 +212,6 @@ public class WorldData : MonoBehaviour
                 sectionManager[2].SetActive(true);
                 stealthDetection.hearingRange1 = 60;
                 stealthDetection.hearingRange2 = 45;
-                stealthDetection.hearingRange3 = 25;
                 stealthDetection.jumpScare = false;
                 happenOnce = true;
             }
@@ -373,6 +383,7 @@ public class WorldData : MonoBehaviour
         OnDeath?.Invoke();
         StartCoroutine(TriggerPlayerDeathMR());
         happenOnce = false;
+        lastCollectedRelic = lastCollectedRelicCP;
     }
 
     IEnumerator TriggerPlayerDeathMR()
@@ -479,6 +490,7 @@ public class WorldData : MonoBehaviour
 
     public void VorgonRealmPlayerDeath()
     {
+        happenOnce = false;
         StartCoroutine(VRPlayerDeath());
     }
 

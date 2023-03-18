@@ -30,7 +30,7 @@ public class FearSystem : MonoBehaviour
     private void OnEnable()
     {
 
-        JumpScare.OnJumpScare += OnJumpScare;
+        JumpScare.BreathingScare += OnJumpScare;
 
         initialAmplitude = breathing.initialAmplitude;
         initialFrequency = breathing.initialFrequency;
@@ -48,7 +48,7 @@ public class FearSystem : MonoBehaviour
         maxValueA = 3.5f;
         minValueF = initialFrequency;
         maxValueF = 1.5f;
-        JumpScare.OnJumpScare -= OnJumpScare;
+        JumpScare.BreathingScare -= OnJumpScare;
     }
 
 

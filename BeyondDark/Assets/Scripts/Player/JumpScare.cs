@@ -11,6 +11,7 @@ public class JumpScare : MonoBehaviour
     private VorgonController vorgon;
 
     public static event Action OnJumpScare;
+    public static event Action BreathingScare;
 
     private void Start()
     {
@@ -27,8 +28,11 @@ public class JumpScare : MonoBehaviour
         if(other.tag == "Player")
         {
             StartCoroutine(StartJumpScare());
-            if(StealthDetection.Instance.inRange)
+            if (StealthDetection.Instance.inRange)
+            {
                 StealthDetection.Instance.SetDetection(2);
+                OnJumpScare?.Invoke();
+            }
             GetComponent<BoxCollider>().enabled = false;
         }             
     }
@@ -42,8 +46,8 @@ public class JumpScare : MonoBehaviour
             scareAnim.Play();
         }
 
+        BreathingScare?.Invoke();
         scareAudioSource.Play();
-        OnJumpScare?.Invoke();
 
         if (StealthDetection.Instance.inRange)
         {

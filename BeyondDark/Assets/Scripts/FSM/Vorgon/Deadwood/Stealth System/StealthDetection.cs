@@ -72,11 +72,13 @@ public class StealthDetection : MonoBehaviour
         detection = 0f; // start with no detection
         hearingDetectionUI.fillAmount = detection;
         JumpScare.OnJumpScare += Scare;
+        JumpScare.OnJumpScare += ScareFlash;
     }
 
     private void OnDisable()
     {
         JumpScare.OnJumpScare -= Scare;
+        JumpScare.OnJumpScare -= ScareFlash;
     }
 
     private void Update()
@@ -89,6 +91,9 @@ public class StealthDetection : MonoBehaviour
             detection -= Time.deltaTime * runningDetectionSpeed; // reset detection level if player is out of range
             hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
         }
+
+        //if (jumpScare)
+        //    StartCoroutine(Flash());
 
         if (detection <= 0)
         {
@@ -148,7 +153,7 @@ public class StealthDetection : MonoBehaviour
                 inRange = true;
                 if (!player.movementInputData.IsCrouching)
                 {
-                    if (player.currentSpeed >= 1.8f && player.currentSpeed < 5) // if the player is walking or running
+                    if (player.currentSpeed >= 1.95f && player.currentSpeed < 5) // if the player is walking or running
                     {
                         detection += Time.deltaTime * walkingDetectionSpeed; // increase detection level
                     }
@@ -156,7 +161,7 @@ public class StealthDetection : MonoBehaviour
                     {
                         detection += Time.deltaTime * runningDetectionSpeed;
                     }
-                    else if (player.currentSpeed < 1.8f && !detected && !jumpScare)
+                    else if (player.currentSpeed < 1.95f && !detected && !jumpScare)
                     {
                         detection -= Time.deltaTime * walkingDetectionSpeed;
                         hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
@@ -225,6 +230,11 @@ public class StealthDetection : MonoBehaviour
 
         hearingCanvas.alpha = Mathf.Lerp(0, 1, detection);
         hearingDetectionUI.fillAmount = detection; // update the UI to match the detection level
+    }
+
+    void ScareFlash()
+    {
+        StartCoroutine(Flash());
     }
 
     public void SetDetection(float amount)

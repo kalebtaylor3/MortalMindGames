@@ -8,11 +8,16 @@ namespace MMG
     {
         [SerializeField] bool destroyOnPickUp = true;
         public Dialogue dialogue;
+        public TutorialTrigger tutorial;
 
         public override void OnInteract()
         {
             if(dialogue != null)
                 DialougeSystem.instance.PlayDialogue(dialogue);
+
+            if (tutorial != null)
+                TutorialController.instance.SetTutorial(tutorial.imageTut, tutorial.vidTut, 2);
+
             base.OnInteract();
 
             if(destroyOnPickUp)
