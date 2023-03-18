@@ -49,6 +49,10 @@ namespace MMG
         public static event Action OnEnteredSpot;
         public static event Action OnLeaveSpot;
 
+
+        public float maxRight;
+        public float maxLeft;
+
         private void Start()
         {
             startcamPosition = concelableAreaCam.transform.position;
@@ -97,6 +101,19 @@ namespace MMG
                 exposurePercentage = concelableAreaCam.GetRevealPercentage();
             else
                 exposurePercentage = 0;
+
+            if (canCreak)
+            {
+                //lookAtTransform.position += new Vector3(concelableAreaCam.leftRightPercentage, 0, 0) * 0.15f * Time.deltaTime;
+                concelableAreaCam.comp.m_Pan += concelableAreaCam.leftRightPercentage;
+
+                if (concelableAreaCam.comp.m_Pan > maxRight)
+                    concelableAreaCam.comp.m_Pan = maxRight;
+
+                if (concelableAreaCam.comp.m_Pan < maxLeft)
+                    concelableAreaCam.comp.m_Pan = maxLeft;
+
+            }
 
             if (isHidding)
                 displayText = "Press X to Exit";
