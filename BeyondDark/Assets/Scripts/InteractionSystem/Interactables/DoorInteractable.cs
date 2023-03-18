@@ -13,6 +13,7 @@ public class DoorInteractable : InteractableBase
     public AudioClip openClip;
     public AudioClip closeClip;
     public AudioClip slamClip;
+    bool happenOnce = false;
 
     public override void OnInteract()
     {
@@ -44,7 +45,18 @@ public class DoorInteractable : InteractableBase
 
     public void Slam()
     {
-        doorSource.PlayOneShot(slamClip);
+        if (!happenOnce)
+        {
+            doorSource.PlayOneShot(slamClip);
+            StartCoroutine(Wait());
+            happenOnce = true;
+        }
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2);
+        happenOnce = false;
     }
 
     public void Stop()
