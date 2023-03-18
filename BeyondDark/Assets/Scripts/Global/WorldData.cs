@@ -131,9 +131,11 @@ public class WorldData : MonoBehaviour
     public List<GameObject> VorgonCharacterSpots;
 
     bool concelableTutorial = false;
+    [HideInInspector] public bool stealthTutorial = false;
     [HideInInspector] public bool trapTutorial = false;
     public TutorialTrigger concelableTut;
     public TutorialTrigger trapTut;
+    public TutorialTrigger stealthTut;
 
 
 
@@ -142,7 +144,7 @@ public class WorldData : MonoBehaviour
 
         if(lastConceal != null && !concelableTutorial)
         {
-            TutorialController.instance.SetTutorial(concelableTut.imageTut, concelableTut.vidTut, 3);
+            TutorialController.instance.SetTutorial(concelableTut.imageTut, concelableTut.vidTut, 4);
             concelableTutorial = true;
         }
 

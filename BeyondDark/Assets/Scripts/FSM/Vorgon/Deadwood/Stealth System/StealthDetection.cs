@@ -101,6 +101,12 @@ public class StealthDetection : MonoBehaviour
             vorgon.SetLastDetectedLocation(Vector3.zero, null, VorgonController.EVENT_TYPE.LOST);
         }
 
+        if(detection > 0 && !WorldData.Instance.stealthTutorial)
+        {
+            TutorialController.instance.SetTutorial(WorldData.Instance.stealthTut.imageTut, WorldData.Instance.stealthTut.vidTut, 0);
+            WorldData.Instance.stealthTutorial = true;
+        }
+
         if (detection >= 1)
         {
             detection = 1;
