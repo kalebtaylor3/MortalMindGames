@@ -25316,6 +25316,18 @@ Transform:
   m_Father: {fileID: 1892257966}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1010513573 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6737833639895288252, guid: 0a782ddb20dd5ec47b38515e0bd56801,
+    type: 3}
+  m_PrefabInstance: {fileID: 2679313322130759960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e384827f48270a243960b77029286ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1014686228
 GameObject:
   m_ObjectHideFlags: 0
@@ -40457,6 +40469,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!82 &1859548305 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1128262732998513483, guid: 0a782ddb20dd5ec47b38515e0bd56801,
+    type: 3}
+  m_PrefabInstance: {fileID: 2679313322130759960}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1859952674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48410,6 +48428,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8964406394056539442, guid: 5b8213e5949ff0844b7f0f45cbce1188,
+        type: 3}
+      propertyPath: bossTrial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8964406394056539442, guid: 5b8213e5949ff0844b7f0f45cbce1188,
+        type: 3}
+      propertyPath: vorgonBoss
+      value: 
+      objectReference: {fileID: 1859548301}
+    - target: {fileID: 8964406394056539442, guid: 5b8213e5949ff0844b7f0f45cbce1188,
+        type: 3}
+      propertyPath: bossController
+      value: 
+      objectReference: {fileID: 1010513573}
     - target: {fileID: 9140018297913105362, guid: 5b8213e5949ff0844b7f0f45cbce1188,
         type: 3}
       propertyPath: m_Enabled
@@ -48558,12 +48591,12 @@ PrefabInstance:
     - target: {fileID: 1908062772642417286, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: far clip plane
-      value: 1000
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1908062772642417286, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: near clip plane
-      value: 0.3
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 1908062772642417286, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
@@ -48980,17 +49013,37 @@ PrefabInstance:
     - target: {fileID: 5610152156308896045, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 190.21056
       objectReference: {fileID: 0}
     - target: {fileID: 5610152156308896045, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 6.3565435
       objectReference: {fileID: 0}
     - target: {fileID: 5610152156308896045, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -348.36884
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610152156308896045, guid: 97f71427c81384d4bb7ded40758c3f6b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.30732077
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610152156308896045, guid: 97f71427c81384d4bb7ded40758c3f6b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.08119825
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610152156308896045, guid: 97f71427c81384d4bb7ded40758c3f6b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.916679
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610152156308896045, guid: 97f71427c81384d4bb7ded40758c3f6b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.24219887
       objectReference: {fileID: 0}
     - target: {fileID: 6040904584192291061, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
@@ -49757,6 +49810,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6737833639895288252, guid: 0a782ddb20dd5ec47b38515e0bd56801,
+        type: 3}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 1859548305}
     - target: {fileID: 6737833639895288252, guid: 0a782ddb20dd5ec47b38515e0bd56801,
         type: 3}
       propertyPath: ground

@@ -61,7 +61,7 @@ public class VorgonBossController : MonoBehaviour
     public int numberOfHitPoints;
     public float minDistanceBetweenObjects;
 
-    List<Vector3> objectPositions = new List<Vector3>();
+    [HideInInspector] public List<Vector3> objectPositions = new List<Vector3>();
 
 
     public float maxHealth;
@@ -79,7 +79,7 @@ public class VorgonBossController : MonoBehaviour
     public List<Transform> minionSpawns = new List<Transform>();
     public GameObject minion;
 
-    List<MinionController> activeMinions = new List<MinionController>();
+    [HideInInspector] public List<MinionController> activeMinions = new List<MinionController>();
 
     public CinemachineVirtualCamera playerCam;
 
@@ -88,19 +88,33 @@ public class VorgonBossController : MonoBehaviour
 
     bool once = false;
 
+    [HideInInspector] public List<GameObject> activeHellFire = new List<GameObject>();
+
+    public AudioSource music;
+
 
     //if not attacking & no active minions & in second phase. spawn minions
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        state = State.Idle;
-    }
 
     private void Awake()
     {
         state = State.Idle;
+        once = false;
+        isSpawningMinions = false;
+        canSpawnMinions = true;
+        lastPhase = false;
+        isDeadForLastPhase = false;
+        canRotate = true;
+        canAttack = false;
+        canCloseSlam = true;
+        canCast = false;
+        isCloseSlamming = false;
+        rainFire = false;
+        isTaunting = false;
+        isSummoning = false;
+        currentHealth = maxHealth;
+        canHellFire = false;
+        secondPhase = false;
+        StopCoroutine(RainFire());
     }
 
     private void OnEnable()
@@ -108,6 +122,25 @@ public class VorgonBossController : MonoBehaviour
         Projectile.DealDamage += TakeDamage;
         SwordDamage.DealDamage += TakeDamage;
         MinionController.OnDeath += OnMinionDeath;
+
+        state = State.Idle;
+        once = false;
+        isSpawningMinions = false;
+        canSpawnMinions = true;
+        lastPhase = false;
+        isDeadForLastPhase = false;
+        canRotate = true;
+        canAttack = false;
+        canCloseSlam = true;
+        canCast = false;
+        isCloseSlamming = false;
+        rainFire = false;
+        isTaunting = false;
+        isSummoning = false;
+        currentHealth = maxHealth;
+        canHellFire = false;
+        secondPhase = false;
+        StopCoroutine(RainFire());
     }
 
     private void OnDisable()
@@ -417,6 +450,7 @@ public class VorgonBossController : MonoBehaviour
         //first create one at players position
         GameObject playerMarker1  = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
         List<GameObject> points = new List<GameObject>();
+        activeHellFire.Add(playerMarker1);
         points.Add(playerMarker1);
         objectPositions.Add(playerMarker1.transform.position);
 
@@ -442,6 +476,7 @@ public class VorgonBossController : MonoBehaviour
                 if(!isTooClose)
                 {
                     GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    activeHellFire.Add(obj);
                     points.Add(obj);
                     objectPositions.Add(hit.point);
                 }
@@ -461,6 +496,7 @@ public class VorgonBossController : MonoBehaviour
 
         GameObject playerMarker2 = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
         //List<GameObject> points = new List<GameObject>();
+        activeHellFire.Add(playerMarker2);
         points.Add(playerMarker2);
         objectPositions.Add(playerMarker2.transform.position);
 
@@ -487,6 +523,7 @@ public class VorgonBossController : MonoBehaviour
                 if (!isTooClose)
                 {
                     GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    activeHellFire.Add(obj);
                     points.Add(obj);
                     objectPositions.Add(hit.point);
                 }
@@ -506,6 +543,7 @@ public class VorgonBossController : MonoBehaviour
 
         GameObject playerMarker3 = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
         //List<GameObject> points = new List<GameObject>();
+        activeHellFire.Add(playerMarker3);
         points.Add(playerMarker3);
         objectPositions.Add(playerMarker3.transform.position);
 
@@ -531,6 +569,7 @@ public class VorgonBossController : MonoBehaviour
                 if (!isTooClose)
                 {
                     GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    activeHellFire.Add(obj);
                     points.Add(obj);
                     objectPositions.Add(hit.point);
                 }
@@ -550,6 +589,7 @@ public class VorgonBossController : MonoBehaviour
 
         GameObject playerMarker4 = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
         //List<GameObject> points = new List<GameObject>();
+        activeHellFire.Add(playerMarker4);
         points.Add(playerMarker4);
         objectPositions.Add(playerMarker4.transform.position);
 
@@ -575,6 +615,7 @@ public class VorgonBossController : MonoBehaviour
                 if (!isTooClose)
                 {
                     GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    activeHellFire.Add(obj);
                     points.Add(obj);
                     objectPositions.Add(hit.point);
                 }
@@ -594,6 +635,7 @@ public class VorgonBossController : MonoBehaviour
 
         GameObject playerMarker5 = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
         //List<GameObject> points = new List<GameObject>();
+        activeHellFire.Add(playerMarker5);
         points.Add(playerMarker5);
         objectPositions.Add(playerMarker5.transform.position);
 
@@ -619,6 +661,7 @@ public class VorgonBossController : MonoBehaviour
                 if (!isTooClose)
                 {
                     GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    activeHellFire.Add(obj);
                     points.Add(obj);
                     objectPositions.Add(hit.point);
                 }
@@ -637,6 +680,7 @@ public class VorgonBossController : MonoBehaviour
         points.Clear();
 
         GameObject playerMarker6 = Instantiate(fireWarning, new Vector3(player.position.x, 0.4f, player.position.z), Quaternion.identity);
+        activeHellFire.Add(playerMarker6);
         //List<GameObject> points = new List<GameObject>();
         points.Add(playerMarker6);
         objectPositions.Add(playerMarker6.transform.position);
@@ -663,6 +707,7 @@ public class VorgonBossController : MonoBehaviour
                 if (!isTooClose)
                 {
                     GameObject obj = Instantiate(fireWarning, hit.point, Quaternion.identity);
+                    activeHellFire.Add(obj);
                     points.Add(obj);
                     objectPositions.Add(hit.point);
                 }
@@ -681,7 +726,7 @@ public class VorgonBossController : MonoBehaviour
         points.Clear();
 
         vorgonAnimator.SetBool("notHellFire", false);
-
+        activeHellFire.Clear();
 
         StartCoroutine(WaitForCast(4f));
     }
