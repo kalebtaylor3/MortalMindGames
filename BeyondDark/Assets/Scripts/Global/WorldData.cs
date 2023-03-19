@@ -381,11 +381,11 @@ public class WorldData : MonoBehaviour
 
     public void PlayerDeathMortalRealm()
     {
-        TriggerCheckpoint();
+        //TriggerCheckpoint();
         OnDeath?.Invoke();
         StartCoroutine(TriggerPlayerDeathMR());
         happenOnce = false;
-        lastCollectedRelic = lastCollectedRelicCP;
+        //lastCollectedRelic = lastCollectedRelicCP;
     }
 
     IEnumerator TriggerPlayerDeathMR()
