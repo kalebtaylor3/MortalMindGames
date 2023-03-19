@@ -27,7 +27,7 @@ public class VorgonBossController : MonoBehaviour
     public float hellFireRange;
     public float hellFireSwitchTime;
 
-    //public GameObject slamIndication;
+    public GameObject slamIndication;
     public GameObject fireWarning;
 
     public GameObject projectile;
@@ -114,7 +114,8 @@ public class VorgonBossController : MonoBehaviour
         currentHealth = maxHealth;
         canHellFire = false;
         secondPhase = false;
-        StopCoroutine(RainFire());
+        StopAllCoroutines();
+        slamIndication.SetActive(false);
     }
 
     private void OnEnable()
@@ -123,6 +124,7 @@ public class VorgonBossController : MonoBehaviour
         SwordDamage.DealDamage += TakeDamage;
         MinionController.OnDeath += OnMinionDeath;
 
+        slamIndication.SetActive(false);
         state = State.Idle;
         once = false;
         isSpawningMinions = false;
@@ -140,7 +142,7 @@ public class VorgonBossController : MonoBehaviour
         currentHealth = maxHealth;
         canHellFire = false;
         secondPhase = false;
-        StopCoroutine(RainFire());
+        StopAllCoroutines();
     }
 
     private void OnDisable()
@@ -148,6 +150,17 @@ public class VorgonBossController : MonoBehaviour
         Projectile.DealDamage -= TakeDamage;
         SwordDamage.DealDamage -= TakeDamage;
         MinionController.OnDeath -= OnMinionDeath;
+
+        foreach (HellFireController o in Object.FindObjectsOfType<HellFireController>())
+        {
+            Destroy(o.gameObject);
+        }
+
+        foreach (MinionController o in Object.FindObjectsOfType<MinionController>())
+        {
+            Destroy(o.gameObject);
+        }
+
     }
 
     // Update is called once per frame
