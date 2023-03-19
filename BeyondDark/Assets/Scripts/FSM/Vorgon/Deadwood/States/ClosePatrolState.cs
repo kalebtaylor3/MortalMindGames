@@ -41,7 +41,7 @@ public class ClosePatrolState : FSMState
             // If stunned -> Stun
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
-        else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
+        else if (WorldData.Instance.canSeek)
         {
             // If wrong section -> Seek            
             vorgonFSM.PerformTransition(Transition.WrongSection);

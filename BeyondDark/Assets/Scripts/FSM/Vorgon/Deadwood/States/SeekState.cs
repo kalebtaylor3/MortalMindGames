@@ -64,6 +64,10 @@ public class SeekState : FSMState
         //vorgonControl.navAgent.destination = destination;
         vorgonControl.gameObject.SetActive(false);
         vorgonControl.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+        WorldData.Instance.stealthDetection.jumpScare = false;
+        WorldData.Instance.stealthDetection.flashing = false;
         vorgonControl.gameObject.SetActive(true);
+
+        WorldData.Instance.canSeek = false;
     }
 }

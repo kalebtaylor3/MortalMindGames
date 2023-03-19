@@ -30,6 +30,7 @@ public class MAimState : FSMState
     {
         navAgent.isStopped = false;
         angleReached = false;
+        minionType = minionController.type;
     }
 
     public override void Reason()

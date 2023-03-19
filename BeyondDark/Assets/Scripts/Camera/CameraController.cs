@@ -22,7 +22,7 @@ namespace MMG
         public CinemachineCameraOffset offsett;
 
         [Space,Header("Look Settings")]
-        [SerializeField] private Vector2 sensitivity = Vector2.zero;
+        [SerializeField] public Vector2 sensitivity = Vector2.zero;
         [SerializeField] private Vector2 smoothAmount = Vector2.zero;
         [SerializeField] [MinMaxSlider(-90f,90f)] private Vector2 lookAngleMinMax = Vector2.zero;
 

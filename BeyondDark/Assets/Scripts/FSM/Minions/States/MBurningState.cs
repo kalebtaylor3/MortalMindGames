@@ -27,6 +27,7 @@ public class MBurningState : FSMState
     {
         navAgent.isStopped = false;
         navAgent.ResetPath();
+        minionType = minionController.type;
     }
 
     public override void Reason()

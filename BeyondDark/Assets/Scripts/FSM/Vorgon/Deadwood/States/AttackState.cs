@@ -38,7 +38,7 @@ public class AttackState : FSMState
                 // If player Found -> Chase
                 vorgonFSM.PerformTransition(Transition.PlayerFound);
             }
-            else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
+            else if (WorldData.Instance.canSeek)
             {
                 // If wrong section -> Seek
                 vorgonFSM.PerformTransition(Transition.WrongSection);

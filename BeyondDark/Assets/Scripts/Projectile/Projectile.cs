@@ -10,6 +10,17 @@ public class Projectile : MonoBehaviour
     private bool Collided;
 
     public static event Action<float> DealDamage;
+
+    private void Awake()
+    {
+        Physics.IgnoreLayerCollision(0, 12);
+    }
+
+    private void OnEnable()
+    {
+        Physics.IgnoreLayerCollision(0, 12);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "Player" && !Collided)

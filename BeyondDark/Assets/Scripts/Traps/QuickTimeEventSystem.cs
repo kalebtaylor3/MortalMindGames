@@ -106,22 +106,19 @@ public class QuickTimeEventSystem : MonoBehaviour
         {
             successMarker.enabled = false;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            TriggerEvent();
     }
 
-    public void TriggerEvent()
+    public void TriggerEvent(float delay)
     {
         if (!inEvent)
         {
-            StartCoroutine(WaitToTrigger());
+            StartCoroutine(WaitToTrigger(delay));
         }
     }
 
-    IEnumerator WaitToTrigger()
+    IEnumerator WaitToTrigger(float delay)
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(delay);
         fillRect.fillAmount = 0;
         successTime = UnityEngine.Random.Range(minTime, maxTime);
         timer = 0f;

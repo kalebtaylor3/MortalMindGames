@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MMG;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -53,6 +54,8 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] GameObject controlsMR;
     [SerializeField] GameObject controlsVR;
     [SerializeField] TextMeshProUGUI realmTxt;
+    [SerializeField] Slider sensSlider;
+    [SerializeField] CameraController cam = null;
 
 
 
@@ -67,7 +70,7 @@ public class OptionsMenu : MonoBehaviour
         currentRes.x = Screen.width;
         currentRes.y = Screen.height;
 
-        // Audio
+        // Initialize
         GetVolumes();
     }
 
@@ -217,6 +220,7 @@ public class OptionsMenu : MonoBehaviour
         }
     }
 
+    //Initialize
     public void GetVolumes()
     {
         masterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1);
@@ -228,6 +232,14 @@ public class OptionsMenu : MonoBehaviour
         masterMixer.SetFloat("EffectsVolume", Mathf.Log10(effectsSlider.value) * 20);
         masterMixer.SetFloat("MusicVolume", Mathf.Log10(musicSlider.value) * 20);
         masterMixer.SetFloat("DialogueVolume", Mathf.Log10(dialogueSlider.value) * 20);
+
+        //Sens
+        sensSlider.value = PlayerPrefs.GetFloat("Sensitivity", 100);
+
+        if (!IsMainMenu && cam != null) 
+        {
+            //cam.sensitivity = new Vector2(sensSlider.value, sensSlider.value);
+        }
     }
 
     public void ChangeControlsImage()
@@ -245,6 +257,16 @@ public class OptionsMenu : MonoBehaviour
             controlsVR.SetActive(false);
             realmTxt.text = "Mortal Realm";
         }
+    }
+
+    public void ChangeSensitivity()
+    {
+        if (!IsMainMenu && cam != null) 
+        {
+            cam.sensitivity = new Vector2(sensSlider.value, sensSlider.value);
+        }
+
+        PlayerPrefs.SetFloat("Sensitivity", sensSlider.value);
     }
 }
 

@@ -18,6 +18,11 @@ public class VorgonProjectile : MonoBehaviour
         Physics.IgnoreLayerCollision(13,14);
     }
 
+    private void Awake()
+    {
+        Physics.IgnoreLayerCollision(13, 14);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "Minion" && collision.gameObject.tag != "MinionBullet" && !Collided)

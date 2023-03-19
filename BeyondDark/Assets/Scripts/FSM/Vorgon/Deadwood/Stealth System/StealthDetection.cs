@@ -28,8 +28,8 @@ public class StealthDetection : MonoBehaviour
 
     bool detected = false;
 
-    bool flashing = false;
-    bool jumpScare = false;
+    [HideInInspector] public bool flashing = false;
+    [HideInInspector] public bool jumpScare = false;
 
     public bool inRange = false;
 
@@ -72,11 +72,13 @@ public class StealthDetection : MonoBehaviour
         detection = 0f; // start with no detection
         hearingDetectionUI.fillAmount = detection;
         JumpScare.OnJumpScare += Scare;
+        JumpScare.OnJumpScare += ScareFlash;
     }
 
     private void OnDisable()
     {
         JumpScare.OnJumpScare -= Scare;
+        JumpScare.OnJumpScare -= ScareFlash;
     }
 
     private void Update()
@@ -90,10 +92,19 @@ public class StealthDetection : MonoBehaviour
             hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
         }
 
+        //if (jumpScare)
+        //    StartCoroutine(Flash());
+
         if (detection <= 0)
         {
             detection = 0;
             vorgon.SetLastDetectedLocation(Vector3.zero, null, VorgonController.EVENT_TYPE.LOST);
+        }
+
+        if(detection > 0 && !WorldData.Instance.stealthTutorial)
+        {
+            TutorialController.instance.SetTutorial(WorldData.Instance.stealthTut.imageTut, WorldData.Instance.stealthTut.vidTut, 0);
+            WorldData.Instance.stealthTutorial = true;
         }
 
         if (detection >= 1)
@@ -148,7 +159,7 @@ public class StealthDetection : MonoBehaviour
                 inRange = true;
                 if (!player.movementInputData.IsCrouching)
                 {
-                    if (player.currentSpeed >= 1.8f && player.currentSpeed < 5) // if the player is walking or running
+                    if (player.currentSpeed >= 1.95f && player.currentSpeed < 5) // if the player is walking or running
                     {
                         detection += Time.deltaTime * walkingDetectionSpeed; // increase detection level
                     }
@@ -156,7 +167,7 @@ public class StealthDetection : MonoBehaviour
                     {
                         detection += Time.deltaTime * runningDetectionSpeed;
                     }
-                    else if (player.currentSpeed < 1.8f && !detected && !jumpScare)
+                    else if (player.currentSpeed < 1.95f && !detected && !jumpScare)
                     {
                         detection -= Time.deltaTime * walkingDetectionSpeed;
                         hearingDetectionUI.color = Color.Lerp(hearingDetectionUI.color, Color.white, 0.95f * Time.deltaTime);
@@ -225,6 +236,11 @@ public class StealthDetection : MonoBehaviour
 
         hearingCanvas.alpha = Mathf.Lerp(0, 1, detection);
         hearingDetectionUI.fillAmount = detection; // update the UI to match the detection level
+    }
+
+    void ScareFlash()
+    {
+        StartCoroutine(Flash());
     }
 
     public void SetDetection(float amount)

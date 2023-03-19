@@ -106,8 +106,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60787412443488889}
-  m_LocalRotation: {x: 0.000008798203, y: -0.99952424, z: 0.030843806, w: 0.00000026822087}
-  m_LocalPosition: {x: -0.08599988, y: 1.003, z: 0.10399994}
+  m_LocalRotation: {x: 0.000008797272, y: -0.99952424, z: 0.030843802, w: 0.00000026822087}
+  m_LocalPosition: {x: -0.086, y: 0.987, z: -0.164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1786,6 +1786,7 @@ GameObject:
   - component: {fileID: 4486899958126474518}
   - component: {fileID: 4486899958126474519}
   - component: {fileID: 4486899958126474521}
+  - component: {fileID: 1230837938016057244}
   m_Layer: 0
   m_Name: Concelable Area Camera
   m_TagString: Untagged
@@ -1801,7 +1802,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4486899958126474522}
   m_LocalRotation: {x: 0.000008796728, y: -0.99952424, z: 0.030843811, w: 0.00000027145379}
-  m_LocalPosition: {x: -0.086, y: 1.003, z: 0.104}
+  m_LocalPosition: {x: -0.086, y: 0.987, z: -0.164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1832,7 +1833,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 10
-    NearClipPlane: 0.3
+    NearClipPlane: 0.01
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -1863,6 +1864,27 @@ MonoBehaviour:
   inputData: {fileID: 11400000, guid: 91ebd8974cbf1964f86a0e8b5e93ed5c, type: 2}
   revealPercentage: 0
   cameraClamp: 1
+  leftRightPercentage: 0
+  comp: {fileID: 0}
+--- !u!114 &1230837938016057244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4486899958126474522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0544e7b14d134a1449e61175446cfb95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 1
+  m_Tilt: 0
+  m_Pan: 0
+  m_Dutch: 0
+  m_ZoomScale: 1
+  m_FollowAttachment: 1
+  m_LookAtAttachment: 1
 --- !u!1 &4486899958355208621
 GameObject:
   m_ObjectHideFlags: 0
@@ -3424,3 +3446,5 @@ MonoBehaviour:
   input: {fileID: 0}
   canCreak: 0
   searchPos: {fileID: 8890644195512087032}
+  maxRight: 50
+  maxLeft: -50

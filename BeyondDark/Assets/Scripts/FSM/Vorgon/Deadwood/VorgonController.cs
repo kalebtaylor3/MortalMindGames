@@ -84,6 +84,10 @@ public class VorgonController : MonoBehaviour
     {
         audioClips[0] = ALERTSounds;
         audioClips[1] = GROWLSounds;
+        happenOnce = false;
+        canSeePlayer = false;
+        PlayerInSight = false;
+        playerDetected = false;
     }
 
     private void Start()

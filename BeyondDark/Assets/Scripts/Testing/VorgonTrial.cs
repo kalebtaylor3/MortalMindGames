@@ -10,6 +10,11 @@ public class VorgonTrial : MonoBehaviour
     [SerializeField]
     public List<MSpawner> MSpawners = new List<MSpawner>();
 
+    public bool bossTrial;
+    public VorgonBossController bossController;
+
+    public GameObject vorgonBoss;
+
     public void RestartTrial()
     {
         if (MSpawners.Count != 0)
@@ -18,6 +23,11 @@ public class VorgonTrial : MonoBehaviour
             {
                 spawn.RestartSpawner();
             }
+        }
+
+        if(bossTrial)
+        {
+            vorgonBoss.SetActive(false);
         }
 
         this.gameObject.SetActive(false);

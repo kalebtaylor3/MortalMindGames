@@ -28,6 +28,18 @@ public class WorldData : MonoBehaviour
         SetCheckpoint();
 
         StartCoroutine(ResetTime());
+        happenOnce = false;
+
+        startingRange1 = stealthDetection.hearingRange1;
+        startingRange2 = stealthDetection.hearingRange2;
+        startingRange3 = stealthDetection.hearingRange3;
+        runDetectionSpeed = stealthDetection.runningDetectionSpeed;
+        walkDetectionSpeed = stealthDetection.walkingDetectionSpeed;
+        crouchDetectionSpeed = stealthDetection.crouchingDetectionSpeed;
+
+        playerSectionChange = false;
+        vorgonSectionChange = false;
+        canSeek = false;
     }
 
     #endregion
@@ -35,7 +47,11 @@ public class WorldData : MonoBehaviour
     #region Variables
 
     public enum REALMS { MORTAL = 0, VORGON = 1 };
-    public enum SECTIONS { VORGONREALM = -1, NONE = 0, FIRST = 1, SECOND, THIRD, FOURTH };
+    public enum SECTIONS
+    {
+        VORGONREALM = -1, NONE = 0, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
+        ELEVEN, TWELVE, THIRTEEN, FOURTEEN, FIFTEEN, SIXTEEN, SEVENTEEN, EIGHTEEN
+    };
 
     // DATA
     public RelicSpawnManager.RELIC_TYPE lastCollectedRelic = RELIC_TYPE.NONE;
@@ -55,7 +71,7 @@ public class WorldData : MonoBehaviour
     public GameObject canvas;
 
     // FOR CHECKPOINT
-    private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;    
+    private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;
     private int collectedRelicsCountCP;
     private GameObject lastPickUpGOCP;
 
@@ -69,6 +85,13 @@ public class WorldData : MonoBehaviour
 
     // FOR AI
     [SerializeField] List<Section> sections = null;
+    [SerializeField] List<GameObject> sectionManager = null;
+
+    [SerializeField] public bool playerSectionChange = false;
+    [SerializeField] public bool vorgonSectionChange = false;
+
+    [SerializeField] public bool canSeek = false;
+
     public ConcelableAreaInteractable lastConceal;
 
     public PlayerCombatController combatInventory;
@@ -89,6 +112,16 @@ public class WorldData : MonoBehaviour
     public StealthDetection stealthDetection;
     public ConcelableDetection concelDetection;
 
+    [HideInInspector] public bool happenOnce = false;
+
+    float startingRange1;
+    float startingRange2;
+    float startingRange3;
+
+    float runDetectionSpeed;
+    float walkDetectionSpeed;
+    float crouchDetectionSpeed;
+
     #endregion
 
     [Header("DEBUG")]
@@ -97,10 +130,26 @@ public class WorldData : MonoBehaviour
     [SerializeField]
     public List<GameObject> VorgonCharacterSpots;
 
+    bool concelableTutorial = false;
+    [HideInInspector] public bool stealthTutorial = false;
+    [HideInInspector] public bool trapTutorial = false;
+    public TutorialTrigger concelableTut;
+    public TutorialTrigger trapTut;
+    public TutorialTrigger stealthTut;
+
+
+
     private void Update()
     {
 
-        if(activeRealm == REALMS.MORTAL)
+        if(lastConceal != null && !concelableTutorial)
+        {
+            TutorialController.instance.SetTutorial(concelableTut.imageTut, concelableTut.vidTut, 4);
+            concelableTutorial = true;
+        }
+
+
+        if (activeRealm == REALMS.MORTAL)
         {
             deadWood.SetActive(true);
             RenderSettings.skybox = mortalSkybox;
@@ -113,6 +162,90 @@ public class WorldData : MonoBehaviour
             deadWood.SetActive(false);
             vorgonRealmPPE.SetActive(true);
             mortalRealmPPE.SetActive(false);
+        }
+
+        if (lastCollectedRelic == RELIC_TYPE.NONE || lastCollectedRelic == RELIC_TYPE.MAP)
+        {
+            if (!happenOnce)
+            {
+                //1 sections to be enabled
+                //default vorgon detection values
+                for (int i = 0; i < sectionManager.Count; i++)
+                {
+                    sectionManager[i].SetActive(false);
+                }
+                sectionManager[0].SetActive(true);
+                stealthDetection.hearingRange1 = startingRange1;
+                stealthDetection.hearingRange2 = startingRange2;
+                stealthDetection.hearingRange3 = startingRange3;
+                stealthDetection.jumpScare = false;
+                stealthDetection.flashing = false;
+                happenOnce = true;
+                //setup difficulty progressions (awarness values)
+            }
+        }
+        if (lastCollectedRelic == RELIC_TYPE.FLAMES)
+        {
+            if (!happenOnce)
+            {
+                //2 sections to be enabled
+                //default vorgon detection values
+                for (int i = 0; i < sectionManager.Count; i++)
+                {
+                    sectionManager[i].SetActive(false);
+                }
+                sectionManager[1].SetActive(true);
+                stealthDetection.hearingRange1 = 45;
+                stealthDetection.hearingRange2 = 35;
+                stealthDetection.jumpScare = false;
+                stealthDetection.flashing = false;
+                happenOnce = true;
+            }
+            //setup difficulty progressions (awarness values)
+        }
+        if (lastCollectedRelic == RELIC_TYPE.WALL)
+        {
+            if (!happenOnce)
+            {
+                for (int i = 0; i < sectionManager.Count; i++)
+                {
+                    sectionManager[i].SetActive(false);
+                }
+                sectionManager[2].SetActive(true);
+                stealthDetection.hearingRange1 = 60;
+                stealthDetection.hearingRange2 = 45;
+                stealthDetection.jumpScare = false;
+                happenOnce = true;
+            }
+
+            //setup difficulty progressions (awarness values)
+        }
+
+        //Section Change
+        if (playerSectionChange)
+        {
+            SectionChange();
+        }
+
+        if (!canSeek)
+        {
+            if (activePlayerSection == activeVorgonSection)
+            {
+                playerSectionChange = false;
+                vorgonSectionChange = false;
+            }
+            else
+            {
+                activePlayerSection = activeVorgonSection;
+            }
+        }
+    }
+
+    public void SectionChange()
+    {
+        if (activePlayerSection != activeVorgonSection)
+        {
+            canSeek = true;
         }
     }
 
@@ -187,13 +320,14 @@ public class WorldData : MonoBehaviour
         lastPickUpGO = go;
         collectedRelicsCount++;
         pickUpCP = playerPos;
-        
-        if(type == RELIC_TYPE.MAP)
+        happenOnce = false;
+
+        if (type == RELIC_TYPE.MAP)
         {
             RelicSpawnManager.Instance.RelicPickedUp(go);
         }
 
-        switch(type)
+        switch (type)
         {
             case RELIC_TYPE.FLAMES:
                 realm1.SetActive(true);
@@ -226,7 +360,7 @@ public class WorldData : MonoBehaviour
 
                 combatInventory.items[0] = false;
                 combatInventory.items[1] = false;
-                combatInventory.items[2] = true;                
+                combatInventory.items[2] = true;
                 break;
         }
     }
@@ -250,6 +384,8 @@ public class WorldData : MonoBehaviour
         TriggerCheckpoint();
         OnDeath?.Invoke();
         StartCoroutine(TriggerPlayerDeathMR());
+        happenOnce = false;
+        lastCollectedRelic = lastCollectedRelicCP;
     }
 
     IEnumerator TriggerPlayerDeathMR()
@@ -290,7 +426,7 @@ public class WorldData : MonoBehaviour
             ConcelableDetection.Instance.vorgonKnows = false;
             fadeOut.SetActive(true);
             lastConceal.ToggleCamChange();
-            TpTest.Instance.MortalRealmDeath(pickUpCP);            
+            TpTest.Instance.MortalRealmDeath(pickUpCP);
             yield return new WaitForSeconds(4);
             fadeOut.SetActive(false);
             vorgon.playerDead = false;
@@ -315,7 +451,7 @@ public class WorldData : MonoBehaviour
             vorgon.detection = 0;
             yield return new WaitForSeconds(1);
             fadeOut.SetActive(true);
-            TpTest.Instance.MortalRealmDeath(pickUpCP);            
+            TpTest.Instance.MortalRealmDeath(pickUpCP);
             playerDeathMR.SetActive(false);
             yield return new WaitForSeconds(1);
             fadeOut.SetActive(false);
@@ -334,15 +470,15 @@ public class WorldData : MonoBehaviour
 
         //playerCam.ResetCam();
 
-        
 
-        if(lastConceal != null)
+
+        if (lastConceal != null)
         {
             lastConceal.ToggleCamChange();
             lastConceal = null;
         }
-        
-        if(player.isHiding)
+
+        if (player.isHiding)
         {
             player.isHiding = false;
         }
@@ -356,6 +492,7 @@ public class WorldData : MonoBehaviour
 
     public void VorgonRealmPlayerDeath()
     {
+        happenOnce = false;
         StartCoroutine(VRPlayerDeath());
     }
 
@@ -397,18 +534,18 @@ public class WorldData : MonoBehaviour
         switch (relic)
         {
             case 0:
-                
+
                 TpTest.Instance.tpPlayer(VorgonCharacterSpots[0].transform.position);
                 ItemPickedUp(RELIC_TYPE.FLAMES, player.transform.position);
                 break;
             case 1:
-                
+
                 TpTest.Instance.tpPlayer(VorgonCharacterSpots[1].transform.position);
                 ItemPickedUp(RELIC_TYPE.WALL, player.transform.position);
                 break;
             case 2:
                 TpTest.Instance.tpPlayer(VorgonCharacterSpots[2].transform.position);
-                ItemPickedUp(RELIC_TYPE.SWORD, player.transform.position);                
+                ItemPickedUp(RELIC_TYPE.SWORD, player.transform.position);
                 break;
         }
         //Time.timeScale = 0;
