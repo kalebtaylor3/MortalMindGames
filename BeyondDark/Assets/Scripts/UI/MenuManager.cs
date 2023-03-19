@@ -13,8 +13,6 @@ public class MenuManager : MonoBehaviour
     {
         if (Instance == null) { Instance = this; }
         else if (Instance != this) Destroy(gameObject);
-
-        OptionsMenuGO.GetComponent<OptionsMenu>().GetVolumes();
     }
 
     #endregion

@@ -92,7 +92,10 @@ public class TrapInteractable : InteractableBase
             {
                 base.OnInteract();
                 hasFailed = false;
-                qte.TriggerEvent();
+                if(WorldData.Instance.trapTutorial)
+                    qte.TriggerEvent(0.2f);
+                else
+                    qte.TriggerEvent(1.5f);
                 canInteract = false;
                 isInteractable = false;
                 displayText = "";
@@ -101,6 +104,11 @@ public class TrapInteractable : InteractableBase
                 QuickTimeEventSystem.OnFailure += OnFailure;
                 inEvent = true;
                 completeSource.PlayOneShot(startClip);
+                if (!WorldData.Instance.trapTutorial)
+                {
+                    TutorialController.instance.SetTutorial(WorldData.Instance.trapTut.imageTut, WorldData.Instance.trapTut.vidTut, 0);
+                    WorldData.Instance.trapTutorial = true;
+                }
             }
         }
         return;
@@ -112,7 +120,7 @@ public class TrapInteractable : InteractableBase
         qte.StopAllCoroutines();
         yield return new WaitForSeconds(1f);
         completeSource.PlayOneShot(startClip);
-        qte.TriggerEvent();
+        qte.TriggerEvent(0.2f);
     }
 
     void HandleEvent()

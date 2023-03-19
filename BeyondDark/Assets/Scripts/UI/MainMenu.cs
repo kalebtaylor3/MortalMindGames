@@ -23,20 +23,20 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        EventSystem.current.SetSelectedGameObject(null);
+        //EventSystem.current.SetSelectedGameObject(null);
 
-        EventSystem.current.SetSelectedGameObject(newGameBtn);
+        //EventSystem.current.SetSelectedGameObject(newGameBtn);
 
-        menu = MenuManager.Instance;
+        //menu = MenuManager.Instance;
     }
 
     private void Start()
     {
-        EventSystem.current.SetSelectedGameObject(null);
+        //EventSystem.current.SetSelectedGameObject(null);
 
-        EventSystem.current.SetSelectedGameObject(newGameBtn);
+        //EventSystem.current.SetSelectedGameObject(newGameBtn);
 
-        menu = MenuManager.Instance;
+        //menu = MenuManager.Instance;
     }
 
     private void Update()

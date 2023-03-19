@@ -90,7 +90,7 @@ public class AlertedState : FSMState
             vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.PlayerFound);
         }
-        else if (WorldData.Instance.activeVorgonSection != WorldData.Instance.activePlayerSection)
+        else if (WorldData.Instance.canSeek)
         {
             // If wrong section -> Seek
             vorgonControl.playerDetected = false;

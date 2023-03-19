@@ -16,10 +16,12 @@ public class Section : MonoBehaviour
         if (other.tag == "Player" && WorldData.Instance.activePlayerSection != sectionType)
         {
             WorldData.Instance.activePlayerSection = sectionType;
+            WorldData.Instance.playerSectionChange = true;
         }
         else if (other.tag == "Vorgon" && WorldData.Instance.activeVorgonSection != sectionType)
         {
             WorldData.Instance.activeVorgonSection = sectionType;
+            WorldData.Instance.vorgonSectionChange = true;
         }
     }
 

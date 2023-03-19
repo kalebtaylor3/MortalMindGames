@@ -73,6 +73,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
                 GameObject lastRelic = WorldData.Instance.lastPickUpGO;
                 WorldData.Instance.TriggerCheckpoint();
+                WorldData.Instance.happenOnce = false;
 
                 if (WorldData.Instance.lastPickUpGO != null)
                 {

@@ -386,6 +386,7 @@ MonoBehaviour:
   rangeAttackDistance: 90
   hellFireRange: 30
   hellFireSwitchTime: 2.5
+  slamIndication: {fileID: 6680348024940607099}
   fireWarning: {fileID: 4391827696419749784, guid: 39fff1d1b5fc4b3468b804d4af904160,
     type: 3}
   projectile: {fileID: 6264007014961518346, guid: 5ac1d7a7e61ab5442b5e609335fea9be,
@@ -400,6 +401,7 @@ MonoBehaviour:
     m_Bits: 2048
   numberOfHitPoints: 200
   minDistanceBetweenObjects: 8
+  objectPositions: []
   maxHealth: 1000
   currentHealth: 1000
   healthBar: {fileID: 0}
@@ -414,10 +416,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   minion: {fileID: 6517060811194979068, guid: 04762c2fb670d884c90b4752a56c07f6, type: 3}
+  activeMinions: []
   playerCam: {fileID: 0}
   finalVorgon: {fileID: 1156706721855902906, guid: 2f452f49cb68cc345bfe46bb81ecc11a,
     type: 3}
   finalSpawnPos: {fileID: 0}
+  activeHellFire: []
+  music: {fileID: 1128262732998513483}
 --- !u!1 &8469274855499516440 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2715566404302941441, guid: 8131cc049b217f84088979ce87dbfb93,
@@ -539,3 +544,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6c9a5c98bede0f45abd2630b382dd78, type: 3}
+--- !u!1 &6680348024940607099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4391827696419749784, guid: a6c9a5c98bede0f45abd2630b382dd78,
+    type: 3}
+  m_PrefabInstance: {fileID: 6937712930721040867}
+  m_PrefabAsset: {fileID: 0}

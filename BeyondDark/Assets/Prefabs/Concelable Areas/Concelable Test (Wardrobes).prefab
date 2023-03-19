@@ -2017,6 +2017,7 @@ GameObject:
   - component: {fileID: 4486899958126474518}
   - component: {fileID: 4486899958126474519}
   - component: {fileID: 4486899958126474521}
+  - component: {fileID: 7027204299389270010}
   m_Layer: 0
   m_Name: Concelable Area Camera
   m_TagString: Untagged
@@ -2094,6 +2095,27 @@ MonoBehaviour:
   inputData: {fileID: 11400000, guid: 91ebd8974cbf1964f86a0e8b5e93ed5c, type: 2}
   revealPercentage: 0
   cameraClamp: 0
+  leftRightPercentage: 0
+  comp: {fileID: 0}
+--- !u!114 &7027204299389270010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4486899958126474522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0544e7b14d134a1449e61175446cfb95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 1
+  m_Tilt: 0
+  m_Pan: 0
+  m_Dutch: 0
+  m_ZoomScale: 1
+  m_FollowAttachment: 1
+  m_LookAtAttachment: 1
 --- !u!1 &4486899958292939369
 GameObject:
   m_ObjectHideFlags: 0
@@ -2468,6 +2490,8 @@ MonoBehaviour:
   input: {fileID: 0}
   canCreak: 0
   searchPos: {fileID: 4244283677206133971}
+  maxRight: 20
+  maxLeft: -20
 --- !u!136 &4486899958458049695
 CapsuleCollider:
   m_ObjectHideFlags: 0
