@@ -150,6 +150,7 @@ public class VorgonBossController : MonoBehaviour
         Projectile.DealDamage -= TakeDamage;
         SwordDamage.DealDamage -= TakeDamage;
         MinionController.OnDeath -= OnMinionDeath;
+        slamIndication.SetActive(false);
 
         foreach (HellFireController o in Object.FindObjectsOfType<HellFireController>())
         {
