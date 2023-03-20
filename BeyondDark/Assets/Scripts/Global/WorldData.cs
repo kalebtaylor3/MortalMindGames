@@ -110,7 +110,7 @@ public class WorldData : MonoBehaviour
     public Material mortalSkybox;
 
     public StealthDetection stealthDetection;
-    public ConcelableDetection concelDetection;
+    public ConcelableDetection concealDetection;
 
     [HideInInspector] public bool happenOnce = false;
 
@@ -241,6 +241,14 @@ public class WorldData : MonoBehaviour
         }
     }
 
+    public void PlayerSafeZone(bool flag)
+    {
+        player.safeZone = flag;
+
+        stealthDetection.hearingCanvas.enabled = flag;
+        concealDetection.hearingCanvas.enabled = flag;
+    }
+
     public void SectionChange()
     {
         if (activePlayerSection != activeVorgonSection)
@@ -254,7 +262,7 @@ public class WorldData : MonoBehaviour
         //Change Realm && Turn Vorgon on/off
         activeRealm = realm;
         vorgon.gameObject.SetActive(flag);
-        concelDetection.enabled = flag;
+        concealDetection.enabled = flag;
         stealthDetection.enabled = flag;
 
 
@@ -281,16 +289,6 @@ public class WorldData : MonoBehaviour
 
     #region Mortal Realm Functions
 
-    private void Start()
-    {
-        //lastCollectedRelic = RELIC_TYPE.NONE;
-        //activePlayerSection = SECTIONS.NONE;
-        //activeVorgonSection = SECTIONS.NONE;
-
-        //pickUpCP = player.transform.position;
-
-        //SetCheckpoint();
-    }
 
     public Section FindActiveSection(SECTIONS section)
     {
@@ -381,7 +379,7 @@ public class WorldData : MonoBehaviour
 
     public void PlayerDeathMortalRealm()
     {
-        //TriggerCheckpoint();
+        //TriggerCheckpoint();lol
         OnDeath?.Invoke();
         StartCoroutine(TriggerPlayerDeathMR());
         happenOnce = false;

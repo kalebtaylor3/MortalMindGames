@@ -11,6 +11,8 @@ namespace MMG
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
+        public bool safeZone = false;
+
         #region Variables
         #region Data
 
@@ -212,6 +214,8 @@ namespace MMG
         [SerializeField] public GameObject PlayerKillCollision;
 
         public Animator hands;
+
+
 
 
         #endregion
