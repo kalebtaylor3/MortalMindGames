@@ -1,3 +1,4 @@
+using MMG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class AttackState : FSMState
 {
     VorgonController vorgonControl;
     VorgonDeadwoodFSM vorgonFSM;
+    PlayerController player;
 
     public AttackState(VorgonController controller)
     {
@@ -18,6 +20,7 @@ public class AttackState : FSMState
     {
         //base.EnterStateInit();        
         vorgonControl.navAgent.speed = vorgonControl.defaultSpeed;
+        player = WorldData.Instance.player;
     }
 
     public override void Reason()
@@ -28,6 +31,12 @@ public class AttackState : FSMState
         if (vorgonControl.stunned)
         {
             vorgonFSM.PerformTransition(Transition.Stunned);
+        }
+
+        if(player.safeZone)
+        {
+            // -> Lost
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
         }
 
         if(!vorgonControl.isAttacking)

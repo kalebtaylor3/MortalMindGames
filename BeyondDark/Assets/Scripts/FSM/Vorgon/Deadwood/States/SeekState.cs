@@ -1,3 +1,4 @@
+using MMG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class SeekState : FSMState
 {
     VorgonController vorgonControl;
     VorgonDeadwoodFSM vorgonFSM;
+    PlayerController player;
 
     Vector3 destination;
 
@@ -22,6 +24,7 @@ public class SeekState : FSMState
         vorgonControl.navAgent.isStopped = false;
         //destination = WorldData.Instance.FindSectionCenter(WorldData.Instance.activePlayerSection);
         vorgonControl.navAgent.speed = vorgonControl.defaultSpeed;
+        player = WorldData.Instance.player;
     }
 
     public override void Reason()
@@ -40,7 +43,7 @@ public class SeekState : FSMState
             // If stunned -> Stun
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
-        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight && !player.safeZone)
         {
             // If player Found -> Chase
             vorgonFSM.PerformTransition(Transition.PlayerFound);

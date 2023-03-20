@@ -1,3 +1,4 @@
+using MMG;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -7,6 +8,7 @@ public class AlertedState : FSMState
 {
     VorgonController vorgonControl;
     VorgonDeadwoodFSM vorgonFSM;
+    PlayerController player;
 
     bool alertReached = false;
     bool detectedAgain = false;
@@ -34,6 +36,7 @@ public class AlertedState : FSMState
         vorgonControl.navAgent.isStopped = false;
 
         vorgonControl.playerDetected = false;
+        player = WorldData.Instance.player;
     }
 
     public override void Reason()
@@ -78,13 +81,20 @@ public class AlertedState : FSMState
         }
 
         // Transitions
+        if(player.safeZone)
+        {
+            // If player Found -> Chase
+            vorgonControl.playerDetected = false;
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
+        }
+
         if (vorgonControl.stunned)
         {
             // If stunned -> Stun
             vorgonControl.playerDetected = false;
             vorgonFSM.PerformTransition(Transition.Stunned);
         }
-        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 30) && vorgonControl.PlayerInSight && !vorgonControl.playerT.isHiding)
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, 30) && vorgonControl.PlayerInSight && !vorgonControl.playerT.isHiding && !player.safeZone)
         {
             // If player Found -> Chase
             vorgonControl.playerDetected = false;

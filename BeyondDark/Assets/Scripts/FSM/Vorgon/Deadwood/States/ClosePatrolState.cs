@@ -1,3 +1,4 @@
+using MMG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class ClosePatrolState : FSMState
 {
     VorgonController vorgonControl;
     VorgonDeadwoodFSM vorgonFSM;
+    PlayerController player; 
 
     private bool reachedLastpoint;
     private int searchCount = 0;
@@ -31,11 +33,17 @@ public class ClosePatrolState : FSMState
         reachedLastpoint = false;
         searchCount = 0;
         vorgonControl.navAgent.speed = vorgonControl.defaultSpeed;
+        player = WorldData.Instance.player;
     }
 
     public override void Reason()
     {
         // Transitions
+        if(player.safeZone)
+        {
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
+        }
+
         if (vorgonControl.stunned)
         {
             // If stunned -> Stun
@@ -46,12 +54,12 @@ public class ClosePatrolState : FSMState
             // If wrong section -> Seek            
             vorgonFSM.PerformTransition(Transition.WrongSection);
         }
-        else if (vorgonControl.playerDetected)
+        else if (vorgonControl.playerDetected && !player.safeZone)
         {
             // If player Detected (stealth system) -> Alerted
             vorgonFSM.PerformTransition(Transition.PlayerDetected);
         }        
-        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
+        else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight && !player.safeZone)
         {
             // If player Found -> Chase            
             vorgonFSM.PerformTransition(Transition.PlayerFound);

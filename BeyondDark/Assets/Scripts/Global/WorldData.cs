@@ -69,6 +69,7 @@ public class WorldData : MonoBehaviour
     //UI
     public GameObject detectionUI;
     public GameObject canvas;
+    public GameObject safeZoneUI;
 
     // FOR CHECKPOINT
     private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;
@@ -245,8 +246,7 @@ public class WorldData : MonoBehaviour
     {
         player.safeZone = flag;
 
-        stealthDetection.hearingCanvas.enabled = flag;
-        concealDetection.hearingCanvas.enabled = flag;
+        safeZoneUI.SetActive(!flag);
     }
 
     public void SectionChange()

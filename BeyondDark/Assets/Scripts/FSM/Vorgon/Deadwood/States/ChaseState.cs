@@ -1,3 +1,4 @@
+using MMG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,12 +8,13 @@ public class ChaseState : FSMState
 {
     VorgonController vorgonControl;
     VorgonDeadwoodFSM vorgonFSM;
+    PlayerController player;
 
     public ChaseState(VorgonController controller)
     {
         stateID = FSMStateID.Chase;
         vorgonControl = controller;
-        vorgonFSM = controller.vorgonFSM;
+        vorgonFSM = controller.vorgonFSM;        
     }
 
     public override void EnterStateInit()
@@ -20,12 +22,20 @@ public class ChaseState : FSMState
         //base.EnterStateInit();
         vorgonControl.navAgent.isStopped = false;
         vorgonControl.inChase = true;
-        vorgonControl.navAgent.speed = vorgonControl.chaseSpeed;        
+        vorgonControl.navAgent.speed = vorgonControl.chaseSpeed;
+        player = WorldData.Instance.player;
     }
 
     public override void Reason()
     {
         // Transitions
+
+        if(player.safeZone)
+        {
+            vorgonControl.inChase = false;
+            vorgonControl.sawConceal = true;
+            vorgonFSM.PerformTransition(Transition.PlayerLost);
+        }
 
         
         if (vorgonControl.stunned)
@@ -41,7 +51,7 @@ public class ChaseState : FSMState
             vorgonControl.inChase = false;
             vorgonControl.sawConceal = true;
             vorgonControl.SetLastDetectedLocation(WorldData.Instance.lastConceal.searchPos.position, WorldData.Instance.lastConceal, VorgonController.EVENT_TYPE.SOUND);
-            vorgonFSM.PerformTransition(Transition.PlayerLost);
+            vorgonFSM.PerformTransition(Transition.PlayerDetected);
 
         }
         else if (!vorgonControl.PlayerInSight)
@@ -49,7 +59,7 @@ public class ChaseState : FSMState
             // If lost player -> Alerted
             vorgonControl.inChase = false;
             vorgonControl.SetLastDetectedLocation(vorgonControl.playerT.transform.position, null, VorgonController.EVENT_TYPE.SOUND);
-            vorgonFSM.PerformTransition(Transition.PlayerLost);
+            vorgonFSM.PerformTransition(Transition.PlayerDetected);
             
         }       
         else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position,2))

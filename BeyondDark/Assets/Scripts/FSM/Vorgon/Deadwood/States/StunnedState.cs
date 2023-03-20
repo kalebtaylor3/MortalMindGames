@@ -1,3 +1,4 @@
+using MMG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +7,20 @@ public class StunnedState : FSMState
 {
     VorgonController vorgonControl;
     VorgonDeadwoodFSM vorgonFSM;
+    PlayerController player;
 
     public StunnedState(VorgonController controller)
     {
         stateID = FSMStateID.Stunned;
         vorgonControl = controller;
-        vorgonFSM = controller.vorgonFSM;
+        vorgonFSM = controller.vorgonFSM;        
     }
 
     public override void EnterStateInit()
     {
         //base.EnterStateInit();
         vorgonControl.navAgent.speed = vorgonControl.defaultSpeed;
+        player = WorldData.Instance.player;
     }
 
     public override void Reason()
@@ -29,7 +32,7 @@ public class StunnedState : FSMState
         if (!vorgonControl.stunned)
         {
             
-            if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
+            if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight && !player.safeZone)
             {
                 // If player Found -> Chase
                 vorgonFSM.PerformTransition(Transition.PlayerFound);

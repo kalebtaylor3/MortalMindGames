@@ -1,3 +1,4 @@
+using MMG;
 using System.Collections;
 using System.Collections.Generic;
 //using Unity.VisualScripting;
@@ -7,6 +8,8 @@ public class LostState : FSMState
 {
     VorgonController vorgonControl;
     VorgonDeadwoodFSM vorgonFSM;
+    PlayerController player;
+
     bool lostTimer;
     float lostTime;
 
@@ -26,6 +29,7 @@ public class LostState : FSMState
         lostTimer = false;
         lostTime = 0;
         vorgonControl.navAgent.speed = vorgonControl.defaultSpeed;
+        player = WorldData.Instance.player;
     }
 
     public override void Reason()
@@ -42,12 +46,12 @@ public class LostState : FSMState
                 // If stunned -> Stun
                 vorgonFSM.PerformTransition(Transition.Stunned);
             }
-            else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight)
+            else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position, VorgonDeadwoodFSM.CHASE_DIST) && vorgonControl.PlayerInSight && !player.safeZone)
             {
                 // If player Found -> Chase
                 vorgonFSM.PerformTransition(Transition.PlayerFound);
             }
-            else if (vorgonControl.playerDetected)
+            else if (vorgonControl.playerDetected && !player.safeZone)
             {
                 // If player Detected (stealth system) -> Close Patrol
                 vorgonFSM.PerformTransition(Transition.PlayerDetected);
