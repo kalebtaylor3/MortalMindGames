@@ -2,16 +2,17 @@ using MMG;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CollisionActivation : MonoBehaviour
 {
-    enum TRIAL_OUTCOME { NONE = 0, FAIL = 1, SUCCESS = 2 }
+    enum TRIAL_OUTCOME { NONE = 0, FAIL = 1, SUCCESS = 2, SAFEZONE = 3 }
 
     [SerializeField] TRIAL_OUTCOME EndType = TRIAL_OUTCOME.NONE;
 
     public Transform ogTpPos;
-    public static event Action endingPath;
+    public static event Action endingPath;    
 
     // Temporary collision to trigger realm tp from vorgons realm to the mortal realm
     private void OnTriggerEnter(Collider other)
@@ -64,12 +65,28 @@ public class CollisionActivation : MonoBehaviour
                 }
                 break;
 
+
+            case TRIAL_OUTCOME.SAFEZONE:
+                if (other.gameObject.tag == "Player" && WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
+                {
+                    Debug.Log("SafeZoneEnter");
+                    WorldData.Instance.PlayerSafeZone(true);
+                }
+                break;
+
             default:  
                 
                 break;
-        }
+        }        
+    }
 
-        
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
+        {
+            Debug.Log("SafeZoneExit");
+            WorldData.Instance.PlayerSafeZone(false);
+        }
     }
 
     IEnumerator WaitForHealth()
