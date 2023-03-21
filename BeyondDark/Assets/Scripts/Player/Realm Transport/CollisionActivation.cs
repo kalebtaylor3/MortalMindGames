@@ -80,6 +80,15 @@ public class CollisionActivation : MonoBehaviour
         }        
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
+        {
+            Debug.Log("SafeZoneEnter");
+            WorldData.Instance.PlayerSafeZone(true);
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player" && WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
