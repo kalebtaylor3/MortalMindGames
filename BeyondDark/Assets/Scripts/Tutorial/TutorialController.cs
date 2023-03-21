@@ -38,7 +38,7 @@ public class TutorialController : MonoBehaviour
         {
             if(Gamepad.current.buttonSouth.isPressed)
             {
-                fillImage.fillAmount += 0.02f;
+                fillImage.fillAmount += 1f * Time.unscaledDeltaTime;
             }
 
             if (fillImage.fillAmount == 1)
