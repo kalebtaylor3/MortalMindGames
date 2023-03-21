@@ -18,14 +18,14 @@ public class AudioManager : MonoBehaviour
     {
         ChaseState.onStartChase += StartChaseMusic;
         ChaseState.onEndChase += EndChaseMusic;
-        WorldData.OnDeath += EndChaseMusic;
+        WorldData.OnDeath += EndChaseInstant;
     }
 
     private void OnDisable()
     {
         ChaseState.onStartChase -= StartChaseMusic;
         ChaseState.onEndChase -= EndChaseMusic;
-        WorldData.OnDeath -= EndChaseMusic;
+        WorldData.OnDeath -= EndChaseInstant;
     }
 
     private void Update()
@@ -57,6 +57,12 @@ public class AudioManager : MonoBehaviour
                 StartCoroutine(endChaseMusic());
             }
         }             
+    }
+
+    public void EndChaseInstant()
+    {
+        StopAllCoroutines();
+        StartCoroutine(FadeSource(chaseSource, mainSource));
     }
 
     private IEnumerator endChaseMusic()
