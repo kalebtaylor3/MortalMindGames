@@ -13,12 +13,12 @@ public class Projectile : MonoBehaviour
 
     private void Awake()
     {
-        Physics.IgnoreLayerCollision(0, 12);
+        //Physics.IgnoreLayerCollision(0, 12);
     }
 
     private void OnEnable()
     {
-        Physics.IgnoreLayerCollision(0, 12);
+        //Physics.IgnoreLayerCollision(0, 12);
     }
 
     private void OnCollisionEnter(Collision collision)
