@@ -161,9 +161,13 @@ public class MinionController : MonoBehaviour
                     effectsSource.PlayOneShot(clipsHurt[rand]);
                 }
 
-                GameObject obj = Instantiate(blood);
-                obj.transform.position = bloodSpawn.position;
-                obj.transform.LookAt(Camera.main.transform);
+                if(!onFire)
+                {
+                    GameObject obj = Instantiate(blood);
+                    obj.transform.position = bloodSpawn.position;
+                    obj.transform.LookAt(Camera.main.transform);
+                    Destroy(obj, 3.0f);
+                }                
 
                 // Low Health
                 healthPoints = Mathf.Clamp(healthPoints - amount, 0, maxHealthPoints);
