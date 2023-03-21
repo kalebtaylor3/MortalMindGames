@@ -15,20 +15,26 @@ public class DoorInteractable : InteractableBase
     public AudioClip slamClip;
     bool happenOnce = false;
 
+    private void OnEnable()
+    {
+        TriggerSlam.OnEnter += SlamEvent;
+    }
+
+    private void OnDisable()
+    {
+        TriggerSlam.OnEnter -= SlamEvent;
+    }
+
     public override void OnInteract()
     {
         base.OnInteract();
         doorAnimator.ResetTrigger("Close");
         doorAnimator.SetTrigger("Open");
         isInteractable = false;
-        StartCoroutine(WaitForClose());
     }
 
     IEnumerator WaitForClose()
     {
-        yield return new WaitForSeconds(4);
-        doorAnimator.ResetTrigger("Open");
-        doorAnimator.SetTrigger("Close");
         yield return new WaitForSeconds(doorAnimator.GetCurrentAnimatorStateInfo(0).length);
         isInteractable = true;
     }
@@ -62,5 +68,12 @@ public class DoorInteractable : InteractableBase
     public void Stop()
     {
         doorSource.Stop();
+    }
+
+    void SlamEvent()
+    {
+        StartCoroutine(WaitForClose());
+        doorAnimator.ResetTrigger("Open");
+        doorAnimator.SetTrigger("Close");
     }
 }

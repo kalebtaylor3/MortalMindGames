@@ -247,6 +247,9 @@ public class WorldData : MonoBehaviour
         player.safeZone = flag;
 
         safeZoneUI.SetActive(!flag);
+
+        stealthDetection.detection = 0;
+        concealDetection.exposure = 0;
     }
 
     public void SectionChange()
