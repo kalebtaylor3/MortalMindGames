@@ -208,11 +208,11 @@ public class VorgonBossController : MonoBehaviour
             {
 
                 Debug.Log("Minions gone time to finish");
-                GameObject vorgon = Instantiate(finalVorgon, finalSpawnPos.position, finalSpawnPos.rotation);
-                playerCam.m_LookAt = vorgon.transform;
-                healthBarSlider.gameObject.SetActive(true);
-                healthBar.SetTrigger("Start");
-                healthBarSlider.value = maxHealth;
+                finalVorgon.SetActive(true);
+                //playerCam.m_LookAt = vorgon.transform;
+                //healthBarSlider.gameObject.SetActive(true);
+                //healthBar.SetTrigger("Start");
+                //healthBarSlider.value = maxHealth;
                 once = true;
             }
         }
