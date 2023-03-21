@@ -92,6 +92,9 @@ public class VorgonBossController : MonoBehaviour
 
     public AudioSource music;
 
+    public GameObject sword;
+    public GameObject canvas;
+
 
     //if not attacking & no active minions & in second phase. spawn minions
 
@@ -209,6 +212,7 @@ public class VorgonBossController : MonoBehaviour
 
                 Debug.Log("Minions gone time to finish");
                 finalVorgon.SetActive(true);
+                StartCoroutine(WaitForEnd());
                 //playerCam.m_LookAt = vorgon.transform;
                 //healthBarSlider.gameObject.SetActive(true);
                 //healthBar.SetTrigger("Start");
@@ -279,6 +283,13 @@ public class VorgonBossController : MonoBehaviour
         //}
 
         //transform.position = new Vector3(transform.position.x, transform.position.y, currentZ);
+    }
+
+    IEnumerator WaitForEnd()
+    {
+        yield return new WaitForSeconds(2);
+        sword.SetActive(false);
+        canvas.SetActive(false);
     }
 
     void SpawnMinions()
