@@ -68,7 +68,7 @@ public class VorgonController : MonoBehaviour
     [HideInInspector] public bool canSeePlayer;
     [HideInInspector] public bool playerDetected = false;
     [SerializeField] public bool awareOfPlayer = false;
-    [SerializeField] public bool inChase = false;
+    [HideInInspector] public bool inChase = false;
 
     [HideInInspector] public Vector3 LastSeen = Vector3.zero;
     [HideInInspector] public bool SearchAnimCanPlay = true;

@@ -386,7 +386,7 @@ public class WorldData : MonoBehaviour
         OnDeath?.Invoke();
         StartCoroutine(TriggerPlayerDeathMR());
         happenOnce = false;
-        //lastCollectedRelic = lastCollectedRelicCP;        
+        //lastCollectedRelic = lastCollectedRelicCP;
     }
 
     IEnumerator TriggerPlayerDeathMR()

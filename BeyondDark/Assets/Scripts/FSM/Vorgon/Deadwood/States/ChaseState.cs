@@ -1,5 +1,4 @@
 using MMG;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +9,6 @@ public class ChaseState : FSMState
     VorgonController vorgonControl;
     VorgonDeadwoodFSM vorgonFSM;
     PlayerController player;
-
-    public static event Action onStartChase;
-    public static event Action onEndChase;
 
     public ChaseState(VorgonController controller)
     {
@@ -28,7 +24,6 @@ public class ChaseState : FSMState
         vorgonControl.inChase = true;
         vorgonControl.navAgent.speed = vorgonControl.chaseSpeed;
         player = WorldData.Instance.player;
-        onStartChase?.Invoke();
     }
 
     public override void Reason()
@@ -40,7 +35,6 @@ public class ChaseState : FSMState
             vorgonControl.inChase = false;
             vorgonControl.sawConceal = true;
             vorgonFSM.PerformTransition(Transition.PlayerLost);
-            onEndChase?.Invoke();
         }
 
         
@@ -49,7 +43,7 @@ public class ChaseState : FSMState
             // If stunned -> Stun
             vorgonControl.inChase = false;
             vorgonFSM.PerformTransition(Transition.Stunned);
-            onEndChase?.Invoke();
+            
         }
         else if (vorgonControl.playerT.isHiding)
         {
@@ -58,7 +52,7 @@ public class ChaseState : FSMState
             vorgonControl.sawConceal = true;
             vorgonControl.SetLastDetectedLocation(WorldData.Instance.lastConceal.searchPos.position, WorldData.Instance.lastConceal, VorgonController.EVENT_TYPE.SOUND);
             vorgonFSM.PerformTransition(Transition.PlayerDetected);
-            onEndChase?.Invoke();
+
         }
         else if (!vorgonControl.PlayerInSight)
         {
@@ -66,13 +60,14 @@ public class ChaseState : FSMState
             vorgonControl.inChase = false;
             vorgonControl.SetLastDetectedLocation(vorgonControl.playerT.transform.position, null, VorgonController.EVENT_TYPE.SOUND);
             vorgonFSM.PerformTransition(Transition.PlayerDetected);
-            onEndChase?.Invoke();            
+            
         }       
         else if (IsInCurrentRange(vorgonControl.transform, vorgonControl.playerT.transform.position,2))
         {
             // Reach Player -> Attack
             vorgonControl.inChase = false;
-            vorgonFSM.PerformTransition(Transition.ReachedPlayer);            
+            vorgonFSM.PerformTransition(Transition.ReachedPlayer);
+            
         }        
     }
 
