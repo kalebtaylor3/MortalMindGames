@@ -94,6 +94,7 @@ public class VorgonBossController : MonoBehaviour
 
     public GameObject sword;
     public GameObject canvas;
+    public GameObject crossHair;
 
 
     //if not attacking & no active minions & in second phase. spawn minions
@@ -207,18 +208,25 @@ public class VorgonBossController : MonoBehaviour
         if(lastPhase)
         {
 
-            if (activeMinions.Count == 0 && !once)
+            for(int i = 0; i < activeMinions.Count; i++)
             {
-
-                Debug.Log("Minions gone time to finish");
-                finalVorgon.SetActive(true);
-                StartCoroutine(WaitForEnd());
-                //playerCam.m_LookAt = vorgon.transform;
-                //healthBarSlider.gameObject.SetActive(true);
-                //healthBar.SetTrigger("Start");
-                //healthBarSlider.value = maxHealth;
-                once = true;
+                activeMinions[i].ReceiveDamage(1000, false);
             }
+
+            finalVorgon.SetActive(true);
+            StartCoroutine(WaitForEnd());
+            //if (activeMinions.Count == 0 && !once)
+            //{
+
+            //    Debug.Log("Minions gone time to finish");
+            //    finalVorgon.SetActive(true);
+            //    StartCoroutine(WaitForEnd());
+            //    //playerCam.m_LookAt = vorgon.transform;
+            //    //healthBarSlider.gameObject.SetActive(true);
+            //    //healthBar.SetTrigger("Start");
+            //    //healthBarSlider.value = maxHealth;
+            //    once = true;
+            //}
         }
 
         if(isDeadForLastPhase)
@@ -288,8 +296,9 @@ public class VorgonBossController : MonoBehaviour
     IEnumerator WaitForEnd()
     {
         yield return new WaitForSeconds(2);
-        sword.SetActive(false);
+        Destroy(sword);
         canvas.SetActive(false);
+        crossHair.SetActive(false);
     }
 
     void SpawnMinions()
