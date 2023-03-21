@@ -95,6 +95,7 @@ public class VorgonBossController : MonoBehaviour
     public GameObject sword;
     public GameObject canvas;
     public GameObject crossHair;
+    public GameObject vorgonModel;
 
 
     //if not attacking & no active minions & in second phase. spawn minions
@@ -213,7 +214,13 @@ public class VorgonBossController : MonoBehaviour
                 activeMinions[i].ReceiveDamage(1000, false);
             }
 
+            for (int i = 0; i < activeHellFire.Count; i++)
+            {
+                Destroy(activeHellFire[i]);
+            }
+
             finalVorgon.SetActive(true);
+            vorgonModel.gameObject.SetActive(false);
             StartCoroutine(WaitForEnd());
             //if (activeMinions.Count == 0 && !once)
             //{
