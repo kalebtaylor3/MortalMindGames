@@ -9,8 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2769971908982368015}
-  - component: {fileID: 8725484785911502281}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: final wall plain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2769971908982368014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.014, y: 2.9780006, z: 17.765}
+  m_LocalPosition: {x: -2.014, y: 2.9780006, z: 17.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -37,20 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &8725484785911502281
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2769971908982368014}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1001 &2769971908271525208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -137,6 +122,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Modular connor piece (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 12afc66d0f1e4e54face6b9172ca7f04,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12afc66d0f1e4e54face6b9172ca7f04, type: 3}
@@ -233,6 +223,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Modular connor piece (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 12afc66d0f1e4e54face6b9172ca7f04,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12afc66d0f1e4e54face6b9172ca7f04, type: 3}
 --- !u!4 &2448361410650532368 stripped
@@ -328,6 +323,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Modular connor piece (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 12afc66d0f1e4e54face6b9172ca7f04,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12afc66d0f1e4e54face6b9172ca7f04, type: 3}
 --- !u!4 &2448361410512596427 stripped
@@ -418,6 +418,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: final wall plain hp
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2cedb64d893305945bdad0d673ce8d77,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cedb64d893305945bdad0d673ce8d77, type: 3}
 --- !u!4 &2448361410351738549 stripped
@@ -426,6 +431,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2769971908827367774}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3076384157618304015 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2cedb64d893305945bdad0d673ce8d77,
+    type: 3}
+  m_PrefabInstance: {fileID: 2769971908827367774}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &5764181237879389806
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3076384157618304015}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.6961846, y: 3.055149, z: 0.020399999}
+  m_Center: {x: 0.032179832, y: 1.4960399, z: 0.0014432437}
 --- !u!1001 &2769971909042626978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -512,6 +536,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Modular connor piece (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 12afc66d0f1e4e54face6b9172ca7f04,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12afc66d0f1e4e54face6b9172ca7f04, type: 3}
