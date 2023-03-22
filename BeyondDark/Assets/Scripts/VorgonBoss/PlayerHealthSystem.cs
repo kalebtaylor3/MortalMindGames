@@ -27,6 +27,8 @@ public class PlayerHealthSystem : MonoBehaviour
     public bool invincible;
     public bool alive = true;
 
+    public Animator deathAnimator;
+
     public static PlayerHealthSystem Instance
     {
         get
@@ -70,6 +72,8 @@ public class PlayerHealthSystem : MonoBehaviour
             {
                 alive = false;
                 currentPlayerHealth = 0;
+
+                deathAnimator.SetTrigger("Death");
 
                 GameObject lastRelic = WorldData.Instance.lastPickUpGO;
                 WorldData.Instance.TriggerCheckpoint();
