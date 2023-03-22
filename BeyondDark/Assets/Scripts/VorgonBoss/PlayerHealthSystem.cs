@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,9 @@ public class PlayerHealthSystem : MonoBehaviour
     public Animator deathAnimator;
     public GameObject deathCamera;
 
+
+    public static event Action<bool> OnDeath;
+
     public static PlayerHealthSystem Instance
     {
         get
@@ -45,6 +49,7 @@ public class PlayerHealthSystem : MonoBehaviour
         CollisionActivation.endingPath += ResetHealth;
         ResetHealth();
         alive = true;
+        OnDeath?.Invoke(true);
     }
 
     private void OnDisable()
@@ -56,6 +61,7 @@ public class PlayerHealthSystem : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        OnDeath?.Invoke(true);
     }
 
 
@@ -74,6 +80,8 @@ public class PlayerHealthSystem : MonoBehaviour
             {
                 alive = false;
                 currentPlayerHealth = 0;
+
+                OnDeath?.Invoke(false);
 
                 deathAnimator.enabled = true;
                 deathCamera.SetActive(true);

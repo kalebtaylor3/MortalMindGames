@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerCombatController : MonoBehaviour
 {
@@ -102,9 +103,11 @@ public class PlayerCombatController : MonoBehaviour
     public TutorialTrigger pathThreeTutorial;
 
     public CameraController cameraC;
-    public GameObject deathCamera;
     public GameObject defaultCamera;
     public Animator deathanimator;
+
+
+    bool canAttack = true;
 
     #endregion
 
@@ -123,11 +126,11 @@ public class PlayerCombatController : MonoBehaviour
         cancelText.SetActive(false);
 
         cameraC.enabled = true;
-        deathCamera.SetActive(false);
         defaultCamera.SetActive(true);
         deathanimator.ResetTrigger("Death");
         deathanimator.SetTrigger("Alive");
         deathanimator.enabled = false;
+        canAttack = true;
     }
 
     private void OnEnable()
@@ -138,11 +141,12 @@ public class PlayerCombatController : MonoBehaviour
         swingTrail.enabled = false;
 
         cameraC.enabled = true;
-        deathCamera.SetActive(false);
         defaultCamera.SetActive(true);
         deathanimator.SetTrigger("Alive");
         deathanimator.ResetTrigger("Death");
         deathanimator.enabled = false;
+        PlayerHealthSystem.OnDeath += CanAttack;
+        canAttack = true;
 
         if (items[0] == true && !TutorialController.instance.firstPath)
         {
@@ -161,9 +165,16 @@ public class PlayerCombatController : MonoBehaviour
         }
     }
 
+
+    void CanAttack(bool value)
+    {
+        canAttack = value;
+    }
+
     private void OnDisable()
     {
         deathanimator.SetTrigger("Alive");
+        PlayerHealthSystem.OnDeath -= CanAttack;
         //deathanimator.enabled = false;
     }
 
@@ -217,13 +228,17 @@ public class PlayerCombatController : MonoBehaviour
             }
 
             holdTime += Time.deltaTime;
-            float fillAmount = Mathf.Clamp01(holdTime / chargeThreshold);
-            chargeBarForeground.fillAmount = fillAmount;
-
-            if (fillAmount >= 1)
+            if (canAttack)
             {
-                chargeBarForeground.color = Color.red;
+                float fillAmount = Mathf.Clamp01(holdTime / chargeThreshold);
+                chargeBarForeground.fillAmount = fillAmount;
+
+                if (fillAmount >= 1)
+                {
+                    chargeBarForeground.color = Color.red;
+                }
             }
+
         }
         else
         {
@@ -275,12 +290,14 @@ public class PlayerCombatController : MonoBehaviour
             if (CheckCharge())
             {
                 timeToFire = Time.time + 1 / fireRate;
-                ShootSpecialProjectile();
+                if(canAttack)
+                    ShootSpecialProjectile();
             }
             else
             {
                 timeToFire = Time.time + 1 / fireRate;
-                ShootFlamesTwoHanded();
+                if(canAttack)
+                    ShootFlamesTwoHanded();
             }
         }
     }
@@ -389,12 +406,14 @@ public class PlayerCombatController : MonoBehaviour
             if (CheckCharge())
             {
                 timeToFire = Time.time + 1 / fireRate;
-                ShootSpecialProjectileRightHand();
+                if (canAttack)
+                    ShootSpecialProjectileRightHand();
             }
             else
             {
                 timeToFire = Time.time + 1 / fireRate;
-                ShootFlamesRightHand();
+                if (canAttack)
+                    ShootFlamesRightHand();
             }
         }
 
@@ -431,7 +450,8 @@ public class PlayerCombatController : MonoBehaviour
             timeToWall = Time.time + wallRate;
             //display ui for delay of next wall place
             wallProgressBar.gameObject.SetActive(true);
-            SpawnWallOfSouls();
+            if (canAttack)
+                SpawnWallOfSouls();
         }
 
         if (wallProgressBar.gameObject.activeInHierarchy)
@@ -600,12 +620,14 @@ public class PlayerCombatController : MonoBehaviour
                 if (CheckCharge())
                 {
                     timeToFire = Time.time + 1 / fireRate;
-                    ShootSpecialProjectileLeftHand();
+                    if (canAttack)
+                        ShootSpecialProjectileLeftHand();
                 }
                 else
                 {
                     timeToFire = Time.time + 1 / fireRate;
-                    ShootFlamesLeftHand();
+                    if (canAttack)
+                        ShootFlamesLeftHand();
                 }
             }
 
@@ -671,7 +693,8 @@ public class PlayerCombatController : MonoBehaviour
                 timeToWall = Time.time + wallRate;
                 //display ui for delay of next wall place
                 wallProgressBar.gameObject.SetActive(true);
-                SpawnWallOfSouls();
+                if(canAttack)
+                    SpawnWallOfSouls();
             }
 
             if (wallProgressBar.gameObject.activeInHierarchy)

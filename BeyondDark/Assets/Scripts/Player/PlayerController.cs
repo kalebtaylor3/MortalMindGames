@@ -215,7 +215,7 @@ namespace MMG
 
         public Animator hands;
 
-
+        bool canMove = true;
 
 
         #endregion
@@ -227,6 +227,7 @@ namespace MMG
             playerInventory = GetComponent<PlayerInventoryController>();
             GetComponents();
             InitVariables();
+            canMove = true;
             //ItemInteractable.OnPickUp += HandlePickUp;
             //ConcelableAreaInteractable.OnEnteredSpot += SetHiding;
             //ConcelableAreaInteractable.OnLeaveSpot += NotHiding;
@@ -244,12 +245,17 @@ namespace MMG
             //TpTest.RealmTransportation += HandleRealmTransport;
         }
 
+        void CanMove(bool value)
+        {
+            canMove = value;
+        }
+
         void Update()
         {
             if(yawTransform != null)
                 RotateTowardsCamera();
 
-            if (characterController)
+            if (characterController && canMove)
             {
                 // Check if Grounded,Wall etc
                 CheckIfGrounded();
@@ -370,8 +376,9 @@ namespace MMG
 
             ConcelableAreaInteractable.OnEnteredSpot += SetHiding;
             ConcelableAreaInteractable.OnLeaveSpot += NotHiding;
+            PlayerHealthSystem.OnDeath += CanMove;
 
-
+            canMove = true;
 
             GetComponents();
             //playerInventory = GetComponent<PlayerInventoryController>();
@@ -390,6 +397,7 @@ namespace MMG
             //ItemInteractable.OnPickUp += HandlePickUp;
             ConcelableAreaInteractable.OnEnteredSpot -= SetHiding;
             ConcelableAreaInteractable.OnLeaveSpot -= NotHiding;
+            PlayerHealthSystem.OnDeath -= CanMove;
         }
 
         void GetComponents()
