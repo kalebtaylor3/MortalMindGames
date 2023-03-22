@@ -138,7 +138,7 @@ public class WorldData : MonoBehaviour
     public TutorialTrigger trapTut;
     public TutorialTrigger stealthTut;
 
-
+    public GameObject heartBeat;
 
     private void Update()
     {
@@ -247,7 +247,7 @@ public class WorldData : MonoBehaviour
         player.safeZone = flag;
 
         safeZoneUI.SetActive(!flag);
-
+        heartBeat.SetActive(!flag);
         stealthDetection.detection = 0;
         concealDetection.exposure = 0;
     }

@@ -15,6 +15,8 @@ public class HeartBeatSystem : MonoBehaviour
     private AudioClip currentClip;
     private float nextBeatTime;
 
+    public VorgonController vorgon;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -24,6 +26,7 @@ public class HeartBeatSystem : MonoBehaviour
     void Update()
     {
         float distance = Vector3.Distance(transform.position, playerTransform.position);
+
         if (distance <= maxDistance)
         {
             if (!audioSource.isPlaying || Time.time >= nextBeatTime)
@@ -38,9 +41,16 @@ public class HeartBeatSystem : MonoBehaviour
                 nextBeatTime = Time.time + beatInterval;
             }
 
-            float t = Mathf.InverseLerp(maxDistance, 0f, distance);
-            float pitch = Mathf.Lerp(maxPitch, minPitch, t);
-            audioSource.pitch = pitch;
+            if (!vorgon.inChase)
+            {
+                float t = Mathf.InverseLerp(maxDistance, 0f, distance);
+                float pitch = Mathf.Lerp(maxPitch, minPitch, t);
+                audioSource.pitch = pitch;
+            }
+            else
+            {
+                audioSource.pitch = minPitch;
+            }
         }
         else
         {

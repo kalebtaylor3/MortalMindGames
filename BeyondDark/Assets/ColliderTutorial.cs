@@ -12,6 +12,7 @@ public class ColliderTutorial : MonoBehaviour
         if(other.tag == "Player")
         {
             TutorialController.instance.SetTutorial(tutorial.imageTut, tutorial.vidTut, 0);
+            Destroy(this);
         }
     }
 }

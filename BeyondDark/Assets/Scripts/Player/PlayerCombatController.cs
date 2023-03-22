@@ -96,6 +96,11 @@ public class PlayerCombatController : MonoBehaviour
     public AudioSource rightHandFlame;
     public AudioClip[] shots;
 
+    public TutorialTrigger dashTutorial;
+    public TutorialTrigger pathOneTutorial;
+    public TutorialTrigger pathTwoTutorial;
+    public TutorialTrigger pathThreeTutorial;
+
     #endregion
 
     #region Events
@@ -111,6 +116,7 @@ public class PlayerCombatController : MonoBehaviour
         flameIcon.color = Color.clear;
         wallIcon.color = Color.clear;
         cancelText.SetActive(false);
+
     }
 
     private void OnEnable()
@@ -119,6 +125,14 @@ public class PlayerCombatController : MonoBehaviour
         swordOfVorgon.SetActive(false);
         currentMagicAbility = 0;
         swingTrail.enabled = false;
+
+
+        if (items[0] == true)
+            TutorialController.instance.SetTutorial(pathOneTutorial.imageTut, pathOneTutorial.vidTut, 2);
+        else if (items[1] == true)
+            TutorialController.instance.SetTutorial(pathTwoTutorial.imageTut, pathTwoTutorial.vidTut, 2);
+        else if (items[2] == true)
+            TutorialController.instance.SetTutorial(pathThreeTutorial.imageTut, pathThreeTutorial.vidTut, 2);
     }
 
     private void Start()
