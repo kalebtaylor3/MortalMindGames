@@ -4,24 +4,47 @@ using UnityEngine;
 
 public class HeartBeatSystem : MonoBehaviour
 {
-    public AudioSource heartBeatSource;
-    float distance;
-    float minDistance = 10;
-    float maxDistance = 2;
-    public GameObject vorgon;
+    public AudioClip[] heartbeatClips;
+    public Transform playerTransform;
+    public float maxDistance = 10f;
+    public float minPitch = 0.8f;
+    public float maxPitch = 1.2f;
+    public float beatInterval = 1f;
 
-    private void Update()
+    private AudioSource audioSource;
+    private AudioClip currentClip;
+    private float nextBeatTime;
+
+    void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        currentClip = heartbeatClips[0];
+    }
 
-        Debug.Log(distance);
-
-        if(vorgon != null)
+    void Update()
+    {
+        float distance = Vector3.Distance(transform.position, playerTransform.position);
+        if (distance <= maxDistance)
         {
-            distance = Vector3.Distance(transform.position, vorgon.transform.position);
-        }
+            if (!audioSource.isPlaying || Time.time >= nextBeatTime)
+            {
+                if (audioSource.clip == currentClip)
+                {
+                    currentClip = (currentClip == heartbeatClips[0]) ? heartbeatClips[1] : heartbeatClips[0];
+                }
+                audioSource.clip = currentClip;
+                audioSource.loop = false;
+                audioSource.Play();
+                nextBeatTime = Time.time + beatInterval;
+            }
 
-        
-        heartBeatSource.pitch = (1 - Mathf.Clamp01(distance / minDistance)) * maxDistance;
-        
+            float t = Mathf.InverseLerp(maxDistance, 0f, distance);
+            float pitch = Mathf.Lerp(maxPitch, minPitch, t);
+            audioSource.pitch = pitch;
+        }
+        else
+        {
+            audioSource.Stop();
+        }
     }
 }
