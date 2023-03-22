@@ -106,10 +106,6 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject defaultCamera;
     public Animator deathanimator;
 
-    bool tutorial1;
-    bool tutorial2;
-    bool tutorial3;
-
     #endregion
 
     #region Events
@@ -148,20 +144,20 @@ public class PlayerCombatController : MonoBehaviour
         deathanimator.ResetTrigger("Death");
         deathanimator.enabled = false;
 
-        if (items[0] == true && !tutorial1)
+        if (items[0] == true && !TutorialController.instance.firstPath)
         {
             TutorialController.instance.SetTutorial(pathOneTutorial.imageTut, pathOneTutorial.vidTut, 2);
-            tutorial1 = true;
+            TutorialController.instance.firstPath = true;
         }
-        else if (items[1] == true && !tutorial2)
+        else if (items[1] == true && !TutorialController.instance.secondPath)
         {
             TutorialController.instance.SetTutorial(pathTwoTutorial.imageTut, pathTwoTutorial.vidTut, 2);
-            tutorial2 = true;
+            TutorialController.instance.secondPath = true;
         }
-        else if (items[2] == true && !tutorial3)
+        else if (items[2] == true && !TutorialController.instance.thirdPath)
         {
             TutorialController.instance.SetTutorial(pathThreeTutorial.imageTut, pathThreeTutorial.vidTut, 2);
-            tutorial3 = true;
+            TutorialController.instance.thirdPath = true;
         }
     }
 
@@ -177,10 +173,6 @@ public class PlayerCombatController : MonoBehaviour
         flameIcon.color = Color.clear;
         wallIcon.color = Color.clear;
         cancelText.SetActive(false);
-
-        tutorial1 = false;
-        tutorial2 = false;
-        tutorial3 = false;
     }
 
     #region Functions

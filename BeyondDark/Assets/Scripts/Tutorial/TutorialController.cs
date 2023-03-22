@@ -15,6 +15,10 @@ public class TutorialController : MonoBehaviour
     public GameObject canvasTut;
     public Animator tutAnimator;
 
+    [HideInInspector] public bool firstPath = false;
+    [HideInInspector] public bool secondPath = false;
+    [HideInInspector] public bool thirdPath = false;
+
     private void Awake()
     {
         if (instance == null)

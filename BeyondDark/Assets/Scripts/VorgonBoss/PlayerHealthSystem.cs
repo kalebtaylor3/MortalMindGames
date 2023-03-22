@@ -28,6 +28,7 @@ public class PlayerHealthSystem : MonoBehaviour
     public bool alive = true;
 
     public Animator deathAnimator;
+    public GameObject deathCamera;
 
     public static PlayerHealthSystem Instance
     {
@@ -49,6 +50,7 @@ public class PlayerHealthSystem : MonoBehaviour
     private void OnDisable()
     {
         CollisionActivation.endingPath -= ResetHealth;
+        deathCamera.SetActive(false);
     }
 
     private void Awake()
@@ -74,6 +76,7 @@ public class PlayerHealthSystem : MonoBehaviour
                 currentPlayerHealth = 0;
 
                 deathAnimator.enabled = true;
+                deathCamera.SetActive(true);
 
                 deathAnimator.SetTrigger("Death");
                 deathAnimator.ResetTrigger("Alive");
