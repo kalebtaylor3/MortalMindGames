@@ -101,6 +101,15 @@ public class PlayerCombatController : MonoBehaviour
     public TutorialTrigger pathTwoTutorial;
     public TutorialTrigger pathThreeTutorial;
 
+    public CameraController cameraC;
+    public GameObject deathCamera;
+    public GameObject defaultCamera;
+    public Animator deathanimator;
+
+    bool tutorial1;
+    bool tutorial2;
+    bool tutorial3;
+
     #endregion
 
     #region Events
@@ -117,6 +126,12 @@ public class PlayerCombatController : MonoBehaviour
         wallIcon.color = Color.clear;
         cancelText.SetActive(false);
 
+        cameraC.enabled = true;
+        deathCamera.SetActive(false);
+        defaultCamera.SetActive(true);
+        deathanimator.ResetTrigger("Death");
+        deathanimator.SetTrigger("Alive");
+        deathanimator.enabled = false;
     }
 
     private void OnEnable()
@@ -126,13 +141,34 @@ public class PlayerCombatController : MonoBehaviour
         currentMagicAbility = 0;
         swingTrail.enabled = false;
 
+        cameraC.enabled = true;
+        deathCamera.SetActive(false);
+        defaultCamera.SetActive(true);
+        deathanimator.SetTrigger("Alive");
+        deathanimator.ResetTrigger("Death");
+        deathanimator.enabled = false;
 
-        if (items[0] == true)
+        if (items[0] == true && !tutorial1)
+        {
             TutorialController.instance.SetTutorial(pathOneTutorial.imageTut, pathOneTutorial.vidTut, 2);
-        else if (items[1] == true)
+            tutorial1 = true;
+        }
+        else if (items[1] == true && !tutorial2)
+        {
             TutorialController.instance.SetTutorial(pathTwoTutorial.imageTut, pathTwoTutorial.vidTut, 2);
-        else if (items[2] == true)
+            tutorial2 = true;
+        }
+        else if (items[2] == true && !tutorial3)
+        {
             TutorialController.instance.SetTutorial(pathThreeTutorial.imageTut, pathThreeTutorial.vidTut, 2);
+            tutorial3 = true;
+        }
+    }
+
+    private void OnDisable()
+    {
+        deathanimator.SetTrigger("Alive");
+        //deathanimator.enabled = false;
     }
 
     private void Start()
@@ -141,6 +177,10 @@ public class PlayerCombatController : MonoBehaviour
         flameIcon.color = Color.clear;
         wallIcon.color = Color.clear;
         cancelText.SetActive(false);
+
+        tutorial1 = false;
+        tutorial2 = false;
+        tutorial3 = false;
     }
 
     #region Functions

@@ -73,7 +73,11 @@ public class PlayerHealthSystem : MonoBehaviour
                 alive = false;
                 currentPlayerHealth = 0;
 
+                deathAnimator.enabled = true;
+
                 deathAnimator.SetTrigger("Death");
+                deathAnimator.ResetTrigger("Alive");
+
 
                 GameObject lastRelic = WorldData.Instance.lastPickUpGO;
                 WorldData.Instance.TriggerCheckpoint();

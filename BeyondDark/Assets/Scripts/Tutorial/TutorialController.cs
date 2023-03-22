@@ -40,6 +40,14 @@ public class TutorialController : MonoBehaviour
             {
                 fillImage.fillAmount += 1f * Time.unscaledDeltaTime;
             }
+            else
+            {
+                if(fillImage.fillAmount != 1f)
+                    fillImage.fillAmount -= 1f * Time.unscaledDeltaTime;
+            }
+
+            if (fillImage.fillAmount <= 0)
+                fillImage.fillAmount = 0;
 
             if (fillImage.fillAmount == 1)
             {

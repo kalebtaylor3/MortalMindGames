@@ -46223,7 +46223,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1449523820748826427}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1421600264}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
@@ -55420,6 +55420,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413326939}
   m_Mesh: {fileID: -3526922212205323383, guid: a75209a0f016e0349a71c723a68d7970, type: 3}
+--- !u!1 &1421600264 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8462277499797591766, guid: 97f71427c81384d4bb7ded40758c3f6b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1449523820748826427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1424244429
 GameObject:
   m_ObjectHideFlags: 0
@@ -56112,6 +56118,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1456281994 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1416498724462142281, guid: 97f71427c81384d4bb7ded40758c3f6b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1449523820748826427}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456281985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1faa7e4ab8db142458b7333a61f81597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1461769828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74525,6 +74543,11 @@ PrefabInstance:
       objectReference: {fileID: 77511302}
     - target: {fileID: 2191753472279431516, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
+      propertyPath: cameraC
+      value: 
+      objectReference: {fileID: 1456281994}
+    - target: {fileID: 2191753472279431516, guid: 97f71427c81384d4bb7ded40758c3f6b,
+        type: 3}
       propertyPath: burnMark
       value: 
       objectReference: {fileID: 0}
@@ -74551,9 +74574,24 @@ PrefabInstance:
       objectReference: {fileID: 1223619390}
     - target: {fileID: 2191753472279431516, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
+      propertyPath: deathCamera
+      value: 
+      objectReference: {fileID: 893294603}
+    - target: {fileID: 2191753472279431516, guid: 97f71427c81384d4bb7ded40758c3f6b,
+        type: 3}
       propertyPath: dashTutorial
       value: 
       objectReference: {fileID: 1468960373}
+    - target: {fileID: 2191753472279431516, guid: 97f71427c81384d4bb7ded40758c3f6b,
+        type: 3}
+      propertyPath: deathanimator
+      value: 
+      objectReference: {fileID: 1456281990}
+    - target: {fileID: 2191753472279431516, guid: 97f71427c81384d4bb7ded40758c3f6b,
+        type: 3}
+      propertyPath: defaultCamera
+      value: 
+      objectReference: {fileID: 1421600264}
     - target: {fileID: 2191753472279431516, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: pathOneTutorial
@@ -74653,7 +74691,7 @@ PrefabInstance:
     - target: {fileID: 3119439025166842683, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3167395496239638606, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
@@ -75144,12 +75182,12 @@ PrefabInstance:
     - target: {fileID: 8510160074803153986, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8510160074803153986, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8736420928065172830, guid: 97f71427c81384d4bb7ded40758c3f6b,
         type: 3}
