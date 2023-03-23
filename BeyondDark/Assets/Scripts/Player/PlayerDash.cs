@@ -22,6 +22,10 @@ public class PlayerDash : MonoBehaviour
     Vector3 newDashForce = Vector3.zero;
     private bool isDashing = false;
 
+    public GameObject dashEffect;
+    public Transform dashSpawn;
+    public AudioSource dashSound;
+    public AudioClip dashClip;
 
     private void OnEnable()
     {
@@ -69,6 +73,11 @@ public class PlayerDash : MonoBehaviour
 
         newDashForce = dir * dashForce + orientation.up * dashUpForce;
         isDashing = true;
+
+        GameObject obj = Instantiate(dashEffect, dashSpawn);
+        dashSound.PlayOneShot(dashClip);
+        Destroy(obj, 0.5f);
+
     }
 
     private void PerformDash()
