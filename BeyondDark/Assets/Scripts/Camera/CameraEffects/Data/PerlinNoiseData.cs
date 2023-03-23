@@ -18,6 +18,22 @@ namespace MMG
             [Space]
             public float amplitude;
             public float frequency;
+
+            public float initialAmplitude;
+            public float initialFreequency;
         #endregion    
+
+
+        private void OnEnable()
+        {
+            amplitude = initialAmplitude;
+            frequency = initialFreequency;
+        }
+
+        private void Awake()
+        {
+            amplitude = initialAmplitude;
+            frequency = initialFreequency;  
+        }
     }
 }

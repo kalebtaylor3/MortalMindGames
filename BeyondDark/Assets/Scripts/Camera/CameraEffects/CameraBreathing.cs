@@ -16,8 +16,6 @@ namespace MMG
         [SerializeField] private bool x = true;
         [SerializeField] private bool y = true;
         [SerializeField] private bool z = true;
-        [SerializeField] GameObject vorgonFear;
-        [SerializeField] GameObject playersFear;
         private PerlinNoiseScroller perlinNoiseScroller;
         [HideInInspector] public Vector3 finalRot;
         private Vector3 finalPos;
@@ -74,12 +72,14 @@ namespace MMG
 
             PlayerController.OnEnmptyStamina += HandleEmptyStamina;
             PlayerController.OnTeleport += SetBreathingDefault;
+            WorldData.OnDeath += SetBreathingDefault;
         }
 
         private void OnDisable()
         {
             PlayerController.OnEnmptyStamina -= HandleEmptyStamina;
             PlayerController.OnTeleport -= SetBreathingDefault;
+            WorldData.OnDeath -= SetBreathingDefault;
             StopAllCoroutines();
         }
 
