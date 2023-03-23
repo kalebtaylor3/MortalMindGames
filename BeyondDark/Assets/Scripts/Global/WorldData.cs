@@ -450,7 +450,7 @@ public class WorldData : MonoBehaviour
             vorgonModel.SetActive(false);
             vorgon.playerDead = true;
             vorgon.detection = 0;
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.8f);
             fadeOut.SetActive(true);
             TpTest.Instance.MortalRealmDeath(pickUpCP);
             playerDeathMR.SetActive(false);
