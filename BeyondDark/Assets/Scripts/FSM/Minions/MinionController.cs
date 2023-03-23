@@ -3,6 +3,7 @@ using System;
 //using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 //sing Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
@@ -41,7 +42,7 @@ public class MinionController : MonoBehaviour
     public bool isAttacking = false;
     public bool safe = true;
 
-    public float rangedAttackDuration = 2.0f;
+    public float rangedAttackDuration = 0.5f;
     public float MeleeAttackDuration = 2.0f;
 
     public bool foundWall = false;
@@ -120,13 +121,24 @@ public class MinionController : MonoBehaviour
             foundWall = false;
         }
 
-        // 
+        // Animations
+        animController.SetFloat("Speed", navAgent.speed);
+        animController.SetFloat("Dead", navAgent.speed);
+
+        if(navAgent.isStopped)
+        {
+            animController.SetBool("IsWalking", false);
+        }
+        else
+        {
+            animController.SetBool("IsWalking", true);
+        }
     }
 
     IEnumerator SpawnMinion()
     {
         // Change to wait for animation
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 3f));
         spawning = false;
     }
 
@@ -206,25 +218,38 @@ public class MinionController : MonoBehaviour
         effectsSource.PlayOneShot(shots[UnityEngine.Random.Range(0, shots.Length)]);
 
         StartCoroutine(IsAttacking(rangedAttackDuration));
-        var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
-        projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
-        projectileObj.GetComponent<MProjectile>().minionControl = this;
+        StartCoroutine(MAttack());
+        
+
     }
 
     public void MeleeAttack()
     {
-        StartCoroutine(meleeAttack());
+        StartCoroutine(MAttack());
         StartCoroutine(IsAttacking(MeleeAttackDuration));
     }
 
-    IEnumerator meleeAttack()
+    IEnumerator MAttack()
     {
+        animController.SetBool("Attacking", true);
+
+        if (type == MINION_TYPE.MELEE)
+        {
+            animController.SetTrigger("Attack");
+        }
+        else
+        {
+            animController.SetTrigger("RangedAttack");
+            yield return new WaitForSeconds(0.18f);
+            var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
+            projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
+            projectileObj.GetComponent<MProjectile>().minionControl = this;
+        }
         
-        animController.SetTrigger("Attack");
         //animController.SetBool("Attacking", true);
 
         yield return new WaitUntil(() => !isAttacking);
-        //animController.SetBool("Attacking", false);
+        animController.SetBool("Attacking", false);
 
     }
 
