@@ -78,45 +78,48 @@ public class PlayerHealthSystem : MonoBehaviour
         {
             if (currentPlayerHealth <= 0)
             {
-                alive = false;
-                currentPlayerHealth = 0;
-
-                OnDeath?.Invoke(false);
-
-                deathAnimator.enabled = true;
-                deathCamera.SetActive(true);
-
-                deathAnimator.SetTrigger("Death");
-                deathAnimator.ResetTrigger("Alive");
-
-
-                GameObject lastRelic = WorldData.Instance.lastPickUpGO;
-                WorldData.Instance.TriggerCheckpoint();
-                WorldData.Instance.happenOnce = false;
-
-                if (WorldData.Instance.lastPickUpGO != null)
+                if (!invincible)
                 {
-                    RelicSpawnManager.Instance.RelicPickedUp(WorldData.Instance.lastPickUpGO);
-                }
-                else
-                {
-                    lastRelic.SetActive(true);
-                }
+                    alive = false;
+                    currentPlayerHealth = 0;
 
-                TpTest.Instance.tpPlayer(WorldData.Instance.pickUpCP);
-                WorldData.Instance.VorgonRealmPlayerDeath();
-            }
+                    OnDeath?.Invoke(false);
+
+                    deathAnimator.enabled = true;
+                    deathCamera.SetActive(true);
+
+                    deathAnimator.SetTrigger("Death");
+                    deathAnimator.ResetTrigger("Alive");
 
 
-            if (!invincible)
-            {
-                if (currentPlayerHealth <= 0)
-                {
-#if UNITY_EDITOR
-                    //UnityEditor.EditorApplication.isPlaying = false;
-#endif
+                    GameObject lastRelic = WorldData.Instance.lastPickUpGO;
+                    WorldData.Instance.TriggerCheckpoint();
+                    WorldData.Instance.happenOnce = false;
+
+                    if (WorldData.Instance.lastPickUpGO != null)
+                    {
+                        RelicSpawnManager.Instance.RelicPickedUp(WorldData.Instance.lastPickUpGO);
+                    }
+                    else
+                    {
+                        lastRelic.SetActive(true);
+                    }
+
+                    TpTest.Instance.tpPlayer(WorldData.Instance.pickUpCP);
+                    WorldData.Instance.VorgonRealmPlayerDeath();
                 }
             }
+
+
+//            if (!invincible)
+//            {
+//                if (currentPlayerHealth <= 0)
+//                {
+//#if UNITY_EDITOR
+//                    //UnityEditor.EditorApplication.isPlaying = false;
+//#endif
+//                }
+//            }
 
             if (startCooldown)
             {
