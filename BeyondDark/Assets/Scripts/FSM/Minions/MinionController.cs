@@ -52,6 +52,7 @@ public class MinionController : MonoBehaviour
 
     public Transform bloodSpawn;
     public GameObject blood;
+    public GameObject deathBlood;
 
     [Header("Audio")]
     //Source
@@ -97,6 +98,12 @@ public class MinionController : MonoBehaviour
         aimAt = playerController.aimAt;
 
         //player = GameObject.FindGameObjectWithTag("VorgonRealmPlayer").GetComponent<player>;
+        MinionDeath.Death += Death;
+    }
+
+    private void OnDisable()
+    {
+        MinionDeath.Death -= Death;
     }
 
     // Update is called once per frame
@@ -123,7 +130,6 @@ public class MinionController : MonoBehaviour
 
         // Animations
         animController.SetFloat("Speed", navAgent.speed);
-        animController.SetFloat("Dead", navAgent.speed);
 
         if(navAgent.isStopped)
         {
@@ -138,23 +144,41 @@ public class MinionController : MonoBehaviour
     IEnumerator SpawnMinion()
     {
         // Change to wait for animation
-        yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 3f));
+        navAgent.isStopped = true;
+        float rand = UnityEngine.Random.Range(0.5f, 3f);
+        yield return new WaitForSeconds(rand);
+        navAgent.isStopped = false;
         spawning = false;
     }
 
     void HandleHP()
     {
         // If hp 0 destroy minion
-        if (healthPoints <= 0)
+        if (healthPoints <= 0 && !minionDeath)
         {
             healthPoints = 0;
             minionDeath = true;
+            animController.SetBool("Dead", true);
             OnDeath?.Invoke(this);
-            //CHANGE TO COROUTINE FOR ANIMATION
-            Destroy(gameObject, 1.5f);
         }
+
         //Set hp to UI
         healthUI.value = healthPoints;
+    }
+
+    public void Death(MinionController minion)
+    {
+        if(minionDeath)
+        {
+            // Kill minion
+            Destroy(minion.gameObject);
+
+            //Spawn Blood (Boom)
+            GameObject obj = Instantiate(deathBlood);
+            obj.transform.position = bloodSpawn.position;
+            obj.transform.LookAt(Camera.main.transform);
+            Destroy(obj, 3.0f);
+        }        
     }
 
     public void ReceiveDamage(float amount, bool sword = false)
