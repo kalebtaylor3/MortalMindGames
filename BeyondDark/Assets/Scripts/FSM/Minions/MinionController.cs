@@ -69,6 +69,8 @@ public class MinionController : MonoBehaviour
     public AudioClip[] shots;
 
 
+    public Animator animController;
+
     public static event Action<MinionController> OnDeath;
 
     private void OnEnable()
@@ -207,6 +209,23 @@ public class MinionController : MonoBehaviour
         var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
         projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
         projectileObj.GetComponent<MProjectile>().minionControl = this;
+    }
+
+    public void MeleeAttack()
+    {
+        StartCoroutine(meleeAttack());
+        StartCoroutine(IsAttacking(MeleeAttackDuration));
+    }
+
+    IEnumerator meleeAttack()
+    {
+        
+        animController.SetTrigger("Attack");
+        //animController.SetBool("Attacking", true);
+
+        yield return new WaitUntil(() => !isAttacking);
+        //animController.SetBool("Attacking", false);
+
     }
 
     public void RangedReposition(bool safeFlag)

@@ -127,9 +127,13 @@ public class MAttackState : FSMState
         else if (minionType == MinionController.MINION_TYPE.MELEE && !attacked) // MELEE
         {
             // Call Attack (check range)
-
-            attacked = true;
+            // Call shoot projectile
+            if (!minionController.isAttacking)
+            {
+                //minionController.RangedAttack();
+                minionController.MeleeAttack();
+                attacked = true;
+            }
         }
-
     }
 }
