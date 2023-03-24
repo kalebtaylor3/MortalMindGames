@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 using static RelicSpawnManager;
 
 public class WorldData : MonoBehaviour
@@ -139,6 +140,8 @@ public class WorldData : MonoBehaviour
     public TutorialTrigger stealthTut;
 
     public GameObject heartBeat;
+
+    public VideoClip deathClip;
 
     private void Update()
     {
@@ -450,7 +453,7 @@ public class WorldData : MonoBehaviour
             playerDeathMR.SetActive(true);            
             vorgon.playerDead = true;
             vorgon.detection = 0;
-            yield return new WaitForSeconds(1.8f);
+            yield return new WaitForSeconds(((float)deathClip.length));
             vorgonModel.SetActive(false);
             fadeOut.SetActive(true);
             TpTest.Instance.MortalRealmDeath(pickUpCP);
