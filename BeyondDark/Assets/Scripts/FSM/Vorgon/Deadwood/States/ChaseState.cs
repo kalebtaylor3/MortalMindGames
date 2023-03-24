@@ -38,7 +38,6 @@ public class ChaseState : FSMState
         if(player.safeZone)
         {
             vorgonControl.inChase = false;
-            vorgonControl.sawConceal = true;
             vorgonFSM.PerformTransition(Transition.PlayerLost);
             onEndChase?.Invoke();
         }

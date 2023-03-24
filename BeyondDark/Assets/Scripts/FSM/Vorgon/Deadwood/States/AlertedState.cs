@@ -132,13 +132,18 @@ public class AlertedState : FSMState
 
             if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
             {
-                if (vorgonControl.SearchAnimCanPlay)
+
+                if(!vorgonControl.playerT.isHiding)
                 {
-                    if (!vorgonControl.SearchAnimIsPlaying)
+                    if (vorgonControl.SearchAnimCanPlay)
                     {
-                        vorgonControl.PlaySearchAnim();
+                        if (!vorgonControl.SearchAnimIsPlaying)
+                        {
+                            vorgonControl.PlaySearchAnim();
+                        }
                     }
                 }
+                
 
                 alertReached = true;
                 detectedAgain = false;

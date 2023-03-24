@@ -415,7 +415,7 @@ public class WorldData : MonoBehaviour
             yield return new WaitForSeconds(2);
 
             lastConceal.ToggleConcealDeath();
-            vorgonModel.SetActive(false);
+            
             vorgon.playerDead = true;
             vorgon.detection = 0;
             lastConceal.canCreak = false;
@@ -439,6 +439,7 @@ public class WorldData : MonoBehaviour
             lastConceal.doorCreak.enabled = true;
             ConcelableDetection.Instance.seeingCanvas.gameObject.SetActive(true);
             vorgon.sightCanvas.gameObject.SetActive(true);
+            vorgonModel.SetActive(false);
 
             //lastConceal.ExitArea();
             //yield return new WaitForSeconds(2.5f);
@@ -446,11 +447,11 @@ public class WorldData : MonoBehaviour
         }
         else
         {
-            playerDeathMR.SetActive(true);
-            vorgonModel.SetActive(false);
+            playerDeathMR.SetActive(true);            
             vorgon.playerDead = true;
             vorgon.detection = 0;
             yield return new WaitForSeconds(1.8f);
+            vorgonModel.SetActive(false);
             fadeOut.SetActive(true);
             TpTest.Instance.MortalRealmDeath(pickUpCP);
             playerDeathMR.SetActive(false);
