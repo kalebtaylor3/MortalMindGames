@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuDebug : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Toggle godModeTogg;
+    public Toggle vorgonTogg;
+
+    private void Awake()
     {
-        
+        if(!MenuManager.Instance.mainMenu)
+        {
+            //godModeTogg.isOn = PlayerHealthSystem.Instance.invincible;
+            vorgonTogg.isOn = WorldData.Instance.vorgon.gameObject.activeSelf;
+        }        
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TurnVorgonOff()
     {
-        
+        WorldData.Instance.TurnVorgonOff(vorgonTogg.isOn);
+    }
+
+    public void GodMode()
+    {
+        WorldData.Instance.GodMode(godModeTogg.isOn);
     }
 }
