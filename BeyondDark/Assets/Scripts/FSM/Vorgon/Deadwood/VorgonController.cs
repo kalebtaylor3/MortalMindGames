@@ -176,6 +176,10 @@ public class VorgonController : MonoBehaviour
         WorldData.Instance.PlayerDeathMortalRealm();
         yield return new WaitForSeconds(2);
         isAttacking = false;
+        flashing = false;
+        happenOnce = false;
+        canSeePlayer = false;
+        PlayerInSight = false;
     }
 
     public void LineOfSight()
