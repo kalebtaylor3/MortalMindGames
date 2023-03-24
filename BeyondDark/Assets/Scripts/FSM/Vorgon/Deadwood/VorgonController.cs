@@ -36,7 +36,7 @@ public class VorgonController : MonoBehaviour
     //public Animation vorgonAnimation;
     //public List<AnimationClip> animationsMR;
 
-    [SerializeField] Animator vorgonAnimator;
+    [SerializeField] public Animator vorgonAnimator;
 
     public Image detectionUI; // reference to the UI image on the canvas
     public CanvasGroup sightCanvas;
@@ -136,8 +136,19 @@ public class VorgonController : MonoBehaviour
             ConcelableDetection.Instance.vorgonKnows = true;
         }
 
+        // Animations
+
         vorgonAnimator.SetFloat("speed", navAgent.speed);
-        
+
+        if (navAgent.isStopped)
+        {
+            vorgonAnimator.SetBool("isWalking", false);
+        }
+        else
+        {
+            vorgonAnimator.SetBool("isWalking", true);
+        }
+
     }
 
     public void StunVorgon(float stunTime)
@@ -147,9 +158,11 @@ public class VorgonController : MonoBehaviour
 
     IEnumerator TriggerStun(float stunTime)
     {
+        vorgonAnimator.SetBool("Stunned", true);
         stunned = true;
         yield return new WaitForSeconds(stunTime);
         stunned = false;
+        vorgonAnimator.SetBool("Stunned", false);
     }
 
     public void Attack(bool hiding = false)
@@ -255,16 +268,25 @@ public class VorgonController : MonoBehaviour
 
     IEnumerator TrigerSearchAnim()
     {
+        navAgent.isStopped = true;
         SearchAnimIsPlaying = true;
-        if(!alertAudioSource.isPlaying)
-        {
-            yield return new WaitUntil(() => !alertAudioSource.isPlaying);
-        }
-        else
-        {
-            yield return new WaitForSeconds(3.0f);
-        }
-        
+
+        //if(!alertAudioSource.isPlaying)
+        //{
+        //    vorgonAnimator.SetBool("Lost", true);
+        //    yield return new WaitForSeconds(3.0f);
+        //}
+        //else
+        //{
+        //    vorgonAnimator.SetBool("Lost", true);
+        //    yield return new WaitForSeconds(3.0f);
+        //}
+
+        vorgonAnimator.SetBool("Lost", true);
+        yield return new WaitForSeconds(3.15f);
+
+        vorgonAnimator.SetBool("Lost", false);
+        navAgent.isStopped = false;
         SearchAnimCanPlay = false;
         SearchAnimIsPlaying = false;
     }
