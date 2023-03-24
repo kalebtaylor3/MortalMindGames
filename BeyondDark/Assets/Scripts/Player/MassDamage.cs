@@ -7,9 +7,11 @@ public class MassDamage : MonoBehaviour
 {
     public float damage = 1;
 
+    public bool canDamagePlayer = true;
+
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "VorgonRealmPlayer")
+        if (other.gameObject.tag == "VorgonRealmPlayer" && canDamagePlayer)
         {
             //Debug.Log("MeleeAttacked");
             PlayerHealthSystem.Instance.currentPlayerHealth -= damage;
