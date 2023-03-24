@@ -190,10 +190,10 @@ public class VorgonController : MonoBehaviour
         if (detection >= 1)
         {
 
-            if (playerT.isHiding)
-            {
-                SetLastDetectedLocation(WorldData.Instance.lastConceal.searchPos.position, WorldData.Instance.lastConceal, VorgonController.EVENT_TYPE.SOUND); /// HERE
-            }
+            //if (playerT.isHiding)
+            //{
+            //    SetLastDetectedLocation(WorldData.Instance.lastConceal.searchPos.position, WorldData.Instance.lastConceal, VorgonController.EVENT_TYPE.SOUND); /// HERE
+            //}
 
             detection = 1;
             if (!happenOnce)
@@ -213,7 +213,7 @@ public class VorgonController : MonoBehaviour
             detectionUI.color = Color.white;
         }
 
-        if (!playerDead)
+        if (!playerDead && !playerT.isHiding)
         {
             Vector3 dir = (playerT.transform.position - transform.position).normalized;
 
@@ -254,6 +254,10 @@ public class VorgonController : MonoBehaviour
                 canSeePlayer = false;
                 PlayerInSight = false;
             }
+        }
+        else
+        {
+            detection = 0;
         }
 
         sightCanvas.alpha = Mathf.Lerp(0, 1, detection);

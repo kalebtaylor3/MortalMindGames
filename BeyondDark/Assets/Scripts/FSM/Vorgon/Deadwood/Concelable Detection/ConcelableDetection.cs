@@ -72,6 +72,12 @@ public class ConcelableDetection : MonoBehaviour
     private void Update()
     {
 
+        if(vorgon.playerDetected)
+        {
+            seeingDetectionUI.color = Color.red;
+        }
+
+
         if(!player.isHiding)
         {
             hearingExposure = 0;
@@ -107,7 +113,7 @@ public class ConcelableDetection : MonoBehaviour
             exposure = 1;
             if (!happenOnce)
             {
-                if (!flashingHearing)
+                if (!flashingSight)
                 {
                     StartCoroutine(FlashSight(1));
                     happenOnce = true;
@@ -205,6 +211,8 @@ public class ConcelableDetection : MonoBehaviour
                                 {
                                     Debug.Log("I see you");
                                     vorgon.PlayerInSight = true;
+                                    vorgon.playerDetected = true;
+                                    vorgon.SetLastDetectedLocation(WorldData.Instance.lastConceal.searchPos.position, WorldData.Instance.lastConceal, VorgonController.EVENT_TYPE.SOUND); /// HERE
                                 }
 
                                 rayColor = Color.red;
@@ -282,7 +290,7 @@ public class ConcelableDetection : MonoBehaviour
             elapsedTime += flashSpeed * 2;
         }
         seeingDetectionUI.color = Color.red;
-        flashingSight = false;
+        //flashingSight = false;
     }
 
 
