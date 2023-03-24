@@ -65,15 +65,15 @@ public class PatrolState : FSMState
         // Actions
         if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
         {
-            if (vorgonControl.SearchAnimCanPlay)
-            {
-                if(!vorgonControl.SearchAnimIsPlaying)
-                {
-                    vorgonControl.PlaySearchAnim();
-                }                
-            }
-            else if (!vorgonControl.SearchAnimCanPlay) 
-            {
+            //if (vorgonControl.SearchAnimCanPlay)
+            //{
+            //    if(!vorgonControl.SearchAnimIsPlaying)
+            //    {
+            //        vorgonControl.PlaySearchAnim();
+            //    }                
+            //}
+            //else if (!vorgonControl.SearchAnimCanPlay) 
+            //{
                 
                 currentWP++;
 
@@ -87,7 +87,7 @@ public class PatrolState : FSMState
                 vorgonControl.navAgent.destination = destination;
                 vorgonControl.SearchAnimCanPlay = true;
 
-            }
+            //}
         }
     }
 }
