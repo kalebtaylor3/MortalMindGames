@@ -105,7 +105,7 @@ public class SpellBook : MonoBehaviour
         switch(direction)
         {
             case "Left":
-                if(currentPageNumber == 0)
+                if(currentPageNumber == 1)
                     return;
                 DisablePages();
                 currentPageNumber = currentPageNumber - 1;
@@ -128,6 +128,9 @@ public class SpellBook : MonoBehaviour
     {
         for(int i = 0; i < pages.Count; i++)
         {
+            if (i == 0)
+                break;
+
             pages[i].SetActive(false);
         }
     }

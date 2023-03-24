@@ -1025,11 +1025,9 @@ namespace MMG
             {
                 ItemPickUp.PickUpItem = Instantiate(ItemPickUp.PickUpItem, bookSlots[ItemPickUp.pickUpID]);
 
-                //if (ItemPickUp.pickUpID != 0)
-               // {
+                
                     playerInventory.items.Add(ItemPickUp.PickUpItem);
                     playerInventory.UpdatePages();
-                //}
             }
 
             void HasActiveItem()
