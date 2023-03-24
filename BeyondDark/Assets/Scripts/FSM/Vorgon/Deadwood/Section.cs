@@ -12,7 +12,6 @@ public class Section : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        
         if (other.tag == "Player" && WorldData.Instance.activePlayerSection != sectionType)
         {
             WorldData.Instance.activePlayerSection = sectionType;
@@ -23,7 +22,12 @@ public class Section : MonoBehaviour
             WorldData.Instance.activeVorgonSection = sectionType;
             WorldData.Instance.vorgonSectionChange = true;
         }
+
     }
 
+    //private void OnTriggerEnter(Collider other)
+    //{
+        
+    //}
 
 }

@@ -240,7 +240,7 @@ public class WorldData : MonoBehaviour
             }
             else
             {
-                activePlayerSection = activeVorgonSection;
+                //activePlayerSection = activeVorgonSection;
             }
         }
     }
@@ -259,7 +259,12 @@ public class WorldData : MonoBehaviour
     {
         if (activePlayerSection != activeVorgonSection)
         {
-            canSeek = true;
+            float dist = Vector3.Distance(player.transform.position, vorgon.transform.position);
+
+            if (dist > 20f) 
+            {
+                canSeek = true;
+            }
         }
     }
 
