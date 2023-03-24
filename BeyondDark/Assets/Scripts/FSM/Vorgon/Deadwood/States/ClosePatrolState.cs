@@ -64,7 +64,7 @@ public class ClosePatrolState : FSMState
             // If player Found -> Chase            
             vorgonFSM.PerformTransition(Transition.PlayerFound);
         }
-        else if (searchCount >= 5)
+        else if (searchCount >= 3)
         {
             //If searched 5 times -> Lost            
             vorgonFSM.PerformTransition(Transition.PlayerLost);
