@@ -32,7 +32,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.38653, y: 0.052055, z: 0.47872}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5372123345533512830}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51,7 +52,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7953709656136158773}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -116,7 +117,8 @@ MonoBehaviour:
     type: 3}
   pickUpID: 3
   pickUpClip: {fileID: 8300000, guid: 5f691b7173831574499d7aa445cb5347, type: 3}
-  tpPosition: {x: 10, y: 1, z: -50}
+  VorgonTpPosition: {x: 0, y: 0, z: 0}
+  CheckpointTpPosition: {x: 0, y: 0, z: 0}
   RealmTp: 1
 --- !u!114 &7953709656136158772
 MonoBehaviour:
@@ -139,3 +141,120 @@ MonoBehaviour:
   isHidingSpot: 0
   pickUp: {fileID: 7953709656136158763}
   destroyOnPickUp: 0
+  dialogue: {fileID: 0}
+  tutorial: {fileID: 0}
+--- !u!1001 &4180534238900726343
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7953709656136158767}
+    m_Modifications:
+    - target: {fileID: 2049414316015587934, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343937546047686909, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3826457736447106334, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004320745910249784, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099917088880038723, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.6175
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.6175
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 26.175001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.436
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.000000011978
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917814085037513859, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+        type: 3}
+      propertyPath: m_Name
+      value: sword of vorgon lp2 Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8f3246837c7e5dc40973dc09de1d3dc6, type: 3}
+--- !u!4 &5372123345533512830 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8109188551638419001, guid: 8f3246837c7e5dc40973dc09de1d3dc6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4180534238900726343}
+  m_PrefabAsset: {fileID: 0}
