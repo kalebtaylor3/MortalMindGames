@@ -373,7 +373,7 @@ namespace MMG
         IEnumerator ToggleDeath()
         {
             deathCAA.SetActive(true);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
 
 
             //playerCamera.gameObject.SetActive(true);

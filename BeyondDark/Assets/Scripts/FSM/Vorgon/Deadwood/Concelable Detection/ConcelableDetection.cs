@@ -56,9 +56,29 @@ public class ConcelableDetection : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        flashingHearing = false;
+        flashingSight = false;
     }
 
     private void OnEnable()
+    {
+        happenOnce = false;
+        flashingHearing = false;
+        flashingSight = false;
+        detected = false;
+        vorgonKnows = false;
+        exposure = 0;
+        hearingExposure = 0;
+        WorldData.OnDeath += ResetStuff;
+
+    }
+
+    private void OnDisable()
+    {
+        WorldData.OnDeath -= ResetStuff;
+    }
+
+    void ResetStuff()
     {
         happenOnce = false;
         flashingHearing = false;
