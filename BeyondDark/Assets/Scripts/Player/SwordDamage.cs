@@ -22,7 +22,8 @@ public class SwordDamage : MonoBehaviour
     public GameObject blood;
     public GameObject vorgonBlood;
 
-    public AudioClip wallDing;   
+    public AudioClip wallDing;
+    public AudioClip bloodHit;
     public AudioSource swordAudioSource;
 
     public static event Action<float> DealDamage;
@@ -77,7 +78,7 @@ public class SwordDamage : MonoBehaviour
                 {
                     Debug.Log("Hitwall");
                     StartCoroutine(DamageDelay());
-                    swordAudioSource.PlayOneShot(wallDing);
+                    swordAudioSource.PlayOneShot(bloodHit);
                     damageOnce = false;
                     GameObject obj = Instantiate(vorgonBlood);
                     obj.transform.position = hit.point;
