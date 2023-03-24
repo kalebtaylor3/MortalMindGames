@@ -25,6 +25,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject MainMenuGO;
 
     bool pause = false;
+    public bool canPause = true;
     public bool mainMenu = false;    
 
     private void Start()
@@ -37,7 +38,7 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Gamepad.current.startButton.wasPressedThisFrame && !mainMenu)
+        if (Gamepad.current.startButton.wasPressedThisFrame && !mainMenu && canPause)
         {
             PauseGame();
         }

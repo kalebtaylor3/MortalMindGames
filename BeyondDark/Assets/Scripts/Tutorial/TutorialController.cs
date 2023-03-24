@@ -72,10 +72,14 @@ public class TutorialController : MonoBehaviour
     {
         yield return new WaitForSeconds(tutAnimator.GetCurrentAnimatorStateInfo(0).length);
         canvasTut.SetActive(false);
+        MenuManager.Instance.canPause = true;
+        //WorldData.Instance.gamePaused = false;
     }
 
     IEnumerator WaitForTut(Sprite imageVal, VideoClip vidVal, float delay)
     {
+        MenuManager.Instance.canPause = false;
+        //WorldData.Instance.gamePaused = true;
         fillImage.fillAmount = 0;
         yield return new WaitForSeconds(delay);
         tutAnimator.SetBool("FadeOut", false);

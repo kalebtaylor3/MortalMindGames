@@ -61,6 +61,8 @@ public class CollisionActivation : MonoBehaviour
                     WorldData.Instance.MortalRealmController.AddItemToInventory(WorldData.Instance.lastPickUpGO.GetComponent<PickUp>());
 
                     TpTest.Instance.tpPlayer(WorldData.Instance.pickUpCP);
+
+                    WorldData.Instance.VorgonRealmPlayerDeath();
                     StartCoroutine(WaitForHealth());
                 }
                 break;
