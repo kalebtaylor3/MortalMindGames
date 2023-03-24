@@ -313,15 +313,14 @@ namespace MMG
 
         IEnumerator WaitForInside()
         {
-            yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length);
+            yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length + 1);
             //enable the camera controls n stuff
-            enteranceAnimator.enabled = false;
             doorCreak.enabled = true;
             //isHidding = true;
             happenOnce=false;
             canCreak = true;
             concelableAreaCam.cam.LookAt = lookAtTransform;
-
+            enteranceAnimator.enabled = false;
             //Move Player
             //player.transform.position = transform.position;
             //playerCamera.LookAt = lookAtTransform;
