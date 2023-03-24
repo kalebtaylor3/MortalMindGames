@@ -255,6 +255,8 @@ MonoBehaviour:
   PlayerKillCollision: {fileID: 0}
   vorgonFSM: {fileID: 1965436468595215874}
   alertAudioSource: {fileID: 19277412622086645}
+  defaultSpeed: 0
+  chaseSpeed: 0
   targetMask:
     serializedVersion: 2
     m_Bits: 512
@@ -263,6 +265,7 @@ MonoBehaviour:
     m_Bits: 3072
   concealPos: {x: -1, y: -1, z: -1}
   concealArea: {fileID: 0}
+  vorgonAnimator: {fileID: 0}
   detectionUI: {fileID: 0}
   sightCanvas: {fileID: 0}
   detection: 0
@@ -358,6 +361,8 @@ MonoBehaviour:
   player: {fileID: 0}
   detection: 0
   flashSpeed: 0.2
+  flashing: 0
+  jumpScare: 0
   inRange: 0
 --- !u!195 &1965436468595215873
 NavMeshAgent:
@@ -3885,6 +3890,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1965436468595215872}
     m_Modifications:
+    - target: {fileID: 897662648291945266, guid: 17878aa757753f54f90cd6409ded8ad3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971142232404270468, guid: 17878aa757753f54f90cd6409ded8ad3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295674732990371873, guid: 17878aa757753f54f90cd6409ded8ad3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4853486986180772691, guid: 17878aa757753f54f90cd6409ded8ad3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7379778559247262243, guid: 17878aa757753f54f90cd6409ded8ad3,
         type: 3}
       propertyPath: m_RootOrder
@@ -3961,6 +3986,11 @@ PrefabInstance:
       value: VorgonFinal01
       objectReference: {fileID: 0}
     - target: {fileID: 7863827916508526745, guid: 17878aa757753f54f90cd6409ded8ad3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8711270421958925357, guid: 17878aa757753f54f90cd6409ded8ad3,
         type: 3}
       propertyPath: m_IsActive
       value: 0
