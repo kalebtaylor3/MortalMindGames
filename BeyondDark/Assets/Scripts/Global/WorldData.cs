@@ -522,6 +522,16 @@ public class WorldData : MonoBehaviour
 
     // DEBUG
 
+    public void TurnVorgonOff(bool flag)
+    {
+        vorgon.gameObject.SetActive(flag);
+    }
+
+    public void GodMode(bool flag)
+    {
+        PlayerHealthSystem.Instance.invincible = flag;
+    }
+
     public void RelicTpDEBUG(int relic)
     {
         //Time.timeScale = 1;

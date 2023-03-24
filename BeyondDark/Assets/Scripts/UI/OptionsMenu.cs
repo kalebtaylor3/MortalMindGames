@@ -97,6 +97,11 @@ public class OptionsMenu : MonoBehaviour
                 menu.OptionsMenu(false);
             }
         }
+
+        if(Gamepad.current.xButton.wasPressedThisFrame)
+        {
+            ApplyChanges();
+        }
     }
 
     public void ChangeScreens(int type)
