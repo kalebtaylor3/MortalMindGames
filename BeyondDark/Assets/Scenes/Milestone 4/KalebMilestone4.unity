@@ -69856,6 +69856,7 @@ MonoBehaviour:
   stealthTut: {fileID: 2083065639}
   heartBeat: {fileID: 1562471100}
   deathClip: {fileID: 32900000, guid: 2e8b7259f924cc44daa90f1912f79a86, type: 3}
+  characterController: {fileID: 1837035315}
 --- !u!4 &1552238607
 Transform:
   m_ObjectHideFlags: 0
@@ -77500,6 +77501,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 7805557133899939733, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8085738278306293729, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
       propertyPath: m_RendererIndex
@@ -77553,6 +77559,12 @@ PrefabInstance:
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ee7d5f18f6370a429e5e1024be1680c, type: 3}
+--- !u!143 &1837035315 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 7805557133899939733, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1837035314}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1841323461
 GameObject:
   m_ObjectHideFlags: 0
