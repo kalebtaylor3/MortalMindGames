@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] GameObject newGameBtn, optionsBtn, creditsBtn, ExitGameBtn;
+    [SerializeField] GameObject loadScreen, mainMenuScreen;
 
     MenuManager menu = null;
 
@@ -17,6 +18,9 @@ public class MainMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
 
         EventSystem.current.SetSelectedGameObject(newGameBtn);
+
+        loadScreen.SetActive(false);
+        mainMenuScreen.SetActive(true);
 
         menu = MenuManager.Instance;
     }
@@ -51,7 +55,11 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene("KalebMilestone4", LoadSceneMode.Single);
+        //SceneManager.LoadSceneAsync("KalebMilestone4", LoadSceneMode.Single);
+        loadScreen.SetActive(true);
+        loadScreen.GetComponent<LoadingScreen>().LoadNewScene(LoadingScreen.SCENES.GAME);
+        mainMenuScreen.SetActive(false);
+        
 
         //StartCoroutine(SwitchScenes());
     }

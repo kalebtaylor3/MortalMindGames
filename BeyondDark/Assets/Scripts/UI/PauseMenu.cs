@@ -10,6 +10,8 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject continueBtn, optionsBtn, mainMenuBtn, ExitGameBtn;
 
+    [SerializeField] GameObject loadScreen;
+
     MenuManager menu = null;
 
     private void OnEnable()
@@ -33,19 +35,9 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
-        //SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
-        //
-        //StartCoroutine(SwitchScenes());
-    }
-
-    IEnumerator SwitchScenes()
-    {
-        SceneManager.UnloadSceneAsync("KalebMilestone4");
-        
-        yield return null;
-        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
-
+        loadScreen.SetActive(true);
+        loadScreen.GetComponent<LoadingScreen>().LoadNewScene(LoadingScreen.SCENES.MENU);
+        MenuManager.Instance.PauseMenuGO.SetActive(false);
     }
     
     public void ExitGame() 
