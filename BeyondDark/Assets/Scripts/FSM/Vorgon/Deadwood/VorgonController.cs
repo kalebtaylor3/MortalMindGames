@@ -215,6 +215,7 @@ public class VorgonController : MonoBehaviour
         else
         {
             detectionUI.color = Color.white;
+            StopCoroutine(Flash(0));
         }
 
         if (!playerDead && !playerT.isHiding)
