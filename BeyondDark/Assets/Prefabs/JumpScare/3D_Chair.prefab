@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4499793098580194296}
   - component: {fileID: 3963411590130013797}
   - component: {fileID: 6634933569245314908}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Seat001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3768273504045469349}
   - component: {fileID: 8524599407585776610}
-  m_Layer: 0
+  - component: {fileID: -1011073281767690629}
+  m_Layer: 10
   m_Name: 3D_Chair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,6 +132,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &-1011073281767690629
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4539708027105039391}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.07, z: 0.16}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5605499218899383935
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +156,7 @@ GameObject:
   - component: {fileID: 1594406473692905070}
   - component: {fileID: 950141205467085557}
   - component: {fileID: 1042632160508116878}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Legs001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
