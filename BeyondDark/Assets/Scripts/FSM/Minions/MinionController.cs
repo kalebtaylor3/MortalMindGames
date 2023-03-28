@@ -144,11 +144,13 @@ public class MinionController : MonoBehaviour
     IEnumerator SpawnMinion()
     {
         // Change to wait for animation
+        animController.SetBool("Spawning", true);
         navAgent.isStopped = true;
         float rand = UnityEngine.Random.Range(0.5f, 3f);
         yield return new WaitForSeconds(rand);
         navAgent.isStopped = false;
         spawning = false;
+        animController.SetBool("Spawning", false);
     }
 
     void HandleHP()
