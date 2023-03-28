@@ -255,6 +255,15 @@ namespace MMG
             if(yawTransform != null)
                 RotateTowardsCamera();
 
+            if (isHiding)
+            {
+                characterController.enabled = false;
+            }
+            else
+            {
+                characterController.enabled = true;
+            }
+
             if (characterController && canMove)
             {
                 // Check if Grounded,Wall etc

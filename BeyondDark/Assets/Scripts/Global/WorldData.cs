@@ -144,20 +144,8 @@ public class WorldData : MonoBehaviour
 
     public VideoClip deathClip;
 
-    public CharacterController characterController;
-
     private void Update()
     {
-
-
-        if(player.isHiding)
-        {
-            characterController.enabled = false;
-        }
-        else
-        {
-            characterController.enabled = true;
-        }
 
         if(lastConceal != null && !concelableTutorial)
         {
