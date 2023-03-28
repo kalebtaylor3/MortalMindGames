@@ -134,8 +134,8 @@ public class AlertedState : FSMState
             if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
             {
 
-                if(!player.isHiding)
-                {
+                //if(!player.isHiding)
+                //{
                     if (vorgonControl.SearchAnimCanPlay)
                     {
                         if (!vorgonControl.SearchAnimIsPlaying)
@@ -143,7 +143,7 @@ public class AlertedState : FSMState
                             vorgonControl.PlaySearchAnim();
                         }
                     }
-                }
+                //}
                 
 
                 alertReached = true;
