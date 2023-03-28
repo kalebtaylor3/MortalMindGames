@@ -18,7 +18,7 @@ public class MenuManager : MonoBehaviour
     #endregion
 
 
-    [SerializeField] GameObject PauseMenuGO;    
+    [SerializeField] public GameObject PauseMenuGO;    
 
     [SerializeField] GameObject OptionsMenuGO;
 
@@ -26,7 +26,15 @@ public class MenuManager : MonoBehaviour
 
     bool pause = false;
     public bool canPause = true;
-    public bool mainMenu = false;    
+    public bool mainMenu = false;
+
+    private void OnEnable()
+    {
+        if(mainMenu)
+        {
+            Time.timeScale = 1;
+        }
+    }
 
     private void Start()
     {
