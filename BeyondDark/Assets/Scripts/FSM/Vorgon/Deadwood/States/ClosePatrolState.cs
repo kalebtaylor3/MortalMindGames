@@ -19,7 +19,7 @@ public class ClosePatrolState : FSMState
         stateID = FSMStateID.ClosePatrol;
         vorgonControl = controller;
         vorgonFSM = controller.vorgonFSM;
-        reachedLastpoint = false;
+        reachedLastpoint = true;
         //detectedAgain = false;
         searchCount = 0;
     }
@@ -30,7 +30,7 @@ public class ClosePatrolState : FSMState
         vorgonControl.navAgent.isStopped = false;
         //vorgonControl.playerDetected = false;
         //detectedAgain = false;
-        reachedLastpoint = false;
+        reachedLastpoint = true;
         searchCount = 0;
         vorgonControl.navAgent.speed = vorgonControl.defaultSpeed;
         player = WorldData.Instance.player;
@@ -75,17 +75,19 @@ public class ClosePatrolState : FSMState
     {
         // Actions
 
-        if (vorgonControl.SearchAnimCanPlay)
-        {
-            if (!vorgonControl.SearchAnimIsPlaying)
-            {
-                vorgonControl.PlaySearchAnim();
-            }
-        }
-        else
-        {
+        
+        //else
+        //{
             if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
             {
+                if (vorgonControl.SearchAnimCanPlay)
+                {
+                    if (!vorgonControl.SearchAnimIsPlaying)
+                    {
+                        vorgonControl.PlaySearchAnim();
+                    }
+                }
+
                 Vector3 randSearchPoint;
                 if (vorgonControl.RandomPoint(vorgonControl.LastSeen, range, out randSearchPoint)) //pass in our centre point and radius of area
                 {
@@ -95,13 +97,6 @@ public class ClosePatrolState : FSMState
                     searchCount++;
                 }
             }
-
-        }
-
-        
-
-
-
-
+        //}
     }
 }

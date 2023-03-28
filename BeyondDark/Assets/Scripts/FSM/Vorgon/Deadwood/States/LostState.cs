@@ -63,7 +63,7 @@ public class LostState : FSMState
                 vorgonFSM.PerformTransition(Transition.WrongSection);
                 vorgonControl.vorgonAnimator.SetBool("Lost", false);
             } 
-            else
+            else if(!vorgonControl.SearchAnimIsPlaying)
             {
                 // -> Patrol
                 vorgonFSM.PerformTransition(Transition.PlayerLost);
@@ -72,7 +72,7 @@ public class LostState : FSMState
         }
         else
         {
-            lostTime += 3 * Time.deltaTime;
+            lostTime += 1 * Time.deltaTime;
 
             if(lostTime >= 3f)
             {
@@ -87,6 +87,11 @@ public class LostState : FSMState
         if (!vorgonControl.navAgent.isStopped)
         {
             vorgonControl.navAgent.isStopped = true;
+        }
+
+        if (!vorgonControl.SearchAnimIsPlaying)
+        {
+            vorgonControl.PlaySearchAnim();
         }
     }
 }

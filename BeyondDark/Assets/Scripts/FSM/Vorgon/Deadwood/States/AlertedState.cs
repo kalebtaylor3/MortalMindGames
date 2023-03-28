@@ -73,6 +73,7 @@ public class AlertedState : FSMState
                 else if (closePatrolFlag) 
                 {
                     // If point reached -> Close Patrol
+                    vorgonControl.SearchAnimCanPlay = false;
                     vorgonFSM.PerformTransition(Transition.PlayerDetected);
                     //closePatrolFlag = true;
                 }
@@ -133,7 +134,7 @@ public class AlertedState : FSMState
             if (vorgonControl.navAgent.remainingDistance <= vorgonControl.navAgent.stoppingDistance) //done with path
             {
 
-                if(!vorgonControl.playerT.isHiding)
+                if(!player.isHiding)
                 {
                     if (vorgonControl.SearchAnimCanPlay)
                     {
@@ -158,15 +159,23 @@ public class AlertedState : FSMState
             {
                 if (!rotConceal)
                 {
-                    vorgonControl.navAgent.isStopped = false;
-                    Vector3 direction = (vorgonControl.concealPos - vorgonControl.transform.position).normalized;
-                    Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    vorgonControl.transform.rotation = Quaternion.Slerp(vorgonControl.transform.rotation, lookRotation, Time.deltaTime);
+                    if(vorgonControl.sawConceal)
+                    {
+                        vorgonControl.navAgent.isStopped = false;
+                        Vector3 direction = (vorgonControl.concealPos - vorgonControl.transform.position).normalized;
+                        Quaternion lookRotation = Quaternion.LookRotation(direction);
+                        vorgonControl.transform.rotation = Quaternion.Slerp(vorgonControl.transform.rotation, lookRotation, Time.deltaTime);
 
-                    if (Quaternion.Angle(vorgonControl.transform.rotation, lookRotation) <= 10)
+                        if (Quaternion.Angle(vorgonControl.transform.rotation, lookRotation) <= 10)
+                        {
+                            rotConceal = true;
+                        }
+                    }
+                    else
                     {
                         rotConceal = true;
                     }
+                    
                 }
                 else
                 {
