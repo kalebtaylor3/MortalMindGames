@@ -15,7 +15,7 @@ public class StunTriggerCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Vorgon")
+        if (other.tag == "Vorgon" && trap.isArmed)
         {
             if (trap.bearTrap)
             {

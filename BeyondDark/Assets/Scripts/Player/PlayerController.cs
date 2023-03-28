@@ -1004,7 +1004,9 @@ namespace MMG
                         WorldData.Instance.SetCheckpoint();
 
                         WorldData.Instance.ItemPickedUp(ItemPickUp.relicType, this.transform.position, ItemPickUp.gameObject);
-                        
+
+                        if(movementInputData.IsCrouching)
+                            InvokeCrouchRoutine();
 
                         // Move this to after a trial is completed or failed
                         //RelicSpawnManager.Instance.RelicPickedUp(ItemPickUp.gameObject);

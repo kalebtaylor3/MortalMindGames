@@ -35,6 +35,8 @@ public class TrapInteractable : InteractableBase
 
     public bool bearTrap;
 
+    [HideInInspector] public bool isArmed = false;
+
     private void OnEnable()
     {
         textMessage = TooltipMessage;
@@ -184,6 +186,7 @@ public class TrapInteractable : InteractableBase
         QuickTimeEventSystem.OnSuccess -= OnSuccsess;
         QuickTimeEventSystem.OnFailure -= OnFailure;
         completeSource.PlayOneShot(completeClip);
-        gameObject.GetComponentInChildren<StunTriggerCollider>().gameObject.SetActive(true);        
+        gameObject.GetComponentInChildren<StunTriggerCollider>().gameObject.SetActive(true);
+        isArmed = true;
     }
 }
