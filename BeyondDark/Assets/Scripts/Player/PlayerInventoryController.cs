@@ -42,6 +42,14 @@ namespace MMG
         private void OnEnable()
         {
             if (Instance == null) { Instance = this; }
+
+            LoreInteractable.Collect += CloseBook;
+
+        }
+
+        private void OnDisable()
+        {
+            LoreInteractable.Collect -= CloseBook;
         }
 
         #region Functions

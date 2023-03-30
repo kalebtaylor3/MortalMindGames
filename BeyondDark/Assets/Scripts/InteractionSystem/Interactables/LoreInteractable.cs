@@ -11,6 +11,7 @@ public class LoreInteractable : InteractableBase
 {
     public LoreInputData LoreInputData;
     public static Action<bool> OnCollect;
+    public static Action Collect;
     public static Action<bool> OnPutDown;
     public CinemachineVirtualCamera loreCam;
     public GameObject ui;
@@ -67,6 +68,7 @@ public class LoreInteractable : InteractableBase
         controller.enabled = false;
         ui.SetActive(false);
         loreUI.SetActive(true);
+        Collect?.Invoke();
     }
 
     private void Update()
