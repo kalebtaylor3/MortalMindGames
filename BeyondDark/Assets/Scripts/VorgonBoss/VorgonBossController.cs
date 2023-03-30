@@ -306,7 +306,7 @@ public class VorgonBossController : MonoBehaviour
         yield return new WaitForSeconds(4);
         finalVorgon.SetActive(true);
         vorgonModel.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(2f);
         Destroy(sword);
         canvas.SetActive(false);
         crossHair.SetActive(false);
@@ -377,8 +377,8 @@ public class VorgonBossController : MonoBehaviour
                 canRotate = true;
         }
 
-        if (playerCloseSlam < closeSlamRadius && canCloseSlam && !isSpawningMinions)
-            state = State.CloseSlam;
+        //if (playerCloseSlam < closeSlamRadius && canCloseSlam && !isSpawningMinions)
+        //    state = State.CloseSlam;
     }
 
     void Act()
@@ -391,7 +391,7 @@ public class VorgonBossController : MonoBehaviour
                     if (canHellFire)
                     {
                         int randomNumber = Random.Range(0, 100);
-                        if (randomNumber >= 60)
+                        if (randomNumber >= 75)
                             RangeAttack(1);
                         else
                             RangeAttack(0);
