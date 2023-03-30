@@ -468,8 +468,6 @@ public class VorgonBossController : MonoBehaviour
                 case 0:
                     Debug.Log("Normal cast");
                     vorgonAnimator.SetTrigger("RangeAttack");
-                    var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
-                    projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
                     StartCoroutine(WaitForCast(4f));
                     break;
                 case 1:
@@ -775,7 +773,10 @@ public class VorgonBossController : MonoBehaviour
 
     IEnumerator WaitForCast(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(1);
+        var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
+        projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
+        yield return new WaitForSeconds(delay - 1);
         canCast = true;
         rainFire = false;
     }

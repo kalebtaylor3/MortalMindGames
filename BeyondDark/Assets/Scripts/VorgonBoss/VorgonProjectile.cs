@@ -41,6 +41,7 @@ public class VorgonProjectile : MonoBehaviour
             CameraShake.Instance.ShakeCamera(2, 2, 0.6f);
             Destroy(impact, 2.0f);
 
+            Debug.Log(collision.gameObject.name);
 
             Destroy(gameObject);
 
