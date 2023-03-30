@@ -202,7 +202,7 @@ public class VorgonBossController : MonoBehaviour
             vorgonAnimator.SetTrigger("Death");
             lastPhase = true;
             isDeadForLastPhase = true;
-            SpawnMinions();
+            //SpawnMinions();
             healthBarSlider.gameObject.SetActive(false);
             healthBar.SetTrigger("End");
         }
@@ -220,8 +220,8 @@ public class VorgonBossController : MonoBehaviour
                 Destroy(activeHellFire[i]);
             }
 
-            finalVorgon.SetActive(true);
-            vorgonModel.gameObject.SetActive(false);
+            //finalVorgon.SetActive(true);
+            //vorgonModel.gameObject.SetActive(false);
             StartCoroutine(WaitForEnd());
             //if (activeMinions.Count == 0 && !once)
             //{
@@ -303,7 +303,10 @@ public class VorgonBossController : MonoBehaviour
 
     IEnumerator WaitForEnd()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
+        finalVorgon.SetActive(true);
+        vorgonModel.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1.2f);
         Destroy(sword);
         canvas.SetActive(false);
         crossHair.SetActive(false);
