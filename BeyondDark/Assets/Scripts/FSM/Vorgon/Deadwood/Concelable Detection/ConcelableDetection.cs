@@ -209,7 +209,7 @@ public class ConcelableDetection : MonoBehaviour
                     Vector3 forwardV = vorgon.transform.forward;
                     float angle = Vector3.Angle(dir, forwardV);
 
-                    if (angle <= 45.0f)
+                    if (angle <= 90)
                     {
                         float distanceToTarget = Vector3.Distance(vorgon.transform.position, concelableArea.transform.position);
 
@@ -217,7 +217,7 @@ public class ConcelableDetection : MonoBehaviour
 
                         if (!Physics.Raycast(vorgon.transform.position, dir, distanceToTarget, obstructionMask))
                         {
-                            if (concelableArea.rotator.transform.localRotation.y > 0.25f || concelableArea.rotator.transform.localRotation.x > 0.25f || concelableArea.rotator.transform.localRotation.z > 0.25f)
+                            if (concelableArea.rotator.transform.localRotation.y > 0.20f || concelableArea.rotator.transform.localRotation.x > 0.20f || concelableArea.rotator.transform.localRotation.z > 0.20f)
                             {
                                 //increase see reveal % and show ui depending on that. if exposure is over a certain amount the react
                                 //need logic so this only happens once
