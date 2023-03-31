@@ -563,7 +563,7 @@ public class PlayerCombatController : MonoBehaviour
         CameraShake.Instance.ShakeCamera(1.5f, 2, 1.8f);
 
         wall.transform.rotation = wallRotation;
-        wall.transform.Translate(new Vector3(-(int)(wallCubeAmount / 2) * wallCubeDistace, -1.2f, 0), Space.Self);
+        wall.transform.Translate(new Vector3(-(int)(wallCubeAmount / 2) * wallCubeDistace, 0, 0), Space.Self);
 
         buildingWall = false;
     }

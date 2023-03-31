@@ -21,6 +21,10 @@ public class WallHealthTEMP : MonoBehaviour
         {
             ReceiveDamage(other.GetComponent<MProjectile>().damage, other.GetComponent<MProjectile>().minionControl);
         }
+        else if(other.gameObject.CompareTag("BossProjectile"))
+        {
+            ReceiveDamage(2000);
+        }
            
     }
 
