@@ -555,7 +555,7 @@ public class PlayerCombatController : MonoBehaviour
 
         for(int i = 0; i < wallCubeAmount; i++)
         {
-            var cube = Instantiate(wallCube, wallDestination + new Vector3(i * wallCubeDistace, 0, 0), Quaternion.identity) as GameObject;
+            var cube = Instantiate(wallCube, wallDestination + new Vector3(0,0,100), Quaternion.identity) as GameObject;
             cube.transform.SetParent(wall.transform);
         }
 
@@ -563,7 +563,7 @@ public class PlayerCombatController : MonoBehaviour
         CameraShake.Instance.ShakeCamera(1.5f, 2, 1.8f);
 
         wall.transform.rotation = wallRotation;
-        wall.transform.Translate(new Vector3(-(int)(wallCubeAmount / 2) * wallCubeDistace, 0, 0), Space.Self);
+        //wall.transform.Translate(new Vector3(-(int)(wallCubeAmount / 2) * wallCubeDistace, 0, 0), Space.Self);
 
         buildingWall = false;
     }
