@@ -23,9 +23,6 @@ namespace MMG
             [HideInInspector] public bool canMove = true;
             [HideInInspector] public bool canInteract = true;
             [HideInInspector] public bool lookingAtLore = false;
-
-            bool dead = false;
-
         #endregion
 
         #region Functions
@@ -35,7 +32,6 @@ namespace MMG
             movementInputData.ResetInput();
             interactionInputData.ResetInput();
             canMove = true;
-            dead = false;
         }
 
         void Start()
@@ -44,7 +40,6 @@ namespace MMG
             movementInputData.ResetInput();
             interactionInputData.ResetInput();
             canMove = true;
-            dead = false;
         }
 
         private void OnEnable()
@@ -53,14 +48,12 @@ namespace MMG
             //uickTimeEventSystem.QTETrigger += OnCantMove;
             LoreInteractable.OnCollect += LookAtLore;
             LoreInteractable.OnPutDown += LookAtLore;
-            PlayerHealthSystem.OnDeath += Dead;
         }
 
         private void OnDisable()
         {
             LoreInteractable.OnCollect -= LookAtLore;
             LoreInteractable.OnPutDown -= LookAtLore;
-            PlayerHealthSystem.OnDeath -= Dead;
         }
 
         void UnCrouch()
@@ -77,11 +70,6 @@ namespace MMG
         void OnCantMove()
         {
             canMove = false;
-        }
-
-        void Dead(bool value)
-        {
-            dead = value;
         }
 
         void Update()
@@ -110,7 +98,7 @@ namespace MMG
 
 
 
-                if (isVorgonCharacter && !dead)
+                if (isVorgonCharacter)
                     GetCombatInput();
 
                 if(lookingAtLore)
