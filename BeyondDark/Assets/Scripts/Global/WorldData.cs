@@ -528,6 +528,12 @@ public class WorldData : MonoBehaviour
 
     public void TurnOffContainment()
     {
+        StartCoroutine(TurnOffContain());
+    }
+
+    public IEnumerator TurnOffContain()
+    {
+        yield return new WaitForSeconds(3.5f);
         initialContain.SetActive(false);
     }
 

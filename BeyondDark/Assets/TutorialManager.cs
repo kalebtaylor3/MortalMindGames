@@ -4,24 +4,16 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    List<GameObject> concelableDialouge;
-    List<GameObject> trapDialouge;
+    GameObject[] concelableDialouge;
+    GameObject[] trapDialouge;
 
 
     private void OnEnable()
     {
-        concelableDialouge = new List<GameObject>();
-        trapDialouge = new List<GameObject>();
 
-        foreach (GameObject fooObj in GameObject.FindGameObjectsWithTag("TrapDialouge"))
-        {
-            concelableDialouge.Add(fooObj);
-        }
+        concelableDialouge = GameObject.FindGameObjectsWithTag("ConcelableDialogue");
+        trapDialouge = GameObject.FindGameObjectsWithTag("TrapDialogue");
 
-        foreach (GameObject fooObj in GameObject.FindGameObjectsWithTag("ConcelableDialouge"))
-        {
-            trapDialouge.Add(fooObj);
-        }
 
         DialogueTrigger.OnConcelable += DestroyConcelable;
         DialogueTrigger.OnTrap += DestroyTraps;
@@ -36,7 +28,7 @@ public class TutorialManager : MonoBehaviour
 
     void DestroyTraps()
     {
-        for(int i = 0; i < trapDialouge.Count; i++)
+        for(int i = 0; i < trapDialouge.Length; i++)
         {
             Destroy(trapDialouge[i]);
         }
@@ -44,7 +36,7 @@ public class TutorialManager : MonoBehaviour
 
     void DestroyConcelable()
     {
-        for (int i = 0; i < concelableDialouge.Count; i++)
+        for (int i = 0; i < concelableDialouge.Length; i++)
         {
             Destroy(concelableDialouge[i]);
         }

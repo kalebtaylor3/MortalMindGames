@@ -4,7 +4,7 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue; // an instance of the Dialogue class, containing the clipName and message
-    public DialougeSystem dialogueSystem; // reference to the DialogueManager script
+    private DialougeSystem dialogueSystem; // reference to the DialogueManager script
 
     public bool trap;
     public bool concelable;
@@ -14,6 +14,8 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        dialogueSystem = DialougeSystem.instance;
+
         if (other.tag == "Player")
         {
             dialogueSystem.PlayDialogue(dialogue); // call the PlayDialogue function in the DialogueManager script and pass in the Dialogue instance
