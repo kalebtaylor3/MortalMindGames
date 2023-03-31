@@ -453,8 +453,9 @@ public class WorldData : MonoBehaviour
             ConcelableDetection.Instance.exposure = 0;
             ConcelableDetection.Instance.playerDead = true;
 
-            yield return new WaitForSeconds(1.0f);
+            //yield return new WaitForSeconds(1.0f);
             ConcelableDetection.Instance.vorgonKnows = false;
+            yield return new WaitForSeconds(((float)deathClip.length));
             fadeOut.SetActive(true);
             lastConceal.ToggleCamChange();
             TpTest.Instance.MortalRealmDeath(pickUpCP);
