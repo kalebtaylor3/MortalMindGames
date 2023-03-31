@@ -146,6 +146,25 @@ public class WorldData : MonoBehaviour
 
     public CameraController cameraC;
 
+    private void OnEnable()
+    {
+        LoreInteractable.OnCollect += CameraControl;
+        LoreInteractable.OnPutDown += CameraControl;
+    }
+
+    private void OnDisable()
+    {
+        LoreInteractable.OnCollect -= CameraControl;
+        LoreInteractable.OnPutDown -= CameraControl;
+    }
+
+    void CameraControl(bool value)
+    {
+        cameraC.enabled = !value;
+        player.enabled = !value;
+    }
+
+
     private void Update()
     {
 
