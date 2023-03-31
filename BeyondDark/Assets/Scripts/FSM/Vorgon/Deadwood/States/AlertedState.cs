@@ -159,8 +159,8 @@ public class AlertedState : FSMState
             {
                 if (!rotConceal)
                 {
-                    if(vorgonControl.sawConceal)
-                    {
+                    //if(vorgonControl.sawConceal)
+                    //{
                         vorgonControl.navAgent.isStopped = false;
                         Vector3 direction = (vorgonControl.concealPos - vorgonControl.transform.position).normalized;
                         Quaternion lookRotation = Quaternion.LookRotation(direction);
@@ -168,13 +168,17 @@ public class AlertedState : FSMState
 
                         if (Quaternion.Angle(vorgonControl.transform.rotation, lookRotation) <= 10)
                         {
-                            rotConceal = true;
+                            if (!vorgonControl.SearchAnimIsPlaying)
+                            {
+                                vorgonControl.PlaySearchAnim();
+                                rotConceal = true;
+                            }                                                   
                         }
-                    }
-                    else
-                    {
-                        rotConceal = true;
-                    }
+                    //}
+                    //else
+                    //{
+                    //    rotConceal = true;
+                    //}
                     
                 }
                 else

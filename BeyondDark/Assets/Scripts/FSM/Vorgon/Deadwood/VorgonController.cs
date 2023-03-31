@@ -172,6 +172,7 @@ public class VorgonController : MonoBehaviour
 
     IEnumerator TriggerAttack(bool hiding)
     {
+        vorgonAnimator.SetTrigger("Idle");
         isAttacking = true;
         WorldData.Instance.PlayerDeathMortalRealm();
         yield return new WaitForSeconds(2);
