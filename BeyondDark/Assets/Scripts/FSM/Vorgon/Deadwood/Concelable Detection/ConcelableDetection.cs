@@ -217,7 +217,7 @@ public class ConcelableDetection : MonoBehaviour
 
                         if (!Physics.Raycast(vorgon.transform.position, dir, distanceToTarget, obstructionMask))
                         {
-                            if (concelableArea.rotator.transform.localRotation.y > 0.20f || concelableArea.rotator.transform.localRotation.x > 0.20f || concelableArea.rotator.transform.localRotation.z > 0.20f)
+                            if (concelableArea.rotator.transform.localRotation.y > 0.16f || concelableArea.rotator.transform.localRotation.x > 0.16f || concelableArea.rotator.transform.localRotation.z > 0.16f)
                             {
                                 //increase see reveal % and show ui depending on that. if exposure is over a certain amount the react
                                 //need logic so this only happens once

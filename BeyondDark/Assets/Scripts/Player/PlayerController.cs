@@ -217,6 +217,7 @@ namespace MMG
 
         bool canMove = true;
 
+        public GameObject compass;
 
         #endregion
 
@@ -258,10 +259,12 @@ namespace MMG
             if (isHiding)
             {
                 characterController.enabled = false;
+                compass.SetActive(false);   
             }
             else
             {
                 characterController.enabled = true;
+                compass.SetActive(true);
             }
 
             if (characterController && canMove)
