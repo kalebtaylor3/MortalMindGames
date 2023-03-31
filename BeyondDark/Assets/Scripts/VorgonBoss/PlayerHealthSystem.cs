@@ -1,3 +1,4 @@
+using MMG;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,6 +31,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
     public Animator deathAnimator;
     public GameObject deathCamera;
+
+    public PlayerController charController;
 
 
     public static event Action<bool> OnDeath;
@@ -110,7 +113,6 @@ public class PlayerHealthSystem : MonoBehaviour
                 }
             }
 
-
 //            if (!invincible)
 //            {
 //                if (currentPlayerHealth <= 0)
@@ -146,6 +148,13 @@ public class PlayerHealthSystem : MonoBehaviour
                 }
             }
         }
+
+
+        if (alive)
+            charController.enabled = true;
+        else
+            charController.enabled = false;
+
         
     }
 

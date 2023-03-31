@@ -144,6 +144,8 @@ public class WorldData : MonoBehaviour
 
     public VideoClip deathClip;
 
+    public CameraController cameraC;
+
     private void Update()
     {
 
@@ -421,7 +423,7 @@ public class WorldData : MonoBehaviour
 
             lastConceal.enteranceAnimator.SetTrigger("Enter");
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1.5f);
 
             lastConceal.ToggleConcealDeath();
             
@@ -459,9 +461,13 @@ public class WorldData : MonoBehaviour
             playerDeathMR.SetActive(true);            
             vorgon.playerDead = true;
             vorgon.detection = 0;
+            player.enabled = false;
+            cameraC.enabled = false;
             yield return new WaitForSeconds(((float)deathClip.length));
             vorgonModel.SetActive(false);
             fadeOut.SetActive(true);
+            player.enabled = true;
+            cameraC.enabled = true;
             TpTest.Instance.MortalRealmDeath(pickUpCP);
             playerDeathMR.SetActive(false);
             yield return new WaitForSeconds(1);
