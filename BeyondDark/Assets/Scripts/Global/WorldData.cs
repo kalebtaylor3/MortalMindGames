@@ -115,6 +115,8 @@ public class WorldData : MonoBehaviour
     public StealthDetection stealthDetection;
     public ConcelableDetection concealDetection;
 
+    public GameObject initialContain;
+
     [HideInInspector] public bool happenOnce = false;
 
     float startingRange1;
@@ -356,6 +358,7 @@ public class WorldData : MonoBehaviour
         if (type == RELIC_TYPE.MAP)
         {
             RelicSpawnManager.Instance.RelicPickedUp(go);
+            TurnOffContainment();
         }
 
         switch (type)
@@ -521,6 +524,11 @@ public class WorldData : MonoBehaviour
         }
 
         input.canMove = true;
+    }
+
+    public void TurnOffContainment()
+    {
+        initialContain.SetActive(false);
     }
 
     #endregion
