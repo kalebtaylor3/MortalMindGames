@@ -270,6 +270,7 @@ public class MinionController : MonoBehaviour
             var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
             projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
             projectileObj.GetComponent<MProjectile>().minionControl = this;
+            projectileObj.transform.rotation = Quaternion.LookRotation(projectileObj.GetComponent<Rigidbody>().velocity);
         }
         
         //animController.SetBool("Attacking", true);

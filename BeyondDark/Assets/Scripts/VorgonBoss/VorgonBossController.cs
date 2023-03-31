@@ -779,6 +779,7 @@ public class VorgonBossController : MonoBehaviour
         yield return new WaitForSeconds(1);
         var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
         projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
+        projectileObj.transform.rotation = Quaternion.LookRotation(projectileObj.GetComponent<Rigidbody>().velocity);
         yield return new WaitForSeconds(delay - 1);
         canCast = true;
         rainFire = false;

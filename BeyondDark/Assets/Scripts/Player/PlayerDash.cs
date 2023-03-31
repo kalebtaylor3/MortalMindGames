@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerDash : MonoBehaviour
 {
@@ -27,6 +28,14 @@ public class PlayerDash : MonoBehaviour
     public AudioSource dashSound;
     public AudioClip dashClip;
 
+    public PlayerHealthSystem playerHealthSystem;
+
+
+    private void Awake()
+    {
+        isDashing = false;
+    }
+
     private void OnEnable()
     {
         isDashing = false;
@@ -34,17 +43,18 @@ public class PlayerDash : MonoBehaviour
 
     private void Update()
     {
-        if(combatInputData.DashFlag)
+        if (combatInputData.DashFlag)
         {
-            calculateDash();
+            if(playerHealthSystem.alive)
+                calculateDash();
         }
 
-        if(isDashing)
+        if (isDashing)
         {
             PerformDash();
-        }     
-        
-        if(cooldownTimer > 0)
+        }
+
+        if (cooldownTimer > 0)
         {
             cooldownTimer -= Time.deltaTime;
         }

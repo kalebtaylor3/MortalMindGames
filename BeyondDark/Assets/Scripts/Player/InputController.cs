@@ -24,6 +24,8 @@ namespace MMG
             [HideInInspector] public bool canInteract = true;
             [HideInInspector] public bool lookingAtLore = false;
 
+            bool dead = false;
+
         #endregion
 
         #region Functions
@@ -33,15 +35,17 @@ namespace MMG
             movementInputData.ResetInput();
             interactionInputData.ResetInput();
             canMove = true;
+            dead = false;
         }
 
         void Start()
-            {
-                cameraInputData.ResetInput();
-                movementInputData.ResetInput();
-                interactionInputData.ResetInput();
-                canMove = true;
-            }
+        {
+            cameraInputData.ResetInput();
+            movementInputData.ResetInput();
+            interactionInputData.ResetInput();
+            canMove = true;
+            dead = false;
+        }
 
         private void OnEnable()
         {
@@ -49,12 +53,14 @@ namespace MMG
             //uickTimeEventSystem.QTETrigger += OnCantMove;
             LoreInteractable.OnCollect += LookAtLore;
             LoreInteractable.OnPutDown += LookAtLore;
+            PlayerHealthSystem.OnDeath += Dead;
         }
 
         private void OnDisable()
         {
             LoreInteractable.OnCollect -= LookAtLore;
             LoreInteractable.OnPutDown -= LookAtLore;
+            PlayerHealthSystem.OnDeath -= Dead;
         }
 
         void UnCrouch()
@@ -73,12 +79,20 @@ namespace MMG
             canMove = false;
         }
 
+        void Dead(bool value)
+        {
+            dead = value;
+        }
+
         void Update()
         {
             if(!WorldData.Instance.gamePaused)
             {
                 if (!lookingAtLore)
+                {
                     GetCameraInput();
+                    GetInventoryInputData();
+                }
 
                 if (canMove && !lookingAtLore)
                     GetMovementInputData();
@@ -90,13 +104,13 @@ namespace MMG
 
                 if (canInteract)
                     GetInteractionInputData();
-                GetInventoryInputData();
+
                 GetItemInputData();
                 GetQuickTimeEventInputData();
 
 
 
-                if (isVorgonCharacter)
+                if (isVorgonCharacter && !dead)
                     GetCombatInput();
 
                 if(lookingAtLore)

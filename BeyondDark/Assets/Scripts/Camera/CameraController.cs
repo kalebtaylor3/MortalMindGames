@@ -112,6 +112,9 @@ namespace MMG
         {
             cameraZoom.Init(playerCam, camInputData);
             cameraSway.Init(playerCam.transform);
+
+            desiredYaw = transform.eulerAngles.y;
+            desiredPitch = transform.eulerAngles.x;
         }
 
         void HandlePeaking()
