@@ -22,7 +22,7 @@ public class WallOfSoulsSounds : MonoBehaviour
 
     public void CreatedWall()
     {
-        wallsource.Stop();
+        //wallsource.Stop();
         activeWall.enabled = true;
     }
 

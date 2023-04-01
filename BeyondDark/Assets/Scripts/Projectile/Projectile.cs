@@ -27,29 +27,59 @@ public class Projectile : MonoBehaviour
         {
             Collided = true;
 
-            if(collision.gameObject.tag == "Eye")
+            if (damage < 14)
             {
-                Debug.Log("Hit Vorgon In Eye");
-                DealDamage?.Invoke(15);
+                if (collision.gameObject.tag == "Eye")
+                {
+                    Debug.Log("Hit Vorgon In Eye");
+                    DealDamage?.Invoke(15);
+                }
+
+                if (collision.gameObject.tag == "Face")
+                {
+                    Debug.Log("Hit Vorgon In Face");
+                    DealDamage?.Invoke(10);
+                }
+
+                if (collision.gameObject.tag == "Body")
+                {
+                    Debug.Log("Hit Vorgon In Body");
+                    DealDamage?.Invoke(5);
+                }
+
+                if (collision.gameObject.tag == "Arm")
+                {
+                    Debug.Log("Hit Vorgon In Body");
+                    DealDamage?.Invoke(10);
+                }
+            }
+            else
+            {
+                if (collision.gameObject.tag == "Eye")
+                {
+                    Debug.Log("Hit Vorgon In Eye");
+                    DealDamage?.Invoke(30);
+                }
+
+                if (collision.gameObject.tag == "Face")
+                {
+                    Debug.Log("Hit Vorgon In Face");
+                    DealDamage?.Invoke(20);
+                }
+
+                if (collision.gameObject.tag == "Body")
+                {
+                    Debug.Log("Hit Vorgon In Body");
+                    DealDamage?.Invoke(10);
+                }
+
+                if (collision.gameObject.tag == "Arm")
+                {
+                    Debug.Log("Hit Vorgon In Body");
+                    DealDamage?.Invoke(20);
+                }
             }
 
-            if(collision.gameObject.tag == "Face")
-            {
-                Debug.Log("Hit Vorgon In Face");
-                DealDamage?.Invoke(10);
-            }
-
-            if (collision.gameObject.tag == "Body")
-            {
-                Debug.Log("Hit Vorgon In Body");
-                DealDamage?.Invoke(5);
-            }
-
-            if (collision.gameObject.tag == "Arm")
-            {
-                Debug.Log("Hit Vorgon In Body");
-                DealDamage?.Invoke(10);
-            }
 
 
             var impact = Instantiate(impactPrefab, collision.contacts[0].point, Quaternion.identity) as GameObject;

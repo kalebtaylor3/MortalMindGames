@@ -10,20 +10,25 @@ public class WallHealthTEMP : MonoBehaviour
 
     public Transform ShotPos = null;
 
+    public WallOfSoulsSounds sounds;
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Bullet"))
         {
             ReceiveDamage(other.GetComponent<Projectile>().damage);
+            sounds.WallDamaged();
         }
         else if (other.gameObject.CompareTag("MinionBullet"))
         {
             ReceiveDamage(other.GetComponent<MProjectile>().damage, other.GetComponent<MProjectile>().minionControl);
+            sounds.WallDamaged();
         }
         else if(other.gameObject.CompareTag("BossProjectile"))
         {
             ReceiveDamage(2000);
+            sounds.WallDamaged();
         }
            
     }

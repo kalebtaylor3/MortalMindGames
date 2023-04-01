@@ -14,11 +14,14 @@ public class HellFireController : MonoBehaviour
 
     List<GameObject> shootList = new List<GameObject>();
 
+    private bool hasFired = false;
+
     private void Awake()
     {
         canShoot = false;
         float random = Random.Range(0, 0.6f);
         StartCoroutine(WaitToShoot(random));
+        projectileSpeed = Random.Range(20, 25);
     }
 
     // Start is called before the first frame update
@@ -28,6 +31,8 @@ public class HellFireController : MonoBehaviour
         canShoot = false;
         float random = Random.Range(0, 1f);
         StartCoroutine(WaitToShoot(random));
+
+        projectileSpeed = Random.Range(20, 25);
     }
 
     
@@ -48,10 +53,11 @@ public class HellFireController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canShoot)
+        if (canShoot && !hasFired)
         {
             ShootProjectile();
             canShoot = false;
+            hasFired = true;
             Invoke("EnableShooting", delay);
         }
     }
@@ -68,5 +74,6 @@ public class HellFireController : MonoBehaviour
     void EnableShooting()
     {
         canShoot = true;
+        hasFired = false;
     }
 }
