@@ -92,13 +92,15 @@ public class ConcelableDetection : MonoBehaviour
     private void Update()
     {
 
-        if(vorgon.playerDetected)
+        if(vorgon.playerDetected || vorgonKnows)
         {
             if (!flashingSight)
             {
                 seeingDetectionUI.color = Color.red;
             }
             exposure = 1;
+            hearingDetectionUI.fillAmount = 0;
+            hearingCanvas.alpha = 0;
         }
 
 
@@ -113,7 +115,7 @@ public class ConcelableDetection : MonoBehaviour
         if (hearingExposure <= 0)
             hearingExposure = 0;
 
-        if (hearingExposure >= 1)
+        if (hearingExposure >= 1 && !vorgon.playerDetected)
         {
             hearingExposure = 1;
             hearingDetectionOutline.color = Color.red;
@@ -164,12 +166,12 @@ public class ConcelableDetection : MonoBehaviour
 
                         if (concelableArea.rotator.transform.localRotation.y > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.x > concelableArea.maxLocalRotationValue || concelableArea.rotator.transform.localRotation.z > concelableArea.maxLocalRotationValue)
                         {
-                            if (!detected && !vorgonKnows && !vorgon.sawConceal)
+                            //if (!detected && !vorgonKnows && !vorgon.sawConceal)
                                 hearingExposure -= Time.deltaTime * detectionSpeed;
                         }
                         else if (concelableArea.exposurePercentage <= 0)
                         {
-                            if (!detected && !vorgonKnows && !vorgon.sawConceal)
+                            //if (!detected && !vorgonKnows && !vorgon.sawConceal)
                                 hearingExposure -= Time.deltaTime * detectionSpeed;
                         }
                         else if (concelableArea.rotator.transform.localRotation.y > 0 || concelableArea.rotator.transform.localRotation.x > 0 || concelableArea.rotator.transform.localRotation.z > 0)
@@ -179,7 +181,8 @@ public class ConcelableDetection : MonoBehaviour
                             {
                                 if (concelableArea.doorCreak.volume > 0.35f)
                                 {
-                                    hearingExposure += Time.deltaTime * (detectionSpeed * concelableArea.exposurePercentage);
+                                    if(!vorgon.playerDetected && exposure != 1)
+                                        hearingExposure += Time.deltaTime * (detectionSpeed * concelableArea.exposurePercentage);
                                     if (hearingCanvas.alpha >= 1)
                                     {
                                         detected = true;
@@ -194,13 +197,16 @@ public class ConcelableDetection : MonoBehaviour
                     }
                     else
                     {
-                        if (!detected && !vorgonKnows && !vorgon.sawConceal)
+                        //if (!detected && !vorgonKnows && !vorgon.sawConceal)
                             hearingExposure -= Time.deltaTime * detectionSpeed;
                     }
                 }
 
-                hearingCanvas.alpha = Mathf.Lerp(0, 1, hearingExposure);
-                hearingDetectionUI.fillAmount = hearingExposure; // update the UI to match the detection level
+                if (!vorgon.playerDetected)
+                {
+                    hearingCanvas.alpha = Mathf.Lerp(0, 1, hearingExposure);
+                    hearingDetectionUI.fillAmount = hearingExposure; // update the UI to match the detection level
+                }
 
                 //fov check for seeing the concelable area. only react if exposed.
 
@@ -221,7 +227,7 @@ public class ConcelableDetection : MonoBehaviour
 
                         if (!Physics.Raycast(vorgon.transform.position, dir, distanceToTarget, obstructionMask))
                         {
-                            if (concelableArea.rotator.transform.localRotation.y > 0.16f || concelableArea.rotator.transform.localRotation.x > 0.16f || concelableArea.rotator.transform.localRotation.z > 0.16f)
+                            if (concelableArea.rotator.transform.localRotation.y > 0.16f || concelableArea.rotator.transform.localRotation.x > 0.16f || concelableArea.rotator.transform.localRotation.z > 0.16f && !vorgon.playerDetected)
                             {
                                 //increase see reveal % and show ui depending on that. if exposure is over a certain amount the react
                                 //need logic so this only happens once
@@ -243,32 +249,41 @@ public class ConcelableDetection : MonoBehaviour
                             }
                             else
                             {
-                                exposure -= Time.deltaTime * seeingDetectionSpeed;
-                                vorgon.PlayerInSight = false;
-                                rayColor = Color.green;
-                                happenOnce = false;
+                                if (!vorgon.playerDetected)
+                                {
+                                    exposure -= Time.deltaTime * seeingDetectionSpeed;
+                                    vorgon.PlayerInSight = false;
+                                    rayColor = Color.green;
+                                    happenOnce = false;
+                                }
                             }
                         }
                         else
                         {
-                            exposure -= Time.deltaTime * seeingDetectionSpeed;
-                            rayColor = Color.green;
-                            happenOnce = false;
+                            if (!vorgon.playerDetected)
+                            {
+                                exposure -= Time.deltaTime * seeingDetectionSpeed;
+                                rayColor = Color.green;
+                                happenOnce = false;
+                            }
                         }
                     }
                     else
                     {
-                        exposure -= Time.deltaTime * seeingDetectionSpeed;
+                        if(!vorgon.playerDetected)  
+                            exposure -= Time.deltaTime * seeingDetectionSpeed;
                     }
 
                 }
                 else
                 {
-                    exposure -= Time.deltaTime * seeingDetectionSpeed;
+                    if(!vorgon.playerDetected)
+                        exposure -= Time.deltaTime * seeingDetectionSpeed;
+
                     hearingExposure -= Time.deltaTime * detectionSpeed;
                 }
 
-                if (concelableArea.exposurePercentage <= 0 && !vorgon.sawConceal)
+                if (concelableArea.exposurePercentage <= 0 && !vorgon.sawConceal && !vorgon.playerDetected)
                 {
                     exposure -= Time.deltaTime * seeingDetectionSpeed;
                 }
