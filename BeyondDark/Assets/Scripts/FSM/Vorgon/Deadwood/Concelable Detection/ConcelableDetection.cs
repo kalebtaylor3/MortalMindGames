@@ -101,6 +101,7 @@ public class ConcelableDetection : MonoBehaviour
             exposure = 1;
             hearingDetectionUI.fillAmount = 0;
             hearingCanvas.alpha = 0;
+            hearingExposure = 0;
         }
 
 
@@ -249,7 +250,7 @@ public class ConcelableDetection : MonoBehaviour
                             }
                             else
                             {
-                                if (!vorgon.playerDetected)
+                                if (!vorgon.playerDetected && !vorgonKnows)
                                 {
                                     exposure -= Time.deltaTime * seeingDetectionSpeed;
                                     vorgon.PlayerInSight = false;
@@ -260,7 +261,7 @@ public class ConcelableDetection : MonoBehaviour
                         }
                         else
                         {
-                            if (!vorgon.playerDetected)
+                            if (!vorgon.playerDetected && !vorgonKnows)
                             {
                                 exposure -= Time.deltaTime * seeingDetectionSpeed;
                                 rayColor = Color.green;
@@ -270,20 +271,20 @@ public class ConcelableDetection : MonoBehaviour
                     }
                     else
                     {
-                        if(!vorgon.playerDetected)  
+                        if(!vorgon.playerDetected && !vorgonKnows)  
                             exposure -= Time.deltaTime * seeingDetectionSpeed;
                     }
 
                 }
                 else
                 {
-                    if(!vorgon.playerDetected)
+                    if(!vorgon.playerDetected && !vorgonKnows)
                         exposure -= Time.deltaTime * seeingDetectionSpeed;
 
                     hearingExposure -= Time.deltaTime * detectionSpeed;
                 }
 
-                if (concelableArea.exposurePercentage <= 0 && !vorgon.sawConceal && !vorgon.playerDetected)
+                if (concelableArea.exposurePercentage <= 0 && !vorgon.sawConceal && !vorgon.playerDetected && !vorgonKnows)
                 {
                     exposure -= Time.deltaTime * seeingDetectionSpeed;
                 }
