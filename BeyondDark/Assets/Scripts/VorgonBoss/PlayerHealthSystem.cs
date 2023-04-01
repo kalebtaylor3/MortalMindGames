@@ -183,7 +183,8 @@ public class PlayerHealthSystem : MonoBehaviour
             UpdateHealth();
             healCooldown = maxHealCooldown;
             startCooldown = true;
-            damageSource.PlayOneShot(damageClip);
+            if(!damageSource.isPlaying)
+                damageSource.PlayOneShot(damageClip);
         }
     }
 
