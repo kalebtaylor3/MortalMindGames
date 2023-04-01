@@ -285,8 +285,171 @@ PrefabInstance:
       propertyPath: m_Name
       value: Realm_2nd
       objectReference: {fileID: 0}
+    - target: {fileID: 4149539576280718363, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_TagString
+      value: Dirt
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170418395096805213, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_TagString
+      value: Gravel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170418395119764306, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_TagString
+      value: Gravel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170418395459081669, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_TagString
+      value: Gravel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170418395651217973, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_TagString
+      value: Gravel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170418395662809281, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_TagString
+      value: Gravel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170418395698316130, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_TagString
+      value: Gravel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170418395775544127, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_TagString
+      value: Gravel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170418396073884708, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_TagString
+      value: Gravel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170418396969953899, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_TagString
+      value: Gravel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440379494229798349, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.5849056
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440379494229798349, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.5849056
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440379494229798349, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.5849056
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440379494229798349, guid: c139e0defb395fc4180813ffd63d9748,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c139e0defb395fc4180813ffd63d9748, type: 3}
+--- !u!1 &380769454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 380769458}
+  - component: {fileID: 380769457}
+  - component: {fileID: 380769456}
+  - component: {fileID: 380769455}
+  m_Layer: 5
+  m_Name: Compas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &380769455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380769454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e2d3b863d40a547b0f8bd3870ef081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  markerPrefab: {fileID: 5707252815658956373, guid: eca82974aff92694d813e20cdd59e7a2,
+    type: 3}
+  compasImage: {fileID: 380769456}
+  player: {fileID: 0}
+  house1: {fileID: 0}
+  house2: {fileID: 0}
+  house3: {fileID: 0}
+--- !u!114 &380769456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380769454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 7fd1e1555e4a496448135f57c4932bb1, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &380769457
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380769454}
+  m_CullTransparentMesh: 1
+--- !u!224 &380769458
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380769454}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -11.979713}
+  m_LocalScale: {x: 2.17313, y: 1.1061599, z: 1.1061599}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 960, y: 1083.1246}
+  m_SizeDelta: {x: 1200, y: 40}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!1001 &416183404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -299,6 +462,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1432220041037614963, guid: 4ee7d5f18f6370a429e5e1024be1680c,
+        type: 3}
+      propertyPath: compass
+      value: 
+      objectReference: {fileID: 380769454}
     - target: {fileID: 2419661197021257219, guid: 4ee7d5f18f6370a429e5e1024be1680c,
         type: 3}
       propertyPath: m_RootOrder
@@ -361,37 +529,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ee7d5f18f6370a429e5e1024be1680c, type: 3}
---- !u!1 &1219360104
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1219360105}
-  m_Layer: 0
-  m_Name: Compas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1219360105
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219360104}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -618.846, y: 91.578, z: -415.815}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1534461321
 GameObject:
   m_ObjectHideFlags: 0
