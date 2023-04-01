@@ -97,6 +97,8 @@ public class VorgonBossController : MonoBehaviour
     public GameObject crossHair;
     public GameObject vorgonModel;
 
+    public VorgonBossSounds bossSounds;
+
 
 
     //if not attacking & no active minions & in second phase. spawn minions
@@ -347,6 +349,10 @@ public class VorgonBossController : MonoBehaviour
     public void TakeDamage(float amount)
     {
         currentHealth = currentHealth - amount;
+        if(amount >= 20)
+        {
+            bossSounds.TakeDamage();
+        }
     }
 
 
