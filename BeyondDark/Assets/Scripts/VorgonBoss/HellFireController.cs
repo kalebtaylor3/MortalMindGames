@@ -15,6 +15,8 @@ public class HellFireController : MonoBehaviour
     List<GameObject> shootList = new List<GameObject>();
 
     private bool hasFired = false;
+    public AudioSource hellfireSource;
+    public AudioClip hellFireSpawn;
 
     private void Awake()
     {
@@ -68,6 +70,7 @@ public class HellFireController : MonoBehaviour
         var projectileObj = Instantiate(projectile, shootPos.position, Quaternion.identity) as GameObject;
         projectileObj.GetComponent<Rigidbody>().velocity = shootPos.forward * projectileSpeed;
         shootList.Add(projectileObj);
+        hellfireSource.PlayOneShot(hellFireSpawn);
     }
 
     // Function to enable shooting
