@@ -9,7 +9,6 @@ public class VorgonBossSounds : MonoBehaviour
     public AudioClip laughClip;
     public AudioClip slamClip;
     public AudioClip raiseHandClip;
-    public AudioClip shootClip;
     public AudioClip chosenDeath;
     public AudioClip damageClip;
 
@@ -26,11 +25,6 @@ public class VorgonBossSounds : MonoBehaviour
     public void RaiseHand()
     {
         vorgonAudio.PlayOneShot(raiseHandClip);
-    }
-
-    public void Shoot()
-    {
-        vorgonAudio.PlayOneShot(shootClip);
     }
 
     public void ChoseDeath()
