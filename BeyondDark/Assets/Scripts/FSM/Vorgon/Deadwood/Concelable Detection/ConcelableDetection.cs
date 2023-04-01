@@ -38,7 +38,7 @@ public class ConcelableDetection : MonoBehaviour
 
     public bool vorgonKnows = false;
 
-    bool seen = false;
+    public bool seen = false;
 
     [HideInInspector] public bool playerDead = false;
 

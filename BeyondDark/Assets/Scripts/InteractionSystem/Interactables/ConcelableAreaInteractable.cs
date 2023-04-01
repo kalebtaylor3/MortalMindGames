@@ -386,6 +386,7 @@ namespace MMG
             input.canMove = true;
             OnLeaveSpot?.Invoke();
             deathCAA.SetActive(false);
+            ConcelableDetection.Instance.seen = false;
             //enteranceAnimator.SetTrigger("Inside");
             //yield return new WaitForSeconds(enteranceAnimator.GetCurrentAnimatorClipInfo(0).Length + 1);
 
