@@ -4,41 +4,67 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    GameObject[] concelableDialouge;
-    GameObject[] trapDialouge;
+    GameObject[] barrelConcelableDialouge;
+    GameObject[] oilTrapDialouge;
+
+    GameObject[] chestlConcelableDialouge;
+    GameObject[] springTrapDialouge;
 
 
     private void OnEnable()
     {
 
-        concelableDialouge = GameObject.FindGameObjectsWithTag("ConcelableDialogue");
-        trapDialouge = GameObject.FindGameObjectsWithTag("TrapDialogue");
+        barrelConcelableDialouge = GameObject.FindGameObjectsWithTag("BarrelConcelableDialogue");
+        chestlConcelableDialouge = GameObject.FindGameObjectsWithTag("ChestConcelableDialogue");
+        oilTrapDialouge = GameObject.FindGameObjectsWithTag("OilTrapDialogue");
+        springTrapDialouge = GameObject.FindGameObjectsWithTag("SpringTrapDialogue");
 
 
-        DialogueTrigger.OnConcelable += DestroyConcelable;
-        DialogueTrigger.OnTrap += DestroyTraps;
+        DialogueTrigger.OnBarrelConcelable += DestroyBarrelConcelable;
+        DialogueTrigger.OnChestConcelable += DestroyChestConcelable;
+        DialogueTrigger.OnSpringTrap += DestroySpringTraps;
+        DialogueTrigger.OnOIlTrap += DestroyOilTraps;
 
     }
 
     private void OnDisable()
     {
-        DialogueTrigger.OnConcelable -= DestroyConcelable;
-        DialogueTrigger.OnTrap -= DestroyTraps;
+        DialogueTrigger.OnBarrelConcelable -= DestroyBarrelConcelable;
+        DialogueTrigger.OnOIlTrap -= DestroyOilTraps;
+        DialogueTrigger.OnChestConcelable -= DestroyChestConcelable;
+        DialogueTrigger.OnSpringTrap -= DestroySpringTraps;
     }
 
-    void DestroyTraps()
+    void DestroyOilTraps()
     {
-        for(int i = 0; i < trapDialouge.Length; i++)
+        for(int i = 0; i < oilTrapDialouge.Length; i++)
         {
-            Destroy(trapDialouge[i]);
+            Destroy(oilTrapDialouge[i]);
         }
     }
 
-    void DestroyConcelable()
+    void DestroySpringTraps()
     {
-        for (int i = 0; i < concelableDialouge.Length; i++)
+        for (int i = 0; i < springTrapDialouge.Length; i++)
         {
-            Destroy(concelableDialouge[i]);
+            Destroy(springTrapDialouge[i]);
+        }
+    }
+
+    void DestroyBarrelConcelable()
+    {
+        for (int i = 0; i < barrelConcelableDialouge.Length; i++)
+        {
+            Destroy(barrelConcelableDialouge[i]);
+        }
+
+    }
+
+    void DestroyChestConcelable()
+    {
+        for (int i = 0; i < chestlConcelableDialouge.Length; i++)
+        {
+            Destroy(chestlConcelableDialouge[i]);
         }
 
     }

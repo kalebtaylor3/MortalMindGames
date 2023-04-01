@@ -6,11 +6,16 @@ public class DialogueTrigger : MonoBehaviour
     public Dialogue dialogue; // an instance of the Dialogue class, containing the clipName and message
     private DialougeSystem dialogueSystem; // reference to the DialogueManager script
 
-    public bool trap;
-    public bool concelable;
+    public bool oilTrap;
+    public bool barrelConcelable;
+    public bool springTrap;
+    public bool chestConcelable;
 
-    public static event Action OnTrap;
-    public static event Action OnConcelable;
+    public static event Action OnOIlTrap;
+    public static event Action OnBarrelConcelable;
+
+    public static event Action OnSpringTrap;
+    public static event Action OnChestConcelable;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,14 +26,24 @@ public class DialogueTrigger : MonoBehaviour
             dialogueSystem.PlayDialogue(dialogue); // call the PlayDialogue function in the DialogueManager script and pass in the Dialogue instance
             Destroy(this);
 
-            if(trap)
+            if(oilTrap)
             {
-                OnTrap?.Invoke();
+                OnOIlTrap?.Invoke();
             }
 
-            if(concelable)
+            if(barrelConcelable)
             {
-                OnConcelable?.Invoke();
+                OnBarrelConcelable?.Invoke();
+            }
+
+            if(springTrap)
+            {
+                OnSpringTrap?.Invoke();
+            }
+
+            if(chestConcelable)
+            {
+                OnChestConcelable?.Invoke();
             }
 
         }
