@@ -228,7 +228,7 @@ namespace MMG
                     }
                     else if (cameraClamp == clamp.Z)
                     {
-                        if (rotator.transform.rotation.z < startRotation.z)
+                        if (rotator.transform.rotation.z < 0)
                         {
                             rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
                             doorCreak.Stop();
