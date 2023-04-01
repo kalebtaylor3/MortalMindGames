@@ -170,7 +170,7 @@ public class AlertedState : FSMState
                         {
                             if (!vorgonControl.SearchAnimIsPlaying)
                             {
-                                vorgonControl.PlaySearchAnim();
+                                //vorgonControl.PlaySearchAnim();
                                 rotConceal = true;
                             }                                                   
                         }
