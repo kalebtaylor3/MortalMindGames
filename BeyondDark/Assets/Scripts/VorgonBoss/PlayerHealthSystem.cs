@@ -34,6 +34,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
     public PlayerController charController;
 
+    public AudioSource damageSource;
+    public AudioClip damageClip;
 
     public static event Action<bool> OnDeath;
 
@@ -181,6 +183,7 @@ public class PlayerHealthSystem : MonoBehaviour
             UpdateHealth();
             healCooldown = maxHealCooldown;
             startCooldown = true;
+            damageSource.PlayOneShot(damageClip);
         }
     }
 
