@@ -39,6 +39,12 @@ namespace MMG
         public AudioSource peakAudio;
         public AudioSource peakResetAudio;
         bool playOnce = false;
+        private bool canPeakRight;
+        private bool canPeakLeft;
+
+
+        public LayerMask layerMask; // The layer to check for collision
+        public float raycastDistance = 1.0f; // The distance to cast the raycast
 
         #endregion
 
@@ -53,6 +59,9 @@ namespace MMG
         void Update()
         {
             HandlePeaking();
+
+            canPeakLeft = CheckPeakLeft();
+            canPeakRight = CheckPeakRight();
         }
 
         void LateUpdate()
@@ -73,6 +82,37 @@ namespace MMG
         private void OnDisable()
         {
             ConcelableAreaInteractable.OnEnteredSpot -= ResetFOV;
+        }
+
+        bool CheckPeakLeft()
+        {
+
+            // Cast a ray to the left of the object
+            RaycastHit hitLeft;
+            bool hitLeftSomething = Physics.Raycast(transform.position, -transform.right, out hitLeft, raycastDistance, layerMask);
+
+            // Check if either ray hit something on the layerMask
+            if (hitLeftSomething)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        bool CheckPeakRight()
+        {
+            // Cast a ray to the right of the object
+            RaycastHit hitRight;
+            bool hitRightSomething = Physics.Raycast(transform.position, transform.right, out hitRight, raycastDistance, layerMask);
+
+            // Check if either ray hit something on the layerMask
+            if (hitRightSomething)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public void ResetCam()
@@ -126,9 +166,9 @@ namespace MMG
 
             //if (!hitSomething)
             //{
-                if (camInputData.IsPeakingLeft)
+                if (camInputData.IsPeakingLeft && canPeakLeft)
                     PeakLeft();
-                else if (camInputData.IsPeakingRight)
+                else if (camInputData.IsPeakingRight && canPeakRight)
                     PeakRight();
                 else
                     PeakIdle();
