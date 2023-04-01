@@ -38,6 +38,8 @@ public class ConcelableDetection : MonoBehaviour
 
     public bool vorgonKnows = false;
 
+    bool seen = false;
+
     [HideInInspector] public bool playerDead = false;
 
 
@@ -58,6 +60,7 @@ public class ConcelableDetection : MonoBehaviour
         instance = this;
         flashingHearing = false;
         flashingSight = false;
+        seen = false;
     }
 
     private void OnEnable()
@@ -70,6 +73,7 @@ public class ConcelableDetection : MonoBehaviour
         exposure = 0;
         hearingExposure = 0;
         WorldData.OnDeath += ResetStuff;
+        seen = false;
 
     }
 
@@ -87,21 +91,22 @@ public class ConcelableDetection : MonoBehaviour
         vorgonKnows = false;
         exposure = 0;
         hearingExposure = 0;
+        seen = false;
     }
 
     private void Update()
     {
 
-        if(vorgon.playerDetected || vorgonKnows)
+        if(vorgon.playerDetected || vorgonKnows || seen)
         {
-            if (!flashingSight)
-            {
-                seeingDetectionUI.color = Color.red;
-            }
-            exposure = 1;
-            hearingDetectionUI.fillAmount = 0;
-            hearingCanvas.alpha = 0;
-            hearingExposure = 0;
+                if (!flashingSight)
+                {
+                    seeingDetectionUI.color = Color.red;
+                }
+                exposure = 1;
+                hearingDetectionUI.fillAmount = 0;
+                hearingCanvas.alpha = 0;
+                hearingExposure = 0;
         }
 
 
@@ -138,6 +143,7 @@ public class ConcelableDetection : MonoBehaviour
         if (exposure >= 1)
         {
             exposure = 1;
+            seen = true;
             if (!happenOnce)
             {
                 if (!flashingSight)
