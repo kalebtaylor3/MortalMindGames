@@ -12,6 +12,8 @@ public class VorgonProjectile : MonoBehaviour
     public GameObject impactPrefab;
     private bool Collided;
 
+    public GameObject explosionSound;
+
     private void OnEnable()
     {
         Destroy(gameObject, 20);
@@ -43,6 +45,9 @@ public class VorgonProjectile : MonoBehaviour
 
             Debug.Log(collision.gameObject.name);
 
+            var sound = Instantiate(explosionSound, collision.GetContact(0).point, Quaternion.identity) as GameObject;
+
+            Destroy(sound, 4);
             Destroy(gameObject);
 
 

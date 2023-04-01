@@ -12,6 +12,9 @@ public class HellFireDamage : MonoBehaviour
     public GameObject impactPrefab;
     private bool Collided;
 
+
+    public GameObject hellFireExplosionSound;
+
     private void OnEnable()
     {
         Destroy(gameObject, 20);
@@ -44,8 +47,10 @@ public class HellFireDamage : MonoBehaviour
                 Destroy(impact, 5.0f);
             }
 
+            var sound = Instantiate(hellFireExplosionSound, collision.GetContact(0).point, Quaternion.identity) as GameObject;
 
             Destroy(gameObject);
+            Destroy(sound, 4);
 
 
         }
