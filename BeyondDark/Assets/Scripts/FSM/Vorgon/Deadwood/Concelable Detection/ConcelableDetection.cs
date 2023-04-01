@@ -97,7 +97,7 @@ public class ConcelableDetection : MonoBehaviour
     private void Update()
     {
 
-        if(vorgon.playerDetected || vorgonKnows || seen)
+        if(seen)
         {
                 if (!flashingSight)
                 {
@@ -256,7 +256,7 @@ public class ConcelableDetection : MonoBehaviour
                             }
                             else
                             {
-                                if (!vorgon.playerDetected && !vorgonKnows)
+                                if (!seen)
                                 {
                                     exposure -= Time.deltaTime * seeingDetectionSpeed;
                                     vorgon.PlayerInSight = false;
@@ -267,7 +267,7 @@ public class ConcelableDetection : MonoBehaviour
                         }
                         else
                         {
-                            if (!vorgon.playerDetected && !vorgonKnows)
+                            if (!seen)
                             {
                                 exposure -= Time.deltaTime * seeingDetectionSpeed;
                                 rayColor = Color.green;
@@ -277,20 +277,20 @@ public class ConcelableDetection : MonoBehaviour
                     }
                     else
                     {
-                        if(!vorgon.playerDetected && !vorgonKnows)  
+                        if(!seen)  
                             exposure -= Time.deltaTime * seeingDetectionSpeed;
                     }
 
                 }
                 else
                 {
-                    if(!vorgon.playerDetected && !vorgonKnows)
+                    if(!seen)
                         exposure -= Time.deltaTime * seeingDetectionSpeed;
 
                     hearingExposure -= Time.deltaTime * detectionSpeed;
                 }
 
-                if (concelableArea.exposurePercentage <= 0 && !vorgon.sawConceal && !vorgon.playerDetected && !vorgonKnows)
+                if (concelableArea.exposurePercentage <= 0 && !seen)
                 {
                     exposure -= Time.deltaTime * seeingDetectionSpeed;
                 }
