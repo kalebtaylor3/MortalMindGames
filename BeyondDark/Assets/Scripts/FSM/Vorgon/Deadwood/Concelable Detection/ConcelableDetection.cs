@@ -94,7 +94,11 @@ public class ConcelableDetection : MonoBehaviour
 
         if(vorgon.playerDetected)
         {
-            seeingDetectionUI.color = Color.red;
+            if (!flashingSight)
+            {
+                seeingDetectionUI.color = Color.red;
+            }
+            exposure = 1;
         }
 
 
@@ -310,7 +314,7 @@ public class ConcelableDetection : MonoBehaviour
             elapsedTime += flashSpeed * 2;
         }
         seeingDetectionUI.color = Color.red;
-        //flashingSight = false;
+        flashingSight = false;
     }
 
 
