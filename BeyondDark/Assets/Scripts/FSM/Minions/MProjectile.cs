@@ -31,26 +31,28 @@ public class MProjectile : MonoBehaviour
                 Rumbler.Instance.RumbleConstant(0, 0.2f, 0.4f);
             }
 
-            var impact = Instantiate(impactPrefab, collision.GetContact(0).point, Quaternion.identity) as GameObject;
+            //var impact = Instantiate(impactPrefab, collision.GetContact(0).point, Quaternion.identity) as GameObject;
 
             if (type == PROJECTILE_TYPE.BULLET)
             {
                 //Rumbler.Instance.RumbleConstant(0, 0.2f, 0.4f);
-                Destroy(impact, 2.0f);
+                //Destroy(impact, 2.0f);
 
                 if (collision.gameObject.CompareTag("WallOfSouls"))
                 {
                     minionControl.FoundWallOfSouls(collision.gameObject.GetComponent<WallHealthTEMP>().ShotPos);
                 }
+                Destroy(gameObject);
             }
             else if(type == PROJECTILE_TYPE.ACID)
             {
                 //Rumbler.Instance.RumbleConstant(0, 0.2f, 0.4f);                
-                Destroy(impact, 5.0f);
+                //Destroy(impact, 5.0f);
+                Destroy(gameObject, 5.0f);
             }
 
             
-            Destroy(gameObject);
+            
         }
     }
 }

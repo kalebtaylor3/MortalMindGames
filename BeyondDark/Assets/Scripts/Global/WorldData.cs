@@ -503,7 +503,7 @@ public class WorldData : MonoBehaviour
         //yield return new WaitForSeconds(1);
 
         //playerDeathMR.SetActive(false);
-        vorgon.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
+        //vorgon.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
         vorgonModel.SetActive(true);
         //yield return new WaitForSeconds(1);
         //fadeOut.SetActive(false);
