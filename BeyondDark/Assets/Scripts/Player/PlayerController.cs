@@ -502,22 +502,92 @@ namespace MMG
                     if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), Vector3.down, out RaycastHit hit, 6, obstacleLayers))
                     {
                         int rand = GenerateRandomNumber();
-                        //change sound depending on terrain
-                        switch (hit.collider.tag)
+                    //change sound depending on terrain
+
+                    Terrain terrain = hit.collider.GetComponent<Terrain>();
+                    if (terrain != null)
+                    {
+                        TerrainData terrainData = terrain.terrainData;
+
+                        // Convert the hit point to alphamap space
+                        float mapX = hit.textureCoord.x * terrainData.alphamapWidth;
+                        float mapZ = hit.textureCoord.y * terrainData.alphamapHeight;
+
+                        // Get the alphamaps at the hit point
+                        float[,,] alphamaps = terrainData.GetAlphamaps(
+                            Mathf.FloorToInt(mapX),
+                            Mathf.FloorToInt(mapZ),
+                            1, 1
+                        );
+
+                        // Find the index of the highest alpha value
+                        float maxAlpha = 0f;
+                        int maxIndex = -1;
+                        for (int i = 0; i < alphamaps.GetLength(2); i++)
+                        {
+                            if (alphamaps[0, 0, i] > maxAlpha)
+                            {
+                                maxAlpha = alphamaps[0, 0, i];
+                                maxIndex = i;
+                            }
+                        }
+
+                        // Get the name of the terrain layer at that index
+                        string layerName = terrainData.terrainLayers[maxIndex].name;
+
+                        switch(layerName)
                         {
                             case "Grass":
                                 footStepAudioSource.clip = grassWalkSounds[rand];
-                            break;
-                            case "Gravel":
+                                break;
+                            case "Gravel 1":
                                 footStepAudioSource.clip = gravelWalkSounds[rand];
-                            break;
-                            case "Wood":
-                                footStepAudioSource.clip = woodWalkSounds[rand];
-                            break;
-                            case "Dirt":
+                                break;
+                            case "Gravel 2":
+                                footStepAudioSource.clip = gravelWalkSounds[rand];
+                                break;
+                            case "Gravel 3":
+                                footStepAudioSource.clip = gravelWalkSounds[rand];
+                                break;
+                            case "Gravel 4":
+                                footStepAudioSource.clip = gravelWalkSounds[rand];
+                                break;
+                            case "Gravel 5":
+                                footStepAudioSource.clip = gravelWalkSounds[rand];
+                                break;
+                            case "Dirt1":
                                 footStepAudioSource.clip = dirtWalkSounds[rand];
-                            break;
+                                break;
+                            case "Dirt2":
+                                footStepAudioSource.clip = dirtWalkSounds[rand];
+                                break;
+                            case "Dirt3":
+                                footStepAudioSource.clip = dirtWalkSounds[rand];
+                                break;
+                            case "Dirt4":
+                                footStepAudioSource.clip = dirtWalkSounds[rand];
+                                break;
+                        }
+
                     }
+                    else
+                    {
+                            switch (hit.collider.tag)
+                            {
+                                case "Grass":
+                                    footStepAudioSource.clip = grassWalkSounds[rand];
+                                    break;
+                                case "Gravel":
+                                    footStepAudioSource.clip = gravelWalkSounds[rand];
+                                    break;
+                                case "Wood":
+                                    footStepAudioSource.clip = woodWalkSounds[rand];
+                                    break;
+                                case "Dirt":
+                                    footStepAudioSource.clip = dirtWalkSounds[rand];
+                                    break;
+                            }
+                        }
                     }
 
                     if (movementInputData.IsRunning && CanRun())
