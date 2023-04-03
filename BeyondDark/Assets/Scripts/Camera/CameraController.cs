@@ -45,6 +45,7 @@ namespace MMG
 
         public LayerMask layerMask; // The layer to check for collision
         public float raycastDistance = 1.0f; // The distance to cast the raycast
+        bool canLook = true;
 
         #endregion
 
@@ -68,8 +69,17 @@ namespace MMG
         {
             CalculateRotation();
             SmoothRotation();
-            ApplyRotation();
-            HandleZoom();
+
+            if (canLook)
+            {
+                ApplyRotation();
+                HandleZoom();
+            }
+        }
+
+        public void CanLook(bool value)
+        {
+            canLook = value;
         }
 
         private void OnEnable()
