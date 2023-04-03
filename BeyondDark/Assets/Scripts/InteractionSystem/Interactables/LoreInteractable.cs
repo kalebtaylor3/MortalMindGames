@@ -80,10 +80,10 @@ public class LoreInteractable : InteractableBase
             loreCam.transform.rotation = targetRotation;
 
             if (LoreInputData.RotateLeft)
-                transform.Rotate(Vector3.right, -rotateSpeed * Time.deltaTime);
+                transform.Rotate(Vector3.left, -rotateSpeed * Time.deltaTime);
 
             if (LoreInputData.RotateRight)
-                transform.Rotate(Vector3.right, rotateSpeed * Time.deltaTime);
+                transform.Rotate(Vector3.left, rotateSpeed * Time.deltaTime);
 
             if (LoreInputData.PutAway == true)
             {
