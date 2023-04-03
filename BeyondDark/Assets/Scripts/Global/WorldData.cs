@@ -170,6 +170,11 @@ public class WorldData : MonoBehaviour
     private void Update()
     {
 
+        if (ConcelableDetection.Instance.vorgonKnows)
+            canSeek = false;
+
+
+
         if(lastConceal != null && !concelableTutorial)
         {
             TutorialController.instance.SetTutorial(concelableTut.imageTut, concelableTut.vidTut, 4);
@@ -426,6 +431,9 @@ public class WorldData : MonoBehaviour
     {
         input.canMove = false;
         PlayerInventoryController.Instance.CloseBook();
+
+        if(player.movementInputData.IsCrouching)
+            player.InvokeCrouchRoutine();
         //lastConceal.enteranceAnimator.SetTrigger("Enter");
 
         if (lastConceal != null && player.isHiding)
@@ -486,6 +494,7 @@ public class WorldData : MonoBehaviour
             vorgon.detection = 0;
             player.enabled = false;
             cameraC.enabled = false;
+            canSeek = false;
             yield return new WaitForSeconds(((float)deathClip.length));
             vorgonModel.SetActive(false);
             fadeOut.SetActive(true);
@@ -496,6 +505,7 @@ public class WorldData : MonoBehaviour
             yield return new WaitForSeconds(1);
             fadeOut.SetActive(false);
             vorgon.playerDead = false;
+            canSeek = true;
         }
 
         //lastConceal.enteranceAnimator.SetTrigger("Inside");
