@@ -27,7 +27,10 @@ public class TrapSounds : MonoBehaviour
 
     public void BearTrapClose()
     {
-        damageSource.PlayOneShot(bearTrapClose);
+        if (trap.bearTrap)
+            damageSource.PlayOneShot(bearTrapClose);
+        else
+            damageSource.Play();
     }
 
     //public void Stop()
