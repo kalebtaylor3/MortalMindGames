@@ -121,7 +121,7 @@ public class PlayerCombatController : MonoBehaviour
         if (Instance == null) { Instance = this; }
 
         flameImageColor = flameIcon.color;
-        flameIcon.color = Color.clear;
+        //flameIcon.color = Color.clear;
         wallIcon.color = Color.clear;
         cancelText.SetActive(false);
 
@@ -181,7 +181,7 @@ public class PlayerCombatController : MonoBehaviour
     private void Start()
     {
         flameImageColor = flameIcon.color;
-        flameIcon.color = Color.clear;
+        //flameIcon.color = Color.clear;
         wallIcon.color = Color.clear;
         cancelText.SetActive(false);
     }
