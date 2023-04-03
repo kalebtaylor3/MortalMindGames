@@ -246,13 +246,14 @@ namespace MMG
             //TpTest.RealmTransportation += HandleRealmTransport;
         }
 
-        void CanMove(bool value)
+        public void CanMove(bool value)
         {
             canMove = value;
         }
 
         void Update()
         {
+
             if(yawTransform != null)
                 RotateTowardsCamera();
 
@@ -348,6 +349,8 @@ namespace MMG
         void SetHiding()
         {
             isHiding = true;
+            if (movementInputData.IsCrouching)
+                InvokeCrouchRoutine();
         }
 
         void NotHiding()
@@ -824,7 +827,7 @@ namespace MMG
                     InvokeCrouchRoutine();
             }
 
-            void InvokeCrouchRoutine()
+            public void InvokeCrouchRoutine()
             {
                 if(movementInputData.IsCrouching)
                     if(CheckIfRoof())
