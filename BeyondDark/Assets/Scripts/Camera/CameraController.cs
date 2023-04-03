@@ -67,11 +67,10 @@ namespace MMG
 
         void LateUpdate()
         {
-            CalculateRotation();
-            SmoothRotation();
-
             if (canLook)
             {
+                CalculateRotation();
+                SmoothRotation();
                 ApplyRotation();
                 HandleZoom();
             }
