@@ -7,6 +7,8 @@ public class TrapSounds : MonoBehaviour
     public TrapInteractable trap;
     public AudioSource source;
 
+    public AudioClip bearTrapClose;
+    public AudioSource damageSource;
 
     public void StartSound()
     {
@@ -21,6 +23,12 @@ public class TrapSounds : MonoBehaviour
 
         if (trap.isInteractable)
             source.Stop();
+    }
+
+    public void BearTrapClose()
+    {
+        if(trap.bearTrap)
+            damageSource.PlayOneShot(bearTrapClose);
     }
 
     //public void Stop()

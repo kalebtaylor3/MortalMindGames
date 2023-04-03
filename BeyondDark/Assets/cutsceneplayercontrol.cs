@@ -25,7 +25,7 @@ public class cutsceneplayercontrol : MonoBehaviour
         if (director.state == PlayState.Paused)
         {
             OnEnd?.Invoke();
-            Destroy(this, 2);
+            Destroy(this, 5);
         }
     }
 }
