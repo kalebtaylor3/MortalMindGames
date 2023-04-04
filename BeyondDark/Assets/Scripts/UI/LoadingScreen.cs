@@ -15,11 +15,24 @@ public class LoadingScreen : MonoBehaviour
     {
         if(scene == SCENES.MENU)
         {
-            async = SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Single);
+            StartCoroutine(LoadingProgress("Main Menu"));
         }
         else if(scene == SCENES.GAME)
         {
-            async = SceneManager.LoadSceneAsync("KalebMilestone4", LoadSceneMode.Single);
+            StartCoroutine(LoadingProgress("KalebMilestone4"));
+        }
+    }
+
+    IEnumerator LoadingProgress(string scene)
+    {
+        async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
+
+        while (!async.isDone)
+        {
+            float prog = Mathf.Clamp01(async.progress / 0.9f);
+            progressSlider.value = prog;
+
+            yield return null;
         }
     }
 
@@ -27,7 +40,7 @@ public class LoadingScreen : MonoBehaviour
     {
         if (async != null)
         {
-            progressSlider.value = Mathf.Clamp01(async.progress / 0.9f);
+            //progressSlider.value = Mathf.Clamp01(async.progress / 0.9f);
         }
     }
 }
