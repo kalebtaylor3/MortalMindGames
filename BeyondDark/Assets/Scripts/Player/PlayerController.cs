@@ -230,7 +230,7 @@ namespace MMG
             playerInventory = GetComponent<PlayerInventoryController>();
             GetComponents();
             InitVariables();
-            canMove = true;
+            //canMove = true;
             //ItemInteractable.OnPickUp += HandlePickUp;
             //ConcelableAreaInteractable.OnEnteredSpot += SetHiding;
             //ConcelableAreaInteractable.OnLeaveSpot += NotHiding;

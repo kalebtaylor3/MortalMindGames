@@ -19,10 +19,11 @@ public class cutsceneplayercontrol : MonoBehaviour
     private void Update()
     {
 
-        if(director.state == PlayState.Playing)
+        if (director.state == PlayState.Playing)
+        {
             OnStart?.Invoke();
-
-        if (director.state == PlayState.Paused)
+        }
+        else
         {
             OnEnd?.Invoke();
             Destroy(this, 5);
