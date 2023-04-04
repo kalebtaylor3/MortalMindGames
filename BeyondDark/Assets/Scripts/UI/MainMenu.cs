@@ -55,6 +55,7 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
+        Time.timeScale = 1;
         //SceneManager.LoadSceneAsync("KalebMilestone4", LoadSceneMode.Single);
         loadScreen.SetActive(true);
         loadScreen.GetComponent<LoadingScreen>().LoadNewScene(LoadingScreen.SCENES.GAME);
