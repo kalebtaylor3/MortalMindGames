@@ -31,6 +31,9 @@ public class LoreInteractable : InteractableBase
 
     public float rotateSpeed = 1;
 
+    public AudioSource lookAtSource;
+    public AudioClip lookAtClip;
+
     private void Start()
     {
         startPos = transform.position;
@@ -74,6 +77,7 @@ public class LoreInteractable : InteractableBase
         ui.SetActive(false);
         loreUI.SetActive(true);
         Collect?.Invoke();
+        lookAtSource.PlayOneShot(lookAtClip);
     }
 
     private void Update()
@@ -104,6 +108,7 @@ public class LoreInteractable : InteractableBase
                 controller.enabled = true;
                 ui.SetActive(true);
                 loreUI.SetActive(false);
+                lookAtSource.PlayOneShot(lookAtClip);
             }
 
             //transform.rotation = rotation;
