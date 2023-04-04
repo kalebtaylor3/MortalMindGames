@@ -219,6 +219,8 @@ namespace MMG
 
         public GameObject compass;
 
+        [SerializeField] bool initialCinematic;
+
         #endregion
 
         #region Functions
@@ -232,6 +234,15 @@ namespace MMG
             //ItemInteractable.OnPickUp += HandlePickUp;
             //ConcelableAreaInteractable.OnEnteredSpot += SetHiding;
             //ConcelableAreaInteractable.OnLeaveSpot += NotHiding;
+
+            if(this.CompareTag("Player"))
+            {
+                initialCinematic = true;
+            }
+            else
+            {
+                initialCinematic = false;
+            }
         }
 
         void Start()
@@ -1145,7 +1156,17 @@ namespace MMG
 
         public void HandleRealmTransport()
         {
-            EffectAudioSource.PlayOneShot(SoundEffects[1]);
+
+            if(!EffectAudioSource.isPlaying && !initialCinematic)
+            {
+                EffectAudioSource.PlayOneShot(SoundEffects[1]);
+            }
+            
+            if(initialCinematic)
+            {
+                initialCinematic = false;
+            }
+
             staminaTest = 0.8f;
 
             OnTeleport?.Invoke();
