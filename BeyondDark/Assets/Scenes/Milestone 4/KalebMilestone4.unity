@@ -5206,6 +5206,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8207852441306222703, guid: b0cadc70d2e7a9843bd4251675f43c34,
         type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207852441306222703, guid: b0cadc70d2e7a9843bd4251675f43c34,
+        type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 1f039dd0a3a350e4e86a5331fcd48d69, type: 3}
@@ -5304,7 +5309,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -0.0000071518243
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6588370368381343404, guid: b0cadc70d2e7a9843bd4251675f43c34, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b0cadc70d2e7a9843bd4251675f43c34, type: 3}
 --- !u!95 &136284026 stripped
 Animator:
@@ -5333,6 +5339,12 @@ GameObject:
 --- !u!1 &136284029 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1485085633104259195, guid: b0cadc70d2e7a9843bd4251675f43c34,
+    type: 3}
+  m_PrefabInstance: {fileID: 136284025}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &136284030 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8207852441306222703, guid: b0cadc70d2e7a9843bd4251675f43c34,
     type: 3}
   m_PrefabInstance: {fileID: 136284025}
   m_PrefabAsset: {fileID: 0}
@@ -9523,7 +9535,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1282584298}
-  m_RootOrder: 131
+  m_RootOrder: 135
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -39.519}
 --- !u!65 &232792846
 BoxCollider:
@@ -13634,7 +13646,7 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 3114696135228818891, guid: ef76fe7f1810c4049b234ceb368a0909, type: 2}
     value: {fileID: 312860152}
-  - key: {fileID: -3473166616657546464, guid: ef76fe7f1810c4049b234ceb368a0909, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 1179806624}
   - key: {fileID: 0}
     value: {fileID: 1598646538}
@@ -31194,7 +31206,7 @@ Transform:
   - {fileID: 1818008661}
   - {fileID: 282180353}
   m_Father: {fileID: 1143092284}
-  m_RootOrder: 114
+  m_RootOrder: 115
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -89.754}
 --- !u!23 &484099971
 MeshRenderer:
@@ -37787,12 +37799,12 @@ PlayableDirector:
     value: {fileID: 312860151}
   - key: {fileID: 3114696135228818891, guid: ef76fe7f1810c4049b234ceb368a0909, type: 2}
     value: {fileID: 312860152}
-  - key: {fileID: -3473166616657546464, guid: ef76fe7f1810c4049b234ceb368a0909, type: 2}
-    value: {fileID: 0}
   - key: {fileID: 5624141097077350099, guid: ef76fe7f1810c4049b234ceb368a0909, type: 2}
     value: {fileID: 758686055}
   - key: {fileID: -7000499689966367738, guid: ef76fe7f1810c4049b234ceb368a0909, type: 2}
     value: {fileID: 1153186116}
+  - key: {fileID: -3458013091403282332, guid: ef76fe7f1810c4049b234ceb368a0909, type: 2}
+    value: {fileID: 1017747226}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &621819011
@@ -54120,7 +54132,7 @@ Transform:
   - {fileID: 1734320888}
   - {fileID: 467671250}
   m_Father: {fileID: 1143092284}
-  m_RootOrder: 103
+  m_RootOrder: 104
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -89.754}
 --- !u!23 &755304329
 MeshRenderer:
@@ -63785,6 +63797,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016109646}
   m_Mesh: {fileID: 690106047850165013, guid: 7fb8b15ca06b2a840aee25a79779d548, type: 3}
+--- !u!1 &1017747226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1017747228}
+  - component: {fileID: 1017747227}
+  m_Layer: 0
+  m_Name: DestroyBossMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1017747227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017747226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6de345d66688eeb468a2ba474c1c8a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossSong: {fileID: 136284030}
+--- !u!4 &1017747228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017747226}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 273
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1017836862
 GameObject:
   m_ObjectHideFlags: 0
@@ -75646,7 +75703,7 @@ Transform:
   - {fileID: 1678645115}
   - {fileID: 840941490}
   m_Father: {fileID: 1143092284}
-  m_RootOrder: 102
+  m_RootOrder: 103
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -89.754}
 --- !u!23 &1301674538
 MeshRenderer:
