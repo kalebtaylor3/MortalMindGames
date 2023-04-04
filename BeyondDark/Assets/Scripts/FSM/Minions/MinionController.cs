@@ -65,8 +65,8 @@ public class MinionController : MonoBehaviour
     public List<AudioClip> clipsHurt;
     public List<AudioClip> clipsttack;
     public AudioClip clipShooting;
-    public AudioClip clipAiming;
-    public AudioClip clipbreathing; //AIM
+    public AudioClip clipAcidshot;
+    public AudioClip clipRunAway; //AIM
     //public AudioClip clipOnfire; // SET UP ON SOURCE
     public AudioClip[] shots;
 
@@ -144,9 +144,12 @@ public class MinionController : MonoBehaviour
     IEnumerator SpawnMinion()
     {
         // Change to wait for animation
-        animController.SetBool("Spawning", true);
-        navAgent.isStopped = true;
+        //this.GetComponent<Renderer>().enabled = false;
         float rand = UnityEngine.Random.Range(0.5f, 3f);
+        yield return new WaitForSeconds(rand);
+        //this.GetComponent<Renderer>().enabled = true;
+        animController.SetBool("Spawning", true);
+        navAgent.isStopped = true;        
         yield return new WaitForSeconds(rand);
         navAgent.isStopped = false;
         spawning = false;
@@ -195,7 +198,7 @@ public class MinionController : MonoBehaviour
                     StartCoroutine(OnFire());
                 }
 
-                if(sword)
+                if(!effectsSource.isPlaying)
                 {
                     int rand = UnityEngine.Random.Range(0, clipsHurt.Count);
                     effectsSource.PlayOneShot(clipsHurt[rand]);
@@ -245,8 +248,6 @@ public class MinionController : MonoBehaviour
 
         StartCoroutine(IsAttacking(rangedAttackDuration));
         StartCoroutine(MAttack());
-        
-
     }
 
     public void MeleeAttack()
@@ -257,7 +258,7 @@ public class MinionController : MonoBehaviour
 
     IEnumerator MAttack()
     {
-        animController.SetBool("Attacking", true);
+        animController.SetBool("IsAttacking", true);
 
         if (type == MINION_TYPE.MELEE)
         {
@@ -289,6 +290,8 @@ public class MinionController : MonoBehaviour
             var projectileObj = Instantiate(acidProjectile, shootPos.position, Quaternion.identity,shootPos) as GameObject;
             projectileObj.GetComponent<Rigidbody>().AddForce(shootPos.up * 5, ForceMode.Impulse);
             projectileObj.GetComponent<MProjectile>().minionControl = this;
+
+            effectsSource.PlayOneShot(clipAcidshot);
         }
     }
 
@@ -356,5 +359,10 @@ public class MinionController : MonoBehaviour
 
         result = Vector3.zero;
         return false;
+    }
+
+    public void PlayRunAway()
+    {
+        movementSource.PlayOneShot(clipRunAway);
     }
 }

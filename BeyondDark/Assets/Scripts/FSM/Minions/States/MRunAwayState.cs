@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.XR;
 
 public class MRunAwayState : FSMState
 {
@@ -27,6 +28,7 @@ public class MRunAwayState : FSMState
     {
         navAgent.isStopped = false;
         minionType = minionController.type;
+        minionController.PlayRunAway();
     }
 
     public override void Reason()
