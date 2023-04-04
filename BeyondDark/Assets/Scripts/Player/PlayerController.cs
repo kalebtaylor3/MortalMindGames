@@ -45,7 +45,7 @@ namespace MMG
         [Space, Header("Run Settings")]
         [Slider(-1f, 1f)][SerializeField] private float canRunThreshold = 0.8f;
 
-        [Slider(-1f, 1f)][SerializeField] private float staminaTest = 0.8f;
+        [Slider(-1f, 1f)][SerializeField] private float staminaTest = 1f;
 
         [SerializeField] private AnimationCurve runTransitionCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
@@ -1094,6 +1094,7 @@ namespace MMG
 
                         
                         //PickUp.PickUpItem.SetActive(false);                
+                        //PickUp.PickUpItem.SetActive(false);                
                         SetRumbleMode(1);
                         StartRumble();
 
@@ -1167,7 +1168,7 @@ namespace MMG
                 initialCinematic = false;
             }
 
-            staminaTest = 0.8f;
+            staminaTest = 1f;
 
             OnTeleport?.Invoke();
            // bool defendReleased;
