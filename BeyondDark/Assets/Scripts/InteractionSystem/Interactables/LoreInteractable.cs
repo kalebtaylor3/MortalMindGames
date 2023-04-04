@@ -51,6 +51,11 @@ public class LoreInteractable : InteractableBase
         loreUI.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        WorldData.OnDeath += PutBookAway;
+    }
+
 
     public override void OnInteract()
     {
@@ -87,6 +92,7 @@ public class LoreInteractable : InteractableBase
 
             if (LoreInputData.PutAway == true)
             {
+                StopAllCoroutines();
                 OnPutDown?.Invoke(false);
                 transform.position = startPos;
                 transform.rotation = startRot;
@@ -110,4 +116,9 @@ public class LoreInteractable : InteractableBase
         cam.SetActive(true);
         loreLight.SetActive(true);
     }
+
+    void PutBookAway()
+    {
+        LoreInputData.PutAway = true;
+    }    
 }
