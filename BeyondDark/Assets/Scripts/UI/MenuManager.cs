@@ -46,9 +46,12 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Gamepad.current.startButton.wasPressedThisFrame && !mainMenu && canPause)
+        if (Gamepad.current != null)
         {
-            PauseGame();
+            if (Gamepad.current.startButton.wasPressedThisFrame && !mainMenu && canPause)
+            {
+                PauseGame();
+            }
         }
     }
 

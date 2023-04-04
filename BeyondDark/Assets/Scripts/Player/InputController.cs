@@ -74,36 +74,44 @@ namespace MMG
 
         void Update()
         {
-            if(!WorldData.Instance.gamePaused)
+
+            if (Gamepad.current == null)
+                Debug.Log("Plug in a controller");
+            else
             {
-                if (!lookingAtLore)
+
+
+                if (!WorldData.Instance.gamePaused)
                 {
-                    GetCameraInput();
-                    GetInventoryInputData();
-                }
+                    if (!lookingAtLore)
+                    {
+                        GetCameraInput();
+                        GetInventoryInputData();
+                    }
 
-                if (canMove && !lookingAtLore)
-                    GetMovementInputData();
-                else
-                {
-                    movementInputData.InputVectorY = 0;
-                    movementInputData.InputVectorX = 0;
-                }
+                    if (canMove && !lookingAtLore)
+                        GetMovementInputData();
+                    else
+                    {
+                        movementInputData.InputVectorY = 0;
+                        movementInputData.InputVectorX = 0;
+                    }
 
-                if (canInteract)
-                    GetInteractionInputData();
+                    if (canInteract)
+                        GetInteractionInputData();
 
-                GetItemInputData();
-                GetQuickTimeEventInputData();
+                    GetItemInputData();
+                    GetQuickTimeEventInputData();
 
 
 
-                if (isVorgonCharacter)
-                    GetCombatInput();
+                    if (isVorgonCharacter)
+                        GetCombatInput();
 
-                if(lookingAtLore)
-                {
-                    GetLoreInput();
+                    if (lookingAtLore)
+                    {
+                        GetLoreInput();
+                    }
                 }
             }
         }

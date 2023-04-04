@@ -45,11 +45,14 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Gamepad.current.startButton.wasPressedThisFrame)
+        if (Gamepad.current != null)
         {
-            EventSystem.current.SetSelectedGameObject(null);
+            if (Gamepad.current.startButton.wasPressedThisFrame)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
 
-            EventSystem.current.SetSelectedGameObject(newGameBtn);
+                EventSystem.current.SetSelectedGameObject(newGameBtn);
+            }
         }
     }
 
