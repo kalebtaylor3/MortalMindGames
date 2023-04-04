@@ -436,6 +436,8 @@ public class WorldData : MonoBehaviour
             player.InvokeCrouchRoutine();
         //lastConceal.enteranceAnimator.SetTrigger("Enter");
 
+        vorgonModel.SetActive(false);
+
         if (lastConceal != null && player.isHiding)
         {
             //dont call exit. first check if door is open. if door is open use the animator to play the open animation. wait for lenght of animation. then set jumpscare active then wait for lenght wait for for how ever many seconds are before fade to black. Before fade to black starts switch the cameras
@@ -481,7 +483,6 @@ public class WorldData : MonoBehaviour
             lastConceal.doorCreak.enabled = true;
             ConcelableDetection.Instance.seeingCanvas.gameObject.SetActive(true);
             vorgon.sightCanvas.gameObject.SetActive(true);
-            vorgonModel.SetActive(false);
 
             //lastConceal.ExitArea();
             //yield return new WaitForSeconds(2.5f);
@@ -495,8 +496,7 @@ public class WorldData : MonoBehaviour
             player.enabled = false;
             cameraC.enabled = false;
             canSeek = false;
-            yield return new WaitForSeconds(((float)deathClip.length));
-            vorgonModel.SetActive(false);
+            yield return new WaitForSeconds(((float)deathClip.length));            
             fadeOut.SetActive(true);
             player.enabled = true;
             cameraC.enabled = true;
@@ -514,7 +514,7 @@ public class WorldData : MonoBehaviour
 
         //playerDeathMR.SetActive(false);
         //vorgon.transform.position = WorldData.Instance.FindActiveSection(WorldData.Instance.activePlayerSection).vorgonTP.position;
-        vorgonModel.SetActive(true);
+       
         //yield return new WaitForSeconds(1);
         //fadeOut.SetActive(false);
 
@@ -534,6 +534,7 @@ public class WorldData : MonoBehaviour
         }
 
         input.canMove = true;
+        vorgonModel.SetActive(true);
     }
 
     public void TurnOffContainment()

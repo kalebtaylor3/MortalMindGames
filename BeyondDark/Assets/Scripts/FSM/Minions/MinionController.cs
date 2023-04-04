@@ -286,7 +286,7 @@ public class MinionController : MonoBehaviour
 
         if(!safe)
         {
-            var projectileObj = Instantiate(acidProjectile, shootPos.position, Quaternion.identity) as GameObject;
+            var projectileObj = Instantiate(acidProjectile, shootPos.position, Quaternion.identity,shootPos) as GameObject;
             projectileObj.GetComponent<Rigidbody>().AddForce(shootPos.up * 5, ForceMode.Impulse);
             projectileObj.GetComponent<MProjectile>().minionControl = this;
         }
