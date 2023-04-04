@@ -8,7 +8,7 @@ public class LoadingScreen : MonoBehaviour
 {
     public enum SCENES { MENU = 0 , GAME = 1}
 
-    AsyncOperation async = null;
+    
     public Slider progressSlider;
 
     public void LoadNewScene(SCENES scene)
@@ -25,22 +25,25 @@ public class LoadingScreen : MonoBehaviour
 
     IEnumerator LoadingProgress(string scene)
     {
-        async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
+        progressSlider.value = 0;
+
+        AsyncOperation async = SceneManager.LoadSceneAsync(scene);
+        float prog = 0;
+        async.allowSceneActivation = false;
 
         while (!async.isDone)
         {
-            float prog = Mathf.Clamp01(async.progress / 0.9f);
+            prog = Mathf.MoveTowards(prog, async.progress, Time.deltaTime);
+            //prog = Mathf.Clamp01(async.progress / 0.9f);
             progressSlider.value = prog;
 
-            yield return null;
-        }
-    }
+            if(prog >= 0.9f)
+            {
+                progressSlider.value = 1;
+                async.allowSceneActivation = true;
+            }
 
-    private void Update()
-    {
-        if (async != null)
-        {
-            //progressSlider.value = Mathf.Clamp01(async.progress / 0.9f);
+            yield return null;
         }
     }
 }
