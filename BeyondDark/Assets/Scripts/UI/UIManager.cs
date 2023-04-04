@@ -22,28 +22,45 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (staminaSlider.value == 1 && !fading && !fadedOut) 
+        if(WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
         {
-            fading = true;
-            StopAllCoroutines();
-            StartCoroutine(FadeSlider(false, fillImage.color.a));
-        }
-        else if (staminaSlider.value < 1 && !fading && fadedOut) 
-        {
-            if (WorldData.Instance.player.movementInputData.IsRunning)
+            if(!staminaSlider.isActiveAndEnabled)
+            {
+                staminaSlider.enabled = true;
+            }
+
+
+            if (staminaSlider.value == 1 && !fading && !fadedOut)
             {
                 fading = true;
                 StopAllCoroutines();
-                StartCoroutine(FadeSlider(true, fillImage.color.a));
-            }          
-        }
+                StartCoroutine(FadeSlider(false, fillImage.color.a));
+            }
+            else if (staminaSlider.value < 1 && !fading && fadedOut)
+            {
+                if (WorldData.Instance.player.movementInputData.IsRunning)
+                {
+                    fading = true;
+                    StopAllCoroutines();
+                    StartCoroutine(FadeSlider(true, fillImage.color.a));
+                }
+            }
 
-        if (staminaSlider.value < 1 && fading && !fadedOut && !WorldData.Instance.player.movementInputData.IsRunning)
-        {
-            fading = true;
-            StopAllCoroutines();
-            StartCoroutine(FadeSlider(false, fillImage.color.a));
+            if (staminaSlider.value < 1 && fading && !fadedOut && !WorldData.Instance.player.movementInputData.IsRunning)
+            {
+                fading = true;
+                StopAllCoroutines();
+                StartCoroutine(FadeSlider(false, fillImage.color.a));
+            }
         }
+        else
+        {
+            if (staminaSlider.isActiveAndEnabled)
+            {
+                staminaSlider.enabled = false;
+            }
+        }
+        
     }
 
     public IEnumerator FadeSlider(bool flag, float f = 1)
@@ -74,7 +91,7 @@ public class UIManager : MonoBehaviour
             fadedOut = true;
             while (clockT < fadeTimer)
             {
-                newC.a = Mathf.Lerp(f, 0, clockT / fadeTimer);
+                newC.a = Mathf.Lerp(f, 0f, clockT / fadeTimer);
 
                 clockT += Time.deltaTime;
                 clockT = Mathf.Clamp(clockT, 0, fadeTimer);
