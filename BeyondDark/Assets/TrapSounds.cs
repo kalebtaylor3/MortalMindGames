@@ -33,9 +33,9 @@ public class TrapSounds : MonoBehaviour
             damageSource.Play();
     }
 
-    //public void Stop()
-    //{
-    //    source.enabled = false;
-    //    source.Stop();
-    //}
+    public void Stop()
+    {
+        //source.enabled = false;
+        source.Stop();
+    }
 }

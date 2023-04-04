@@ -59,7 +59,8 @@ namespace MMG
 
         void Update()
         {
-            HandlePeaking();
+            if(canLook)
+                HandlePeaking();
 
             canPeakLeft = CheckPeakLeft();
             canPeakRight = CheckPeakRight();
