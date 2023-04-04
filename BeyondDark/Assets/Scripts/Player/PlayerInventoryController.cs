@@ -19,6 +19,10 @@ namespace MMG
         private GameObject activeItem;
 
         public AudioSource closeBookSource;
+
+
+        bool canOpen = true;
+
         #endregion
 
         #region Events
@@ -52,36 +56,44 @@ namespace MMG
             LoreInteractable.Collect -= CloseBook;
         }
 
+        public void CanOpen(bool value)
+        {
+            canOpen = value;
+        }
+
         #region Functions
         // Update is called once per frame
         void Update()
         {
-            if(inventoryInputData.OpenSpellBook)
+            if (canOpen)
             {
-                this.GetComponent<PlayerController>().cameraController.ResetFOV();
-                if (this.gameObject.tag == "Player" && !this.GetComponent<PlayerController>().isHiding)
+                if (inventoryInputData.OpenSpellBook)
                 {
-                    
-                    if (inventoryOpen)
-                    {                        
-                        //close the book
-                        Debug.Log("Spell Book Closed");
-                        inventoryOpen = false;
-                        spellBook.transform.position = spellBook.itemSlotPosition.position;
-                        spellBook.transform.rotation = spellBook.itemSlotPosition.rotation;
-                        spellBook.gameObject.SetActive(false);
-                        closeBookSource.enabled = true;
-                    }
-                    else
+                    this.GetComponent<PlayerController>().cameraController.ResetFOV();
+                    if (this.gameObject.tag == "Player" && !this.GetComponent<PlayerController>().isHiding)
                     {
-                        //otherwise open the book
-                        Debug.Log("Spell Book Opened");
-                        inventoryOpen = true;
-                        spellBook.gameObject.SetActive(true);
-                        spellBook.OpenBook();
-                        closeBookSource.enabled = false;
+
+                        if (inventoryOpen)
+                        {
+                            //close the book
+                            Debug.Log("Spell Book Closed");
+                            inventoryOpen = false;
+                            spellBook.transform.position = spellBook.itemSlotPosition.position;
+                            spellBook.transform.rotation = spellBook.itemSlotPosition.rotation;
+                            spellBook.gameObject.SetActive(false);
+                            closeBookSource.enabled = true;
+                        }
+                        else
+                        {
+                            //otherwise open the book
+                            Debug.Log("Spell Book Opened");
+                            inventoryOpen = true;
+                            spellBook.gameObject.SetActive(true);
+                            spellBook.OpenBook();
+                            closeBookSource.enabled = false;
+                        }
                     }
-                }               
+                }
             }
         }
 
