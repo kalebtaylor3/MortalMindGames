@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class InitialContainment : MonoBehaviour
 {
-    public List<ParticleSystem> wallParticle;
-    public List<GameObject> collisionsGO;
+    public List<ParticleSystem> wallParticle = new List<ParticleSystem>();
+    public List<GameObject> collisionsGO = new List<GameObject>();
 
     public void TurnOffWalls()
     {
