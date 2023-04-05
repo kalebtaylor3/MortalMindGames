@@ -11,6 +11,8 @@ public class VorgonBossSounds : MonoBehaviour
     public AudioClip raiseHandClip;
     public AudioClip chosenDeath;
     public AudioClip damageClip;
+    public Transform particleSpawn;
+    public GameObject particles;
 
     public void Laugh()
     {
@@ -20,6 +22,8 @@ public class VorgonBossSounds : MonoBehaviour
     public void Slam()
     {
         vorgonAudio.PlayOneShot(slamClip);
+        GameObject obj = Instantiate(particles, particleSpawn.position, Quaternion.identity);
+        Destroy(obj, 4);
     }
 
     public void RaiseHand()
