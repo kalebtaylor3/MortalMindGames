@@ -14,6 +14,7 @@ public class FogOfWarMap : MonoBehaviour
     private Color[] m_colors;
 
     public Color burnColor;
+    public Color emissiveColor;
 
     // Use this for initialization
     void Start()
@@ -43,6 +44,13 @@ public class FogOfWarMap : MonoBehaviour
                     float noiseValue = Mathf.PerlinNoise((v.x + Time.time) / m_radius, (v.z + Time.time) / m_radius);
                     m_colors[i] = Color.Lerp(Color.white, burnColor, noiseValue);
                     m_colors[i].a = alpha * 2;
+
+                    // add emissive color
+                    Color finalColor = m_colors[i];
+                    finalColor.a = alpha * 2;
+                    finalColor += emissiveColor * noiseValue;
+                    m_colors[i] = finalColor;
+
                     StartCoroutine(pixelBurner(i, alpha));
                 }
             }
