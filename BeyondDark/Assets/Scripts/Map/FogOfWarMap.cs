@@ -41,7 +41,7 @@ public class FogOfWarMap : MonoBehaviour
                 {
                     float alpha = Mathf.Min(m_colors[i].a, dist / m_radiusSqr);
                     float noiseValue = Mathf.PerlinNoise((v.x + Time.time) / m_radius, (v.z + Time.time) / m_radius);
-                    m_colors[i] = Color.Lerp(Color.black, burnColor, noiseValue);
+                    m_colors[i] = Color.Lerp(Color.white, burnColor, noiseValue);
                     m_colors[i].a = alpha * 2;
                     StartCoroutine(pixelBurner(i, alpha));
                 }
@@ -68,7 +68,7 @@ public class FogOfWarMap : MonoBehaviour
 
         for (int i = 0; i < m_colors.Length; i++)
         {
-            m_colors[i] = Color.black;
+            m_colors[i] = Color.white;
         }
         UpdateColor();
     }
