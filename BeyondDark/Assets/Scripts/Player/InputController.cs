@@ -23,6 +23,9 @@ namespace MMG
             [HideInInspector] public bool canMove = true;
             [HideInInspector] public bool canInteract = true;
             [HideInInspector] public bool lookingAtLore = false;
+
+            public GameObject plugInAController;
+            bool disableTextOnce = false;
         #endregion
 
         #region Functions
@@ -76,10 +79,18 @@ namespace MMG
         {
 
             if (Gamepad.current == null)
+            {
                 Debug.Log("Plug in a controller");
+                plugInAController.SetActive(true);
+                disableTextOnce = false;
+            }
             else
             {
-
+                if (!disableTextOnce)
+                {
+                    plugInAController.SetActive(false);
+                    disableTextOnce = true;
+                }
 
                 if (!WorldData.Instance.gamePaused)
                 {
