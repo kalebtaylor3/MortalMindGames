@@ -115,7 +115,7 @@ public class WorldData : MonoBehaviour
     public StealthDetection stealthDetection;
     public ConcelableDetection concealDetection;
 
-    public GameObject initialContain;
+    public InitialContainment initialContain;
 
     [HideInInspector] public bool happenOnce = false;
 
@@ -539,14 +539,15 @@ public class WorldData : MonoBehaviour
 
     public void TurnOffContainment()
     {
-        StartCoroutine(TurnOffContain());
+        //StartCoroutine(TurnOffContain());
+        initialContain.TurnOffWalls();
     }
 
-    public IEnumerator TurnOffContain()
-    {
-        yield return new WaitForSeconds(3.5f);
-        initialContain.SetActive(false);
-    }
+    //public IEnumerator TurnOffContain()
+    //{
+    //    //yield return new WaitForSeconds(3.5f);
+        
+    //}
 
     #endregion
 
