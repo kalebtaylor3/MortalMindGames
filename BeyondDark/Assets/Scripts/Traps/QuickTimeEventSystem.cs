@@ -67,7 +67,7 @@ public class QuickTimeEventSystem : MonoBehaviour
     void Update()
     {
 
-        Mathf.Clamp(successTime, 0.2f, 0.7f);
+        Mathf.Clamp(successTime, 0.2f, 0.65f);
 
         if (eventTriggered)
         {
