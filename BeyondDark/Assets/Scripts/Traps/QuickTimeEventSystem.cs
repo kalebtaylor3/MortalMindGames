@@ -9,7 +9,7 @@ using UnityEditor.Rendering;
 
 public class QuickTimeEventSystem : MonoBehaviour
 {
-    public float maxTime = 4f;
+    public float maxTime = 3f;
     public float minTime = 2f;
     public float timer;
     public Image fillRect;
@@ -67,7 +67,7 @@ public class QuickTimeEventSystem : MonoBehaviour
     void Update()
     {
 
-        Mathf.Clamp(successTime, 0.2f, 0.65f);
+        //Mathf.Clamp(successTime, 0.2f, 0.65f);
 
         if (eventTriggered)
         {
