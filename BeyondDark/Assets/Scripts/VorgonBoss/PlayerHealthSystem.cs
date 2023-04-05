@@ -185,7 +185,7 @@ public class PlayerHealthSystem : MonoBehaviour
             startCooldown = true;
             if (!damageSource.isPlaying)
             {
-                damageSource.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
+                damageSource.pitch = UnityEngine.Random.Range(1, 1.2f);
                 damageSource.PlayOneShot(damageClip);
             }
         }
