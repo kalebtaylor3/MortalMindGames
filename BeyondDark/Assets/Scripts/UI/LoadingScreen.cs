@@ -27,13 +27,13 @@ public class LoadingScreen : MonoBehaviour
     {
         progressSlider.value = 0;
 
-        AsyncOperation async = SceneManager.LoadSceneAsync(scene);
+        AsyncOperation async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
         float prog = 0;
         async.allowSceneActivation = false;
 
         while (!async.isDone)
         {
-            prog = Mathf.MoveTowards(prog, async.progress, Time.deltaTime);
+            prog = Mathf.MoveTowards(prog, async.progress, Time.unscaledDeltaTime);
             //prog = Mathf.Clamp01(async.progress / 0.9f);
             progressSlider.value = prog;
 
