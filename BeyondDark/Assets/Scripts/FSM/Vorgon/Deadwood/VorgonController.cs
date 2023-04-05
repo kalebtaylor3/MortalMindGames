@@ -8,6 +8,7 @@ using UnityEngine.XR;
 //using static UnityEditor.FilePathAttribute;
 using UnityEngine.UI;
 using UnityEngine.ProBuilder.Shapes;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class VorgonController : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class VorgonController : MonoBehaviour
     
     [SerializeField] private List<AudioClip> ALERTSounds;
     [SerializeField] private List<AudioClip> GROWLSounds;
+    [SerializeField] private List<AudioClip> StunnedSounds;
 
     public float flashSpeed = 0.1f;
 
@@ -158,6 +160,7 @@ public class VorgonController : MonoBehaviour
 
     IEnumerator TriggerStun(float stunTime)
     {
+        alertAudioSource.PlayOneShot(StunnedSounds[Random.Range(0, StunnedSounds.Count)]);
         vorgonAnimator.SetBool("Stunned", true);
         stunned = true;
         yield return new WaitForSeconds(stunTime);

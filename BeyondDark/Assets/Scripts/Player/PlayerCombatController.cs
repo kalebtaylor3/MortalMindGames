@@ -150,17 +150,17 @@ public class PlayerCombatController : MonoBehaviour
 
         if (items[0] == true && !TutorialController.instance.firstPath)
         {
-            TutorialController.instance.SetTutorial(pathOneTutorial.imageTut, pathOneTutorial.vidTut, 2);
+            TutorialController.instance.SetTutorial(pathOneTutorial.imageTut, pathOneTutorial.vidTut, 6.7f);
             TutorialController.instance.firstPath = true;
         }
         else if (items[1] == true && !TutorialController.instance.secondPath)
         {
-            TutorialController.instance.SetTutorial(pathTwoTutorial.imageTut, pathTwoTutorial.vidTut, 2);
+            TutorialController.instance.SetTutorial(pathTwoTutorial.imageTut, pathTwoTutorial.vidTut, 6.5f);
             TutorialController.instance.secondPath = true;
         }
         else if (items[2] == true && !TutorialController.instance.thirdPath)
         {
-            TutorialController.instance.SetTutorial(pathThreeTutorial.imageTut, pathThreeTutorial.vidTut, 2);
+            TutorialController.instance.SetTutorial(pathThreeTutorial.imageTut, pathThreeTutorial.vidTut, 6.7f);
             TutorialController.instance.thirdPath = true;
         }
     }

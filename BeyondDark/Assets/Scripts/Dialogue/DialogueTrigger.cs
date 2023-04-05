@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
@@ -47,5 +48,18 @@ public class DialogueTrigger : MonoBehaviour
             }
 
         }
-}
+        else if(other.tag == "VorgonRealmPlayer")
+        {
+            StartCoroutine(PlayVoiceLinewithDelay());
+        }
+    }
+
+    IEnumerator PlayVoiceLinewithDelay()
+    {
+        // Wait until after the out of breath spawn audio
+        yield return new WaitForSeconds(1.5f);
+        dialogueSystem.PlayDialogue(dialogue); // call the PlayDialogue function in the DialogueManager script and pass in the Dialogue instance
+        Destroy(this);
+    }
+
 }
