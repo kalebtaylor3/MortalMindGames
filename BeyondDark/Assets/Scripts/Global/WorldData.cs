@@ -441,7 +441,7 @@ public class WorldData : MonoBehaviour
             player.InvokeCrouchRoutine();
         //lastConceal.enteranceAnimator.SetTrigger("Enter");
 
-        vorgonModel.SetActive(false);
+        //vorgonModel.SetActive(false);
 
         if (lastConceal != null && player.isHiding)
         {
@@ -463,7 +463,6 @@ public class WorldData : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
             lastConceal.ToggleConcealDeath();
-            
             vorgon.playerDead = true;
             vorgon.detection = 0;
             lastConceal.canCreak = false;
@@ -474,6 +473,7 @@ public class WorldData : MonoBehaviour
             //yield return new WaitForSeconds(1.0f);
             ConcelableDetection.Instance.vorgonKnows = false;
             yield return new WaitForSeconds(((float)deathClip.length));
+            vorgonModel.SetActive(false);
             fadeOut.SetActive(true);
             lastConceal.ToggleCamChange();
             TpTest.Instance.MortalRealmDeath(pickUpCP);
@@ -495,6 +495,7 @@ public class WorldData : MonoBehaviour
         }
         else
         {
+            vorgonModel.SetActive(false);
             playerDeathMR.SetActive(true);            
             vorgon.playerDead = true;
             vorgon.detection = 0;
