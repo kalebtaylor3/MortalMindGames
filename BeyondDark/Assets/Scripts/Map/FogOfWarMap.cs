@@ -45,11 +45,21 @@ public class FogOfWarMap : MonoBehaviour
                     m_colors[i] = Color.Lerp(Color.white, burnColor, noiseValue);
                     m_colors[i].a = alpha * 2;
 
-                    // add emissive color
-                    Color finalColor = m_colors[i];
+                    Color finalColor = Color.Lerp(Color.white, burnColor, noiseValue);
                     finalColor.a = alpha * 2;
+
+                    // Add the emissive color to the final color
                     finalColor += emissiveColor * noiseValue;
+
+                    // Set the modified color
                     m_colors[i] = finalColor;
+
+                    // Update the emissive color on the material
+                    MeshRenderer meshRenderer = m_fogOfWarPlane.GetComponent<MeshRenderer>();
+                    Material material = meshRenderer.material;
+                    material.SetColor("_EmissionColor", finalColor);
+                    material.EnableKeyword("_EMISSION");
+                    material.globalIlluminationFlags &= ~MaterialGlobalIlluminationFlags.EmissiveIsBlack;
 
                     StartCoroutine(pixelBurner(i, alpha));
                 }
