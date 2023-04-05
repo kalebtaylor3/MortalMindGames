@@ -2,6 +2,7 @@ using MMG;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
 using UnityEngine.Video;
@@ -147,6 +148,10 @@ public class WorldData : MonoBehaviour
     public VideoClip deathClip;
 
     public CameraController cameraC;
+
+    [Header("Voicelines")]
+    [SerializeField] List<Dialogue> trialSuccessDialogue = new List<Dialogue>();
+
 
     private void OnEnable()
     {
@@ -543,11 +548,16 @@ public class WorldData : MonoBehaviour
         initialContain.TurnOffWalls();
     }
 
-    //public IEnumerator TurnOffContain()
-    //{
-    //    //yield return new WaitForSeconds(3.5f);
-        
-    //}
+    public void TrialSuccessVoiceLine()
+    {
+        StartCoroutine(TriggerVoiceLine());
+    }
+
+    IEnumerator TriggerVoiceLine()
+    {
+        yield return new WaitForSeconds(5f);
+        DialougeSystem.instance.PlayDialogue(trialSuccessDialogue[UnityEngine.Random.Range(0, trialSuccessDialogue.Count)]); // call the PlayDialogue function in the DialogueManager script and pass in the Dialogue instance        
+    }
 
     #endregion
 

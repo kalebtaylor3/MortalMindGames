@@ -14,6 +14,7 @@ public class FogOfWarMap : MonoBehaviour
     private Color[] m_colors;
 
     public Color burnColor;
+    public Color emissiveColor;
 
     // Use this for initialization
     void Start()
@@ -41,8 +42,25 @@ public class FogOfWarMap : MonoBehaviour
                 {
                     float alpha = Mathf.Min(m_colors[i].a, dist / m_radiusSqr);
                     float noiseValue = Mathf.PerlinNoise((v.x + Time.time) / m_radius, (v.z + Time.time) / m_radius);
-                    m_colors[i] = Color.Lerp(Color.black, burnColor, noiseValue);
+                    m_colors[i] = Color.Lerp(Color.white, burnColor, noiseValue);
                     m_colors[i].a = alpha * 2;
+
+                    Color finalColor = Color.Lerp(Color.white, burnColor, noiseValue);
+                    finalColor.a = alpha * 2;
+
+                    // Add the emissive color to the final color
+                    finalColor += emissiveColor * noiseValue;
+
+                    // Set the modified color
+                    m_colors[i] = finalColor;
+
+                    // Update the emissive color on the material
+                    MeshRenderer meshRenderer = m_fogOfWarPlane.GetComponent<MeshRenderer>();
+                    Material material = meshRenderer.material;
+                    material.SetColor("_EmissionColor", finalColor);
+                    material.EnableKeyword("_EMISSION");
+                    material.globalIlluminationFlags &= ~MaterialGlobalIlluminationFlags.EmissiveIsBlack;
+
                     StartCoroutine(pixelBurner(i, alpha));
                 }
             }
@@ -68,7 +86,7 @@ public class FogOfWarMap : MonoBehaviour
 
         for (int i = 0; i < m_colors.Length; i++)
         {
-            m_colors[i] = Color.black;
+            m_colors[i] = Color.white;
         }
         UpdateColor();
     }

@@ -24,9 +24,9 @@ public class UIManager : MonoBehaviour
     {
         if(WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
         {
-            if(!staminaSlider.isActiveAndEnabled)
+            if (!staminaSlider.gameObject.activeSelf)
             {
-                staminaSlider.enabled = true;
+                staminaSlider.gameObject.SetActive(true);
             }
 
 
@@ -55,9 +55,9 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            if (staminaSlider.isActiveAndEnabled)
+            if (staminaSlider.gameObject.activeSelf)
             {
-                staminaSlider.enabled = false;
+                staminaSlider.gameObject.SetActive(false);
             }
         }
         

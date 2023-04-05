@@ -8,6 +8,6 @@ public class TriggerStartTutorial : MonoBehaviour
 
     private void Awake()
     {
-        TutorialController.instance.SetTutorial(tutorial.imageTut, tutorial.vidTut, 1);
+        TutorialController.instance.SetTutorial(tutorial.imageTut, tutorial.vidTut, 3);
     }
 }

@@ -64,6 +64,8 @@ public class CollisionActivation : MonoBehaviour
 
                     WorldData.Instance.VorgonRealmPlayerDeath();
                     StartCoroutine(WaitForHealth());
+                    WorldData.Instance.TrialSuccessVoiceLine();
+                    // World Data success voiceline
                 }
                 break;
 

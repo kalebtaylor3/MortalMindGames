@@ -31,10 +31,10 @@ public class HellFireController : MonoBehaviour
     {
         //StartCoroutine(DisableShooting());
         canShoot = false;
-        float random = Random.Range(0, 1f);
+        float random = Random.Range(0, 1.5f);
         StartCoroutine(WaitToShoot(random));
 
-        projectileSpeed = Random.Range(20, 25);
+        projectileSpeed = Random.Range(15, 25);
     }
 
     
