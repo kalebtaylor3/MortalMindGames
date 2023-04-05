@@ -29,7 +29,7 @@ public class FogOfWarMap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray r = new Ray(transform.position, m_player.position - transform.position);
+        Ray r = new Ray(transform.position, (m_player.position + Vector3.forward * 4) - transform.position);
         RaycastHit hit;
         if (Physics.Raycast(r, out hit, 1000, m_fogLayer, QueryTriggerInteraction.Collide))
         {
