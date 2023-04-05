@@ -69,6 +69,8 @@ public class TpTest : MonoBehaviour
             InteractionUIPanel.Instance.ResetUI();
             
             //WorldData.Instance.activeRealm = WorldData.REALMS.VORGON;
+
+
         }
         else if (WorldData.Instance.activeRealm == WorldData.REALMS.VORGON)
         {

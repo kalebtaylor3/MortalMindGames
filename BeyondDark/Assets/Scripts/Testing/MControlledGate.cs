@@ -4,14 +4,28 @@ using UnityEngine;
 
 public class MControlledGate : MonoBehaviour
 {
+    public ParticleSystem wallParticle;
+
+    private void OnEnable()
+    {
+        wallParticle.Play();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("VorgonRealmPlayer"))
         {
             if(GetComponentInParent<MSpawner>().CheckMinions())
             {
-                this.gameObject.SetActive(false);
+                StartCoroutine(TurnOffGate());
             }
         }
+    }
+
+    public IEnumerator TurnOffGate()
+    {
+        wallParticle.Stop();
+        yield return null;
+        this.gameObject.SetActive(false);
     }
 }
