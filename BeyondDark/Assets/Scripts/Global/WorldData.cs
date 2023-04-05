@@ -73,6 +73,8 @@ public class WorldData : MonoBehaviour
     public GameObject detectionUI;
     public GameObject canvas;
     public GameObject safeZoneUI;
+    public GameObject staminaSlider;
+    public bool playerDeath;
 
     // FOR CHECKPOINT
     private RelicSpawnManager.RELIC_TYPE lastCollectedRelicCP = RELIC_TYPE.NONE;
@@ -434,6 +436,9 @@ public class WorldData : MonoBehaviour
 
     IEnumerator TriggerPlayerDeathMR()
     {
+        playerDeath = true;
+        staminaSlider.SetActive(false);
+
         input.canMove = false;
         PlayerInventoryController.Instance.CloseBook();
 
@@ -539,6 +544,8 @@ public class WorldData : MonoBehaviour
             player.isHiding = false;
         }
 
+        playerDeath = false;
+        staminaSlider.SetActive(true);
         input.canMove = true;
         vorgonModel.SetActive(true);
     }

@@ -24,9 +24,17 @@ public class UIManager : MonoBehaviour
     {
         if(WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
         {
-            if (!staminaSlider.gameObject.activeSelf)
+            if (!staminaSlider.gameObject.activeSelf && !WorldData.Instance.playerDeath)
             {
                 staminaSlider.gameObject.SetActive(true);
+            }
+            else if(WorldData.Instance.playerDeath)
+            {
+                Color newC = fillImage.color;
+
+                newC.a = 0f;
+
+                fillImage.color = newC;
             }
 
 
@@ -59,9 +67,9 @@ public class UIManager : MonoBehaviour
             {
                 staminaSlider.gameObject.SetActive(false);
             }
-        }
-        
+        }        
     }
+
 
     public IEnumerator FadeSlider(bool flag, float f = 1)
     {
