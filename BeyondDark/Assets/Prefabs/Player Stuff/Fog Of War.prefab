@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9013988159595662655}
   - component: {fileID: 9013988159595662656}
   - component: {fileID: 9013988159595662657}
+  - component: {fileID: 823054694186285221}
   m_Layer: 0
   m_Name: Fog Of War
   m_TagString: Untagged
@@ -53,6 +54,7 @@ MonoBehaviour:
     m_Bits: 256
   m_radius: 8.5
   burnColor: {r: 0.99215686, g: 0.1254902, b: 0, a: 1}
+  emissiveColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!20 &9013988159595662656
 Camera:
   m_ObjectHideFlags: 0
@@ -129,3 +131,16 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &823054694186285221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9013988159595662652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11a7ab3c253f3fe4994aa59ff305b4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraWithoutFog: {fileID: 9013988159595662656}
