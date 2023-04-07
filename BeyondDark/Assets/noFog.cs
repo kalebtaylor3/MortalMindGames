@@ -7,6 +7,16 @@ public class noFog : MonoBehaviour
 {
     public Camera cameraWithoutFog;
 
+    private void OnEnable()
+    {
+        RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
+    }
+
+    private void Awake()
+    {
+        RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
+    }
+
     private void Start()
     {
         RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
