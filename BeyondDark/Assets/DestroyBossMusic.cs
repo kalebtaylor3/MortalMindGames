@@ -9,6 +9,6 @@ public class DestroyBossMusic : MonoBehaviour
 
     private void OnEnable()
     {
-        Destroy(bossMusic);
+        bossMusic.enabled = false;
     }
 }
