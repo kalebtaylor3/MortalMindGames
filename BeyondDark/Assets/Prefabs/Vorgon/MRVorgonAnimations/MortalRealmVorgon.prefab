@@ -255,8 +255,8 @@ MonoBehaviour:
   PlayerKillCollision: {fileID: 0}
   vorgonFSM: {fileID: 1965436468595215874}
   alertAudioSource: {fileID: 19277412622086645}
-  defaultSpeed: 0
-  chaseSpeed: 0
+  defaultSpeed: 2.5
+  chaseSpeed: 4
   targetMask:
     serializedVersion: 2
     m_Bits: 512
@@ -265,16 +265,19 @@ MonoBehaviour:
     m_Bits: 3072
   concealPos: {x: -1, y: -1, z: -1}
   concealArea: {fileID: 0}
-  vorgonAnimator: {fileID: 0}
+  vorgonAnimator: {fileID: 5787626883588377165}
   detectionUI: {fileID: 0}
   sightCanvas: {fileID: 0}
   detection: 0
-  detectionSpeed: 0.09
+  detectionSpeed: 0.3
   ALERTSounds:
   - {fileID: 8300000, guid: 7c9c60d4004f9884c99b880ede5a9a73, type: 3}
   - {fileID: 8300000, guid: 70b4e3caaa5d95147904e510217475d3, type: 3}
   GROWLSounds:
   - {fileID: 8300000, guid: 16557386e8d541042bff1151a58f8396, type: 3}
+  StunnedSounds:
+  - {fileID: 8300000, guid: be15d125c3d052c408b6e7527e10a958, type: 3}
+  - {fileID: 8300000, guid: b35604b7f0955454799721ac04f06451, type: 3}
   flashSpeed: 0.1
   sawConceal: 0
   noticeRate: 0.09
