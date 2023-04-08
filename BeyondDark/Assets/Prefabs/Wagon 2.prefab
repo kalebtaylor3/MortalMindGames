@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 950036219668844370}
   - component: {fileID: 3083773467985525656}
   - component: {fileID: 4647620967925797462}
+  - component: {fileID: 3710234392698771328}
   m_Layer: 10
   m_Name: Wagon 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4215632574641520887
 Transform:
@@ -93,8 +94,21 @@ MeshCollider:
   m_GameObject: {fileID: 3588031696515275341}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6715375062900545627, guid: d5458d13e4284e5469223b9990bc239d, type: 3}
+--- !u!65 &3710234392698771328
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3588031696515275341}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.213133, y: 0.39186427, z: 0.24217896}
+  m_Center: {x: 0.4325508, y: 3.439012e-10, z: 0.085737646}
