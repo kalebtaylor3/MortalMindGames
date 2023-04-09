@@ -73,7 +73,6 @@ public class PlayerCombatController : MonoBehaviour
     public static int noOfPresses = 0;
     float lastClickedTime = 0;
     public float maxComboDelay = 1.2f;
-    public TrailRenderer swingTrail;
     private float trailTime = 0.7f;
 
     public GameObject cancelText;
@@ -140,7 +139,6 @@ public class PlayerCombatController : MonoBehaviour
         wallMarker.SetActive(false);
         swordOfVorgon.SetActive(false);
         currentMagicAbility = 0;
-        swingTrail.enabled = false;
 
         cameraC.enabled = true;
         defaultCamera.SetActive(true);
@@ -778,7 +776,7 @@ public class PlayerCombatController : MonoBehaviour
 
         if (Time.time - lastClickedTime > trailTime)
         {
-            swingTrail.enabled = false;
+
         }
 
         if (swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Sword004_Chainsaw") && !swordAnimator.GetBool("hit1"))
@@ -834,7 +832,6 @@ public class PlayerCombatController : MonoBehaviour
         {
             if (!oneSwing)
             {
-                swingTrail.enabled = true;
                 swordAnimator.SetBool("hit1", true);
                 swordAnimator.SetBool("hit2", false);
                 swordAnimator.SetBool("hit3", false);
