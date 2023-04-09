@@ -889,7 +889,7 @@ public class PlayerCombatController : MonoBehaviour
 
     IEnumerator WaitForHit()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.7f);
         swordSwingAudio.PlayOneShot(swordSwoosh);
         SwordDamage.Instance.SetDamage(20);
         yield return new WaitForSeconds(0.3f);
