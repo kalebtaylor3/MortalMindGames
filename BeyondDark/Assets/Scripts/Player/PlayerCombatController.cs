@@ -109,6 +109,8 @@ public class PlayerCombatController : MonoBehaviour
 
     bool canAttack = true;
 
+    bool oneSwing = false;
+
     #endregion
 
     #region Events
@@ -829,28 +831,39 @@ public class PlayerCombatController : MonoBehaviour
 
         if (noOfPresses == 1)
         {
-            swingTrail.enabled = true;
-            swordAnimator.SetBool("hit1", true);
-            swordAnimator.SetBool("hit2", false);
-            swordAnimator.SetBool("hit3", false);
-            trailTime = 0.7f;
-            swordSwingAudio.PlayOneShot(swordSwoosh);
-            Rumbler.Instance.RumbleConstant(0, 0.1f, 0.2f);
-            CameraShake.Instance.ShakeCamera(0.2f, 0.5f, 0.3f);
-            SwordDamage.Instance.SetDamage(5);
+            oneSwing = false;
+            if (!oneSwing)
+            {
+                swingTrail.enabled = true;
+                swordAnimator.SetBool("hit1", true);
+                swordAnimator.SetBool("hit2", false);
+                swordAnimator.SetBool("hit3", false);
+                trailTime = 0.7f;
+                if (!swordSwingAudio.isPlaying)
+                    swordSwingAudio.PlayOneShot(swordSwoosh);
+                Rumbler.Instance.RumbleConstant(0, 0.1f, 0.2f);
+                CameraShake.Instance.ShakeCamera(0.2f, 0.5f, 0.3f);
+                SwordDamage.Instance.SetDamage(5);
+                oneSwing = true;
+            }
         }
         noOfPresses = Mathf.Clamp(noOfPresses, 0, 3);
 
         if (noOfPresses >= 2 && swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.4f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
-            swordAnimator.SetBool("hit1", false);
-            swordAnimator.SetBool("hit2", true);
-            swordAnimator.SetBool("hit3", false);
-            trailTime = 0.7f;
-            swordSwingAudio.PlayOneShot(swordSwoosh);
-            Rumbler.Instance.RumbleConstant(0, 0.15f, 0.2f);
-            CameraShake.Instance.ShakeCamera(0.3f, 0.5f, 0.3f);
-            SwordDamage.Instance.SetDamage(10);
+            oneSwing = false;
+            if (!oneSwing)
+            {
+                swordAnimator.SetBool("hit1", false);
+                swordAnimator.SetBool("hit2", true);
+                swordAnimator.SetBool("hit3", false);
+                trailTime = 0.7f;
+                swordSwingAudio.PlayOneShot(swordSwoosh);
+                Rumbler.Instance.RumbleConstant(0, 0.15f, 0.2f);
+                CameraShake.Instance.ShakeCamera(0.3f, 0.5f, 0.3f);
+                SwordDamage.Instance.SetDamage(10);
+                oneSwing = true;
+            }
         }
 
         if(noOfPresses >= 3 && swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.4f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
