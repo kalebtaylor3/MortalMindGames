@@ -83,7 +83,7 @@ public class MainMenu : MonoBehaviour
 
     public void Credits()
     {
-        Debug.Log("Show Credits");
+        SceneManager.LoadScene("Credits", LoadSceneMode.Single);
     }
 
     public void ExitGame()
