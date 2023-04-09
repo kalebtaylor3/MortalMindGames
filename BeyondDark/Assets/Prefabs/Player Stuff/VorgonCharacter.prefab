@@ -195,8 +195,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624822586756848108}
-  m_LocalRotation: {x: 0.11384463, y: 0.8654986, z: -0.2286763, w: 0.4308814}
-  m_LocalPosition: {x: 348.3688, y: 6.3565435, z: 190.21057}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -229,8 +229,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
-  far clip plane: 200
+  near clip plane: 0.3
+  far clip plane: 1000
   field of view: 60
   orthographic: 0
   orthographic size: 10
@@ -6826,7 +6826,6 @@ Transform:
   - {fileID: 3912717899768138995}
   - {fileID: 1653314405679419477}
   - {fileID: 104370720306651886}
-  - {fileID: 1965180351608857441}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -7188,7 +7187,10 @@ MonoBehaviour:
   flameIcon: {fileID: 7059269466952875959}
   wallIcon: {fileID: 6480537134754963680}
   fadeTime: 0.7
-  swordSwoosh: {fileID: 8300000, guid: 845dc9b0c44054e4d89d5d4594c82b8c, type: 3}
+  swordSwoosh:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   swordSwingAudio: {fileID: 2486459801508652015}
   leftHandFlame: {fileID: 8252729635578830929}
   rightHandFlame: {fileID: 1740989183988500345}
@@ -8710,13 +8712,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5487903850909740454}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.6559169, y: -0.68828326, z: -0.20661801, w: 0.23097232}
+  m_LocalPosition: {x: 2.103216, y: 0.55304104, z: -0.732219}
+  m_LocalScale: {x: 1.4577842, y: 1.2979277, z: 1.3682559}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3857864375823558151}
-  m_RootOrder: 10
+  m_Father: {fileID: 547757213905799576}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &2486459801508652015
 AudioSource:

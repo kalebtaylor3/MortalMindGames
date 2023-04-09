@@ -90,7 +90,7 @@ public class PlayerCombatController : MonoBehaviour
 
     bool canSwing = true;
 
-    public AudioClip swordSwoosh;
+    public List<AudioClip> swordSwoosh;
     public AudioSource swordSwingAudio;
     public AudioSource leftHandFlame;
     public AudioSource rightHandFlame;
@@ -837,7 +837,10 @@ public class PlayerCombatController : MonoBehaviour
                 swordAnimator.SetBool("hit3", false);
                 trailTime = 0.7f;
                 if (!swordSwingAudio.isPlaying)
-                    swordSwingAudio.PlayOneShot(swordSwoosh);
+                {
+                    int rand = UnityEngine.Random.Range(0, swordSwoosh.Count);
+                    swordSwingAudio.PlayOneShot(swordSwoosh[rand]);
+                }
                 Rumbler.Instance.RumbleConstant(0, 0.1f, 0.2f);
                 CameraShake.Instance.ShakeCamera(0.4f, 0.7f, 0.3f);
                 SwordDamage.Instance.SetDamage(5);
@@ -883,14 +886,18 @@ public class PlayerCombatController : MonoBehaviour
     IEnumerator WaitForSwoosh()
     {
         yield return new WaitForSeconds(0.2f);
-        if(!swordSwingAudio.isPlaying)
-            swordSwingAudio.PlayOneShot(swordSwoosh);
+        if (!swordSwingAudio.isPlaying)
+        {
+            int rand = UnityEngine.Random.Range(0, swordSwoosh.Count);
+            swordSwingAudio.PlayOneShot(swordSwoosh[rand]);
+        }
     }
 
     IEnumerator WaitForHit()
     {
         yield return new WaitForSeconds(0.7f);
-        swordSwingAudio.PlayOneShot(swordSwoosh);
+        int rand = UnityEngine.Random.Range(0, swordSwoosh.Count);
+        swordSwingAudio.PlayOneShot(swordSwoosh[rand]);
         SwordDamage.Instance.SetDamage(20);
         yield return new WaitForSeconds(0.3f);
         Rumbler.Instance.RumbleConstant(0, 0.3f, 0.4f);
