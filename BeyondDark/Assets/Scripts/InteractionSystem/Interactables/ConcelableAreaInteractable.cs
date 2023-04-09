@@ -212,9 +212,9 @@ namespace MMG
 
                     if (cameraClamp == clamp.Y)
                     {
-                        if (rotator.transform.rotation.x > 0)
+                        if (rotator.transform.localRotation.x < startRotation.x)
                         {
-                            rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+                            rotator.transform.localRotation = new Quaternion(0, 0, 0, 0);
                             doorCreak.Stop();
                         }
                     }
@@ -228,9 +228,9 @@ namespace MMG
                     }
                     else if (cameraClamp == clamp.Z)
                     {
-                        if (rotator.transform.rotation.z < 0)
+                        if (rotator.transform.localRotation.z < startRotation.z)
                         {
-                            rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+                            rotator.transform.localRotation = new Quaternion(0, 0, 0, 0);
                             doorCreak.Stop();
                         }
                     }
@@ -384,6 +384,7 @@ namespace MMG
             isHidding = false;
             happenOnce = false;
             input.canMove = true;
+            canRotate = true;
             OnLeaveSpot?.Invoke();
             deathCAA.SetActive(false);
             ConcelableDetection.Instance.seen = false;
@@ -440,7 +441,7 @@ namespace MMG
 
             concelableAreaCam.revealPercentage = 0;
 
-            rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
+            //rotator.transform.rotation = new Quaternion(0, 0, 0, 0);
 
             ResetRotator();
 
