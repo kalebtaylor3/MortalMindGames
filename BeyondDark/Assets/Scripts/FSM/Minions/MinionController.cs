@@ -62,7 +62,8 @@ public class MinionController : MonoBehaviour
 
     //Sounds
     public List<AudioClip> clipsWalk;
-    public List<AudioClip> clipsHurt;
+    public List<AudioClip> clipsSwordHurt;
+    public List<AudioClip> clipsProjectileHurt;
     public List<AudioClip> clipsttack;
     public AudioClip clipShooting;
     public AudioClip clipAcidshot;
@@ -198,10 +199,30 @@ public class MinionController : MonoBehaviour
                     StartCoroutine(OnFire());
                 }
 
-                if(!effectsSource.isPlaying)
+                
+                if (!sword)
                 {
-                    int rand = UnityEngine.Random.Range(0, clipsHurt.Count);
-                    effectsSource.PlayOneShot(clipsHurt[rand]);
+                    if (onFire)
+                    {
+                        if (!effectsSource.isPlaying)
+                        {
+                            int rand = UnityEngine.Random.Range(0, clipsProjectileHurt.Count);
+                            effectsSource.PlayOneShot(clipsProjectileHurt[rand]);
+                        }
+                    }
+                    else
+                    {
+                        int rand = UnityEngine.Random.Range(0, clipsProjectileHurt.Count);
+                        effectsSource.PlayOneShot(clipsProjectileHurt[rand]);
+                    }
+                }
+                else
+                {
+                    if (!effectsSource.isPlaying)
+                    {
+                        int rand = UnityEngine.Random.Range(0, clipsSwordHurt.Count);
+                        effectsSource.PlayOneShot(clipsSwordHurt[rand]);
+                    }
                 }
 
                 if(!onFire)
