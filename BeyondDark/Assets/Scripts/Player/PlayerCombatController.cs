@@ -842,7 +842,7 @@ public class PlayerCombatController : MonoBehaviour
                 if (!swordSwingAudio.isPlaying)
                     swordSwingAudio.PlayOneShot(swordSwoosh);
                 Rumbler.Instance.RumbleConstant(0, 0.1f, 0.2f);
-                CameraShake.Instance.ShakeCamera(0.2f, 0.5f, 0.3f);
+                CameraShake.Instance.ShakeCamera(0.4f, 0.7f, 0.3f);
                 SwordDamage.Instance.SetDamage(5);
                 oneSwing = true;
             }
@@ -860,7 +860,7 @@ public class PlayerCombatController : MonoBehaviour
                 trailTime = 0.7f;
                 swordSwingAudio.PlayOneShot(swordSwoosh);
                 Rumbler.Instance.RumbleConstant(0, 0.15f, 0.2f);
-                CameraShake.Instance.ShakeCamera(0.3f, 0.5f, 0.3f);
+                CameraShake.Instance.ShakeCamera(0.5f, 0.9f, 0.3f);
                 SwordDamage.Instance.SetDamage(10);
                 oneSwing = true;
             }
@@ -889,7 +889,7 @@ public class PlayerCombatController : MonoBehaviour
         SwordDamage.Instance.SetDamage(20);
         yield return new WaitForSeconds(0.3f);
         Rumbler.Instance.RumbleConstant(0, 0.3f, 0.4f);
-        CameraShake.Instance.ShakeCamera(0.4f, 1, 0.3f);
+        CameraShake.Instance.ShakeCamera(0.6f, 1, 0.3f);
     }
 
     IEnumerator WaitForSpawn()
