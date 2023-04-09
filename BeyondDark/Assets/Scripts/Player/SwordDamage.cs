@@ -81,7 +81,7 @@ public class SwordDamage : MonoBehaviour
 
                 if (hit.collider.gameObject.tag == "Arm" && damageOnce && currentAmountOfDamage > 0)
                 {
-                    if (swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Sword004_Chainsaw"))
+                    if (!swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Sword004_Chainsaw"))
                     {
                         Debug.Log("Hitwall");
                         StartCoroutine(DamageDelay());
