@@ -5,8 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class TriggerMenu : MonoBehaviour
 {
+
+    public bool credits;
+
     private void Awake()
     {
-        SceneManager.LoadScene("Main Menu");
+        if(credits)
+            SceneManager.LoadScene("Credits");
+        else
+            SceneManager.LoadScene("Main Menu");
     }
 }
