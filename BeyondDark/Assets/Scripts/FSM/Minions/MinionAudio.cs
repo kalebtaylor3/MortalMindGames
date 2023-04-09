@@ -15,6 +15,8 @@ public class MinionAudio : MonoBehaviour
     public AudioClip mAttack;
     public AudioClip spawn;
 
+    public GameObject deathPrefab;
+
 
     public void PlayStep()
     {
@@ -51,7 +53,10 @@ public class MinionAudio : MonoBehaviour
     {
         if (animator.GetBool("Dead"))
         {
-            stepSource.PlayOneShot(death);
+            GameObject d = Instantiate(deathPrefab, this.transform.position, Quaternion.identity);
+            Destroy(d, 2f);
+
+            //stepSource.PlayOneShot(death);
         }        
     }
 
