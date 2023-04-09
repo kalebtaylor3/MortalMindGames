@@ -881,7 +881,7 @@ public class PlayerCombatController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         swordOfVorgon.SetActive(true);
-        swordAnimator.SetTrigger("Unsheathe");
+        //swordAnimator.SetTrigger("Unsheathe");
     }
 
     void ShootFlamesLeftHand()

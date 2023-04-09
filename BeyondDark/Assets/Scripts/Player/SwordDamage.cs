@@ -26,6 +26,8 @@ public class SwordDamage : MonoBehaviour
     public AudioClip bloodHit;
     public AudioSource swordAudioSource;
 
+    Animator swordAnimator;
+
     public static event Action<float> DealDamage;
 
     public static SwordDamage Instance
@@ -64,27 +66,33 @@ public class SwordDamage : MonoBehaviour
             {
                 if (hit.collider.gameObject.tag == "Wall" && sparkOnce && currentAmountOfDamage > 0)
                 {
-                    Debug.Log("Hitwall");
-                    StartCoroutine(SparkDelay());
-                    swordAudioSource.PlayOneShot(wallDing);
-                    sparkOnce = false;
-                    GameObject obj = Instantiate(sparks);
-                    obj.transform.position = hit.point;
-                    obj.transform.LookAt(playerCam.transform);
-                    CameraShake.Instance.ShakeCamera(0.7f, 0.5f, 0.3f);
+                    if (!swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Sword004_Chainsaw"))
+                    {
+                        Debug.Log("Hitwall");
+                        StartCoroutine(SparkDelay());
+                        swordAudioSource.PlayOneShot(wallDing);
+                        sparkOnce = false;
+                        GameObject obj = Instantiate(sparks);
+                        obj.transform.position = hit.point;
+                        obj.transform.LookAt(playerCam.transform);
+                        CameraShake.Instance.ShakeCamera(0.7f, 0.5f, 0.3f);
+                    }
                 }
 
                 if (hit.collider.gameObject.tag == "Arm" && damageOnce && currentAmountOfDamage > 0)
                 {
-                    Debug.Log("Hitwall");
-                    StartCoroutine(DamageDelay());
-                    swordAudioSource.PlayOneShot(bloodHit);
-                    damageOnce = false;
-                    GameObject obj = Instantiate(vorgonBlood);
-                    obj.transform.position = hit.point;
-                    obj.transform.LookAt(playerCam.transform);
-                    CameraShake.Instance.ShakeCamera(0.7f, 0.5f, 0.3f);
-                    DealDamage?.Invoke(currentAmountOfDamage * 2);
+                    if (swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Sword004_Chainsaw"))
+                    {
+                        Debug.Log("Hitwall");
+                        StartCoroutine(DamageDelay());
+                        swordAudioSource.PlayOneShot(bloodHit);
+                        damageOnce = false;
+                        GameObject obj = Instantiate(vorgonBlood);
+                        obj.transform.position = hit.point;
+                        obj.transform.LookAt(playerCam.transform);
+                        CameraShake.Instance.ShakeCamera(0.7f, 0.5f, 0.3f);
+                        DealDamage?.Invoke(currentAmountOfDamage * 2);
+                    }
                 }
             }
         }
