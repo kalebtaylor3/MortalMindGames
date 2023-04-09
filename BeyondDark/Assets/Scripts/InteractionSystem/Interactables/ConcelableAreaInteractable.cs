@@ -428,7 +428,7 @@ namespace MMG
             lookAtStartPosition = lookAtTransform.position;
 
             concelableAreaCam.cam.LookAt = lookAtTransform;
-            startRotation = rotator.transform.rotation;
+            //startRotation = rotator.transform.rotation;
 
             player = GameObject.FindGameObjectWithTag("Player");
             playerController = player.GetComponent<PlayerController>();
