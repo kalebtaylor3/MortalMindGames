@@ -26,7 +26,7 @@ public class SwordDamage : MonoBehaviour
     public AudioClip bloodHit;
     public AudioSource swordAudioSource;
 
-    Animator swordAnimator;
+    public Animator swordAnimator;
 
     public static event Action<float> DealDamage;
 

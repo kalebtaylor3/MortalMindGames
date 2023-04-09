@@ -815,13 +815,13 @@ public class PlayerCombatController : MonoBehaviour
         if (noOfPresses == 0 && canSwing)
         {
             noOfPresses = 1;
-            swordSwingAudio.PlayOneShot(swordSwoosh);
+            //swordSwingAudio.PlayOneShot(swordSwoosh);
             canSwing = false;
         }
         else if (noOfPresses == 1)
         {
             noOfPresses = 2;
-            swordSwingAudio.PlayOneShot(swordSwoosh);
+            //swordSwingAudio.PlayOneShot(swordSwoosh);
             canSwing = true;
         }
         else if (noOfPresses == 2)
@@ -834,6 +834,7 @@ public class PlayerCombatController : MonoBehaviour
             swordAnimator.SetBool("hit2", false);
             swordAnimator.SetBool("hit3", false);
             trailTime = 0.7f;
+            swordSwingAudio.PlayOneShot(swordSwoosh);
             Rumbler.Instance.RumbleConstant(0, 0.1f, 0.2f);
             CameraShake.Instance.ShakeCamera(0.2f, 0.5f, 0.3f);
             SwordDamage.Instance.SetDamage(5);
@@ -846,6 +847,7 @@ public class PlayerCombatController : MonoBehaviour
             swordAnimator.SetBool("hit2", true);
             swordAnimator.SetBool("hit3", false);
             trailTime = 0.7f;
+            swordSwingAudio.PlayOneShot(swordSwoosh);
             Rumbler.Instance.RumbleConstant(0, 0.15f, 0.2f);
             CameraShake.Instance.ShakeCamera(0.3f, 0.5f, 0.3f);
             SwordDamage.Instance.SetDamage(10);
@@ -869,7 +871,7 @@ public class PlayerCombatController : MonoBehaviour
 
     IEnumerator WaitForHit()
     {
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.4f);
         swordSwingAudio.PlayOneShot(swordSwoosh);
         SwordDamage.Instance.SetDamage(20);
         yield return new WaitForSeconds(0.3f);
