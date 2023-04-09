@@ -10,4 +10,9 @@ public class ChangeSkybox : MonoBehaviour
     {
         RenderSettings.skybox = mortalRealmSkybox;
     }
+
+    private void Update()
+    {
+        RenderSettings.skybox = mortalRealmSkybox;
+    }
 }
