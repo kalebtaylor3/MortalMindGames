@@ -819,6 +819,7 @@ public class PlayerCombatController : MonoBehaviour
             noOfPresses = 1;
             //swordSwingAudio.PlayOneShot(swordSwoosh);
             canSwing = false;
+            oneSwing = false;   
         }
         else if (noOfPresses == 1)
         {
@@ -831,7 +832,6 @@ public class PlayerCombatController : MonoBehaviour
 
         if (noOfPresses == 1)
         {
-            oneSwing = false;
             if (!oneSwing)
             {
                 swingTrail.enabled = true;
@@ -858,7 +858,7 @@ public class PlayerCombatController : MonoBehaviour
                 swordAnimator.SetBool("hit2", true);
                 swordAnimator.SetBool("hit3", false);
                 trailTime = 0.7f;
-                swordSwingAudio.PlayOneShot(swordSwoosh);
+                StartCoroutine(WaitForSwoosh());
                 Rumbler.Instance.RumbleConstant(0, 0.15f, 0.2f);
                 CameraShake.Instance.ShakeCamera(0.5f, 0.9f, 0.3f);
                 SwordDamage.Instance.SetDamage(10);
@@ -868,6 +868,7 @@ public class PlayerCombatController : MonoBehaviour
 
         if(noOfPresses >= 3 && swordAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.4f && swordAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
+            oneSwing = false;
             swordAnimator.SetBool("hit1", false);
             swordAnimator.SetBool("hit2", false);
             swordAnimator.SetBool("hit3", true);
@@ -880,6 +881,13 @@ public class PlayerCombatController : MonoBehaviour
             SwordDamage.Instance.SetDamage(0);
         }
 
+    }
+
+    IEnumerator WaitForSwoosh()
+    {
+        yield return new WaitForSeconds(0.2f);
+        if(!swordSwingAudio.isPlaying)
+            swordSwingAudio.PlayOneShot(swordSwoosh);
     }
 
     IEnumerator WaitForHit()
