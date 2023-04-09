@@ -11,8 +11,8 @@ public class MenuManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) { Instance = this; }
-        else if (Instance != this) Destroy(gameObject);
+        //if (Instance == null) { Instance = this; }
+        //else if (Instance != this) Destroy(gameObject);
     }
 
     #endregion
@@ -30,7 +30,12 @@ public class MenuManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if(mainMenu)
+        if (Instance == null) { Instance = this; }
+        else if (Instance != this) Destroy(gameObject);
+
+        OptionsMenuGO.GetComponent<OptionsMenu>().GetVolumes();
+
+        if (mainMenu)
         {
             Time.timeScale = 1;
         }
@@ -38,7 +43,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        OptionsMenuGO.GetComponent<OptionsMenu>().GetVolumes();
+        //OptionsMenuGO.GetComponent<OptionsMenu>().GetVolumes();
     }
 
     

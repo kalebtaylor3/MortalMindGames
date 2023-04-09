@@ -23,6 +23,8 @@ public class MainMenu : MonoBehaviour
         mainMenuScreen.SetActive(true);
 
         menu = MenuManager.Instance;
+
+        menu.mainMenu = true;
     }
 
     private void Awake()
@@ -45,6 +47,13 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
+        if(menu == null)
+        {
+            menu = MenuManager.Instance;
+
+            menu.mainMenu = true;
+        }
+
         if (Gamepad.current != null)
         {
             if (Gamepad.current.startButton.wasPressedThisFrame)
