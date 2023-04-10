@@ -40,6 +40,7 @@ public class QuickTimeEventSystem : MonoBehaviour
     //public AudioClip completeClip;
 
     bool inEvent = false;
+    bool canTrigger = true;
 
     private void OnEnable()
     {
@@ -69,45 +70,48 @@ public class QuickTimeEventSystem : MonoBehaviour
 
         //Mathf.Clamp(successTime, 0.2f, 0.65f);
 
-        if (eventTriggered)
+        if (canTrigger)
         {
-            if(inEvent)
+            if (eventTriggered)
             {
-                timer += Time.deltaTime * 4;
-                fillRect.fillAmount = timer / maxTime;
-            }
-
-            if (timer >= successTime - successTimeRange * maxTime && timer <= successTime + successTimeRange * maxTime)
-            {
-                if (qteInput.SuccessKeyPressed && inEvent && eventTriggered)
+                if (inEvent)
                 {
-                    Debug.Log("Quick time event successful!");
-                    //eventTriggered = false;
-                    inEvent = false;
-                    Success();
+                    timer += Time.deltaTime * 4;
+                    fillRect.fillAmount = timer / maxTime;
                 }
-            }
-            else if (timer < successTime - successTimeRange * maxTime || timer > successTime + successTimeRange * maxTime && inEvent)
-            {
-                if (qteInput.SuccessKeyPressed && inEvent && eventTriggered)
+
+                if (timer >= successTime - successTimeRange * maxTime && timer <= successTime + successTimeRange * maxTime)
+                {
+                    if (qteInput.SuccessKeyPressed && inEvent && eventTriggered)
+                    {
+                        Debug.Log("Quick time event successful!");
+                        //eventTriggered = false;
+                        inEvent = false;
+                        Success();
+                    }
+                }
+                else if (timer < successTime - successTimeRange * maxTime || timer > successTime + successTimeRange * maxTime && inEvent)
+                {
+                    if (qteInput.SuccessKeyPressed && inEvent && eventTriggered)
+                    {
+                        Debug.Log("Quick time event failed!");
+                        eventTriggered = false;
+                        inEvent = false;
+                        Fail(false);
+                    }
+                }
+                if (timer >= maxTime)
                 {
                     Debug.Log("Quick time event failed!");
                     eventTriggered = false;
                     inEvent = false;
-                    Fail();
+                    Fail(false);
                 }
             }
-            if (timer >= maxTime)
+            else
             {
-                Debug.Log("Quick time event failed!");
-                eventTriggered = false;
-                inEvent = false;
-                Fail();
+                successMarker.enabled = false;
             }
-        }
-        else
-        {
-            successMarker.enabled = false;
         }
     }
 
@@ -147,26 +151,39 @@ public class QuickTimeEventSystem : MonoBehaviour
         StartCoroutine(FadeOutAlert());
     }
 
-    void Fail()
+    void Fail(bool death)
     {
         //alert vorgon by playing a really loud fail sound.
         inEvent = false;
-        audioSource.PlayOneShot(failClip);
         OnFailure?.Invoke();
-        StartCoroutine(WaitToGoAway());
-        StartCoroutine(FadeAlert());
+        if (!death)
+        {
+            audioSource.PlayOneShot(failClip);
+            StartCoroutine(WaitToGoAway());
+            StartCoroutine(FadeAlert());
+        }
+        else
+        {
+            UIPanel.SetActive(false);
+            alertMessage.alpha = 0;
+            uiCanvas.alpha = 0;
+        }
     }
 
     void OnDeath()
     {
         inEvent = false;
         eventTriggered = false;
-        //audioSource.PlayOneShot(failClip);
-        OnFailure?.Invoke();
-        StartCoroutine(WaitToGoAway());
-        UIPanel.SetActive(false);
-        StartCoroutine(FadeOutAlert());
-        //StartCoroutine(FadeAlert());
+        Fail(true);
+        canTrigger = false;
+        StopAllCoroutines();
+        StartCoroutine(WaitForCanTrigger());
+    }
+
+    IEnumerator WaitForCanTrigger()
+    {
+        yield return new WaitForSeconds(2);
+        canTrigger = true;
     }
 
     IEnumerator FadeAlert()
