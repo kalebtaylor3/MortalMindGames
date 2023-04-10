@@ -14,10 +14,12 @@ public class UIManager : MonoBehaviour
 
     public bool fading = false;
     public bool fadedOut = true;
+    public bool weird = false;
 
     private void OnEnable()
     {
-        //staminaSlider = GetComponent<Slider>();
+        StopAllCoroutines();
+        StartCoroutine(FadeSlider(false, fillImage.color.a));
     }
 
     private void Update()
@@ -60,6 +62,13 @@ public class UIManager : MonoBehaviour
                 StopAllCoroutines();
                 StartCoroutine(FadeSlider(false, fillImage.color.a));
             }
+            //else if(staminaSlider.value == 1 && fading && fadedOut && !WorldData.Instance.player.movementInputData.IsRunning)
+            //{
+            //    fading = true;
+            //    weird = true;
+            //    StopAllCoroutines();
+            //    StartCoroutine(FadeSlider(false, fillImage.color.a));
+            //}
         }
         else
         {
@@ -79,7 +88,7 @@ public class UIManager : MonoBehaviour
 
         if (flag)
         {
-            fadedOut = false;
+            
             while (clockT < fadeTimer)
             {
                 newC.a = Mathf.Lerp(0f, 1f, clockT / fadeTimer);
@@ -93,10 +102,11 @@ public class UIManager : MonoBehaviour
             newC.a = 1f;
 
             fillImage.color = newC;
+            fadedOut = false;
         }
         else
         {
-            fadedOut = true;
+            
             while (clockT < fadeTimer)
             {
                 newC.a = Mathf.Lerp(f, 0f, clockT / fadeTimer);
@@ -110,9 +120,11 @@ public class UIManager : MonoBehaviour
             newC.a = 0f;
 
             fillImage.color = newC;
+            fadedOut = true;
         }
 
         fading = false;
+        weird = false;
     }
 
     //STAMINA
