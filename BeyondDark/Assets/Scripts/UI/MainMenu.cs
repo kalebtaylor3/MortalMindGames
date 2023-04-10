@@ -92,7 +92,10 @@ public class MainMenu : MonoBehaviour
 
     public void Credits()
     {
-        SceneManager.LoadScene("Credits", LoadSceneMode.Single);
+        loadScreen.SetActive(true);
+        loadScreen.GetComponent<LoadingScreen>().LoadNewScene(LoadingScreen.SCENES.CREDITS);
+        mainMenuScreen.SetActive(false);
+        //SceneManager.LoadScene("Credits", LoadSceneMode.Single);
     }
 
     public void ExitGame()
