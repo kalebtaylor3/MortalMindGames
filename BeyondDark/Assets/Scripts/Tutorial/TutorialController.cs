@@ -58,7 +58,7 @@ public class TutorialController : MonoBehaviour
                 if(Gamepad.current.buttonSouth.wasReleasedThisFrame)
                 {
                     Time.timeScale = 1;
-                    Debug.Log("closing tutorial");
+                    //Debug.Log("closing tutorial");
                     tutAnimator.SetBool("FadeOut", true);
                     StartCoroutine(WaitForFade());
                     inTutorial = false;
