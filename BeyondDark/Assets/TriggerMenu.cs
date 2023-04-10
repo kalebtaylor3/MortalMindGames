@@ -8,11 +8,23 @@ public class TriggerMenu : MonoBehaviour
 
     public bool credits;
 
+    [SerializeField] GameObject loadScreen;
+
     private void Awake()
     {
         if(credits)
-            SceneManager.LoadScene("Credits");
+        {
+            loadScreen.SetActive(true);
+            loadScreen.GetComponent<LoadingScreen>().LoadNewScene(LoadingScreen.SCENES.CREDITS);
+            //MenuManager.Instance.PauseMenuGO.SetActive(false);
+            //SceneManager.LoadScene("Credits");
+        }            
         else
-            SceneManager.LoadScene("Main Menu");
+        {
+            loadScreen.SetActive(true);
+            loadScreen.GetComponent<LoadingScreen>().LoadNewScene(LoadingScreen.SCENES.MENU);
+            //SceneManager.LoadScene("Main Menu");
+        }
+            
     }
 }

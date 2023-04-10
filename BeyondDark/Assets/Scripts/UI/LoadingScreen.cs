@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LoadingScreen : MonoBehaviour
 {
-    public enum SCENES { MENU = 0 , GAME = 1}
+    public enum SCENES { MENU = 0 , GAME = 1, CREDITS = 2}
 
     
     public Slider progressSlider;
@@ -20,6 +20,10 @@ public class LoadingScreen : MonoBehaviour
         else if(scene == SCENES.GAME)
         {
             StartCoroutine(LoadingProgress("KalebMilestone4"));
+        }
+        else if(scene == SCENES.CREDITS)
+        {
+            StartCoroutine(LoadingProgress("Credits"));
         }
     }
 
