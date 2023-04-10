@@ -42,4 +42,9 @@ public class VorgonBossSounds : MonoBehaviour
             vorgonAudio.PlayOneShot(damageClip);
     }
 
+    public void Die()
+    {
+        vorgonAudio.PlayOneShot(damageClip);
+    }
+
 }
