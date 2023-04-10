@@ -22,7 +22,7 @@ public class TrapInteractable : InteractableBase
     public GameObject vfx;
     bool inEvent = false;
 
-    public static event Action FailQTE;
+    public static event Action<bool> FailQTE;
 
     bool canPass = false;
     bool hasFailed = false;
@@ -52,7 +52,7 @@ public class TrapInteractable : InteractableBase
             if (inEvent && !hasFailed)
             {
                 //OnFailure();
-                FailQTE?.Invoke();
+                FailQTE?.Invoke(false);
                 OnFailure();
                 Debug.Log("You walked away so you fail");
                 canPass = false;
