@@ -21,7 +21,7 @@ public class InitialContainment : MonoBehaviour
         {
             if (go != null)
             {
-                Destroy(go, 8f); ;
+                Destroy(go, 8f);
             }
         }
     }
