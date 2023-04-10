@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Mesh;
 
 public class StunTriggerCollider : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class StunTriggerCollider : MonoBehaviour
     public TrapInteractable trap;
     public float stunTime;
     public bool repeat;
+
+
+    public List<MeshRenderer> meshMats;
 
     private void OnEnable()
     {
@@ -26,7 +30,13 @@ public class StunTriggerCollider : MonoBehaviour
             if (!repeat)
             {
                 this.GetComponent<Collider>().enabled = false;
+
+                for (int i = 0; i < meshMats.Count; i++)
+                {
+                    Destroy(meshMats[i].materials[1]);
+                }
             }
+
         }
     }
 }
