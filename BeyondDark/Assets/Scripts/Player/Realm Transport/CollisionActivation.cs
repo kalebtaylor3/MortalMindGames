@@ -7,12 +7,14 @@ using UnityEngine;
 
 public class CollisionActivation : MonoBehaviour
 {
-    enum TRIAL_OUTCOME { NONE = 0, FAIL = 1, SUCCESS = 2, SAFEZONE = 3 }
+    enum TRIAL_OUTCOME { NONE = 0, FAIL = 1, SUCCESS = 2, SAFEZONE = 3, BOSSARENA = 4 }
 
     [SerializeField] TRIAL_OUTCOME EndType = TRIAL_OUTCOME.NONE;
 
     public Transform ogTpPos;
-    public static event Action endingPath;    
+    public static event Action endingPath;
+
+    public GameObject gate = null;
 
     // Temporary collision to trigger realm tp from vorgons realm to the mortal realm
     private void OnTriggerEnter(Collider other)
@@ -77,6 +79,18 @@ public class CollisionActivation : MonoBehaviour
                     WorldData.Instance.PlayerSafeZone(true);
                 }
                 break;
+
+            case TRIAL_OUTCOME.BOSSARENA:
+                if (other.gameObject.tag == "VorgonRealmPlayer")
+                {
+                    Debug.Log("BossArenaEnterContain");
+                    if (gate != null)
+                    {
+                        gate.SetActive(true);
+                    }
+                }
+                break;
+
 
             default:  
                 

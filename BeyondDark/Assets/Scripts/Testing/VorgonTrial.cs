@@ -14,6 +14,7 @@ public class VorgonTrial : MonoBehaviour
     public VorgonBossController bossController;
 
     public GameObject vorgonBoss;
+    public GameObject bossArenaCollision;
 
     public void RestartTrial()
     {
@@ -28,6 +29,11 @@ public class VorgonTrial : MonoBehaviour
         if(bossTrial)
         {
             vorgonBoss.SetActive(false);
+
+            if (bossArenaCollision != null)
+            {
+                bossArenaCollision.SetActive(false);
+            }
         }
 
         this.gameObject.SetActive(false);

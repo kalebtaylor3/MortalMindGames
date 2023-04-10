@@ -15,6 +15,7 @@ public class MSpawner : MonoBehaviour
     [SerializeField] GameObject minionsGO;
 
     [SerializeField] GameObject Gate;
+    [SerializeField] GameObject playerGate;
 
 
     // Default SpawnPos
@@ -30,6 +31,8 @@ public class MSpawner : MonoBehaviour
 
         spawned = false;
         StartCoroutine(ActivateSpawner());
+
+        playerGate.SetActive(true);
     }
 
     // Check if there is spawned minions left (CUSTOM ONLY)
@@ -129,5 +132,6 @@ public class MSpawner : MonoBehaviour
         }
 
         this.gameObject.SetActive(false);
+        playerGate.SetActive(false);
     }
 }

@@ -64564,6 +64564,7 @@ Transform:
   - {fileID: 5440751804858211026}
   - {fileID: 6881463276400126548}
   - {fileID: 8342601527177523397}
+  - {fileID: 1358605310488620117}
   m_Father: {fileID: 2341988883065374031}
   m_RootOrder: 58
   m_LocalEulerAnglesHint: {x: 0, y: 18.424, z: 0}
@@ -64595,6 +64596,7 @@ MonoBehaviour:
   minionsGO: {fileID: 6517060811194979068, guid: 04762c2fb670d884c90b4752a56c07f6,
     type: 3}
   Gate: {fileID: 278976344370155291}
+  playerGate: {fileID: 0}
 --- !u!1 &8167345916919207556
 GameObject:
   m_ObjectHideFlags: 0
@@ -64634,6 +64636,7 @@ Transform:
   - {fileID: 2818997694394348316}
   - {fileID: 4000136853193887609}
   - {fileID: 3575495040259890502}
+  - {fileID: 421139359264587870}
   m_Father: {fileID: 2341988883065374031}
   m_RootOrder: 60
   m_LocalEulerAnglesHint: {x: 0, y: 1.399, z: 0}
@@ -64666,6 +64669,7 @@ MonoBehaviour:
   minionsGO: {fileID: 6517060811194979068, guid: 04762c2fb670d884c90b4752a56c07f6,
     type: 3}
   Gate: {fileID: 3914846307621730411}
+  playerGate: {fileID: 0}
 --- !u!1 &8352124795104891257
 GameObject:
   m_ObjectHideFlags: 0
@@ -65230,6 +65234,117 @@ Transform:
   m_Father: {fileID: 4629262452920709956}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8675383047055109295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 421139359264587870}
+  - component: {fileID: 4964627596797261145}
+  - component: {fileID: 1814923074981077408}
+  - component: {fileID: 5860861612345002139}
+  - component: {fileID: 8607149643617040016}
+  m_Layer: 0
+  m_Name: PlayerCollision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &421139359264587870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675383047055109295}
+  m_LocalRotation: {x: -0, y: -0.11225827, z: -0, w: 0.9936791}
+  m_LocalPosition: {x: -5.55, y: -1.5647012, z: -1.72}
+  m_LocalScale: {x: 0.12963714, y: 6.6898437, z: 24.687183}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8641912936090693817}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: -11.492, z: 0}
+--- !u!33 &4964627596797261145
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675383047055109295}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1814923074981077408
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675383047055109295}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5860861612345002139
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675383047055109295}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.790809, y: 1, z: 1}
+  m_Center: {x: 5.395403, y: 0, z: 2.1407043e-11}
+--- !u!114 &8607149643617040016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675383047055109295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b540190344d2840a90da94d44ff958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minionsGO: {fileID: 8167345916919207556}
 --- !u!1 &8718530662184691151
 GameObject:
   m_ObjectHideFlags: 0
@@ -65569,6 +65684,117 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8910970928549439986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1358605310488620117}
+  - component: {fileID: 4838129721153885942}
+  - component: {fileID: 5286156593814335120}
+  - component: {fileID: 5857515503010495273}
+  - component: {fileID: 8045407823446008899}
+  m_Layer: 0
+  m_Name: PlayerCollision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1358605310488620117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8910970928549439986}
+  m_LocalRotation: {x: -0, y: -0.75629044, z: -0, w: 0.6542361}
+  m_LocalPosition: {x: 0.821, y: -1.5647013, z: 1.527}
+  m_LocalScale: {x: 0.18902038, y: 9.754275, z: 7.53902}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3678993671193202639}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: -79.852, z: 0}
+--- !u!33 &4838129721153885942
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8910970928549439986}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &5286156593814335120
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8910970928549439986}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5857515503010495273
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8910970928549439986}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.282373, y: 1, z: 0.9999998}
+  m_Center: {x: -0.014696514, y: 0, z: -3.7991455e-12}
+--- !u!114 &8045407823446008899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8910970928549439986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b540190344d2840a90da94d44ff958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minionsGO: {fileID: 8122740874684256180}
 --- !u!1 &8912338473226588649
 GameObject:
   m_ObjectHideFlags: 0
