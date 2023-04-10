@@ -11,11 +11,11 @@ public class MControlledGate : MonoBehaviour
         wallParticle.Play();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if(other.CompareTag("VorgonRealmPlayer"))
+        if (other.CompareTag("VorgonRealmPlayer"))
         {
-            if(GetComponentInParent<MSpawner>().CheckMinions())
+            if (GetComponentInParent<MSpawner>().CheckMinions())
             {
                 StartCoroutine(TurnOffGate());
             }
