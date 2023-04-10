@@ -53,6 +53,8 @@ namespace MMG
         public float maxRight;
         public float maxLeft;
 
+        public GameObject highLight;
+
         private void Start()
         {
             startcamPosition = concelableAreaCam.transform.position;
@@ -284,6 +286,7 @@ namespace MMG
                     canExit = false;
 
                     WorldData.Instance.lastConceal = this;
+                    highLight.SetActive(false);
 
                     this.GetComponent<BoxCollider>().enabled = false;
                 }
@@ -413,6 +416,7 @@ namespace MMG
             isHidding = false;
             OnLeaveSpot?.Invoke();
             isHidding = false;
+            highLight.SetActive(true);
         }
 
         IEnumerator WaitForExitClose()
