@@ -75,7 +75,7 @@ public class CollisionActivation : MonoBehaviour
             case TRIAL_OUTCOME.SAFEZONE:
                 if (other.gameObject.tag == "Player" && WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
                 {
-                    Debug.Log("SafeZoneEnter");
+                    //Debug.Log("SafeZoneEnter");
                     WorldData.Instance.PlayerSafeZone(true);
                 }
                 break;
@@ -102,7 +102,7 @@ public class CollisionActivation : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
         {
-            Debug.Log("SafeZoneEnter");
+            //Debug.Log("SafeZoneEnter");
             WorldData.Instance.PlayerSafeZone(true);
         }
     }
@@ -111,7 +111,7 @@ public class CollisionActivation : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && WorldData.Instance.activeRealm == WorldData.REALMS.MORTAL)
         {
-            Debug.Log("SafeZoneExit");
+            //Debug.Log("SafeZoneExit");
             WorldData.Instance.PlayerSafeZone(false);
         }
     }
