@@ -23,7 +23,7 @@ public class SwordDamage : MonoBehaviour
     public GameObject vorgonBlood;
 
     public AudioClip wallDing;
-    public AudioClip bloodHit;
+    public List<AudioClip> bloodHit;
     public AudioSource swordAudioSource;
 
     public Animator swordAnimator;
@@ -85,7 +85,8 @@ public class SwordDamage : MonoBehaviour
                     {
                         Debug.Log("Hitwall");
                         StartCoroutine(DamageDelay());
-                        swordAudioSource.PlayOneShot(bloodHit);
+                        int rand = UnityEngine.Random.Range(0, bloodHit.Count);
+                        swordAudioSource.PlayOneShot(bloodHit[rand]);
                         damageOnce = false;
                         GameObject obj = Instantiate(vorgonBlood);
                         obj.transform.position = hit.point;
