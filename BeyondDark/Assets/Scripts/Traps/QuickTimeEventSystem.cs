@@ -58,11 +58,21 @@ public class QuickTimeEventSystem : MonoBehaviour
     private void Awake()
     {
         successMarker.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+        inEvent = false;
+        canTrigger = true;
+        UIPanel.SetActive(false);
+        alertMessage.alpha = 0;
+        uiCanvas.alpha = 0;
     }
 
     void Start()
     {
         successMarker.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+        inEvent = false;
+        canTrigger = true;
+        UIPanel.SetActive(false);
+        alertMessage.alpha = 0;
+        uiCanvas.alpha = 0;
     }
 
     void Update()
