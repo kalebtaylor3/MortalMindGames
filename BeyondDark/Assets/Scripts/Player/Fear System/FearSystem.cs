@@ -63,7 +63,7 @@ public class FearSystem : MonoBehaviour
 
     IEnumerator ResetBreathing()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(6);
         breathing.noiseData.frequency = currentFrequency;
         breathing.noiseData.amplitude = currentAmplitute;
         jumpScare = false;
