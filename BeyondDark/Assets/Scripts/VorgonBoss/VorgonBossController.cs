@@ -202,11 +202,25 @@ public class VorgonBossController : MonoBehaviour
         if(currentHealth <= 250 && !lastPhase)
         {
             vorgonAnimator.SetTrigger("Death");
-            lastPhase = true;
             isDeadForLastPhase = true;
             //SpawnMinions();
             healthBarSlider.gameObject.SetActive(false);
             healthBar.SetTrigger("End");
+            lastPhase = true;
+            StartCoroutine(WaitForEnd());
+            
+            for (int i = 0; i < activeMinions.Count; i++)
+            {
+                if (activeMinions[i] != null)
+                    activeMinions[i].ReceiveDamage(1000, false);
+            }
+
+            for (int i = 0; i < activeHellFire.Count; i++)
+            {
+                if (activeHellFire[i] != null)
+                    Destroy(activeHellFire[i]);
+            }
+
         }
 
         if(lastPhase)
@@ -214,17 +228,18 @@ public class VorgonBossController : MonoBehaviour
 
             for(int i = 0; i < activeMinions.Count; i++)
             {
-                activeMinions[i].ReceiveDamage(1000, false);
+                if (activeMinions[i] != null)
+                    activeMinions[i].ReceiveDamage(1000, false);
             }
 
             for (int i = 0; i < activeHellFire.Count; i++)
             {
-                Destroy(activeHellFire[i]);
+                if (activeHellFire[i] != null)
+                    Destroy(activeHellFire[i]);
             }
 
             //finalVorgon.SetActive(true);
             //vorgonModel.gameObject.SetActive(false);
-            StartCoroutine(WaitForEnd());
             //if (activeMinions.Count == 0 && !once)
             //{
 
@@ -306,6 +321,10 @@ public class VorgonBossController : MonoBehaviour
     IEnumerator WaitForEnd()
     {
         yield return new WaitForSeconds(4);
+        for (int i = 0; i < activeMinions.Count; i++)
+        {
+            Destroy(activeMinions[i]);
+        }
         finalVorgon.SetActive(true);
         vorgonModel.gameObject.SetActive(false);
         yield return new WaitForSeconds(2f);
