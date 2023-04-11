@@ -62,10 +62,10 @@ public class MinionAudio : MonoBehaviour
 
     public void PlaySpawn()
     {
-        if (animator.GetBool("Spawning"))
-        {
-            stepSource.volume = 0.2f;
+       // if (animator.GetBool("Spawning"))
+        //{
+            //stepSource.volume = 0.2f;
             stepSource.PlayOneShot(spawn);
-        }
+       //}
     }
 }
