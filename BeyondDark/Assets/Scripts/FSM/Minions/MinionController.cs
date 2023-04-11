@@ -146,7 +146,7 @@ public class MinionController : MonoBehaviour
     {
         // Change to wait for animation
         //this.GetComponent<Renderer>().enabled = false;
-        float rand = UnityEngine.Random.Range(0.5f, 3f);
+        float rand = UnityEngine.Random.Range(0.2f, 2f);
         yield return new WaitForSeconds(rand);
         //this.GetComponent<Renderer>().enabled = true;
         animController.SetBool("Spawning", true);
