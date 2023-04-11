@@ -8,14 +8,14 @@ public class MProjectile : MonoBehaviour
 
     public PROJECTILE_TYPE type = PROJECTILE_TYPE.BULLET;
     public float damage = 5;
-    public float lifetime = 20;
+    public float lifetime = 6;
     public GameObject impactPrefab;
     public MinionController minionControl = null;
     private bool Collided;
 
     private void OnEnable()
     {
-        Destroy(gameObject, 20);
+        Destroy(gameObject, lifetime);
     }
 
     private void OnCollisionEnter(Collision collision)

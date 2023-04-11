@@ -499,15 +499,15 @@ public class WorldData : MonoBehaviour
 
         }
         else
-        {
-            vorgonModel.SetActive(false);
+        {            
             playerDeathMR.SetActive(true);            
             vorgon.playerDead = true;
             vorgon.detection = 0;
             player.enabled = false;
             cameraC.enabled = false;
-            canSeek = false;
-            yield return new WaitForSeconds(((float)deathClip.length));            
+            canSeek = false;            
+            yield return new WaitForSeconds(((float)deathClip.length));
+            vorgonModel.SetActive(false);
             fadeOut.SetActive(true);
             player.enabled = true;
             cameraC.enabled = true;

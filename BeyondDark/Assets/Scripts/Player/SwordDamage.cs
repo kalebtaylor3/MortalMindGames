@@ -91,6 +91,7 @@ public class SwordDamage : MonoBehaviour
                         GameObject obj = Instantiate(vorgonBlood);
                         obj.transform.position = hit.point;
                         obj.transform.LookAt(playerCam.transform);
+                        Destroy(obj, 5f);
                         CameraShake.Instance.ShakeCamera(0.7f, 0.5f, 0.3f);
                         DealDamage?.Invoke(currentAmountOfDamage * 2);
                     }
