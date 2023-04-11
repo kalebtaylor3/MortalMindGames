@@ -272,8 +272,11 @@ namespace MMG
             }
             else
             {
-                characterController.enabled = true;
-                compass.SetActive(true);
+                if (playerInventory.items.Count > 0)
+                {
+                    characterController.enabled = true;
+                    compass.SetActive(true);
+                }
             }
 
             if (characterController && canMove)

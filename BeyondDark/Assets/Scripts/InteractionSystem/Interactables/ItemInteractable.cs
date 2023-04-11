@@ -9,6 +9,13 @@ namespace MMG
         [SerializeField] bool destroyOnPickUp = true;
         public Dialogue dialogue;
         public TutorialTrigger tutorial;
+        public GameObject compass;
+
+        private void Start()
+        {
+            if(compass != null)
+                compass.SetActive(false);
+        }
 
         public override void OnInteract()
         {
@@ -17,6 +24,10 @@ namespace MMG
 
             if (tutorial != null)
                 TutorialController.instance.SetTutorial(tutorial.imageTut, tutorial.vidTut, 2);
+
+            if (compass != null)
+                compass.SetActive(false);
+
 
             base.OnInteract();
 
