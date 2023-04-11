@@ -218,11 +218,11 @@ public class MinionController : MonoBehaviour
                 }
                 else
                 {
-                    if (!effectsSource.isPlaying)
-                    {
+                    //if (!effectsSource.isPlaying)
+                    //{
                         int rand = UnityEngine.Random.Range(0, clipsSwordHurt.Count);
                         effectsSource.PlayOneShot(clipsSwordHurt[rand]);
-                    }
+                    //}
                 }
 
                 if(!onFire)
