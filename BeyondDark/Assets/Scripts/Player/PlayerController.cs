@@ -274,9 +274,9 @@ namespace MMG
             {
                 if (playerInventory.items.Count > 0)
                 {
-                    characterController.enabled = true;
                     compass.SetActive(true);
                 }
+                characterController.enabled = true;
             }
 
             if (characterController && canMove)
