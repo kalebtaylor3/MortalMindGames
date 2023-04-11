@@ -12,6 +12,8 @@ public class WallHealthTEMP : MonoBehaviour
 
     public WallOfSoulsSounds sounds;
 
+    public GameObject deathExplosion;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -56,7 +58,9 @@ public class WallHealthTEMP : MonoBehaviour
         {
             minion.WallDeath();
         }
-        
+
+        GameObject obj = Instantiate(deathExplosion, transform.position, Quaternion.identity);
+        Destroy(obj, 4);
 
         Destroy(gameObject);
 
