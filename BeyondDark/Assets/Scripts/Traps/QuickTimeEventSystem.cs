@@ -46,6 +46,11 @@ public class QuickTimeEventSystem : MonoBehaviour
     {
         TrapInteractable.FailQTE += Fail;
         WorldData.OnDeath += OnDeath;
+        inEvent = false;
+        canTrigger = true;
+        UIPanel.SetActive(false);
+        alertMessage.alpha = 0;
+        uiCanvas.alpha = 0;
     }
 
     private void OnDisable()

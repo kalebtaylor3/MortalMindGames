@@ -103,7 +103,7 @@ public class StealthDetection : MonoBehaviour
 
         if(detection > 0 && !WorldData.Instance.stealthTutorial)
         {
-            TutorialController.instance.SetTutorial(WorldData.Instance.stealthTut.imageTut, WorldData.Instance.stealthTut.vidTut, 0);
+            TutorialController.instance.SetTutorial(WorldData.Instance.stealthTut.imageTut, WorldData.Instance.stealthTut.vidTut, 1f);
             WorldData.Instance.stealthTutorial = true;
         }
 

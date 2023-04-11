@@ -33,6 +33,12 @@ public class TutorialController : MonoBehaviour
 
     public void SetTutorial(Sprite imageVal, VideoClip vidVal, float delay)
     {
+        Time.timeScale = 1;
+        inTutorial = false;
+        tutAnimator.SetBool("FadeOut", false);
+        StopAllCoroutines();
+        fillImage.fillAmount = 0;
+        canvasTut.SetActive(false);
         StartCoroutine(WaitForTut(imageVal, vidVal, delay));
     }
 
@@ -70,6 +76,7 @@ public class TutorialController : MonoBehaviour
 
     IEnumerator WaitForFade()
     {
+        inTutorial = false;
         yield return new WaitForSeconds(tutAnimator.GetCurrentAnimatorStateInfo(0).length);
         canvasTut.SetActive(false);
         MenuManager.Instance.canPause = true;
@@ -87,7 +94,8 @@ public class TutorialController : MonoBehaviour
         textImage.sprite = imageVal;
         tutVid.clip = vidVal;
         canvasTut.SetActive(true);
-        Time.timeScale = 0;
+        if(inTutorial)
+            Time.timeScale = 0;
     }
 
 }
